@@ -20,3 +20,5 @@ public:
 extern KLOGLIB_API int nkloglib;
 
 KLOGLIB_API int fnkloglib(void);
+
+#include "tracemacr.h"

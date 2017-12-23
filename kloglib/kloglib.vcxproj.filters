@@ -24,13 +24,13 @@
     <ClInclude Include="kloglib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="traceconfig.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="tracemacr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="traceprintimpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tracedefine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
