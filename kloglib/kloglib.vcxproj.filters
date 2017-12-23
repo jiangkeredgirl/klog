@@ -24,9 +24,21 @@
     <ClInclude Include="kloglib.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="traceconfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="tracemacr.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="traceprintimpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kloglib.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="traceprintimpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
