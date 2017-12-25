@@ -27,10 +27,16 @@
     <ClInclude Include="tracemacr.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="traceprintimpl.h">
+    <ClInclude Include="tracedefine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="tracedefine.h">
+    <ClInclude Include="traceprinter.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="traceprinterimpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="traceloader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -38,7 +44,10 @@
     <ClCompile Include="kloglib.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="traceprintimpl.cpp">
+    <ClCompile Include="traceprinterimpl.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="traceloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

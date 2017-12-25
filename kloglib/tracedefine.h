@@ -2,7 +2,7 @@
 
 // 是否生成trace 函数
 #define  TRACE_OUT             1                     ///< 0 not output log, 1 output log
-#define  TRACE_BACK_OUT        1                     ///< whether output trace of function called
+#define  TRACK_OUT             1                     ///< whether output trace of function called
 // 是否使用glog
 #define  USE_GLOG              1
 // 是否使用线程输出trace
@@ -33,6 +33,7 @@
 #define  TRACE_HEAD_INDEX            1
 #define  TRACE_HEAD_LEVEL            1
 #define  TRACE_HEAD_LABEL            1
+#define  TRACE_HEAD_THREAD_ID        1
 #define  TRACE_HEAD_DATETIME         1
 #define  TRACE_HEAD_RUNTIME          1
 #define  TRACE_HEAD_FUNCTIONTIME     1
@@ -42,6 +43,7 @@
 #define  TRACE_HEAD_FUNCTION_NAME    1
 #define  TRACE_HEAD_LINE             1
 #define  TRACE_HEAD_ASYNC            1
+#define  TRACE_HEAD_SYNC_LOCK        1
 // log 标签
 #define  TRACE_LABEL                ("kk")                ///< my output label
 

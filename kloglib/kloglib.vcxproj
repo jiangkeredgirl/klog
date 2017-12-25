@@ -72,19 +72,19 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -157,12 +157,15 @@
     <ClInclude Include="kloglib.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="tracedefine.h" />
+    <ClInclude Include="traceloader.h" />
     <ClInclude Include="tracemacr.h" />
-    <ClInclude Include="traceprintimpl.h" />
+    <ClInclude Include="traceprinter.h" />
+    <ClInclude Include="traceprinterimpl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kloglib.cpp" />
-    <ClCompile Include="traceprintimpl.cpp" />
+    <ClCompile Include="traceloader.cpp" />
+    <ClCompile Include="traceprinterimpl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
