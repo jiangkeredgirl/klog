@@ -87,100 +87,6 @@ namespace kk
 
 	};
 
-	struct LevelInfo
-	{
-		bool is_out;
-		int  color;
-		LevelInfo()
-		{
-			is_out = true;
-			color = 0;
-		}
-		LevelInfo(bool _is_out, int  _color)
-		{
-			is_out = _is_out;
-			color = _color;
-		}
-	};
-
-	struct TraceConfig
-	{
-	public:
-		bool trace_out;
-		bool trace_target_compile;
-		bool trace_target_console;
-		bool trace_target_putty;
-		bool trace_target_file;
-		bool trace_target_socket;
-		int  out_level;
-		bool trace_module;
-		bool trace_process;
-		bool trace_back;
-		bool async;
-		bool sync_lock;
-		bool head;
-		bool head_index;
-		bool head_level;
-		bool head_label;
-		bool head_thread_id;
-		bool head_datetime;
-		bool head_runtime;
-		bool head_functiontime;
-		bool head_process_name;
-		bool head_module_name;
-		bool head_file_name;
-		bool head_function_name;
-		bool head_line;
-		bool head_async;
-		bool head_sync_lock;
-		string head_label_text;
-		string trace_file_name;
-		map<int/*level*/, LevelInfo> levels_info;
-		TraceConfig()
-		{
-			trace_out = TRACE_OUT ? true : false;
-			trace_back = TRACK_OUT ? true : false;
-			trace_target_compile = TRACE_COMPILE ? true : false;
-			trace_target_console = TRACE_CONSOLE ? true : false;
-			trace_target_putty = TRACE_PUTTY ? true : false;
-			trace_target_file = TRACE_FILE ? true : false;
-			trace_target_socket = TRACE_SOCKET ? true : false;
-			out_level = TRACE_OUT_LEVEL;
-			trace_module = TRACE_MODULE ? true : false;
-			trace_process = TRACE_PROCESS ? true : false;
-			async = TRACE_ASYNC ? true : false;
-			head = TRACE_HEAD ? true : false;
-			head_index = TRACE_HEAD_INDEX ? true : false;
-			head_level = TRACE_HEAD_LEVEL ? true : false;
-			head_label = TRACE_HEAD_LABEL ? true : false;
-			head_datetime = TRACE_HEAD_DATETIME ? true : false;
-			head_runtime = TRACE_HEAD_RUNTIME ? true : false;
-			head_functiontime = TRACE_HEAD_FUNCTIONTIME ? true : false;
-			head_process_name = TRACE_HEAD_PROCESS_NAME ? true : false;
-			//head_module_name = TRACE_HEAD_MODULE_NAME ? true : false;
-			head_file_name = TRACE_HEAD_FILE_NAME ? true : false;
-			head_function_name = TRACE_HEAD_FUNCTION_NAME ? true : false;
-			head_line = TRACE_HEAD_LINE ? true : false;
-			head_async = TRACE_HEAD_ASYNC ? true : false;
-			head_label_text = TRACE_LABEL;
-			string program_path = kk::Utility::GetProgramPath();
-			string program_directory = kk::Utility::GetDirectoryName(program_path);
-			string program_name = kk::Utility::GetFileName(program_path);
-			trace_file_name = program_directory + ("logs\\log_") + program_name
-				+ "_" + kk::Utility::GetLogDateTimeStr();
-			if (head_label_text.empty())
-			{
-				head_label_text = program_name;
-			}
-			levels_info[TRACE_ERROR] = LevelInfo((TRACE_ERROR ? true : false), FOREGROUND_INTENSITY | FOREGROUND_RED);
-			levels_info[TRACE_WARNING] = LevelInfo((TRACE_WARNING ? true : false), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN);
-			levels_info[TRACE_OK] = LevelInfo((TRACE_OK ? true : false), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
-			levels_info[TRACE_NOTICE] = LevelInfo((TRACE_NOTICE ? true : false), FOREGROUND_INTENSITY | FOREGROUND_BLUE);
-			levels_info[TRACE_INFO] = LevelInfo((TRACE_INFO ? true : false), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-			levels_info[TRACE_DEBUG] = LevelInfo((TRACE_DEBUG ? true : false), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-			levels_info[TRACE_TEMP] = LevelInfo((TRACE_TEMP ? true : false), FOREGROUND_INTENSITY);
-		}
-	};
 
 	class TracePrinterImpl : public TracePrinter
 	{
@@ -221,6 +127,6 @@ namespace kk
 		mutex                 trace_list_mutex_;
 		TraceConfig           trace_config_;
 		string                process_name_;
-		//string                module_name_;
+		string                module_name_;
 	};
 }

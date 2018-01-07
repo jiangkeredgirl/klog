@@ -5,6 +5,51 @@
 
 namespace kk
 {
+	TraceConfig::TraceConfig()
+	{
+		trace_out = TRACE_OUT ? true : false;
+		trace_back = TRACK_OUT ? true : false;
+		trace_target_compile = TRACE_COMPILE ? true : false;
+		trace_target_console = TRACE_CONSOLE ? true : false;
+		trace_target_putty = TRACE_PUTTY ? true : false;
+		trace_target_file = TRACE_FILE ? true : false;
+		trace_target_socket = TRACE_SOCKET ? true : false;
+		out_level = TRACE_OUT_LEVEL;
+		trace_module = TRACE_MODULE ? true : false;
+		trace_process = TRACE_PROCESS ? true : false;
+		async = TRACE_ASYNC ? true : false;
+		head = TRACE_HEAD ? true : false;
+		head_index = TRACE_HEAD_INDEX ? true : false;
+		head_level = TRACE_HEAD_LEVEL ? true : false;
+		head_label = TRACE_HEAD_LABEL ? true : false;
+		head_datetime = TRACE_HEAD_DATETIME ? true : false;
+		head_runtime = TRACE_HEAD_RUNTIME ? true : false;
+		head_functiontime = TRACE_HEAD_FUNCTIONTIME ? true : false;
+		head_process_name = TRACE_HEAD_PROCESS_NAME ? true : false;
+		//head_module_name = TRACE_HEAD_MODULE_NAME ? true : false;
+		head_file_name = TRACE_HEAD_FILE_NAME ? true : false;
+		head_function_name = TRACE_HEAD_FUNCTION_NAME ? true : false;
+		head_line = TRACE_HEAD_LINE ? true : false;
+		head_async = TRACE_HEAD_ASYNC ? true : false;
+		head_label_text = TRACE_LABEL;
+		string program_path = kk::Utility::GetProgramPath();
+		string program_directory = kk::Utility::GetDirectoryName(program_path);
+		string program_name = kk::Utility::GetFileName(program_path);
+		trace_file_name = program_directory + ("logs\\log_") + program_name
+			+ "_" + kk::Utility::GetLogDateTimeStr();
+		if (head_label_text.empty())
+		{
+			head_label_text = program_name;
+		}
+		levels_info[TRACE_ERROR] = LevelInfo((TRACE_ERROR ? true : false), FOREGROUND_INTENSITY | FOREGROUND_RED);
+		levels_info[TRACE_WARNING] = LevelInfo((TRACE_WARNING ? true : false), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN);
+		levels_info[TRACE_OK] = LevelInfo((TRACE_OK ? true : false), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
+		levels_info[TRACE_NOTICE] = LevelInfo((TRACE_NOTICE ? true : false), FOREGROUND_INTENSITY | FOREGROUND_BLUE);
+		levels_info[TRACE_INFO] = LevelInfo((TRACE_INFO ? true : false), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		levels_info[TRACE_DEBUG] = LevelInfo((TRACE_DEBUG ? true : false), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
+		levels_info[TRACE_TEMP] = LevelInfo((TRACE_TEMP ? true : false), FOREGROUND_INTENSITY);
+	}
+
 
 	const string& TraceHead::head_text()
 	{
@@ -89,16 +134,17 @@ namespace kk
 
 	const string& TraceEntry::trace_text()
 	{
-		if (!trace_head_->head_text().empty() || !trace_body_->body_text().empty())
+		if ((trace_head_ && !trace_head_->head_text().empty())
+			|| (trace_body_ && !trace_body_->body_text().empty()))
 		{
 			trace_text_ = "{";
 			bool have_field = false;
-			if (!trace_head_->head_text().empty())
+			if (trace_head_ && !trace_head_->head_text().empty())
 			{
 				trace_text_ = trace_text_ + (have_field ? ", " : "") + trace_head_->head_text();
 				have_field = true;
 			}
-			if (!trace_body_->body_text().empty())
+			if (trace_body_ && !trace_body_->body_text().empty())
 			{
 				trace_text_ = trace_text_ + (have_field ? "\n," : "") + trace_body_->body_text();
 				have_field = true;
@@ -383,6 +429,7 @@ namespace kk
 				fprintf(stdout, ("open file error, path:%s"), trace_file_name.c_str());
 				break;
 			}
+			fseek(log_file, 0, SEEK_END);
 			if (ftell(log_file) > file_max_size)
 			{
 				fclose(log_file);
@@ -403,6 +450,7 @@ namespace kk
 			{
 				break;
 			}
+			fseek(log_file, 0, SEEK_END);
 			if (ftell(log_file) > file_max_size)
 			{
 				fclose(log_file);
@@ -437,4 +485,8 @@ namespace kk
 		return 0;
 	}
 
+	KLOGLIB_API TracePrinter* TracePrinterInstance(void)
+	{
+		return &TracePrinterImpl::instance();
+	}
 }

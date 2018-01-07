@@ -1,6 +1,7 @@
 ﻿#pragma once
 
-#include "TracePrinterimpl.h"
+#include "tracedefine.h"
+#include "TracePrinter.h"
 
 
 // 定义一些常用的trace宏
@@ -34,15 +35,15 @@
 
 #if      TRACE_OUT
 // c风格 编译期可以去掉trace代码
-#define  Trace(level, log_format, ...)               ((level) ? (kk::TracePrinterImpl::instance().TraceOutLog(level, (kk::TracePrinterImpl::instance().TraceFormatHead(#level, TRACE_LABEL, kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__)), kk::TracePrinterImpl::instance().TraceFormatBody (log_format, ##__VA_ARGS__))), 1 : 0)
+#define  Trace(level, log_format, ...)               ((level) ? (kk::TracePrinterInstance()->TraceOutLog(level, (kk::TracePrinterInstance()->TraceFormatHead(#level, TRACE_LABEL, kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__)), kk::TracePrinterInstance()->TraceFormatBody (log_format, ##__VA_ARGS__))), 1 : 0)
 // c++风格 编译期不可以去掉trace代码
-#define  TraceCout(level)                            kk::TraceLoader(false, level, (kk::TracePrinterImpl::instance().TraceFormatHead(#level, TRACE_LABEL, kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__))).trace_stream()
+#define  TraceCout(level)                            kk::TraceLoader(false, level, (kk::TracePrinterInstance()->TraceFormatHead(#level, TRACE_LABEL, kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__))).trace_stream()
 
 #if      TRACK_OUT
 // c风格 编译期可以去掉trace代码
-#define  Track(level, log_format, ...)               kk::TraceLoader TraceLoaderBack(true, level, ((level) ? ((kk::TracePrinterImpl::instance().TraceFormatHead(#level, TRACE_LABEL, kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__, true))) : kk::TraceHead()/*""*/), ((level) ? (kk::TracePrinterImpl::instance().TraceFormatBody (log_format, ##__VA_ARGS__)) : kk::TraceBody()/*""*/))
+#define  Track(level, log_format, ...)               kk::TraceLoader TraceLoaderBack(true, level, ((level) ? ((kk::TracePrinterInstance()->TraceFormatHead(#level, TRACE_LABEL, kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__, true))) : kk::TraceHead()/*""*/), ((level) ? (kk::TracePrinterInstance()->TraceFormatBody (log_format, ##__VA_ARGS__)) : kk::TraceBody()/*""*/))
 // c++风格 编译期不可以去掉trace代码
-#define  TrackCout(level)                            kk::TraceLoader TraceLoaderBackCout(true, level, ((level) ? ((kk::TracePrinterImpl::instance().TraceFormatHead(#level, TRACE_LABEL, kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__, true))) : kk::TraceHead()/*""*/)); TraceLoaderBackCout.trace_stream()
+#define  TrackCout(level)                            kk::TraceLoader TraceLoaderBackCout(true, level, ((level) ? ((kk::TracePrinterInstance()->TraceFormatHead(#level, TRACE_LABEL, kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__, true))) : kk::TraceHead()/*""*/)); TraceLoaderBackCout.trace_stream()
 #else
 #define  TraceBack(level, printf_exp)
 #endif // !TRACK_OUT
@@ -52,4 +53,4 @@
 #endif // !TRACE_OUT
 
 
-#define WaitTrace()  kk::TracePrinterImpl::instance().WaitTraceThreadEnd()
+#define WaitTrace()  kk::TracePrinterInstance()->WaitTraceThreadEnd()
