@@ -1,6 +1,7 @@
-cd /d %~dp0
 @call "%VS141COMNTOOLS%VsDevCmd.bat"
-MSBuild kloglibtest.vcxproj /m /target:Rebuild /p:Configuration=Debug /property:Platform=Win32
-MSBuild kloglibtest.vcxproj /m /target:Rebuild /p:Configuration=Release /property:Platform=Win32
-MSBuild kloglibtest.vcxproj /m /target:Rebuild /p:Configuration=Debug /property:Platform=x64
-MSBuild kloglibtest.vcxproj /m /target:Rebuild /p:Configuration=Release /property:Platform=x64
+cd /d %~dp0
+MSBuild kloglibtest.vcxproj /m /target:Rebuild /property:Platform=x86 /p:Configuration=Debug   /p:VisualStudioVersion=14.1
+MSBuild kloglibtest.vcxproj /m /target:Rebuild /property:Platform=x86 /p:Configuration=Release /p:VisualStudioVersion=14.1
+MSBuild kloglibtest.vcxproj /m /target:Rebuild /property:Platform=x64 /p:Configuration=Debug   /p:VisualStudioVersion=14.1
+MSBuild kloglibtest.vcxproj /m /target:Rebuild /property:Platform=x64 /p:Configuration=Release /p:VisualStudioVersion=14.1
+pause
