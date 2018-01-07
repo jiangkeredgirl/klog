@@ -5,6 +5,7 @@
 #define  TRACK_OUT             1                     ///< whether output trace of function called
 // 是否使用glog
 #define  USE_GLOG              1
+
 // 是否使用线程输出trace
 #define  TRACE_ASYNC           1                     ///< 0 not output log, 1 output log
 

@@ -26,7 +26,7 @@ namespace kk
 		head_runtime = TRACE_HEAD_RUNTIME ? true : false;
 		head_functiontime = TRACE_HEAD_FUNCTIONTIME ? true : false;
 		head_process_name = TRACE_HEAD_PROCESS_NAME ? true : false;
-		//head_module_name = TRACE_HEAD_MODULE_NAME ? true : false;
+		head_module_name = TRACE_HEAD_MODULE_NAME ? true : false;
 		head_file_name = TRACE_HEAD_FILE_NAME ? true : false;
 		head_function_name = TRACE_HEAD_FUNCTION_NAME ? true : false;
 		head_line = TRACE_HEAD_LINE ? true : false;
@@ -83,11 +83,11 @@ namespace kk
 				head_text_ = head_text_ + (have_field ? ", " : "") + "\"process_name\":" + "\"" + process_name + "\"";
 				have_field = true;
 			}
-			//if (TracePrinterImpl::instance().trace_config().head_module_name)
-			//{
-			//	text = text + (have_field ? ", " : "") + "\"module_name\":" + "\"" + module_name + "\"";
-			//	have_field = true;
-			//}
+			if (TracePrinterImpl::instance().trace_config().head_module_name)
+			{
+				head_text_ = head_text_ + (have_field ? ", " : "") + "\"module_name\":" + "\"" + module_name + "\"";
+				have_field = true;
+			}
 			if (TracePrinterImpl::instance().trace_config().head_file_name)
 			{
 				head_text_ = head_text_ + (have_field ? ", " : "") + "\"file_name\":" + "\"" + file_name + "\"";
@@ -171,7 +171,7 @@ namespace kk
 		WaitTraceThreadEnd();
 	}
 
-	TraceHead* TracePrinterImpl::TraceFormatHead(IN const string& level, IN const string& label, IN const string& file_name, IN const string& func_name, IN int line, bool is_back)
+	TraceHead* TracePrinterImpl::TraceFormatHead(IN const string& level, IN const string& label, const string& module_name, IN const string& file_name, IN const string& func_name, IN int line, bool is_back)
 	{
 		TraceHead* head = new TraceHead;
 		if (trace_config().trace_out
@@ -206,10 +206,10 @@ namespace kk
 			{
 				head->process_name = process_name_;
 			}
-			//if (trace_config().head_module_name)
-			//{
-			//	head->module_name = module_name_;
-			//}
+			if (trace_config().head_module_name)
+			{
+				head->module_name = module_name;
+			}
 			if (trace_config().head_file_name)
 			{
 				head->file_name = file_name;

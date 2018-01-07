@@ -68,7 +68,7 @@ namespace kk
 	class TracePrinter
 	{
 	public:
-		virtual TraceHead* TraceFormatHead(const string& level = "", const string& label = "", const string& file_name = "", const string& func_name = "", int line = -1, bool is_back = false) = 0;
+		virtual TraceHead* TraceFormatHead(const string& level = "", const string& label = "", const string& module_name = "", const string& file_name = "", const string& func_name = "", int line = -1, bool is_back = false) = 0;
 		virtual TraceBody* TraceFormatBody(const char* log_format, ...) = 0;
 		virtual int TraceOutLog(int level, TraceHead* log_head, TraceBody* log_body) = 0;
 		virtual const TraceConfig& trace_config() const = 0;
@@ -76,6 +76,18 @@ namespace kk
 		virtual int trace_out_level(int level, bool out) = 0;
 		virtual int trace_level_color(int level, int color) = 0;
 		virtual int WaitTraceThreadEnd() = 0;
+		static string GetModuleName()
+		{
+			char module_name[100] = { 0 };
+			GetModuleFileNameA(GetSelfModuleHandle(), module_name, 100);
+			return module_name;
+		}
+	private:
+		static HMODULE GetSelfModuleHandle()
+		{
+			MEMORY_BASIC_INFORMATION mbi;
+			return ((::VirtualQuery(GetSelfModuleHandle, &mbi, sizeof(mbi)) != 0) ? (HMODULE)mbi.AllocationBase : NULL);
+		}
 	};
 
 #ifdef __cplusplus
