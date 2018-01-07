@@ -1,4 +1,11 @@
 #pragma once
+
+#ifdef KLOGLIB_EXPORTS
+#define KLOGLIB_API __declspec(dllexport)
+#else
+#define KLOGLIB_API __declspec(dllimport)
+#endif
+
 #include "kutility.h"
 
 namespace kk
@@ -7,7 +14,7 @@ namespace kk
 	struct TraceBody;
 	struct TraceEntry;
 	//template<class sCout_type>
-	class  TraceLoader
+	class KLOGLIB_API TraceLoader
 	{
 	public:
 		TraceLoader(IN bool is_back, IN int level, IN TraceHead* trace_head, IN TraceBody* trace_body = nullptr);

@@ -10,15 +10,5 @@
 #define KLOGLIB_API __declspec(dllimport)
 #endif
 
-// This class is exported from the kloglib.dll
-class KLOGLIB_API Ckloglib {
-public:
-	Ckloglib(void);
-	// TODO: add your methods here.
-};
-
-extern KLOGLIB_API int nkloglib;
-
-KLOGLIB_API int fnkloglib(void);
 
 #include "tracemacr.h"

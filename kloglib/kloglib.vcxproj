@@ -163,7 +163,6 @@
     <ClInclude Include="traceprinterimpl.h" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kloglib.cpp" />
     <ClCompile Include="traceloader.cpp" />
     <ClCompile Include="traceprinterimpl.cpp" />
   </ItemGroup>

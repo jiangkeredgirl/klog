@@ -41,9 +41,6 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="kloglib.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="traceprinterimpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>

@@ -1,4 +1,5 @@
 #pragma once
+
 #ifdef KLOGLIB_EXPORTS
 #define KLOGLIB_API __declspec(dllexport)
 #else
