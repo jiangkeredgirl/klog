@@ -100,6 +100,7 @@ namespace kk
 	public:
 		virtual TraceHead* TraceFormatHead(IN const string& level = "", IN const string& label = "", const string& module_name = "", IN const string& file_name = "", IN const string& func_name = "", IN int line = -1, bool is_back = false) override;
 		virtual TraceBody* TraceFormatBody(IN const char* log_format, ...) override;
+		virtual TraceEntry* TraceFormatEntry(TraceHead* log_head, TraceBody* log_body) override;
 		virtual int TraceOutLog(IN int level, IN TraceHead* log_head, IN TraceBody* log_body) override;
 		virtual const TraceConfig& trace_config() const override;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) override;

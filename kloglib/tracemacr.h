@@ -62,11 +62,11 @@
 
 #if      TRACK_OUT
 // c风格 编译期可以去掉trace代码
-#define  Track(level, log_format, ...)               kk::TraceLoader TraceLoaderBack(true, level, ((level) ? ((kk::TracePrinterInstance()->TraceFormatHead(#level, TRACE_LABEL, kk::TracePrinter::GetModuleName(), kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__, true))) : nullptr), ((level) ? (kk::TracePrinterInstance()->TraceFormatBody (log_format, ##__VA_ARGS__)) : nullptr))
+#define  Track(level, log_format, ...)               kk::TraceLoader TraceLoaderTrack(true, level, ((level) ? ((kk::TracePrinterInstance()->TraceFormatHead(#level, TRACE_LABEL, kk::TracePrinter::GetModuleName(), kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__, true))) : nullptr), ((level) ? (kk::TracePrinterInstance()->TraceFormatBody (log_format, ##__VA_ARGS__)) : nullptr))
 // c++风格 编译期不可以去掉trace代码
-#define  TrackCout(level)                            kk::TraceLoader TraceLoaderBackCout(true, level, ((level) ? ((kk::TracePrinterInstance()->TraceFormatHead(#level, TRACE_LABEL, kk::TracePrinter::GetModuleName(), kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__, true))) : nullptr)); TraceLoaderBackCout.trace_stream()
+#define  TrackCout(level)                            kk::TraceLoader TraceLoaderTrackCout(true, level, ((level) ? ((kk::TracePrinterInstance()->TraceFormatHead(#level, TRACE_LABEL, kk::TracePrinter::GetModuleName(), kk::Utility::GetFileName(__FILE__), __FUNCTION__, __LINE__, true))) : nullptr)); TraceLoaderTrackCout.trace_stream()
 #else
-#define  TraceBack(level, printf_exp)
+#define  Track(level, printf_exp)
 #define  TrackCout(level)
 #endif // !TRACK_OUT
 

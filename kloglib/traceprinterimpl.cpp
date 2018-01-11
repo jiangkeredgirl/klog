@@ -257,6 +257,11 @@ namespace kk
 		return trace_body;
 	}
 
+	TraceEntry* TracePrinterImpl::TraceFormatEntry(TraceHead* log_head, TraceBody* log_body)
+	{
+		return nullptr;
+	}
+
 	int TracePrinterImpl::TraceOutLog(IN int level, IN TraceHead* log_head, IN TraceBody* log_body)
 	{
 		if (trace_config().trace_out

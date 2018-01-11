@@ -15,6 +15,7 @@ namespace kk
 {
 	struct TraceHead;
 	struct TraceBody;
+	struct TraceEntry;
 
 	struct LevelInfo
 	{
@@ -72,6 +73,7 @@ namespace kk
 	public:
 		virtual TraceHead* TraceFormatHead(const string& level = "", const string& label = "", const string& module_name = "", const string& file_name = "", const string& func_name = "", int line = -1, bool is_back = false) = 0;
 		virtual TraceBody* TraceFormatBody(const char* log_format, ...) = 0;
+		virtual TraceEntry* TraceFormatEntry(TraceHead* log_head, TraceBody* log_body) = 0;
 		virtual int TraceOutLog(int level, TraceHead* log_head, TraceBody* log_body) = 0;
 		virtual const TraceConfig& trace_config() const = 0;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) = 0;
