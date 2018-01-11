@@ -4,3 +4,6 @@ x64
 /kloglib/*.user
 bin
 OutKlogSDK
+OutKloglibTestBin
+KlogSDK
+/kloglibtest/*.user

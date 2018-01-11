@@ -7,9 +7,9 @@
 #define  USE_GLOG              1
 
 // 是否使用线程输出trace
-#define  TRACE_ASYNC           1                     ///< 0 not output log, 1 output log
+#define  TRACE_ASYNC           0                     ///< 0 not output log, 1 output log
 
-// 预定义6种trace等级，数字越大输出等级越低
+// 预定义7种trace等级，数字越大输出等级越低
 #define  TRACE_ERROR           1                     ///< error out,0 not output
 #define  TRACE_WARNING         2                     ///< warning out,0 not output
 #define  TRACE_OK              3                     ///< ok out,0 not output
