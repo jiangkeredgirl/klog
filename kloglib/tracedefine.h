@@ -9,15 +9,16 @@
 // 是否使用线程输出trace
 #define  TRACE_ASYNC           0                     ///< 0 not output log, 1 output log
 
-// 预定义7种trace等级，数字越大输出等级越低
-#define  TRACE_ERROR           1                     ///< error out,0 not output
-#define  TRACE_WARNING         2                     ///< warning out,0 not output
-#define  TRACE_OK              3                     ///< ok out,0 not output
-#define  TRACE_NOTICE          4                     ///< notice out,0 not output
-#define  TRACE_INFO            5                     ///< info out,0 not output
-#define  TRACE_DEBUG           6                     ///< debug out,0 not output
-#define  TRACE_TEMP            7                     ///< temporary out,0 not output
-#define  TRACE_OUT_LEVEL       (TRACE_TEMP+10)      ///< 输出等级，1<= level && level <= TRACE_OUT_LEVEL的trace全部输出
+// 预定义8种trace等级，数字越大输出等级越低
+#define  TRACE_TRACk           1                     ///< track out,0 not output
+#define  TRACE_ERROR           2                     ///< error out,0 not output
+#define  TRACE_WARNING         3                     ///< warning out,0 not output
+#define  TRACE_OK              4                     ///< ok out,0 not output
+#define  TRACE_NOTICE          5                     ///< notice out,0 not output
+#define  TRACE_INFO            6                     ///< info out,0 not output
+#define  TRACE_DEBUG           7                     ///< debug out,0 not output
+#define  TRACE_TEMP            8                     ///< temporary out,0 not output
+#define  TRACE_VALID_LEVEL     (TRACE_TEMP+10)      ///< 输出等级，1<= level && level <= TRACE_valid_level的trace全部输出
 
 // 定义输出目标窗口，包括编译器输出窗口，控制台窗口，文件，tcp网络，com口，
 #define  TRACE_COMPILE         1                     ///< 0 not output to compile output,1 output to compile output
@@ -48,6 +49,6 @@
 // log 标签
 #define  TRACE_LABEL                ("kk")                ///< my output label
 
-#define  TRACE_FILE_SIZE            (1024 * 1024 * 100)
+#define  TRACE_FILE_SIZE            (1024000000)
 #define  TRACE_LIST_SIZE            10000
 

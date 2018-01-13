@@ -13,10 +13,6 @@ using namespace std;
 
 namespace kk
 {
-	struct TraceHead;
-	struct TraceBody;
-	struct TraceEntry;
-
 	struct LevelInfo
 	{
 		bool is_out;
@@ -36,15 +32,14 @@ namespace kk
 	struct TraceConfig
 	{
 		bool trace_out;
+		bool track_out;
 		bool trace_target_compile;
 		bool trace_target_console;
 		bool trace_target_putty;
 		bool trace_target_file;
-		bool trace_target_socket;
-		int  out_level;
+		bool trace_target_socket;		
 		bool trace_module;
 		bool trace_process;
-		bool trace_back;
 		bool async;
 		bool sync_lock;
 		bool head;
@@ -65,21 +60,17 @@ namespace kk
 		string head_label_text;
 		string trace_file_name;
 		map<int/*level*/, LevelInfo> levels_info;
+		int valid_level;
+		int trace_file_size;
 		TraceConfig();
 	};
 
 	class TracePrinter
 	{
 	public:
-		virtual TraceHead* TraceFormatHead(const string& level = "", const string& label = "", const string& module_name = "", const string& file_name = "", const string& func_name = "", int line = -1, bool is_back = false) = 0;
-		virtual TraceBody* TraceFormatBody(const char* log_format, ...) = 0;
-		virtual TraceEntry* TraceFormatEntry(TraceHead* log_head, TraceBody* log_body) = 0;
-		virtual int TraceOutLog(int level, TraceHead* log_head, TraceBody* log_body) = 0;
+		virtual int TraceOutLog(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...) = 0;
 		virtual const TraceConfig& trace_config() const = 0;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) = 0;
-		virtual int trace_out_level(int level, bool out) = 0;
-		virtual int trace_level_color(int level, int color) = 0;
-		virtual int WaitTraceThreadEnd() = 0;
 		static string GetModuleName()
 		{
 			char module_name[100] = { 0 };

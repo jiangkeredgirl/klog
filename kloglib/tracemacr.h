@@ -9,14 +9,15 @@
 // 是否使用glog
 #define  USE_GLOG              1
 
-// 预定义7种trace等级，数字越大输出等级越低
-#define  TRACE_ERROR           1                     ///< error out,0 not output
-#define  TRACE_WARNING         2                     ///< warning out,0 not output
-#define  TRACE_OK              3                     ///< ok out,0 not output
-#define  TRACE_NOTICE          4                     ///< notice out,0 not output
-#define  TRACE_INFO            5                     ///< info out,0 not output
-#define  TRACE_DEBUG           6                     ///< debug out,0 not output
-#define  TRACE_TEMP            7                     ///< temporary out,0 not output
+// 预定义8种trace等级，数字越大输出等级越低
+#define  TRACE_TRACk           1                     ///< track out,0 not output
+#define  TRACE_ERROR           2                     ///< error out,0 not output
+#define  TRACE_WARNING         3                     ///< warning out,0 not output
+#define  TRACE_OK              4                     ///< ok out,0 not output
+#define  TRACE_NOTICE          5                     ///< notice out,0 not output
+#define  TRACE_INFO            6                     ///< info out,0 not output
+#define  TRACE_DEBUG           7                     ///< debug out,0 not output
+#define  TRACE_TEMP            8                     ///< temporary out,0 not output
 
 // log 标签
 #define  TRACE_LABEL          ("kk")                 ///< my output label

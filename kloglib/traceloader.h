@@ -6,7 +6,9 @@
 #define KLOGLIB_API __declspec(dllimport)
 #endif
 
-#include "kutility.h"
+#include <string>
+#include <sstream>
+using namespace std;
 
 namespace kk
 {
@@ -17,14 +19,12 @@ namespace kk
 	class KLOGLIB_API TraceLoader
 	{
 	public:
-		TraceLoader(IN bool is_back, IN int level, IN TraceHead* trace_head, IN TraceBody* trace_body = nullptr);
+		TraceLoader(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
 		~TraceLoader();
 		stringstream& trace_stream();
 
 	private:
-		bool                is_back_;
-		int                 trace_level_;
-		TraceEntry*         trace_info_;
+		TraceEntry*         trace_entry_;
 		__int64             begin_call_time_;
 		stringstream        trace_stream_;
 	};

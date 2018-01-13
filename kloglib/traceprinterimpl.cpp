@@ -8,13 +8,13 @@ namespace kk
 	TraceConfig::TraceConfig()
 	{
 		trace_out = TRACE_OUT ? true : false;
-		trace_back = TRACK_OUT ? true : false;
+		track_out = TRACK_OUT ? true : false;
 		trace_target_compile = TRACE_COMPILE ? true : false;
 		trace_target_console = TRACE_CONSOLE ? true : false;
 		trace_target_putty = TRACE_PUTTY ? true : false;
 		trace_target_file = TRACE_FILE ? true : false;
 		trace_target_socket = TRACE_SOCKET ? true : false;
-		out_level = TRACE_OUT_LEVEL;
+		valid_level = TRACE_VALID_LEVEL;
 		trace_module = TRACE_MODULE ? true : false;
 		trace_process = TRACE_PROCESS ? true : false;
 		async = TRACE_ASYNC ? true : false;
@@ -54,13 +54,13 @@ namespace kk
 	const string& TraceHead::head_text()
 	{
 		if (TracePrinterImpl::instance().trace_config().trace_out
-			&& ((TracePrinterImpl::instance().trace_config().head && func_back.empty()) || (TracePrinterImpl::instance().trace_config().trace_back && !func_back.empty())))
+			&& ((TracePrinterImpl::instance().trace_config().head && func_track.empty()) || (TracePrinterImpl::instance().trace_config().track_out && !func_track.empty())))
 		{
 			head_text_ = "\"head\": {";
 			bool have_field = false;
-			if (!func_back.empty())
+			if (!func_track.empty())
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"func_back\":" + "\"" + func_back + "\"";
+				head_text_ = head_text_ + (have_field ? ", " : "") + "\"func_track\":" + "\"" + func_track + "\"";
 				have_field = true;
 			}
 			if (TracePrinterImpl::instance().trace_config().head_index)
@@ -171,12 +171,96 @@ namespace kk
 		WaitTraceThreadEnd();
 	}
 
-	TraceHead* TracePrinterImpl::TraceFormatHead(IN const string& level, IN const string& label, const string& module_name, IN const string& file_name, IN const string& func_name, IN int line, bool is_back)
+	int TracePrinterImpl::TraceOutLog(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
 	{
-		TraceHead* head = new TraceHead;
-		if (trace_config().trace_out
-			&& ((trace_config().head && !is_back) || (trace_config().trace_back && is_back)))
+		do
 		{
+			if (!IsOut(is_track, level))
+			{
+				break;
+			}
+			TraceEntry* trace_entry = TraceFormatEntry(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_format);
+			if (trace_entry == nullptr)
+			{
+				break;
+			}			
+			//if (trace_entry->trace_text().empty())
+			//{
+			//	break;
+			//}
+			OutTraceEntry(trace_entry);
+		} while (false);
+		return 0;
+	}
+
+	TraceEntry* TracePrinterImpl::TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
+	{
+		TraceEntry* trace_entry = nullptr;
+		do
+		{
+			if (!IsOut(is_track, level))
+			{
+				break;
+			}	
+			trace_entry = new TraceEntry;
+			TraceHead* trace_head = TraceFormatHead(is_track, level, strlevel, label, module_name, file_name, func_name, line);
+			TraceBody* trace_body = TraceFormatBody(is_track, level, log_format);
+			trace_entry->trace_head(trace_head);
+			trace_entry->trace_body(trace_body);
+		} while (false);
+		return trace_entry;
+	}
+
+	int TracePrinterImpl::OutTraceEntry(TraceEntry* trace_entry)
+	{
+		do
+		{
+			if (trace_entry == nullptr)
+			{
+				break;
+			}
+			//if (trace_entry->trace_text().empty())
+			//{
+			//	break;
+			//}
+			if (trace_config().async)
+			{
+				if (trace_thread_.joinable())
+				{
+					if (traces_list_.size() < TRACE_LIST_SIZE)
+					{
+						lock_guard<mutex> trace_list_lock(trace_list_mutex_);
+						traces_list_.push_back(trace_entry);
+						unique_lock<mutex> trace_lock(trace_mutex_);
+						trace_condition_.notify_one();
+					}
+				}
+			}
+			else
+			{
+				OutTrace(*trace_entry);
+				delete trace_entry;
+			}
+		} while (false);
+		return 0;
+	}
+
+	TraceHead* TracePrinterImpl::TraceFormatHead(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line)
+	{
+		TraceHead* head = nullptr;
+		do
+		{
+			if (!IsOut(is_track, level))
+			{
+				break;
+			}
+			if (!is_track && !trace_config().head)
+			{
+				break;
+			}
+			head = new TraceHead;
+			head->is_track = is_track;
+			head->trace_level = level;
 			static atomic<__int64> log_index(0);
 			if (trace_config().head_index)
 			{
@@ -184,7 +268,7 @@ namespace kk
 			}
 			if (trace_config().head_level)
 			{
-				head->level = level;
+				head->level = strlevel;
 			}
 			if (trace_config().head_label)
 			{
@@ -226,15 +310,20 @@ namespace kk
 			{
 				head->async = trace_config().async ? "async" : "sync";
 			}
-		}
+		} while (false);
 		return head;
 	}
 
-	TraceBody* TracePrinterImpl::TraceFormatBody(IN const char* log_format, ...)
+	TraceBody* TracePrinterImpl::TraceFormatBody(bool is_track, int level, const char* log_format, ...)
 	{
-		TraceBody* trace_body = new TraceBody;
-		if (trace_config().trace_out)
+		TraceBody* trace_body = nullptr;
+		do
 		{
+			if (!IsOut(is_track, level))
+			{
+				break;
+			}
+			trace_body = new TraceBody;
 			string log_body;
 			if (log_format)
 			{
@@ -253,50 +342,40 @@ namespace kk
 				delete[] log_exp;
 			}
 			trace_body->body = log_body;
-		}
+		} while (false);
 		return trace_body;
 	}
-
-	TraceEntry* TracePrinterImpl::TraceFormatEntry(TraceHead* log_head, TraceBody* log_body)
+	
+	bool TracePrinterImpl::IsOut(bool is_track, int level)
 	{
-		return nullptr;
-	}
-
-	int TracePrinterImpl::TraceOutLog(IN int level, IN TraceHead* log_head, IN TraceBody* log_body)
-	{
-		if (trace_config().trace_out
-			&& level >= 0
-			&& level <= trace_config().out_level
-			&& (trace_config().levels_info.count(level) ? trace_config().levels_info.find(level)->second.is_out : true))
+		bool is_out = false;
+		do
 		{
-			TraceEntry* trace = new TraceEntry;
-			trace->trace_head(log_head);
-			trace->trace_body(log_body);
-			trace->trace_level_ = level;
-			if (!trace->trace_text().empty())
+			if (!is_track && !trace_config().trace_out)
 			{
-				if (trace_config().async)
-				{
-					if (trace_thread_.joinable())
-					{
-						if (traces_list_.size() < TRACE_LIST_SIZE)
-						{
-							lock_guard<mutex> trace_list_lock(trace_list_mutex_);
-							traces_list_.push_back(trace);
-							unique_lock<mutex> trace_lock(trace_mutex_);
-							trace_condition_.notify_one();
-						}
-					}
-				}
-				else
-				{
-					OutTrace(*trace);
-					delete trace;
-				}
+				break;
 			}
-
-		}
-		return 0;
+			if (is_track && !trace_config().track_out)
+			{
+				break;
+			}
+			if (level < 1)
+			{
+				break;
+			}
+			if (level > trace_config().valid_level)
+			{
+				break;
+			}
+			if (!is_track
+				&& trace_config().levels_info.count(level)
+				&& !trace_config().levels_info.find(level)->second.is_out)
+			{
+				break;
+			}
+			is_out = true;
+		} while (false);
+		return is_out;
 	}
 
 	const TraceConfig& TracePrinterImpl::trace_config() const
@@ -310,13 +389,13 @@ namespace kk
 		return trace_config_;
 	}
 
-	int TracePrinterImpl::trace_out_level(IN int level, IN bool out)
+	int TracePrinterImpl::trace_valid_level(int level, bool out)
 	{
 		trace_config_.levels_info[level].is_out = out;
 		return 0;
 	}
 
-	int TracePrinterImpl::trace_level_color(IN int level, IN int color)
+	int TracePrinterImpl::trace_level_color(int level, int color)
 	{
 		trace_config_.levels_info[level].color = color;
 		return 0;
@@ -371,7 +450,7 @@ namespace kk
 		}
 	}
 
-	int TracePrinterImpl::OutTrace(IN TraceEntry&  trace)
+	int TracePrinterImpl::OutTrace(TraceEntry&  trace)
 	{
 		if (trace_config().trace_out)
 		{
@@ -408,9 +487,9 @@ namespace kk
 	int TracePrinterImpl::OutToConsole(TraceEntry&  trace)
 	{
 		int defult_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-		if (trace_config().levels_info.count(trace.trace_level_) && trace_config().levels_info.find(trace.trace_level_)->second.color)
+		if (trace_config().levels_info.count(trace.trace_head()->trace_level) && trace_config().levels_info.find(trace.trace_head()->trace_level)->second.color)
 		{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), trace_config().levels_info.find(trace.trace_level_)->second.color);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), trace_config().levels_info.find(trace.trace_head()->trace_level)->second.color);
 			fprintf(stdout, ("%s"), trace.trace_text().c_str());
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defult_color);
 		}

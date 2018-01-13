@@ -20,14 +20,16 @@ namespace kk
 		string runtime;                      ///< log打印时程序运行时间
 		string executetime;                  ///< 函数体执行时间
 		string process_name;                 ///< 进程名
-		string module_name;                  ///< 模块名	
+		string module_name;                  ///< 模块名
 		string file_name;                    ///< file name;
 		string function_name;                ///< function name;
 		string line;                         ///< line number;
-		string func_back;                    ///< function follow flag >> or <<
-		string async;                        ///< 是否为异步log	
+		string func_track;                    ///< function follow flag >> or <<
+		string async;                        ///< 是否为异步log
 		string sync_lock;                    ///< 同步模式下是否加锁
 		string head_text_;
+		bool   is_track = false;
+		int    trace_level = 0;
 		const string& head_text();
 	};
 
@@ -44,7 +46,6 @@ namespace kk
 	public:
 		TraceEntry()
 		{
-			trace_level_ = 0;
 		}
 		~TraceEntry()
 		{
@@ -62,7 +63,6 @@ namespace kk
 	public:
 		TraceHead* trace_head_ = nullptr;
 		TraceBody* trace_body_ = nullptr;
-		int        trace_level_= 0;
 		string     trace_text_;
 	public:
 		int trace_head(TraceHead* _trace_head)
@@ -92,31 +92,37 @@ namespace kk
 	{
 	private:
 		TracePrinterImpl(void);
-		TracePrinterImpl(IN const TracePrinterImpl& other_object);
-		const TracePrinterImpl& operator = (IN const TracePrinterImpl& other_object);
+		TracePrinterImpl(const TracePrinterImpl& other_object);
+		const TracePrinterImpl& operator = (const TracePrinterImpl& other_object);
 		virtual ~TracePrinterImpl(void);
 	public:
 		static TracePrinterImpl& instance();
 	public:
-		virtual TraceHead* TraceFormatHead(IN const string& level = "", IN const string& label = "", const string& module_name = "", IN const string& file_name = "", IN const string& func_name = "", IN int line = -1, bool is_back = false) override;
-		virtual TraceBody* TraceFormatBody(IN const char* log_format, ...) override;
-		virtual TraceEntry* TraceFormatEntry(TraceHead* log_head, TraceBody* log_body) override;
-		virtual int TraceOutLog(IN int level, IN TraceHead* log_head, IN TraceBody* log_body) override;
+		virtual int TraceOutLog(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...) override;
 		virtual const TraceConfig& trace_config() const override;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) override;
-		virtual int trace_out_level(IN int level, IN bool out) override;
-		virtual int trace_level_color(IN int level, IN int color) override;
-		virtual int WaitTraceThreadEnd() override;
+	public:
+		TraceEntry* TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
+		int OutTraceEntry(TraceEntry* trace_entry);
+	private:
+		TraceHead* TraceFormatHead(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line);
+		TraceBody* TraceFormatBody(bool is_track, int level, const char* log_format, ...);
+	public:
+		bool IsOut(bool is_track, int level);
+	private:
+		int trace_valid_level(int level, bool out);
+		int trace_level_color(int level, int color);
+		int WaitTraceThreadEnd();
 
 	private:
 		int TraceThreadStart();
 		void TraceThread();
-		int OutTrace(IN TraceEntry&  trace);
-		int OutToCompile(IN TraceEntry&  trace);
-		int OutToConsole(IN TraceEntry&  trace);
-		int OutToFile(IN TraceEntry&  trace);
-		int OutToSocket(IN TraceEntry&  trace);
-		int OutToPutty(IN TraceEntry&  trace);
+		int OutTrace(TraceEntry&  trace);
+		int OutToCompile(TraceEntry&  trace);
+		int OutToConsole(TraceEntry&  trace);
+		int OutToFile(TraceEntry&  trace);
+		int OutToSocket(TraceEntry&  trace);
+		int OutToPutty(TraceEntry&  trace);
 		int InitConsole();
 
 	private:
