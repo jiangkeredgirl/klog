@@ -26,19 +26,21 @@ namespace kk
 		string line;                         ///< line number;
 		string func_track;                    ///< function follow flag >> or <<
 		string async;                        ///< 是否为异步log
-		string sync_lock;                    ///< 同步模式下是否加锁
-		string head_text_;
+		string sync_lock;                    ///< 同步模式下是否加锁		
 		bool   is_track = false;
 		int    trace_level = 0;
 		const string& head_text();
+	private:
+		string head_text_;
 	};
 
 	struct TraceBody
 	{
 	public:
-		string body;
-		string body_text_;
+		string body;		
 		const string& body_text();
+	private:
+		string body_text_;
 	};
 
 	struct TraceEntry

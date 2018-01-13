@@ -127,7 +127,7 @@ namespace kk
 	{
 		if (!body.empty())
 		{
-			body_text_ = body_text_ + "\"body\": " + "\"" + body + "\"" + ("");
+			body_text_ = "\"body\": \"" + body + "\"";
 		}
 		return body_text_;
 	}

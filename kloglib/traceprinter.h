@@ -75,7 +75,17 @@ namespace kk
 		{
 			char module_name[100] = { 0 };
 			GetModuleFileNameA(GetSelfModuleHandle(), module_name, 100);
-			return module_name;
+			return GetFileName(module_name);
+		}
+		static string GetFileName(const string& path_name)
+		{
+			string file_name(path_name);
+			string::size_type pos = file_name.find_last_of("\\/");
+			if (pos != string::npos)
+			{
+				file_name = file_name.substr(pos + 1);
+			}
+			return file_name;
 		}
 	private:
 		static HMODULE GetSelfModuleHandle()

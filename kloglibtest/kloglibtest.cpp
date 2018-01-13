@@ -19,7 +19,7 @@ int trace_test(const string& log_content)
 	//TraceBackDebug(""); // 正确用法 注意要带参数("")，打印函数进入和退出的log
 	//TrackDebugCout();
 
-	//TraceError  ("%s", log_content.c_str()); // error级别
+	TraceError  ("%s", log_content.c_str()); // error级别
 	//TraceWarning("%s", log_content.c_str()); // warning级别
 	//TraceOK     ("%s", log_content.c_str()); //c风格 ok级别
 	//TraceNotice ("%s", log_content.c_str()); //c风格 notice级别
