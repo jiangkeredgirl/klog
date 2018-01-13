@@ -102,8 +102,8 @@ namespace kk
 		virtual const TraceConfig& trace_config() const override;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) override;
 	public:
-		TraceEntry* TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
-		int OutTraceEntry(TraceEntry* trace_entry);
+		shared_ptr<TraceEntry> TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
+		int OutTraceEntry(shared_ptr<TraceEntry> trace_entry);
 	private:
 		TraceHead* TraceFormatHead(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line);
 		TraceBody* TraceFormatBody(bool is_track, int level, const char* log_format, ...);
@@ -117,12 +117,12 @@ namespace kk
 	private:
 		int TraceThreadStart();
 		void TraceThread();
-		int OutTrace(TraceEntry&  trace);
-		int OutToCompile(TraceEntry&  trace);
-		int OutToConsole(TraceEntry&  trace);
-		int OutToFile(TraceEntry&  trace);
-		int OutToSocket(TraceEntry&  trace);
-		int OutToPutty(TraceEntry&  trace);
+		int OutTrace(shared_ptr<TraceEntry> trace_entry);
+		int OutToCompile(shared_ptr<TraceEntry> trace_entry);
+		int OutToConsole(shared_ptr<TraceEntry> trace_entry);
+		int OutToFile(shared_ptr<TraceEntry> trace_entry);
+		int OutToSocket(shared_ptr<TraceEntry> trace_entry);
+		int OutToPutty(shared_ptr<TraceEntry> trace_entry);
 		int InitConsole();
 
 	private:
@@ -130,7 +130,7 @@ namespace kk
 		condition_variable    trace_condition_;
 		thread                trace_thread_;
 		bool                  trace_thread_kill_;
-		list<TraceEntry*>     traces_list_;
+		list<shared_ptr<TraceEntry>>     traces_list_;
 		mutex                 trace_list_mutex_;
 		TraceConfig           trace_config_;
 		string                process_name_;

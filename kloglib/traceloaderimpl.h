@@ -2,6 +2,7 @@
 
 #include <string>
 #include <sstream>
+#include "cstandard.h"
 using namespace std;
 
 namespace kk
@@ -15,9 +16,9 @@ namespace kk
 		stringstream& trace_stream();
 
 	private:
-		TraceEntry*         trace_entry_;
-		__int64             begin_call_time_;
-		stringstream        trace_stream_;
+		shared_ptr<TraceEntry>   trace_entry_;
+		__int64                  begin_call_time_;
+		stringstream             trace_stream_;
 	};
 }
 

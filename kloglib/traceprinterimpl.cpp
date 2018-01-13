@@ -179,7 +179,7 @@ namespace kk
 			{
 				break;
 			}
-			TraceEntry* trace_entry = TraceFormatEntry(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_format);
+			shared_ptr<TraceEntry> trace_entry = TraceFormatEntry(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_format);
 			if (trace_entry == nullptr)
 			{
 				break;
@@ -193,16 +193,16 @@ namespace kk
 		return 0;
 	}
 
-	TraceEntry* TracePrinterImpl::TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
+	shared_ptr<TraceEntry> TracePrinterImpl::TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
 	{
-		TraceEntry* trace_entry = nullptr;
+		shared_ptr<TraceEntry> trace_entry = nullptr;
 		do
 		{
 			if (!IsOut(is_track, level))
 			{
 				break;
-			}	
-			trace_entry = new TraceEntry;
+			}
+			trace_entry = shared_ptr<TraceEntry>(new TraceEntry());
 			TraceHead* trace_head = TraceFormatHead(is_track, level, strlevel, label, module_name, file_name, func_name, line);
 			TraceBody* trace_body = TraceFormatBody(is_track, level, log_format);
 			trace_entry->trace_head(trace_head);
@@ -211,7 +211,7 @@ namespace kk
 		return trace_entry;
 	}
 
-	int TracePrinterImpl::OutTraceEntry(TraceEntry* trace_entry)
+	int TracePrinterImpl::OutTraceEntry(shared_ptr<TraceEntry> trace_entry)
 	{
 		do
 		{
@@ -238,8 +238,7 @@ namespace kk
 			}
 			else
 			{
-				OutTrace(*trace_entry);
-				delete trace_entry;
+				OutTrace(trace_entry);
 			}
 		} while (false);
 		return 0;
@@ -438,10 +437,9 @@ namespace kk
 			while (!traces_list_.empty())
 			{
 				lock_guard<mutex> trace_list_lock(trace_list_mutex_);
-				TraceEntry* trace = traces_list_.front();
+				shared_ptr<TraceEntry> trace_entry = traces_list_.front();
 				traces_list_.pop_front();
-				OutTrace(*trace);
-				delete trace;
+				OutTrace(trace_entry);
 			}
 			if (trace_thread_kill_)
 			{
@@ -450,57 +448,58 @@ namespace kk
 		}
 	}
 
-	int TracePrinterImpl::OutTrace(TraceEntry&  trace)
+	int TracePrinterImpl::OutTrace(shared_ptr<TraceEntry> trace_entry)
 	{
 		if (trace_config().trace_out)
 		{
 			if (trace_config().trace_target_compile)
 			{
-				OutToCompile(trace);
+				OutToCompile(trace_entry);
 			}
 			if (trace_config().trace_target_console)
 			{
-				OutToConsole(trace);
+				OutToConsole(trace_entry);
 			}
 			if (trace_config().trace_target_file)
 			{
-				OutToFile(trace);
+				OutToFile(trace_entry);
 			}
 			if (trace_config().trace_target_socket)
 			{
-				OutToSocket(trace);
+				OutToSocket(trace_entry);
 			}
 			if (trace_config().trace_target_putty)
 			{
-				OutToPutty(trace);
+				OutToPutty(trace_entry);
 			}
 		}
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToCompile(TraceEntry&  trace)
+	int TracePrinterImpl::OutToCompile(shared_ptr<TraceEntry> trace_entry)
 	{
-		OutputDebugStringA(trace.trace_text().c_str());
+		OutputDebugStringA(trace_entry->trace_text().c_str());
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToConsole(TraceEntry&  trace)
+	int TracePrinterImpl::OutToConsole(shared_ptr<TraceEntry> trace_entry)
 	{
 		int defult_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-		if (trace_config().levels_info.count(trace.trace_head()->trace_level) && trace_config().levels_info.find(trace.trace_head()->trace_level)->second.color)
+		if (trace_config().levels_info.count(trace_entry->trace_head()->trace_level)
+			&& trace_config().levels_info.find(trace_entry->trace_head()->trace_level)->second.color)
 		{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), trace_config().levels_info.find(trace.trace_head()->trace_level)->second.color);
-			fprintf(stdout, ("%s"), trace.trace_text().c_str());
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), trace_config().levels_info.find(trace_entry->trace_head()->trace_level)->second.color);
+			fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defult_color);
 		}
 		else
 		{
-			fprintf(stdout, ("%s"), trace.trace_text().c_str());
+			fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
 		}
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToFile(TraceEntry&  trace)
+	int TracePrinterImpl::OutToFile(shared_ptr<TraceEntry> trace_entry)
 	{
 		static const int file_max_size = TRACE_FILE_SIZE;
 
@@ -523,12 +522,12 @@ namespace kk
 				}
 				fputs(("[trace size beyond file_max_size, so truncate]\n"), log_file);
 			}
-			fputs(trace.trace_text().c_str(), log_file);
+			fputs(trace_entry->trace_text().c_str(), log_file);
 			fclose(log_file);
 		} while (false);
 
 		do {
-			string trace_file_name = trace_config().trace_file_name + "_" + trace.trace_head()->level + ".txt";
+			string trace_file_name = trace_config().trace_file_name + "_" + trace_entry->trace_head()->level + ".txt";
 			FILE* log_file = nullptr;
 			if (fopen_s(&log_file, trace_file_name.c_str(), ("at")))
 			{
@@ -544,18 +543,18 @@ namespace kk
 				}
 				fputs(("[trace size beyond file_max_size, so truncate]\n"), log_file);
 			}
-			fputs(trace.trace_text().c_str(), log_file);
+			fputs(trace_entry->trace_text().c_str(), log_file);
 			fclose(log_file);
 		} while (false);
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToSocket(TraceEntry&  /*trace*/)
+	int TracePrinterImpl::OutToSocket(shared_ptr<TraceEntry> trace_entry)
 	{
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToPutty(TraceEntry&  /*trace*/)
+	int TracePrinterImpl::OutToPutty(shared_ptr<TraceEntry> trace_entry)
 	{
 		return 0;
 	}

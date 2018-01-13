@@ -56,7 +56,6 @@ namespace kk
 			}
 			trace_entry_->trace_body_->body += trace_stream_.str();
 			TracePrinterImpl::instance().OutTraceEntry(trace_entry_);
-			delete trace_entry_;
 		} while (false);
 	}
 
