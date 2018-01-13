@@ -182,12 +182,14 @@
     <ClInclude Include="targetver.h" />
     <ClInclude Include="tracedefine.h" />
     <ClInclude Include="traceloader.h" />
+    <ClInclude Include="traceloaderimpl.h" />
     <ClInclude Include="tracemacr.h" />
     <ClInclude Include="traceprinter.h" />
     <ClInclude Include="traceprinterimpl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="traceloader.cpp" />
+    <ClCompile Include="traceloaderimpl.cpp" />
     <ClCompile Include="traceprinterimpl.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
