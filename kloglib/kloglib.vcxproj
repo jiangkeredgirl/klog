@@ -72,28 +72,28 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>.\kutility\;.\rapidjson\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformTarget)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>.\kutility\;.\rapidjson\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformTarget)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>.\kutility\;.\rapidjson\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformTarget)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>.\kutility\;.\rapidjson\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformTarget)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
@@ -178,7 +178,9 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="config.h" />
     <ClInclude Include="kloglib.h" />
+    <ClInclude Include="rapidjsonparser.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="tracedefine.h" />
     <ClInclude Include="traceloader.h" />
@@ -188,6 +190,8 @@
     <ClInclude Include="traceprinterimpl.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="config.cpp" />
+    <ClCompile Include="rapidjsonparser.cpp" />
     <ClCompile Include="traceloader.cpp" />
     <ClCompile Include="traceloaderimpl.cpp" />
     <ClCompile Include="traceprinterimpl.cpp" />

@@ -75,7 +75,7 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformTarget)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;.\KlogSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -83,7 +83,7 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformTarget)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;.\KlogSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -91,7 +91,7 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformTarget)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;.\KlogSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -99,7 +99,7 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_$(PlatformTarget)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;.\KlogSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
