@@ -179,7 +179,30 @@ namespace kk
 			{
 				break;
 			}
-			shared_ptr<TraceEntry> trace_entry = TraceFormatEntry(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_format);
+			///
+			string log_body;
+			do
+			{
+				if (log_format == nullptr)
+				{
+					break;
+				}
+				size_t log_length = ONE_TRACE_SIZE;
+				if (strlen(log_format) >= static_cast<size_t>(log_length))
+				{
+					log_length += strlen(log_format);
+				}
+				char* log_exp = new char[log_length];
+				memset(log_exp, 0, sizeof(char) * log_length);
+				va_list va;
+				va_start(va, log_format);
+				_vsnprintf_s(log_exp, /*sizeof(char) * */(log_length - 1), log_length - 1, log_format, va);
+				va_end(va);
+				log_body = log_body + log_exp;
+				delete[] log_exp;
+			} while (false);
+			///
+			shared_ptr<TraceEntry> trace_entry = TraceFormatEntry(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_body);
 			if (trace_entry == nullptr)
 			{
 				break;
@@ -193,7 +216,7 @@ namespace kk
 		return 0;
 	}
 
-	shared_ptr<TraceEntry> TracePrinterImpl::TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
+	shared_ptr<TraceEntry> TracePrinterImpl::TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body)
 	{
 		shared_ptr<TraceEntry> trace_entry = nullptr;
 		do
@@ -204,7 +227,7 @@ namespace kk
 			}
 			trace_entry = shared_ptr<TraceEntry>(new TraceEntry());
 			TraceHead* trace_head = TraceFormatHead(is_track, level, strlevel, label, module_name, file_name, func_name, line);
-			TraceBody* trace_body = TraceFormatBody(is_track, level, log_format);
+			TraceBody* trace_body = TraceFormatBody(log_body);
 			trace_entry->trace_head(trace_head);
 			trace_entry->trace_body(trace_body);
 		} while (false);
@@ -313,33 +336,16 @@ namespace kk
 		return head;
 	}
 
-	TraceBody* TracePrinterImpl::TraceFormatBody(bool is_track, int level, const char* log_format, ...)
+	TraceBody* TracePrinterImpl::TraceFormatBody(const string& log_body)
 	{
 		TraceBody* trace_body = nullptr;
 		do
 		{
-			if (!IsOut(is_track, level))
-			{
-				break;
-			}
+			//if (log_body.empty())
+			//{
+			//	break;
+			//}
 			trace_body = new TraceBody;
-			string log_body;
-			if (log_format)
-			{
-				size_t log_length = 1024;
-				if (strlen(log_format) >= static_cast<size_t>(log_length))
-				{
-					log_length += strlen(log_format);
-				}
-				char* log_exp = new char[log_length];
-				memset(log_exp, 0, sizeof(char) * log_length);
-				va_list va;
-				va_start(va, log_format);
-				_vsnprintf_s(log_exp, /*sizeof(char) * */(log_length - 1), log_length - 1, log_format, va);
-				va_end(va);
-				log_body = log_body + log_exp;
-				delete[] log_exp;
-			}
 			trace_body->body = log_body;
 		} while (false);
 		return trace_body;

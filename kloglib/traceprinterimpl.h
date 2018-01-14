@@ -104,11 +104,11 @@ namespace kk
 		virtual const TraceConfig& trace_config() const override;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) override;
 	public:
-		shared_ptr<TraceEntry> TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
+		shared_ptr<TraceEntry> TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body);
 		int OutTraceEntry(shared_ptr<TraceEntry> trace_entry);
 	private:
 		TraceHead* TraceFormatHead(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line);
-		TraceBody* TraceFormatBody(bool is_track, int level, const char* log_format, ...);
+		TraceBody* TraceFormatBody(const string& log_body);
 	public:
 		bool IsOut(bool is_track, int level);
 	private:

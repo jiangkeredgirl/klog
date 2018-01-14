@@ -51,4 +51,5 @@
 
 #define  TRACE_FILE_SIZE            (1024000000)
 #define  TRACE_LIST_SIZE            10000
+#define  ONE_TRACE_SIZE             1024
 
