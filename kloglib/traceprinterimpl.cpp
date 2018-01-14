@@ -53,9 +53,16 @@ namespace kk
 
 	const string& TraceHead::head_text()
 	{
-		if (TracePrinterImpl::instance().trace_config().trace_out
-			&& ((TracePrinterImpl::instance().trace_config().head && func_track.empty()) || (TracePrinterImpl::instance().trace_config().track_out && !func_track.empty())))
+		do
 		{
+			if (!is_track && !TracePrinterImpl::instance().trace_config().head)
+			{
+				break;
+			}
+			if (is_track && !TracePrinterImpl::instance().trace_config().track_out)
+			{
+				break;
+			}
 			head_text_ = "\"head\": {";
 			bool have_field = false;
 			if (!func_track.empty())
@@ -119,7 +126,7 @@ namespace kk
 				have_field = true;
 			}
 			head_text_ = head_text_ + "}";
-		}
+		} while (false);
 		return head_text_;
 	}
 
@@ -134,23 +141,34 @@ namespace kk
 
 	const string& TraceEntry::trace_text()
 	{
-		if ((trace_head_ && !trace_head_->head_text().empty())
-			|| (trace_body_ && !trace_body_->body_text().empty()))
+		trace_text_ = "{";
+		bool have_field = false;
+		do
+		{			
+			if (trace_head_ == nullptr)
+			{
+				break;
+			}
+			if (trace_head_->head_text().empty())
+			{
+				break;
+			}
+			trace_text_ = trace_head_->head_text();
+			have_field = true;
+		} while (false);
+		do
 		{
-			trace_text_ = "{";
-			bool have_field = false;
-			if (trace_head_ && !trace_head_->head_text().empty())
+			if (trace_body_ == nullptr)
 			{
-				trace_text_ = trace_text_ + (have_field ? ", " : "") + trace_head_->head_text();
-				have_field = true;
+				break;
 			}
-			if (trace_body_ && !trace_body_->body_text().empty())
+			if (trace_body_->body_text().empty())
 			{
-				trace_text_ = trace_text_ + (have_field ? "\n," : "") + trace_body_->body_text();
-				have_field = true;
+				break;
 			}
-			trace_text_ = trace_text_ + "}\n\n";
-		}
+			trace_text_ = trace_text_ + (have_field ? "\n," : "") + trace_body_->body_text();
+		} while (false);
+		trace_text_ = trace_text_ + "}\n\n";
 		return trace_text_;
 	}
 
@@ -346,7 +364,7 @@ namespace kk
 			//	break;
 			//}
 			trace_body = new TraceBody;
-			trace_body->body = log_body;
+			trace_body->body = std::move(log_body);
 		} while (false);
 		return trace_body;
 	}

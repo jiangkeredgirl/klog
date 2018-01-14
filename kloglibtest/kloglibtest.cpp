@@ -16,8 +16,8 @@ int trace_test(const string& log_content)
 {
 	//setlocale(LC_ALL, "");
 	// trace_test函数进入退出log		
-	//TraceBackDebug(""); // 正确用法 注意要带参数("")，打印函数进入和退出的log
-	//TrackDebugCout();
+	Track(""); // 正确用法 注意要带参数("")，打印函数进入和退出的log
+	//TrackCout();
 
 	TraceError  ("%s", log_content.c_str()); // error级别
 	//TraceWarning("%s", log_content.c_str()); // warning级别

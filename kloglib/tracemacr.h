@@ -53,9 +53,9 @@
 
 #if      TRACE_OUT
 // c风格 编译期可以去掉trace代码
-#define  Trace(level, log_format, ...)               ((level) ? (kk::TracePrinterInstance()->TraceOutLog(false, level, #level, TRACE_LABEL, kk::TracePrinter::GetModuleName(), kk::TracePrinter::GetFileName(__FILE__), __FUNCTION__, __LINE__, log_format, ##__VA_ARGS__)), 0 : 0)
+#define  Trace(level, log_format, ...)               ((level) ? (kk::TracePrinterInstance()->TraceOutLog(false, level, #level, TRACE_LABEL, kk::TracePrinter::GetModuleName(), kk::TracePrinter::GetFileName(__FILE__), __FUNCTION__, __LINE__, log_format, ##__VA_ARGS__)) : 0)
 // c++风格 编译期不可以去掉trace代码
-#define  TraceCout(level)                            kk::TraceLoader(false, level, #level, TRACE_LABEL, kk::TracePrinter::GetModuleName(), kk::TracePrinter::GetFileName(__FILE__), __FUNCTION__, __LINE__, nullptr).trace_stream()
+#define  TraceCout(level)                            (kk::TraceLoader(false, level, #level, TRACE_LABEL, kk::TracePrinter::GetModuleName(), kk::TracePrinter::GetFileName(__FILE__), __FUNCTION__, __LINE__, nullptr).trace_stream())
 #else
 #define  Trace(level, log_format, ...)
 #define  TraceCout(level) stringstream()
