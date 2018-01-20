@@ -34,12 +34,10 @@ namespace kk
 		bool trace_out;
 		bool track_out;
 		bool trace_target_compile;
-		bool trace_target_console;
-		bool trace_target_putty;
+		bool trace_target_console;		
 		bool trace_target_file;
-		bool trace_target_socket;		
-		bool trace_module;
-		bool trace_process;
+		bool trace_target_socket;
+		bool trace_target_com;
 		bool async;
 		bool sync_lock;
 		bool head;
@@ -57,11 +55,12 @@ namespace kk
 		bool head_line;
 		bool head_async;
 		bool head_sync_lock;
-		string head_label_text;
-		string trace_file_name;
-		map<int/*level*/, LevelInfo> levels_info;
 		int valid_level;
 		int trace_file_size;
+		string head_label_text;		
+		string trace_file_dir;
+		string trace_com_name;
+		map<int/*level*/, bool> level_on_off;
 		TraceConfig();
 	};
 

@@ -114,7 +114,8 @@ namespace kk
 	private:
 		int trace_valid_level(int level, bool out);
 		int trace_level_color(int level, int color);
-		int WaitTraceThreadEnd();
+		int InitTrace();
+		int WaitTraceThreadEnd();		
 
 	private:
 		int TraceThreadStart();
@@ -124,7 +125,8 @@ namespace kk
 		int OutToConsole(shared_ptr<TraceEntry> trace_entry);
 		int OutToFile(shared_ptr<TraceEntry> trace_entry);
 		int OutToSocket(shared_ptr<TraceEntry> trace_entry);
-		int OutToPutty(shared_ptr<TraceEntry> trace_entry);
+		int OutToCom(shared_ptr<TraceEntry> trace_entry);
+		int OutToFile(const string& trace_file_name, const string& trace_entry);
 		int InitConsole();
 
 	private:
@@ -134,8 +136,9 @@ namespace kk
 		bool                  trace_thread_kill_;
 		list<shared_ptr<TraceEntry>>     traces_list_;
 		mutex                 trace_list_mutex_;
-		TraceConfig           trace_config_;
 		string                process_name_;
-		//string                module_name_;
+		string                process_time_;
+		TraceConfig           trace_config_;		
+		map<int/*level*/, int/*color*/> default_level_color;
 	};
 }

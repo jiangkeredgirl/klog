@@ -60,15 +60,15 @@ int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trac
 			break;
 		}
 		trace_config.trace_target_console = doc["trace_target_console"].GetBool();
-		if (!doc.HasMember("trace_target_putty"))
+		if (!doc.HasMember("trace_target_com"))
 		{
 			break;
 		}
-		if (!doc["trace_target_putty"].IsBool())
+		if (!doc["trace_target_com"].IsBool())
 		{
 			break;
 		}
-		trace_config.trace_target_putty = doc["trace_target_putty"].GetBool();
+		trace_config.trace_target_com = doc["trace_target_com"].GetBool();
 		if (!doc.HasMember("trace_target_file"))
 		{
 			break;
@@ -87,24 +87,6 @@ int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trac
 			break;
 		}
 		trace_config.trace_target_socket = doc["trace_target_socket"].GetBool();
-		if (!doc.HasMember("trace_module"))
-		{
-			break;
-		}
-		if (!doc["trace_module"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_module = doc["trace_module"].GetBool();
-		if (!doc.HasMember("trace_process"))
-		{
-			break;
-		}
-		if (!doc["trace_process"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_process = doc["trace_process"].GetBool();
 		if (!doc.HasMember("async"))
 		{
 			break;
@@ -267,15 +249,15 @@ int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trac
 			break;
 		}
 		trace_config.head_label_text = doc["head_label_text"].GetString();
-		if (!doc.HasMember("trace_file_name"))
+		if (!doc.HasMember("trace_file_dir"))
 		{
 			break;
 		}
-		if (!doc["trace_file_name"].IsString())
+		if (!doc["trace_file_dir"].IsString())
 		{
 			break;
 		}
-		trace_config.trace_file_name = doc["trace_file_name"].GetString();
+		trace_config.trace_file_dir = doc["trace_file_dir"].GetString();
 		if (!doc.HasMember("valid_level"))
 		{
 			break;
@@ -285,67 +267,50 @@ int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trac
 			break;
 		}
 		trace_config.valid_level = doc["valid_level"].GetInt();
-		if (!doc.HasMember("TRACE_FILE_SIZE"))
+		if (!doc.HasMember("trace_file_size"))
 		{
 			break;
 		}
-		if (!doc["TARGET_FILE_size"].IsInt())
+		if (!doc["trace_file_size"].IsInt())
 		{
 			break;
 		}
-		trace_config.TARGET_FILE_size = doc["TARGET_FILE_size"].GetInt();
+		trace_config.trace_file_size = doc["trace_file_size"].GetInt();
 
-		if (!doc.HasMember("levels_info"))
+		if (!doc.HasMember("level_on_off"))
 		{
 			break;
 		}
-		if (!doc["levels_info"].IsArray())
+		if (!doc["level_on_off"].IsArray())
 		{
 			break;
 		}
-		for (rapidjson::SizeType i = 0; i < doc["levels_info"].Size(); ++i)
+		for (rapidjson::SizeType i = 0; i < doc["level_on_off"].Size(); ++i)
 		{
-			if (!doc["levels_info"][i].IsObject())
+			if (!doc["level_on_off"][i].IsObject())
 			{
 				break;
 			}
-			pair<int/*level*/, kk::LevelInfo> levelinfo;
-			if (!doc["levels_info"][i].HasMember("key"))
+			pair<int/*level*/, bool> on_off;
+			if (!doc["level_on_off"][i].HasMember("key"))
 			{
 				break;
 			}
-			if (!doc["levels_info"][i]["key"].IsInt())
+			if (!doc["level_on_off"][i]["key"].IsInt())
 			{
 				break;
 			}
-			levelinfo.first = doc["levels_info"][i]["key"].GetInt();
-			if (!doc["levels_info"][i].HasMember("value"))
+			on_off.first = doc["level_on_off"][i]["key"].GetInt();
+			if (!doc["level_on_off"][i].HasMember("value"))
 			{
 				break;
 			}
-			if (!doc["levels_info"][i]["value"].IsObject())
+			if (!doc["level_on_off"][i]["value"].IsBool())
 			{
 				break;
 			}		
-			if (!doc["levels_info"][i]["value"].HasMember("is_out"))
-			{
-				break;
-			}
-			if (!doc["levels_info"][i]["value"]["is_out"].IsBool())
-			{
-				break;
-			}
-			levelinfo.second.is_out = doc["levels_info"][i]["value"]["is_out"].GetBool();
-			if (!doc["levels_info"][i]["value"].HasMember("color"))
-			{
-				break;
-			}
-			if (!doc["levels_info"][i]["value"]["color"].IsInt())
-			{
-				break;
-			}
-			levelinfo.second.color = doc["levels_info"][i]["value"]["color"].GetInt();
-			trace_config.levels_info.insert(levelinfo);
+			on_off.second = doc["level_on_off"][i]["value"].GetBool();
+			trace_config.level_on_off.insert(on_off);
 		}	
 		errorCode = 0;
 	} while (0);

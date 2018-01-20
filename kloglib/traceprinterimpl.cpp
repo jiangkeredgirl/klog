@@ -1,4 +1,4 @@
-// TracePrinter.cpp : Defines the exported functions for the DLL application.
+﻿// TracePrinter.cpp : Defines the exported functions for the DLL application.
 //
 
 #include "TracePrinterimpl.h"
@@ -7,47 +7,43 @@ namespace kk
 {
 	TraceConfig::TraceConfig()
 	{
-		trace_out = TRACE_OUT ? true : false;
-		track_out = TRACK_OUT ? true : false;
-		trace_target_compile = TARGET_COMPILE ? true : false;
-		trace_target_console = TARGET_CONSOLE ? true : false;
-		trace_target_putty = TRACE_COM ? true : false;
-		trace_target_file = TARGET_FILE ? true : false;
-		trace_target_socket = TRACE_SOCKET ? true : false;
+		trace_out = TRACE_OUT;
+		track_out = TRACK_OUT;
+		trace_target_compile = TRACE_TARGET_COMPILE;
+		trace_target_console = TRACE_TARGET_CONSOLE;
+		trace_target_com = TRACE_TARGET_COM;
+		trace_target_file = TRACE_TARGET_FILE;
+		trace_target_socket = TRACE_TARGET_SOCKET;
 		valid_level = TRACE_VALID_LEVEL;
-		trace_module = TRACE_MODULE ? true : false;
-		trace_process = TRACE_PROCESS ? true : false;
-		async = TRACE_ASYNC ? true : false;
-		head = TRACE_HEAD ? true : false;
-		head_index = TRACE_HEAD_INDEX ? true : false;
-		head_level = TRACE_HEAD_LEVEL ? true : false;
-		head_label = TRACE_HEAD_LABEL ? true : false;
-		head_datetime = TRACE_HEAD_DATETIME ? true : false;
-		head_runtime = TRACE_HEAD_RUNTIME ? true : false;
-		head_functiontime = TRACE_HEAD_FUNCTIONTIME ? true : false;
-		head_process_name = TRACE_HEAD_PROCESS_NAME ? true : false;
-		head_module_name = TRACE_HEAD_MODULE_NAME ? true : false;
-		head_file_name = TRACE_HEAD_FILE_NAME ? true : false;
-		head_function_name = TRACE_HEAD_FUNCTION_NAME ? true : false;
-		head_line = TRACE_HEAD_LINE ? true : false;
-		head_async = TRACE_HEAD_ASYNC ? true : false;
+		async = TRACE_ASYNC;
+		head = TRACE_HEAD;
+		head_index = TRACE_HEAD_INDEX;
+		head_level = TRACE_HEAD_LEVEL;
+		head_label = TRACE_HEAD_LABEL;
+		head_datetime = TRACE_HEAD_DATETIME;
+		head_runtime = TRACE_HEAD_RUNTIME;
+		head_functiontime = TRACE_HEAD_FUNCTIONTIME;
+		head_process_name = TRACE_HEAD_PROCESS_NAME;
+		head_module_name = TRACE_HEAD_MODULE_NAME;
+		head_file_name = TRACE_HEAD_FILE_NAME;
+		head_function_name = TRACE_HEAD_FUNCTION_NAME;
+		head_line = TRACE_HEAD_LINE;
+		head_async = TRACE_HEAD_ASYNC;
 		head_label_text = TRACE_LABEL;
-		string program_path = kk::Utility::GetProgramPath();
-		string program_directory = kk::Utility::GetDirectoryName(program_path);
-		string program_name = kk::Utility::GetFileName(program_path);
-		trace_file_name = program_directory + ("logs\\log_") + program_name
-			+ "_" + kk::Utility::GetLogDateTimeStr();
-		if (head_label_text.empty())
+		if (trace_file_dir.empty())
 		{
-			head_label_text = program_name;
+			string program_path = kk::Utility::GetProgramPath();
+			string program_directory = kk::Utility::GetDirectoryName(program_path);
+			trace_file_dir = program_directory + ("klogs\\");
 		}
-		levels_info[TRACE_ERROR] = LevelInfo((TRACE_ERROR ? true : false), FOREGROUND_INTENSITY | FOREGROUND_RED);
-		levels_info[TRACE_WARNING] = LevelInfo((TRACE_WARNING ? true : false), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN);
-		levels_info[TRACE_OK] = LevelInfo((TRACE_OK ? true : false), FOREGROUND_INTENSITY | FOREGROUND_GREEN);
-		levels_info[TRACE_NOTICE] = LevelInfo((TRACE_NOTICE ? true : false), FOREGROUND_INTENSITY | FOREGROUND_BLUE);
-		levels_info[TRACE_INFO] = LevelInfo((TRACE_INFO ? true : false), FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		levels_info[TRACE_DEBUG] = LevelInfo((TRACE_DEBUG ? true : false), FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE);
-		levels_info[TRACE_TEMP] = LevelInfo((TRACE_TEMP ? true : false), FOREGROUND_INTENSITY);
+		level_on_off[TRACE_TRACk]   = TRACE_TRACk;
+		level_on_off[TRACE_ERROR]   = TRACE_ERROR;
+		level_on_off[TRACE_WARNING] = TRACE_WARNING;
+		level_on_off[TRACE_OK]      = TRACE_OK;
+		level_on_off[TRACE_NOTICE]  = TRACE_NOTICE;
+		level_on_off[TRACE_INFO]    = TRACE_INFO;
+		level_on_off[TRACE_DEBUG]   = TRACE_DEBUG;
+		level_on_off[TRACE_TEMP]    = TRACE_TEMP;
 	}
 
 
@@ -174,14 +170,14 @@ namespace kk
 
 	TracePrinterImpl::TracePrinterImpl(void)
 	{
-		process_name_ = kk::Utility::GetFileName(kk::Utility::GetProgramPath());
-
-		if (trace_config().async)
+		process_name_ = kk::Utility::GetFileName(kk::Utility::GetProgramPath());	
+		string::size_type pos = process_name_.rfind(".exe");
+		if (pos != string::npos)
 		{
-			TraceThreadStart();
+			process_name_ = process_name_.substr(0, process_name_.size()-4);
 		}
-		kk::Utility::CreateDir(kk::Utility::GetDirectoryName(trace_config().trace_file_name));
-		InitConsole();
+		process_time_ = kk::Utility::GetLogDateTimeStr();
+		InitTrace();
 	}
 
 	TracePrinterImpl::~TracePrinterImpl(void)
@@ -391,8 +387,8 @@ namespace kk
 				break;
 			}
 			if (!is_track
-				&& trace_config().levels_info.count(level)
-				&& !trace_config().levels_info.find(level)->second.is_out)
+				&& trace_config().level_on_off.count(level)
+				&& !trace_config().level_on_off.find(level)->second)
 			{
 				break;
 			}
@@ -409,21 +405,38 @@ namespace kk
 	const TraceConfig& TracePrinterImpl::trace_config(const TraceConfig& config)
 	{
 		trace_config_ = config;
+		InitTrace();
 		return trace_config_;
 	}
 
 	int TracePrinterImpl::trace_valid_level(int level, bool out)
 	{
-		trace_config_.levels_info[level].is_out = out;
+		trace_config_.level_on_off[level] = out;
 		return 0;
 	}
 
 	int TracePrinterImpl::trace_level_color(int level, int color)
 	{
-		trace_config_.levels_info[level].color = color;
+		default_level_color[level] = color;
 		return 0;
 	}
 
+	int TracePrinterImpl::InitTrace()
+	{
+		if (trace_config().trace_target_file)
+		{
+			kk::Utility::CreateDir(kk::Utility::GetDirectoryName(trace_config().trace_file_dir));
+		}
+		if (trace_config().trace_target_console)
+		{
+			InitConsole();
+		}
+		if (trace_config().async)
+		{
+			TraceThreadStart();
+		}
+		return 0;
+	}
 	TracePrinterImpl& TracePrinterImpl::instance()
 	{
 		static TracePrinterImpl _instance;
@@ -492,9 +505,9 @@ namespace kk
 			{
 				OutToSocket(trace_entry);
 			}
-			if (trace_config().trace_target_putty)
+			if (trace_config().trace_target_com)
 			{
-				OutToPutty(trace_entry);
+				OutToCom(trace_entry);
 			}
 		}
 		return 0;
@@ -508,13 +521,12 @@ namespace kk
 
 	int TracePrinterImpl::OutToConsole(shared_ptr<TraceEntry> trace_entry)
 	{
-		int defult_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-		if (trace_config().levels_info.count(trace_entry->trace_head()->trace_level)
-			&& trace_config().levels_info.find(trace_entry->trace_head()->trace_level)->second.color)
+		//int defult_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+		if (default_level_color.count(trace_entry->trace_head()->trace_level))
 		{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), trace_config().levels_info.find(trace_entry->trace_head()->trace_level)->second.color);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_level_color[trace_entry->trace_head()->trace_level]);
 			fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defult_color);
+			//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defult_color);
 		}
 		else
 		{
@@ -525,10 +537,32 @@ namespace kk
 
 	int TracePrinterImpl::OutToFile(shared_ptr<TraceEntry> trace_entry)
 	{
-		static const int file_max_size = TRACE_FILE_SIZE;
+		const string& trace_entry_text = trace_entry->trace_text();
+		// 整个进程所有模块的输出
+		string trace_file_name = trace_config().trace_file_dir
+			+ process_name_ + "_" + process_time_
+			+ "_TRACE_ALL.log";
+		OutToFile(trace_file_name, trace_entry_text);
+		trace_file_name = trace_config().trace_file_dir
+			+ process_name_ + "_" + process_time_
+			+ "_" + trace_entry->trace_head()->level + ".log";
+		OutToFile(trace_file_name, trace_entry_text);
+		// 按模块名输出
+		trace_file_name = trace_config().trace_file_dir
+			+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_
+			+ "_TRACE_ALL.log";
+		OutToFile(trace_file_name, trace_entry_text);
+		trace_file_name = trace_config().trace_file_dir
+			+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_
+			+ "_" + trace_entry->trace_head()->level + ".log";
+		OutToFile(trace_file_name, trace_entry_text);
+		return 0;
+	}
 
+	int TracePrinterImpl::OutToFile(const string& trace_file_name, const string& trace_entry)
+	{
+		static const int file_max_size = TRACE_FILE_SIZE;
 		do {
-			string trace_file_name = trace_config().trace_file_name + "_TRACE_ALL.txt";
 			FILE* log_file = nullptr;
 			errno_t err = fopen_s(&log_file, trace_file_name.c_str(), ("at"));
 			if (err)
@@ -546,28 +580,7 @@ namespace kk
 				}
 				fputs(("[trace size beyond file_max_size, so truncate]\n"), log_file);
 			}
-			fputs(trace_entry->trace_text().c_str(), log_file);
-			fclose(log_file);
-		} while (false);
-
-		do {
-			string trace_file_name = trace_config().trace_file_name + "_" + trace_entry->trace_head()->level + ".txt";
-			FILE* log_file = nullptr;
-			if (fopen_s(&log_file, trace_file_name.c_str(), ("at")))
-			{
-				break;
-			}
-			fseek(log_file, 0, SEEK_END);
-			if (ftell(log_file) > file_max_size)
-			{
-				fclose(log_file);
-				if (fopen_s(&log_file, trace_file_name.c_str(), ("wt")))
-				{
-					break;
-				}
-				fputs(("[trace size beyond file_max_size, so truncate]\n"), log_file);
-			}
-			fputs(trace_entry->trace_text().c_str(), log_file);
+			fputs(trace_entry.c_str(), log_file);
 			fclose(log_file);
 		} while (false);
 		return 0;
@@ -578,7 +591,7 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToPutty(shared_ptr<TraceEntry> trace_entry)
+	int TracePrinterImpl::OutToCom(shared_ptr<TraceEntry> trace_entry)
 	{
 		return 0;
 	}
@@ -589,6 +602,14 @@ namespace kk
 		coord.X = 100;
 		coord.Y = 10000;
 		SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coord);
+		default_level_color[TRACE_TRACk] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+		default_level_color[TRACE_ERROR] = FOREGROUND_INTENSITY | FOREGROUND_RED;
+		default_level_color[TRACE_WARNING] = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN;
+		default_level_color[TRACE_OK] = FOREGROUND_INTENSITY | FOREGROUND_GREEN;
+		default_level_color[TRACE_NOTICE] = FOREGROUND_INTENSITY | FOREGROUND_BLUE;
+		default_level_color[TRACE_INFO] = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+		default_level_color[TRACE_DEBUG] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+		default_level_color[TRACE_TEMP] = FOREGROUND_INTENSITY;
 		return 0;
 	}
 
