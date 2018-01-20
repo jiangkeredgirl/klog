@@ -9,10 +9,10 @@ namespace kk
 	{
 		trace_out = TRACE_OUT ? true : false;
 		track_out = TRACK_OUT ? true : false;
-		trace_target_compile = TRACE_COMPILE ? true : false;
-		trace_target_console = TRACE_CONSOLE ? true : false;
-		trace_target_putty = TRACE_PUTTY ? true : false;
-		trace_target_file = TRACE_FILE ? true : false;
+		trace_target_compile = TARGET_COMPILE ? true : false;
+		trace_target_console = TARGET_CONSOLE ? true : false;
+		trace_target_putty = TRACE_COM ? true : false;
+		trace_target_file = TARGET_FILE ? true : false;
 		trace_target_socket = TRACE_SOCKET ? true : false;
 		valid_level = TRACE_VALID_LEVEL;
 		trace_module = TRACE_MODULE ? true : false;

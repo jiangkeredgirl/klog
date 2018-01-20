@@ -3,19 +3,7 @@
 #include <string>
 #include <vector>
 using namespace std;
-
-struct CameraAccount
-{
-	string oem;
-	string account;
-	string password;  
-	CameraAccount()
-    {
-		oem = "";
-		account = "";
-		password = "";
-    }
-};
+#include "TracePrinter.h"
 
 class Config
 {
@@ -27,8 +15,8 @@ public:
     static Config& instance();
 
 public:
-	int GetCameraAccount(const string& dir, vector<CameraAccount>& accounts); 
-	int GetHikIP(const string& dir, string& ip);
+	int GetTraceConfig(kk::TraceConfig& trace_config);
+	int SetTraceConfig(const kk::TraceConfig& trace_config);
 };
 
 #endif // CONFIG_H

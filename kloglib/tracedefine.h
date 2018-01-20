@@ -21,11 +21,11 @@
 #define  TRACE_VALID_LEVEL     (TRACE_TEMP+10)      ///< 输出等级，1<= level && level <= TRACE_valid_level的trace全部输出
 
 // 定义输出目标窗口，包括编译器输出窗口，控制台窗口，文件，tcp网络，com口，
-#define  TRACE_COMPILE         1                     ///< 0 not output to compile output,1 output to compile output
-#define  TRACE_CONSOLE         1                     ///< 0 not output to console,1 output to sonsole
-#define  TRACE_FILE            1                     ///< 0 not output to file, 1 output to file
+#define  TARGET_COMPILE         1                     ///< 0 not output to compile output,1 output to compile output
+#define  TARGET_CONSOLE         1                     ///< 0 not output to console,1 output to sonsole
+#define  TARGET_FILE            1                     ///< 0 not output to file, 1 output to file
 #define  TRACE_SOCKET          1                     ///< 0 not output to network, 1 output to network
-#define  TRACE_PUTTY           1                     ///< 0 not output to com, 1 output to com
+#define  TRACE_COM             1                     ///< 0 not output to com, 1 output to com
 // 定义3种输出范围，模块内输出(log内存在模块之间独立)，进程内输出(log在模块之间按先后顺序输出，进程共享一个log内存），进程间输出（进程间共享一个log内存)
 #define  TRACE_MODULE          1                     ///< log out scope in the module
 #define  TRACE_PROCESS         0                     ///< log out scope in the process

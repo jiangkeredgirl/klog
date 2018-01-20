@@ -1,6 +1,7 @@
 ﻿#include "config.h"
 #include "kutility.h"
 #include "rapidjsonparser.h"
+#define CONFIG_FILE_NAME ("klog.config")
 
 Config::Config()
 {
@@ -12,28 +13,28 @@ Config &Config::instance()
     return _instance;
 }
 
-int Config::GetCameraAccount(const string& dir, vector<CameraAccount>& accounts)
+int Config::GetTraceConfig(kk::TraceConfig& trace_config)
 {
 	int errorCode = 1;
-	string path = dir + "topcameratest.config";
+	string path = CONFIG_FILE_NAME;
 	string configContent;
 	kk::Utility::ReadFile(path, configContent);
 	if(!configContent.empty())
 	{
-		errorCode = CJsonParser::instance().GetCameraAccount(configContent, accounts);
+		errorCode = CJsonParser::instance().GetTraceConfig(configContent, trace_config);
 	}
 	return errorCode;
 }
 
-int Config::GetHikIP(const string& dir, string& ip)
+int Config::SetTraceConfig(const kk::TraceConfig& trace_config)
 {
 	int errorCode = 1;
-	string path = dir + "topcameratest.config";
+	string path = CONFIG_FILE_NAME;
 	string configContent;
 	kk::Utility::ReadFile(path, configContent);
 	if (!configContent.empty())
 	{
-		errorCode = CJsonParser::instance().GetHikIP(configContent, ip);
+		errorCode = CJsonParser::instance().SetTraceConfig(trace_config, configContent);
 	}
 	return errorCode;
 }

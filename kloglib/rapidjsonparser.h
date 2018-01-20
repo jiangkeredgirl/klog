@@ -2,18 +2,14 @@
 
 #include <string>
 #include "config.h"
-
 using namespace std;
-
 
 class CJsonParser
 {
 public:
-	static CJsonParser& instance();	
-
+	static CJsonParser& instance();
 public:
-	int GetCameraAccount(const string& jsonContent, vector<CameraAccount>& accounts);
-	int GetHikIP(const string& jsonContent, string& ip);
-
+	int GetTraceConfig(const string& jsonContent, kk::TraceConfig& trace_config);
+	int SetTraceConfig(const kk::TraceConfig& trace_config, string& jsonContent);
 };
 
