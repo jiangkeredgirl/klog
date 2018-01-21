@@ -24,7 +24,7 @@ namespace kk
 		string file_name;                    ///< file name;
 		string function_name;                ///< function name;
 		string line;                         ///< line number;
-		string func_track;                    ///< function follow flag >> or <<
+		string func_track;                   ///< function follow flag >> or <<
 		string async;                        ///< 是否为异步log
 		string sync_lock;                    ///< 同步模式下是否加锁		
 		bool   is_track = false;
@@ -135,7 +135,8 @@ namespace kk
 		thread                trace_thread_;
 		bool                  trace_thread_kill_;
 		list<shared_ptr<TraceEntry>>     traces_list_;
-		mutex                 trace_list_mutex_;
+		//mutex                 trace_list_mutex_;
+		mutex                 trace_sync_mutex_;
 		string                process_name_;
 		string                process_time_;
 		TraceConfig           trace_config_;		

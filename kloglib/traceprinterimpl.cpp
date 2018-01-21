@@ -260,21 +260,22 @@ namespace kk
 			//{
 			//	break;
 			//}
-			if (trace_config().async)
+			if (trace_config().async && trace_thread_.joinable())
 			{
-				if (trace_thread_.joinable())
+				if (traces_list_.size() < TRACE_LIST_SIZE)
 				{
-					if (traces_list_.size() < TRACE_LIST_SIZE)
-					{
-						lock_guard<mutex> trace_list_lock(trace_list_mutex_);
-						traces_list_.push_back(trace_entry);
-						unique_lock<mutex> trace_lock(trace_mutex_);
-						trace_condition_.notify_one();
-					}
+					//lock_guard<mutex> trace_list_lock(trace_list_mutex_);
+					traces_list_.push_back(trace_entry);
+					unique_lock<mutex> trace_lock(trace_mutex_);
+					trace_condition_.notify_one();
 				}
 			}
 			else
 			{
+				if (trace_config().sync_lock)
+				{
+					lock_guard<mutex> trace_out_lock(trace_sync_mutex_);
+				}
 				OutTrace(trace_entry);
 			}
 		} while (false);
@@ -473,7 +474,7 @@ namespace kk
 			trace_condition_.wait(trace_lock);
 			while (!traces_list_.empty())
 			{
-				lock_guard<mutex> trace_list_lock(trace_list_mutex_);
+				//lock_guard<mutex> trace_list_lock(trace_list_mutex_);
 				shared_ptr<TraceEntry> trace_entry = traces_list_.front();
 				traces_list_.pop_front();
 				OutTrace(trace_entry);

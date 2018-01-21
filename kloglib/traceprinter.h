@@ -13,22 +13,6 @@ using namespace std;
 
 namespace kk
 {
-	struct LevelInfo
-	{
-		bool is_out;
-		int  color;
-		LevelInfo()
-		{
-			is_out = true;
-			color = 0;
-		}
-		LevelInfo(bool _is_out, int  _color)
-		{
-			is_out = _is_out;
-			color = _color;
-		}
-	};
-
 	struct TraceConfig
 	{
 		bool trace_out;
