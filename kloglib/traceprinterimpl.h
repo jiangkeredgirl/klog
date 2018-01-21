@@ -24,7 +24,8 @@ namespace kk
 		string file_name;                    ///< file name;
 		string function_name;                ///< function name;
 		string line;                         ///< line number;
-		string func_track;                   ///< function follow flag >> or <<
+		string func_enter;                   ///< function follow flag >>
+		string func_exit;                    ///< function follow flag <<
 		string async;                        ///< 是否为异步log
 		string sync_lock;                    ///< 同步模式下是否加锁		
 		bool   is_track = false;
@@ -103,6 +104,7 @@ namespace kk
 		virtual int TraceOutLog(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...) override;
 		virtual const TraceConfig& trace_config() const override;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) override;
+		virtual int WaitTraceThreadEnd() override;
 	public:
 		shared_ptr<TraceEntry> TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body);
 		int OutTraceEntry(shared_ptr<TraceEntry> trace_entry);
@@ -114,8 +116,7 @@ namespace kk
 	private:
 		int trace_valid_level(int level, bool out);
 		int trace_level_color(int level, int color);
-		int InitTrace();
-		int WaitTraceThreadEnd();		
+		int InitTrace();				
 
 	private:
 		int TraceThreadStart();

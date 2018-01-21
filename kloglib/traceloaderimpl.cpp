@@ -51,7 +51,7 @@ namespace kk
 			{
 				begin_call_time_ = kk::Utility::GetRunTime();
 			}
-			trace_entry_->trace_head_->func_track = (">>");
+			trace_entry_->trace_head_->func_enter = (">>");
 			TracePrinterImpl::instance().OutTraceEntry(trace_entry_);
 		} while (false);
 	}
@@ -75,7 +75,7 @@ namespace kk
 					trace_entry_->trace_head_->runtime = kk::Utility::GetRunTimeStr();
 					trace_entry_->trace_head_->executetime = kk::Utility::Int64ToStr(kk::Utility::GetRunTime() - begin_call_time_, 10) + (" ms");
 				}
-				trace_entry_->trace_head_->func_track = ("<<");
+				trace_entry_->trace_head_->func_exit = ("<<");
 			}
 			trace_entry_->trace_body_->body += trace_stream_.str();
 			TracePrinterImpl::instance().OutTraceEntry(trace_entry_);

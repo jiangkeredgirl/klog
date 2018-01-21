@@ -72,4 +72,4 @@
 #endif // !TRACK_OUT
 
 
-//#define WaitTrace()  kk::TracePrinterInstance()->WaitTraceThreadEnd()
+#define WaitTrace()  kk::TracePrinterInstance()->WaitTraceThreadEnd()

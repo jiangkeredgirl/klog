@@ -45,6 +45,7 @@ int trace_test(const string& log_content)
 int main()
 {
 	trace_test("my log content");
+	WaitTrace();
     return 0;
 }
 

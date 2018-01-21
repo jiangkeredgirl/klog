@@ -61,9 +61,14 @@ namespace kk
 			}
 			head_text_ = "\"head\": {";
 			bool have_field = false;
-			if (!func_track.empty())
+			if (!func_enter.empty())
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"func_track\":" + "\"" + func_track + "\"";
+				head_text_ = head_text_ + (have_field ? ", " : "") + "\"func_track\":" + "\"" + func_enter + "\"";
+				have_field = true;
+			}
+			else if (!func_exit.empty())
+			{
+				head_text_ = head_text_ + (have_field ? ", " : "") + "\"func_track\":" + "\"" + func_exit + "\"";
 				have_field = true;
 			}
 			if (TracePrinterImpl::instance().trace_config().head_index)
@@ -266,7 +271,7 @@ namespace kk
 				{
 					//lock_guard<mutex> trace_list_lock(trace_list_mutex_);
 					traces_list_.push_back(trace_entry);
-					unique_lock<mutex> trace_lock(trace_mutex_);
+					//unique_lock<mutex> trace_lock(trace_mutex_);
 					trace_condition_.notify_one();
 				}
 			}
@@ -458,7 +463,7 @@ namespace kk
 	{
 		if (trace_thread_.joinable())
 		{
-			unique_lock<mutex> trace_lock(trace_mutex_);
+			//unique_lock<mutex> trace_lock(trace_mutex_);
 			trace_thread_kill_ = true;
 			trace_condition_.notify_one();
 			trace_thread_.join();
@@ -510,6 +515,10 @@ namespace kk
 			{
 				OutToCom(trace_entry);
 			}
+			if (trace_entry->trace_head())
+			{
+				trace_entry->trace_head()->func_enter = "";
+			}
 		}
 		return 0;
 	}
@@ -526,13 +535,13 @@ namespace kk
 		if (default_level_color.count(trace_entry->trace_head()->trace_level))
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_level_color[trace_entry->trace_head()->trace_level]);
-			fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
+			//fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
 			//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defult_color);
 		}
-		else
-		{
-			fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
-		}
+		//else
+		//{
+		fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
+		//}
 		return 0;
 	}
 
@@ -600,7 +609,7 @@ namespace kk
 	int TracePrinterImpl::InitConsole()
 	{
 		COORD coord;
-		coord.X = 100;
+		coord.X = 200;
 		coord.Y = 10000;
 		SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coord);
 		default_level_color[TRACE_TRACk] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
