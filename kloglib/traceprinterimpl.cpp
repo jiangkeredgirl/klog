@@ -20,6 +20,7 @@ namespace kk
 		head_index = TRACE_HEAD_INDEX;
 		head_level = TRACE_HEAD_LEVEL;
 		head_label = TRACE_HEAD_LABEL;
+		head_thread_id = TRACE_HEAD_THREAD_ID;
 		head_datetime = TRACE_HEAD_DATETIME;
 		head_runtime = TRACE_HEAD_RUNTIME;
 		head_functiontime = TRACE_HEAD_FUNCTIONTIME;
@@ -84,6 +85,11 @@ namespace kk
 			if (TracePrinterImpl::instance().trace_config().head_label)
 			{
 				head_text_ = head_text_ + (have_field ? ", " : "") + "\"label\":" + "\"" + label + "\"";
+				have_field = true;
+			}
+			if (TracePrinterImpl::instance().trace_config().head_thread_id)
+			{
+				head_text_ = head_text_ + (have_field ? ", " : "") + "\"thread_id\":" + "\"" + thread_id + "\"";
 				have_field = true;
 			}
 			if (TracePrinterImpl::instance().trace_config().head_process_name)
@@ -319,6 +325,13 @@ namespace kk
 				{
 					head->label = trace_config().head_label_text;
 				}
+			}
+			if (trace_config().head_thread_id)
+			{
+				std::thread::id this_id = std::this_thread::get_id();
+				std::stringstream ss;
+				ss << this_id;
+				head->thread_id = ss.str();
 			}
 			if (trace_config().head_datetime)
 			{
