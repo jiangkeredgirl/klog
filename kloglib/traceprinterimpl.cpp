@@ -2,6 +2,7 @@
 //
 
 #include "TracePrinterimpl.h"
+#include "config.h"
 
 namespace kk
 {
@@ -14,8 +15,9 @@ namespace kk
 		trace_target_com = TRACE_TARGET_COM;
 		trace_target_file = TRACE_TARGET_FILE;
 		trace_target_socket = TRACE_TARGET_SOCKET;
-		valid_level = TRACE_VALID_LEVEL;
+		
 		async = TRACE_ASYNC;
+		sync_lock = TRACE_SYNC_LOCK;
 		head = TRACE_HEAD;
 		head_index = TRACE_HEAD_INDEX;
 		head_level = TRACE_HEAD_LEVEL;
@@ -30,13 +32,14 @@ namespace kk
 		head_function_name = TRACE_HEAD_FUNCTION_NAME;
 		head_line = TRACE_HEAD_LINE;
 		head_async = TRACE_HEAD_ASYNC;
-		head_label_text = TRACE_LABEL;
-		if (trace_file_dir.empty())
-		{
-			string program_path = kk::Utility::GetProgramPath();
-			string program_directory = kk::Utility::GetDirectoryName(program_path);
-			trace_file_dir = program_directory + ("klogs\\");
-		}
+		head_sync_lock = TRACE_HEAD_SYNC_LOCK;		
+		valid_level = TRACE_VALID_LEVEL;
+		trace_file_size = TRACE_FILE_SIZE;
+		head_label_text = TRACE_LABEL;		
+		//string program_path = kk::Utility::GetProgramPath();
+		//string program_directory = kk::Utility::GetDirectoryName(program_path);
+		//trace_file_dir = program_directory + ("klogs\\");
+		trace_file_dir = ".\\klogs\\";
 		level_on_off[TRACE_TRACk]   = TRACE_TRACk;
 		level_on_off[TRACE_ERROR]   = TRACE_ERROR;
 		level_on_off[TRACE_WARNING] = TRACE_WARNING;
@@ -132,6 +135,11 @@ namespace kk
 				head_text_ = head_text_ + (have_field ? ", " : "") + "\"async\":" + "\"" + async + "\"";
 				have_field = true;
 			}
+			if (TracePrinterImpl::instance().trace_config().head_sync_lock)
+			{
+				head_text_ = head_text_ + (have_field ? ", " : "") + "\"sync_lock\":" + "\"" + sync_lock + "\"";
+				have_field = true;
+			}
 			head_text_ = head_text_ + "}";
 		} while (false);
 		return head_text_;
@@ -188,6 +196,11 @@ namespace kk
 			process_name_ = process_name_.substr(0, process_name_.size()-4);
 		}
 		process_time_ = kk::Utility::GetLogDateTimeStr();
+		int errorCode = Config::instance().GetTraceConfig(trace_config_);
+		if(errorCode)
+		{
+			Config::instance().SetTraceConfig(trace_config_);
+		}
 		InitTrace();
 	}
 
@@ -365,6 +378,10 @@ namespace kk
 			{
 				head->async = trace_config().async ? "async" : "sync";
 			}
+			if (trace_config().head_sync_lock)
+			{
+				head->async = trace_config().head_sync_lock ? "lock" : "unlock";
+			}
 		} while (false);
 		return head;
 	}
@@ -424,6 +441,7 @@ namespace kk
 	const TraceConfig& TracePrinterImpl::trace_config(const TraceConfig& config)
 	{
 		trace_config_ = config;
+		Config::instance().SetTraceConfig(trace_config_);
 		InitTrace();
 		return trace_config_;
 	}
@@ -584,7 +602,7 @@ namespace kk
 
 	int TracePrinterImpl::OutToFile(const string& trace_file_name, const string& trace_entry)
 	{
-		static const int file_max_size = TRACE_FILE_SIZE;
+		static const int file_max_size = trace_config().trace_file_size * 1024 * 1024;
 		do {
 			FILE* log_file = nullptr;
 			errno_t err = fopen_s(&log_file, trace_file_name.c_str(), ("at"));

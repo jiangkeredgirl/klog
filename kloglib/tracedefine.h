@@ -5,10 +5,11 @@
 #define  TRACK_OUT             1                     ///< whether output trace of function called
 
 // 是否使用glog
-#define  USE_GLOG              1
+#define  USE_GLOG              0
 
 // 是否使用线程输出trace
 #define  TRACE_ASYNC           1                     ///< 0 not output log, 1 output log
+#define  TRACE_SYNC_LOCK       1                     ///< 0 no use lock, 1 use lock when sync model
 
 // 预定义8种trace等级，数字越大输出等级越低
 #define  TRACE_TRACk           1                     ///< track out,0 not output
@@ -47,7 +48,7 @@
 // log 标签
 #define  TRACE_LABEL                ("kk")                ///< my output label
 
-#define  TRACE_FILE_SIZE            (1024000000)
+#define  TRACE_FILE_SIZE            (1000)
 #define  TRACE_LIST_SIZE            10000
 #define  ONE_TRACE_SIZE             1024
 

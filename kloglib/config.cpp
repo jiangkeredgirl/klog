@@ -30,11 +30,8 @@ int Config::SetTraceConfig(const kk::TraceConfig& trace_config)
 {
 	int errorCode = 1;
 	string path = CONFIG_FILE_NAME;
-	string configContent;
-	kk::Utility::ReadFile(path, configContent);
-	if (!configContent.empty())
-	{
-		errorCode = CJsonParser::instance().SetTraceConfig(trace_config, configContent);
-	}
+	string configContent;	
+	errorCode = CJsonParser::instance().SetTraceConfig(trace_config, configContent);
+	kk::Utility::WriteFile(path, configContent);
 	return errorCode;
 }
