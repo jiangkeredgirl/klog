@@ -39,15 +39,15 @@ namespace kk
 		//string program_path = kk::Utility::GetProgramPath();
 		//string program_directory = kk::Utility::GetDirectoryName(program_path);
 		//trace_file_dir = program_directory + ("klogs\\");
-		trace_file_dir = ".\\klogs\\";
-		level_on_off[TRACE_TRACk]   = TRACE_TRACk;
-		level_on_off[TRACE_ERROR]   = TRACE_ERROR;
-		level_on_off[TRACE_WARNING] = TRACE_WARNING;
-		level_on_off[TRACE_OK]      = TRACE_OK;
-		level_on_off[TRACE_NOTICE]  = TRACE_NOTICE;
-		level_on_off[TRACE_INFO]    = TRACE_INFO;
-		level_on_off[TRACE_DEBUG]   = TRACE_DEBUG;
-		level_on_off[TRACE_TEMP]    = TRACE_TEMP;
+		//trace_file_dir = ".\\klogs\\";
+		level_on_off[TRACE_TRACk]   = static_cast<bool>(TRACE_TRACk);
+		level_on_off[TRACE_ERROR]   = static_cast<bool>(TRACE_ERROR);
+		level_on_off[TRACE_WARNING] = static_cast<bool>(TRACE_WARNING);
+		level_on_off[TRACE_OK]      = static_cast<bool>(TRACE_OK);
+		level_on_off[TRACE_NOTICE]  = static_cast<bool>(TRACE_NOTICE);
+		level_on_off[TRACE_INFO]    = static_cast<bool>(TRACE_INFO);
+		level_on_off[TRACE_DEBUG]   = static_cast<bool>(TRACE_DEBUG);
+		level_on_off[TRACE_TEMP]    = static_cast<bool>(TRACE_TEMP);
 	}
 
 
@@ -201,6 +201,7 @@ namespace kk
 		{
 			Config::instance().SetTraceConfig(trace_config_);
 		}
+		trace_config_.trace_file_dir = ".\\klogs\\" + process_name_ + "\\";
 		InitTrace();
 	}
 
@@ -323,15 +324,15 @@ namespace kk
 			head->is_track = is_track;
 			head->trace_level = level;
 			static atomic<__int64> log_index(0);
-			if (trace_config().head_index)
+			//if (trace_config().head_index)
 			{
 				head->index = kk::Utility::Int64ToStr(log_index++, 10);
 			}
-			if (trace_config().head_level)
+			//if (trace_config().head_level)
 			{
 				head->level = strlevel;
 			}
-			if (trace_config().head_label)
+			//if (trace_config().head_label)
 			{
 				head->label = label;
 				if (head->label.empty())
@@ -339,46 +340,46 @@ namespace kk
 					head->label = trace_config().head_label_text;
 				}
 			}
-			if (trace_config().head_thread_id)
+			//if (trace_config().head_thread_id)
 			{
 				std::thread::id this_id = std::this_thread::get_id();
 				std::stringstream ss;
 				ss << this_id;
 				head->thread_id = ss.str();
 			}
-			if (trace_config().head_datetime)
+			//if (trace_config().head_datetime)
 			{
 				head->datetime = kk::Utility::GetDateTimeStr();
 			}
-			if (trace_config().head_runtime)
+			//if (trace_config().head_runtime)
 			{
 				head->runtime = kk::Utility::GetRunTimeStr();
 			}
-			if (trace_config().head_process_name)
+			//if (trace_config().head_process_name)
 			{
 				head->process_name = process_name_;
 			}
-			if (trace_config().head_module_name)
+			//if (trace_config().head_module_name)
 			{
 				head->module_name = module_name;
 			}
-			if (trace_config().head_file_name)
+			//if (trace_config().head_file_name)
 			{
 				head->file_name = file_name;
 			}
-			if (trace_config().head_function_name)
+			//if (trace_config().head_function_name)
 			{
 				head->function_name = func_name;
 			}
-			if (trace_config().head_line)
+			//if (trace_config().head_line)
 			{
 				head->line = kk::Utility::Int64ToStr(line, 10);
 			}
-			if (trace_config().head_async)
+			//if (trace_config().head_async)
 			{
 				head->async = trace_config().async ? "async" : "sync";
 			}
-			if (trace_config().head_sync_lock)
+			//if (trace_config().head_sync_lock)
 			{
 				head->async = trace_config().head_sync_lock ? "lock" : "unlock";
 			}
