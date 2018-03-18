@@ -1,4 +1,4 @@
-﻿// kloglibtest.cpp : Defines the entry point for the console application.
+// kloglibtest.cpp : Defines the entry point for the console application.
 //
 
 #include "targetver.h"
@@ -44,7 +44,7 @@ int trace_test(const string& log_content)
 
 int main()
 {
-	trace_test("my log content");
+	trace_test("my log content 中文");
 	WaitTrace();
     return 0;
 }
