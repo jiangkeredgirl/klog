@@ -186,13 +186,13 @@
     <ClInclude Include="traceloader.h" />
     <ClInclude Include="traceloaderimpl.h" />
     <ClInclude Include="tracemacr.h" />
+    <ClInclude Include="TracePackage.h" />
     <ClInclude Include="traceprinter.h" />
     <ClInclude Include="traceprinterimpl.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="config.cpp" />
     <ClCompile Include="rapidjsonparser.cpp" />
-    <ClCompile Include="traceloader.cpp" />
     <ClCompile Include="traceloaderimpl.cpp" />
     <ClCompile Include="traceprinterimpl.cpp" />
   </ItemGroup>

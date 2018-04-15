@@ -50,5 +50,5 @@
 
 #define  TRACE_FILE_SIZE            (1000)
 #define  TRACE_LIST_SIZE            10000
-#define  ONE_TRACE_SIZE             1024
+#define  ONE_TRACE_SIZE             1048576 // 一条trace预分配1M内存
 

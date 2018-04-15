@@ -547,7 +547,7 @@ int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jso
 		}
 		if (doc.HasMember("head_label_text") && doc["head_label_text"].IsString())
 		{
-			doc["head_label_text"].SetString(trace_config.head_label_text.c_str(), trace_config.head_label_text.size(), allocator);
+			doc["head_label_text"].SetString(trace_config.head_label_text.c_str(), (rapidjson::SizeType)trace_config.head_label_text.size(), allocator);
 		}
 		else
 		{
@@ -555,7 +555,7 @@ int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jso
 		}
 		if (doc.HasMember("trace_file_dir") && doc["trace_file_dir"].IsString())
 		{
-			doc["trace_file_dir"].SetString(trace_config.trace_file_dir.c_str(), trace_config.trace_file_dir.size(), allocator);
+			doc["trace_file_dir"].SetString(trace_config.trace_file_dir.c_str(), (rapidjson::SizeType)trace_config.trace_file_dir.size(), allocator);
 		}
 		else
 		{
@@ -563,7 +563,7 @@ int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jso
 		}
 		if (doc.HasMember("trace_com_name") && doc["trace_com_name"].IsString())
 		{
-			doc["trace_com_name"].SetString(trace_config.trace_com_name.c_str(), trace_config.trace_com_name.size(), allocator);
+			doc["trace_com_name"].SetString(trace_config.trace_com_name.c_str(), (rapidjson::SizeType)trace_config.trace_com_name.size(), allocator);
 		}
 		else
 		{

@@ -48,12 +48,12 @@
     <ClInclude Include="rapidjsonparser.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="TracePackage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="traceprinterimpl.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="traceloader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="traceloaderimpl.cpp">
