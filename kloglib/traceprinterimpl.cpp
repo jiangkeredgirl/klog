@@ -233,11 +233,16 @@ namespace kk
 				}
 				char* log_exp = new char[log_length];
 				memset(log_exp, 0, sizeof(char) * log_length);
+				int write_size = 0;
 				va_list va;
 				va_start(va, log_format);
-				_vsnprintf_s(log_exp, /*sizeof(char) * */(log_length - 1), log_length - 1, log_format, va);
+				write_size = _vsnprintf_s(log_exp, log_length, _TRUNCATE, log_format, va);
 				va_end(va);
-				log_body = log_body + log_exp;
+				log_body += log_exp;
+				if (write_size == -1)
+				{
+					log_body += "[...truncate, use Trace(xxx) replace Trace(\"%s\", xxx) by klog author]";
+				}
 				delete[] log_exp;
 			} while (false);
 			///

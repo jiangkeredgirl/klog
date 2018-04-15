@@ -12,16 +12,22 @@ using namespace std;
 
 namespace kk
 {
-	class TraceLoaderImpl;
-	class KLOGLIB_API TraceLoader
+	class TraceLoader
 	{
 	public:
-		TraceLoader(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
-		~TraceLoader();
-		stringstream& trace_stream();
-
-	private:
-		TraceLoaderImpl*  trace_loader_impl_;
+		virtual stringstream& trace_stream() = 0;
 	};
-}
 
+
+#ifdef __cplusplus
+	extern "C" {
+#endif
+		KLOGLIB_API TraceLoader* NewTraceLoader(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
+		KLOGLIB_API void DeleteTraceLoader(TraceLoader* loader);
+#ifdef __cplusplus
+	}
+#endif
+
+	typedef TraceLoader* (*NewTraceLoaderFun)(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
+	typedef void (*DeleteTraceLoaderFun)(TraceLoader* loader);
+}
