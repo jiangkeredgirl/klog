@@ -2,7 +2,7 @@
 
 //#include "traceprinter.h"
 //#include "traceloader.h"
-//#define DYNAMIC_LOAD_DLL
+#define DYNAMIC_LOAD_DLL
 #ifdef DYNAMIC_LOAD_DLL	
 #define KLOG_DLL_NAME  "kloglib_x64_v141_Debug.dll"
 #endif
