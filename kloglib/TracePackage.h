@@ -40,7 +40,7 @@ namespace KKTracePackage
 				{
 					break;
 				}
-#ifdef DYNAMIC_LOAD_DLL
+#if KLOG_USE_DYNAMIC_DLL
 				m_hDll = LoadLibraryA(KLOG_DLL_NAME);
 #endif
 				if (m_hDll == nullptr)
@@ -99,7 +99,7 @@ namespace KKTracePackage
 	private:
 		TracePrinter()
 		{
-#ifdef DYNAMIC_LOAD_DLL
+#if KLOG_USE_DYNAMIC_DLL
 			if (TraceLibrary::instance()->m_TracePrinterInstance)
 			{
 				m_TracePrinter = TraceLibrary::instance()->m_TracePrinterInstance();
@@ -168,7 +168,7 @@ namespace KKTracePackage
 		template <typename... Args>
 		TraceLoader(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, Args... args)
 		{
-#ifdef DYNAMIC_LOAD_DLL
+#if KLOG_USE_DYNAMIC_DLL
 			if (TraceLibrary::instance()->m_NewTraceLoader)
 			{
 				m_TraceLoader = TraceLibrary::instance()->m_NewTraceLoader(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_format, args...);
@@ -181,7 +181,7 @@ namespace KKTracePackage
 		{
 			if (m_TraceLoader)
 			{
-#ifdef DYNAMIC_LOAD_DLL
+#if KLOG_USE_DYNAMIC_DLL
 				if (TraceLibrary::instance()->m_DeleteTraceLoader)
 				{
 					TraceLibrary::instance()->m_DeleteTraceLoader(m_TraceLoader);
