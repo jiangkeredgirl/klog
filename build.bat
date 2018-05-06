@@ -1,7 +1,7 @@
 @call "%VS141COMNTOOLS%VsDevCmd.bat"
 cd /d %~dp0
-MSBuild klog.sln /m /target:Rebuild /property:Platform=x86  /p:Configuration=Debug   /p:VisualStudioVersion=14.1
-MSBuild klog.sln /m /target:Rebuild /property:Platform=x86  /p:Configuration=Release /p:VisualStudioVersion=14.1
-MSBuild klog.sln /m /target:Rebuild /property:Platform=x64  /p:Configuration=Debug   /p:VisualStudioVersion=14.1
-MSBuild klog.sln /m /target:Rebuild /property:Platform=x64  /p:Configuration=Release /p:VisualStudioVersion=14.1
+MSBuild klog.sln /t:rebuild /p:platform=x86 /p:configuration=debug   /p:PlatformToolset=v141
+MSBuild klog.sln /t:rebuild /p:platform=x86 /p:Configuration=release /p:PlatformToolset=v141
+MSBuild klog.sln /t:rebuild /p:platform=x64 /p:configuration=debug   /p:PlatformToolset=v141
+MSBuild klog.sln /t:rebuild /p:platform=x64 /p:Configuration=release /p:PlatformToolset=v141
 pause
