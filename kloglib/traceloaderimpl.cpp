@@ -1,4 +1,4 @@
-#include "traceloaderimpl.h"
+﻿#include "traceloaderimpl.h"
 #include "TracePrinterimpl.h"
 
 namespace kk

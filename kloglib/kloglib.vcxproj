@@ -72,28 +72,28 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>.\kutility\;.\rapidjson\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>.\kutility\;.\rapidjson\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>.\kutility\;.\rapidjson\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>.\kutility\;.\rapidjson\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
