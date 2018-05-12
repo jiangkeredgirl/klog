@@ -7,3 +7,4 @@ echo f|xcopy /y  .\tracepackage.h                     .\OutKlogSDK\include\
 echo f|xcopy /y  .\bin\kloglib*.lib                   .\OutKlogSDK\lib\
 echo f|xcopy /y  .\bin\kloglib*.dll                   .\OutKlogSDK\bin\
 echo f|xcopy /y  .\bin\kloglib*.pdb                   .\OutKlogSDK\bin\
+echo f|xcopy /y  .\klog.config                        .\OutKlogSDK\bin\
