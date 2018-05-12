@@ -189,11 +189,12 @@ namespace kk
 
 	TracePrinterImpl::TracePrinterImpl(void)
 	{
-		process_name_ = kk::Utility::GetFileName(kk::Utility::GetProgramPath());	
-		string::size_type pos = process_name_.rfind(".exe");
+		process_name_ = kk::Utility::GetFileName(kk::Utility::GetProgramPath());
+		string process_name_dir = process_name_;
+		string::size_type pos = process_name_dir.rfind(".exe");
 		if (pos != string::npos)
 		{
-			process_name_ = process_name_.substr(0, process_name_.size()-4);
+			process_name_dir = process_name_dir.substr(0, process_name_dir.size()-4);
 		}
 		process_time_ = kk::Utility::GetLogDateTimeStr();
 		int errorCode = Config::instance().GetTraceConfig(trace_config_);
@@ -201,7 +202,7 @@ namespace kk
 		{
 			Config::instance().SetTraceConfig(trace_config_);
 		}
-		trace_config_.trace_file_dir = ".\\klogs\\" + process_name_ + "\\";
+		trace_config_.trace_file_dir = ".\\klogs\\" + process_name_dir + "\\";
 		InitTrace();
 	}
 
@@ -611,7 +612,7 @@ namespace kk
 		static const int file_max_size = trace_config().trace_file_size * 1024 * 1024;
 		do {
 			FILE* log_file = nullptr;
-			errno_t err = fopen_s(&log_file, trace_file_name.c_str(), ("at"));
+			errno_t err = fopen_s(&log_file, trace_file_name.c_str(), ("a+"));
 			if (err)
 			{
 				fprintf(stdout, ("open file error, path:%s"), trace_file_name.c_str());
@@ -621,7 +622,7 @@ namespace kk
 			if (ftell(log_file) > file_max_size)
 			{
 				fclose(log_file);
-				if (fopen_s(&log_file, trace_file_name.c_str(), ("wt")))
+				if (fopen_s(&log_file, trace_file_name.c_str(), ("w+")))
 				{
 					break;
 				}

@@ -46,6 +46,24 @@ int trace_test(const string& log_content)
 
 int main()
 {
+	//SetConsoleTitle(L"My Console Window - 你好");
+	//HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+
+	//char* a = setlocale(LC_ALL, "chinese");
+	//SetConsoleOutputCP(CP_UTF8);
+	//SetConsoleCP(CP_UTF8);
+
+	//CONSOLE_FONT_INFOEX fontInfo;
+	//fontInfo.cbSize = sizeof(fontInfo);
+	//fontInfo.FontFamily = 54;
+	//fontInfo.FontWeight = 400;
+	//fontInfo.nFont = 0;
+	//const wchar_t myFont[] = L"KaiTi";
+	//fontInfo.dwFontSize = { 18, 41 };
+	//std::copy(myFont, myFont + (sizeof(myFont) / sizeof(wchar_t)), fontInfo.FaceName);
+	//SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
+
+
 	trace_test("my log content");
 	WaitTrace();
 	return 0;
