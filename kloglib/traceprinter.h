@@ -22,6 +22,9 @@ namespace kk
 		bool trace_target_file;
 		bool trace_target_socket;
 		bool trace_target_com;
+		bool trace_target_level;  ///< 是否分等级显示
+		bool trace_target_module; ///< 是否分模块显示
+		bool trace_target_date;   ///< 是否分日期显示
 		bool async;
 		bool sync_lock;
 		bool head;

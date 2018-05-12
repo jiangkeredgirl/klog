@@ -22,12 +22,15 @@
 #define  TRACE_TEMP            8                     ///< temporary out,0 not output
 #define  TRACE_VALID_LEVEL     (TRACE_TEMP+10)      ///< 输出等级，1<= level && level <= TRACE_valid_level的trace全部输出
 
-// 定义输出目标窗口，包括编译器输出窗口，控制台窗口，文件，tcp网络，com口，
+// 定义输出目标窗口，包括编译器输出窗口，控制台窗口，文件，tcp网络，com口，分等级，分模块，分日期显示
 #define  TRACE_TARGET_COMPILE      1                     ///< 0 not output to compile output,1 output to compile output
 #define  TRACE_TARGET_CONSOLE      1                     ///< 0 not output to console,1 output to sonsole
 #define  TRACE_TARGET_FILE         1                     ///< 0 not output to file, 1 output to file
 #define  TRACE_TARGET_SOCKET       1                     ///< 0 not output to network, 1 output to network
 #define  TRACE_TARGET_COM          1                     ///< 0 not output to com, 1 output to com
+#define  TRACE_TARGET_LEVEL        0                     ///< 是否分等级显示
+#define  TRACE_TARGET_MODULE       0                     ///< 是否分模块显示
+#define  TRACE_TARGET_DATE         1                     ///< 是否分日期显示
 
 // 定义输出的log头，是否需要输出log头，以及log的哪些字段
 #define  TRACE_HEAD                  1

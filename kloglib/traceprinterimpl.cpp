@@ -15,6 +15,9 @@ namespace kk
 		trace_target_com = TRACE_TARGET_COM;
 		trace_target_file = TRACE_TARGET_FILE;
 		trace_target_socket = TRACE_TARGET_SOCKET;
+		trace_target_level = TRACE_TARGET_LEVEL;
+		trace_target_module = TRACE_TARGET_MODULE;
+		trace_target_date = TRACE_TARGET_DATE;
 		
 		async = TRACE_ASYNC;
 		sync_lock = TRACE_SYNC_LOCK;
@@ -469,7 +472,7 @@ namespace kk
 	{
 		if (trace_config().trace_target_file)
 		{
-			kk::Utility::CreateDir(kk::Utility::GetDirectoryName(trace_config().trace_file_dir));
+			kk::Utility::CreateDir(trace_config().trace_file_dir);
 		}
 		if (trace_config().trace_target_console)
 		{
@@ -585,25 +588,54 @@ namespace kk
 
 	int TracePrinterImpl::OutToFile(shared_ptr<TraceEntry> trace_entry)
 	{
-		const string& trace_entry_text = trace_entry->trace_text();
-		// 整个进程所有模块的输出
-		string trace_file_name = trace_config().trace_file_dir
-			+ process_name_ + "_" + process_time_
-			+ "_TRACE_ALL.log";
-		OutToFile(trace_file_name, trace_entry_text);
-		trace_file_name = trace_config().trace_file_dir
-			+ process_name_ + "_" + process_time_
-			+ "_" + trace_entry->trace_head()->level + ".log";
-		OutToFile(trace_file_name, trace_entry_text);
-		// 按模块名输出
-		trace_file_name = trace_config().trace_file_dir
-			+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_
-			+ "_TRACE_ALL.log";
-		OutToFile(trace_file_name, trace_entry_text);
-		trace_file_name = trace_config().trace_file_dir
-			+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_
-			+ "_" + trace_entry->trace_head()->level + ".log";
-		OutToFile(trace_file_name, trace_entry_text);
+		do
+		{
+			// 按日期创建文件夹
+			string trace_file_dir = trace_config().trace_file_dir;
+			if (trace_config().trace_target_date)
+			{
+				trace_file_dir += kk::Utility::GetDateStr() + "\\";
+				int error_code = kk::Utility::CreateDir(trace_file_dir);
+				if (error_code)
+				{
+					fprintf(stdout, ("create dir error, path:%s"), trace_file_dir.c_str());
+					break;
+				}
+			}
+			const string& trace_entry_text = trace_entry->trace_text();
+
+			// 整个进程所有模块的所有等级log输出
+			string trace_file_name = trace_file_dir
+				+ process_name_ + "_" + process_time_
+				+ "_TRACE_ALL.log";
+			OutToFile(trace_file_name, trace_entry_text);
+			// 整个进程按等级输出
+			if (trace_config().trace_target_level)
+			{
+				trace_file_name = trace_file_dir
+					+ process_name_ + "_" + process_time_
+					+ "_" + trace_entry->trace_head()->level + ".log";
+				OutToFile(trace_file_name, trace_entry_text);
+			}
+
+			// 按模块输出所有等级log
+			if (trace_config().trace_target_module)
+			{
+				trace_file_name = trace_file_dir
+					+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_
+					+ "_TRACE_ALL.log";
+				OutToFile(trace_file_name, trace_entry_text);
+				// 按模块按等级输出
+				if (trace_config().trace_target_level)
+				{
+					trace_file_name = trace_file_dir
+						+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_
+						+ "_" + trace_entry->trace_head()->level + ".log";
+					OutToFile(trace_file_name, trace_entry_text);
+				}
+			}
+
+		} while (false);
 		return 0;
 	}
 

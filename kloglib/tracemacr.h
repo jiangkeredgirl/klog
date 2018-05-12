@@ -39,7 +39,7 @@
 #define  TRACE_TEMP            8                     ///< temporary out,0 not output
 
 // log 标签
-#define  TRACE_LABEL          ("kk")                 ///< my output label
+#define  TRACE_LABEL          ("Log'sOwner")           ///< my output label
 
 // 定义一些常用的trace宏
 // c风格char类型 编译期可以去掉trace代码

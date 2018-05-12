@@ -87,6 +87,34 @@ int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trac
 			break;
 		}
 		trace_config.trace_target_socket = doc["trace_target_socket"].GetBool();
+		if (!doc.HasMember("trace_target_level"))
+		{
+			break;
+		}
+		if (!doc["trace_target_level"].IsBool())
+		{
+			break;
+		}
+		trace_config.trace_target_level = doc["trace_target_level"].GetBool();
+		if (!doc.HasMember("trace_target_module"))
+		{
+			break;
+		}
+		if (!doc["trace_target_module"].IsBool())
+		{
+			break;
+		}
+		trace_config.trace_target_module = doc["trace_target_module"].GetBool();
+		if (!doc.HasMember("trace_target_date"))
+		{
+			break;
+		}
+		if (!doc["trace_target_date"].IsBool())
+		{
+			break;
+		}
+		trace_config.trace_target_date = doc["trace_target_date"].GetBool();
+
 		if (!doc.HasMember("async"))
 		{
 			break;
@@ -393,6 +421,31 @@ int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jso
 		{
 			doc.AddMember("trace_target_com", trace_config.trace_target_com, allocator);
 		}
+		if (doc.HasMember("trace_target_level") && doc["trace_target_level"].IsBool())
+		{
+			doc["trace_target_level"].SetBool(trace_config.trace_target_level);
+		}
+		else
+		{
+			doc.AddMember("trace_target_level", trace_config.trace_target_level, allocator);
+		}
+		if (doc.HasMember("trace_target_module") && doc["trace_target_module"].IsBool())
+		{
+			doc["trace_target_module"].SetBool(trace_config.trace_target_module);
+		}
+		else
+		{
+			doc.AddMember("trace_target_module", trace_config.trace_target_module, allocator);
+		}
+		if (doc.HasMember("trace_target_date") && doc["trace_target_date"].IsBool())
+		{
+			doc["trace_target_date"].SetBool(trace_config.trace_target_date);
+		}
+		else
+		{
+			doc.AddMember("trace_target_date", trace_config.trace_target_date, allocator);
+		}
+
 		if (doc.HasMember("async") && doc["async"].IsBool())
 		{
 			doc["async"].SetBool(trace_config.async);
