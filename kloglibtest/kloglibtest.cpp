@@ -44,7 +44,7 @@ int trace_test(const string& log_content)
 }
 
 
-int main()
+int _tmain()
 {
 	//SetConsoleTitle(L"My Console Window - 你好");
 	//HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
