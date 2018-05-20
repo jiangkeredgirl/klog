@@ -571,18 +571,17 @@ namespace kk
 	}
 
 	int TracePrinterImpl::OutToConsole(shared_ptr<TraceEntry> trace_entry)
-	{
-		//int defult_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+	{		
 		if (default_level_color.count(trace_entry->trace_head()->trace_level))
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_level_color[trace_entry->trace_head()->trace_level]);
-			//fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
-			//SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defult_color);
 		}
-		//else
-		//{
 		fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
-		//}
+		if (default_level_color.count(trace_entry->trace_head()->trace_level))
+		{
+			int defult_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defult_color);
+		}
 		return 0;
 	}
 
@@ -598,7 +597,7 @@ namespace kk
 				int error_code = kk::Utility::CreateDir(trace_file_dir);
 				if (error_code)
 				{
-					fprintf(stdout, ("create dir error, path:%s"), trace_file_dir.c_str());
+					fprintf(stdout, ("create dir error, path:%s\n"), trace_file_dir.c_str());
 					break;
 				}
 			}
@@ -647,7 +646,7 @@ namespace kk
 			errno_t err = fopen_s(&log_file, trace_file_name.c_str(), ("a+"));
 			if (err)
 			{
-				fprintf(stdout, ("open file error, path:%s"), trace_file_name.c_str());
+				fprintf(stdout, ("open file error, path:%s\n"), trace_file_name.c_str());
 				break;
 			}
 			fseek(log_file, 0, SEEK_END);
