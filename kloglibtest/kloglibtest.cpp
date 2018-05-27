@@ -30,16 +30,20 @@ int trace_test(const string& log_content)
 	TraceTemp("%s", log_content.c_str()); //c风格 temp级别
 	Trace(TRACE_INFO, "%s", log_content.c_str());
 
-	TraceOKCout() << "\n\nc+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++trace\n\n";
+	TraceOKCout << "\n\nc+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++trace\n\n";
 
-	TraceErrorCout() << log_content;//c++风格，编译器代码不能去掉
-	TraceWarningCout() << log_content;
-	TraceOKCout() << log_content; // tchar类型
-	TraceNoticeCout() << log_content;
-	TraceInfoCout() << log_content;
-	TraceDebugCout() << log_content;
-	TraceTempCout() << log_content;
+	TraceErrorCout << log_content;//c++风格，编译器代码不能去掉
+	TraceWarningCout << log_content;
+	TraceOKCout << log_content; // tchar类型
+	TraceNoticeCout << log_content;
+	TraceInfoCout << log_content;
+	TraceDebugCout << log_content;
+	TraceTempCout << log_content;
 	TraceCout(MYDEFINE_LEVEL) << log_content;
+
+	printf("printf=================================\n");
+	//cout << "cout==================================" << endl;
+	//std::cout << "std::cout==================================" << endl;
 	return 0;
 }
 
