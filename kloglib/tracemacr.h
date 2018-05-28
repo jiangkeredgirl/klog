@@ -1,36 +1,5 @@
 ﻿#pragma once
 
-#define PRINT_TO_KLOG          0                     ///< print function convert to klog function
-#define KLOG_TO_PRINTF         0					 ///< klog function convert to print function
-
-#if PRINT_TO_KLOG
-#define printf(log_format, ...)   Trace(TRACE_INFO, log_format, ##__VA_ARGS__)
-#define cout                      TraceInfoCout
-#endif // PRINT_TO_KLOG
-
-#if KLOG_TO_PRINTF
-#include <iostream>
-#define Trace(level, log_format, ...)  printf(log_format, ##__VA_ARGS__)
-#define TraceCout(level)               std::cout
-#define TraceError          printf
-#define TraceWarning        printf
-#define TraceOK             printf
-#define TraceNotice         printf
-#define TraceInfo           printf
-#define TraceDebug          printf
-#define TraceTemp           printf
-#define TraceErrorCout      std::cout
-#define TraceWarningCout    std::cout
-#define TraceOKCout         std::cout
-#define TraceNoticeCout     std::cout
-#define TraceInfoCout       std::cout
-#define TraceDebugCout      std::cout
-#define TraceTempCout       std::cout
-#define Track               printf
-#define TrackCout           std::cout
-#endif // KLOG_TO_PRINT
-
-
 //#include "traceprinter.h"
 //#include "traceloader.h"
 #define KLOG_USE_DYNAMIC_DLL    1
@@ -122,3 +91,23 @@
 #define TraceTrackCout(level) stringstream()
 #endif // !TRACK_OUT
 #define WaitTrace()  KKTracePackage::TracePrinter::instance()->WaitTraceThreadEnd()
+
+
+/// replace between of printf and trace 
+#define PRINT_TO_KLOG          0                     ///< print function convert to klog function
+#define KLOG_TO_PRINTF         0					 ///< klog function convert to print function
+
+#if PRINT_TO_KLOG
+#define printf   TraceInfo
+#define cout     TraceInfoCout
+#define KLOG_TO_PRINTF         0
+#endif // PRINT_TO_KLOG
+
+#if KLOG_TO_PRINTF
+#include <iostream>
+#define Trace(level, log_format, ...)       printf("\n");printf(log_format, ##__VA_ARGS__)
+#define TraceTrack(level, log_format, ...)  printf("\n");printf(log_format, ##__VA_ARGS__)
+#define TraceCout(level)                    std::cout << "\n";std::cout
+#define TraceTrackCout(level)               std::cout << "\n";std::cout
+#define PRINT_TO_KLOG          0
+#endif // KLOG_TO_PRINT
