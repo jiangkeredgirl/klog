@@ -94,14 +94,14 @@
 
 
 /// replace between of printf and trace 
-#define PRINT_TO_KLOG          0                     ///< print function convert to klog function
-#define KLOG_TO_PRINTF         0					 ///< klog function convert to print function
+#define PRINTF_TO_KLOG         0                     ///< print function convert to klog function
+#define KLOG_TO_PRINTF         0                     ///< klog function convert to print function
 
-#if PRINT_TO_KLOG
+#if PRINTF_TO_KLOG
 #define printf   TraceInfo
 #define cout     TraceInfoCout
 #define KLOG_TO_PRINTF         0
-#endif // PRINT_TO_KLOG
+#endif // PRINTF_TO_KLOG
 
 #if KLOG_TO_PRINTF
 #include <iostream>
@@ -109,5 +109,5 @@
 #define TraceTrack(level, log_format, ...)  printf("\n");printf(log_format, ##__VA_ARGS__)
 #define TraceCout(level)                    std::cout << "\n";std::cout
 #define TraceTrackCout(level)               std::cout << "\n";std::cout
-#define PRINT_TO_KLOG          0
+#define PRINTF_TO_KLOG          0
 #endif // KLOG_TO_PRINT
