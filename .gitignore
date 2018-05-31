@@ -7,3 +7,5 @@ OutKlogSDK
 OutKloglibTestBin
 KlogSDK
 /kloglibtest/*.user
+GeneratedFiles
+/klogclient/*.user
