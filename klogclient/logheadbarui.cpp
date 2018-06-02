@@ -14,7 +14,7 @@ void LogHeadBarui::setupUi(QWidget* hostWidget)
 	if (m_hostWidget)
 	{
 		m_hostWidget->setFixedHeight(26);
-		m_hostWidget->setStyleSheet("LogHeadBar{border: 1px solid red; }");
+		m_hostWidget->setStyleSheet("LogHeadBar{border:1px solid red;}");
 
 		QHBoxLayout* layout = new QHBoxLayout;
 		m_hostWidget->setLayout(layout);

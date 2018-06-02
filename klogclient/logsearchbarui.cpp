@@ -14,7 +14,7 @@ void LogSearchBarui::setupUi(QWidget* hostWidget)
 	if (m_hostWidget)
 	{
 		m_hostWidget->setFixedHeight(26);
-		m_hostWidget->setStyleSheet("LogSearchBar{border: 1px solid red; }");
+		m_hostWidget->setStyleSheet("LogSearchBar{border:1px solid red;}");
 
 		QHBoxLayout* layout = new QHBoxLayout;
 		m_hostWidget->setLayout(layout);

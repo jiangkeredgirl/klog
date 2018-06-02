@@ -13,7 +13,7 @@ void MenuBarui::setupUi(QMenuBar* hostWidget)
 	m_hostWidget = hostWidget;
 	if (m_hostWidget)
 	{
-		m_hostWidget->setStyleSheet("MenuBar{border: 1px solid red; }");
+		m_hostWidget->setStyleSheet("MenuBar{border:1px solid red;}");
 		m_viewMenu = m_hostWidget->addMenu(tr("&view"));
 		m_viewMenu->addAction(tr("log file"));
 		m_viewMenu->addAction(tr("log level"));
