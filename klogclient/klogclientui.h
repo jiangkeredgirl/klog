@@ -12,10 +12,10 @@ public:
 	~Klogclientui();
 
 public:
-	void setupUi(QMainWindow* myselfWidget);
+	void setupUi(QMainWindow* hostWidget);
 
 public:
-	QMainWindow*  m_myselfWidget = nullptr;
+	QMainWindow*  m_hostWidget = nullptr;
 	QVBoxLayout*  m_mainLayout = nullptr;
 
 };

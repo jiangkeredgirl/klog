@@ -66,6 +66,21 @@
     <ClCompile Include="loglevelbarui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="logheadbarui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logfilterbarui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logsearchbarui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logdisplayui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logfilebarui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="klogclient.h">
@@ -99,6 +114,21 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="loglevelbarui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logheadbarui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logfilterbarui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logsearchbarui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logdisplayui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logfilebarui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

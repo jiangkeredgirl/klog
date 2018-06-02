@@ -3,18 +3,17 @@
 #include <QObject>
 #include "qtstandard.h"
 
-class LogLevelBarui : public QObject
+class LogFilterBarui : public QObject
 {
 	Q_OBJECT
 
 public:
-	LogLevelBarui();
-	~LogLevelBarui();
+	LogFilterBarui();
+	~LogFilterBarui();
 
 public:
 	void setupUi(QWidget* hostWidget);
 
 public:
 	QWidget*  m_hostWidget = nullptr;
-
 };

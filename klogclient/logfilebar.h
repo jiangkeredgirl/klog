@@ -1,6 +1,7 @@
 #pragma once
 
 #include <QWidget>
+#include "logfilebarui.h"
 
 class LogFileBar : public QWidget
 {
@@ -9,4 +10,10 @@ class LogFileBar : public QWidget
 public:
 	LogFileBar(QWidget *parent);
 	~LogFileBar();
+
+protected:
+	virtual void paintEvent(QPaintEvent *) override;
+
+private:
+	LogFileBarui m_ui;
 };

@@ -12,10 +12,10 @@ public:
 	~MenuBarui();
 
 public:
-	void setupUi(QMenuBar* myselfWidget);
+	void setupUi(QMenuBar* hostWidget);
 
 public:
-	QMenuBar*  m_myselfWidget = nullptr;
+	QMenuBar*  m_hostWidget = nullptr;
 	QMenu*     m_viewMenu = nullptr;
 
 };

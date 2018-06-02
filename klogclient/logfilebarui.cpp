@@ -1,20 +1,20 @@
-#include "loglevelbarui.h"
+#include "logfilebarui.h"
 
-LogLevelBarui::LogLevelBarui()
+LogFileBarui::LogFileBarui()
 {
 }
 
-LogLevelBarui::~LogLevelBarui()
+LogFileBarui::~LogFileBarui()
 {
 }
 
-void LogLevelBarui::setupUi(QWidget* hostWidget)
+void LogFileBarui::setupUi(QWidget* hostWidget)
 {
 	m_hostWidget = hostWidget;
 	if (m_hostWidget)
 	{
 		m_hostWidget->setFixedHeight(26);
-		m_hostWidget->setStyleSheet("LogLevelBar{border: 1px solid red; }");
+		m_hostWidget->setStyleSheet("LogFileBar{border: 1px solid red; }");
 
 		QHBoxLayout* layout = new QHBoxLayout;
 		m_hostWidget->setLayout(layout);
@@ -22,7 +22,7 @@ void LogLevelBarui::setupUi(QWidget* hostWidget)
 		layout->setSpacing(1);
 
 		QLabel* labelTag = new QLabel;
-		labelTag->setText(tr("log level"));
+		labelTag->setText(tr("log file"));
 		layout->addWidget(labelTag);
 	}
 }
