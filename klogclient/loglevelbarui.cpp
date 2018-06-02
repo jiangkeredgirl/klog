@@ -21,8 +21,23 @@ void LogLevelBarui::setupUi(QWidget* hostWidget)
 		layout->setContentsMargins(1, 0, 0, 0);
 		layout->setSpacing(1);
 
-		QLabel* labelTag = new QLabel;
+		QLabel* labelTag = new QLabel(m_hostWidget);
 		labelTag->setText(tr("log level"));
 		layout->addWidget(labelTag);
+
+		QCheckBox* checkBox1 = new QCheckBox(m_hostWidget);
+		checkBox1->setText(tr("box1"));
+		checkBox1->setCheckState(Qt::CheckState::Unchecked);
+		layout->addWidget(checkBox1);
+
+		QCheckBox* checkBox2 = new QCheckBox;
+		checkBox2->setText(tr("box2"));
+		checkBox2->setCheckState(Qt::CheckState::PartiallyChecked);
+		layout->addWidget(checkBox2);
+
+		QCheckBox* checkBox3 = new QCheckBox;
+		checkBox3->setText(tr("box3"));
+		checkBox3->setCheckState(Qt::CheckState::Checked);
+		layout->addWidget(checkBox3);
 	}
 }

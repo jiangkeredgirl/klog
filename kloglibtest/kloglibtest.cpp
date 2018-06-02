@@ -48,27 +48,28 @@ int trace_test(const string& log_content)
 }
 
 
+void SetConsoleUTF8()
+{
+	SetConsoleTitle(L"klog输出");
+	SetConsoleOutputCP(CP_UTF8);
+	SetConsoleCP(CP_UTF8);
+	CONSOLE_FONT_INFOEX fontInfo;
+	memset(&fontInfo, 0, sizeof(CONSOLE_FONT_INFOEX));
+	fontInfo.cbSize = sizeof(fontInfo);
+	HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+	GetCurrentConsoleFontEx(hConsole, false, &fontInfo);
+	fontInfo.FontFamily = 54;
+	fontInfo.dwFontSize.X = 8;
+	fontInfo.dwFontSize.Y = 14;
+	fontInfo.FontWeight = FW_NORMAL;
+	wcscpy_s(fontInfo.FaceName, L"KaiTi");
+	SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
+}
+
 int _tmain()
 {
-	//SetConsoleTitle(L"My Console Window - 你好");
-	//HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
-
-	//char* a = setlocale(LC_ALL, "chinese");
-	//SetConsoleOutputCP(CP_UTF8);
-	//SetConsoleCP(CP_UTF8);
-
-	//CONSOLE_FONT_INFOEX fontInfo;
-	//fontInfo.cbSize = sizeof(fontInfo);
-	//fontInfo.FontFamily = 54;
-	//fontInfo.FontWeight = 400;
-	//fontInfo.nFont = 0;
-	//const wchar_t myFont[] = L"KaiTi";
-	//fontInfo.dwFontSize = { 18, 41 };
-	//std::copy(myFont, myFont + (sizeof(myFont) / sizeof(wchar_t)), fontInfo.FaceName);
-	//SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
-
-
-	trace_test("my log content");
+	SetConsoleUTF8();
+	trace_test(u8"my log content 支持中文");
 	WaitTrace();
 	return 0;
 }
