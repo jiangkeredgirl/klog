@@ -36,9 +36,69 @@
     <ClCompile Include="klogclient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="klogclientui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menubar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logfilebar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="loglevelbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logheadbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logfilterbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logsearchbar.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logdisplay.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menubarui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="loglevelbarui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="klogclient.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="klogclientui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="menubar.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logfilebar.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="loglevelbar.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logheadbar.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logfilterbar.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logsearchbar.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logdisplay.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="menubarui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="loglevelbarui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

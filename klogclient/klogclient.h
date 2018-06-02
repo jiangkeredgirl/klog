@@ -1,7 +1,9 @@
 #pragma once
 
 #include <QtWidgets/QMainWindow>
-//#include "ui_klogclient.h"
+#include "klogclientui.h"
+#include "menubar.h"
+#include "loglevelbar.h"
 
 class klogclient : public QMainWindow
 {
@@ -10,6 +12,11 @@ class klogclient : public QMainWindow
 public:
 	klogclient(QWidget *parent = Q_NULLPTR);
 
+	void Init();
+
 private:
-	//Ui::klogclientClass ui;
+	Klogclientui m_ui;
+
+	MenuBar*     m_menuBar = nullptr;
+	LogLevelBar* m_logLevelBar = nullptr;
 };

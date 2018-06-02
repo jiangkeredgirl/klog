@@ -1,0 +1,1 @@
+C:\Qt\Qt5.7.0\5.7\msvc2013\bin\windeployqt.exe GlassMaterialEditor.exe
