@@ -1,4 +1,5 @@
 #include "loglevelbarui.h"
+#include "cstandard.h"
 
 LogLevelBarui::LogLevelBarui()
 {
@@ -19,25 +20,32 @@ void LogLevelBarui::setupUi(QWidget* hostWidget)
 		QHBoxLayout* layout = new QHBoxLayout;
 		m_hostWidget->setLayout(layout);
 		layout->setContentsMargins(1, 0, 0, 0);
-		layout->setSpacing(1);
+		layout->setSpacing(10);
 
 		QLabel* labelTag = new QLabel(m_hostWidget);
 		labelTag->setText(tr("log level"));
 		layout->addWidget(labelTag);
+		labelTag->setStyleSheet("QLabel{border:1px solid red;}");
 
-		QCheckBox* checkBox1 = new QCheckBox(m_hostWidget);
-		checkBox1->setText(tr("box1"));
-		checkBox1->setCheckState(Qt::CheckState::Unchecked);
-		layout->addWidget(checkBox1);
+		vector<string> checkTags = {
+			"track",
+			"error",
+			"warning",
+			"ok",
+			"notice",
+			"info",
+			"debug",
+			"temp",
+			"customer"
+		};
+		for (auto item : checkTags)
+		{
+			QCheckBox* checkBox = new QCheckBox(m_hostWidget);
+			checkBox->setText(tr(item.c_str()));
+			layout->addWidget(checkBox);
+			checkBox->setStyleSheet("QCheckBox{border:1px solid red; padding:4px;}");
+		}
 
-		QCheckBox* checkBox2 = new QCheckBox;
-		checkBox2->setText(tr("box2"));
-		checkBox2->setCheckState(Qt::CheckState::PartiallyChecked);
-		layout->addWidget(checkBox2);
-
-		QCheckBox* checkBox3 = new QCheckBox;
-		checkBox3->setText(tr("box3"));
-		checkBox3->setCheckState(Qt::CheckState::Checked);
-		layout->addWidget(checkBox3);
+		layout->addStretch();
 	}
 }

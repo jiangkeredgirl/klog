@@ -24,13 +24,47 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		QLabel* labelTag = new QLabel;
 		labelTag->setText(tr("log file"));
 		layout->addWidget(labelTag);
-		labelTag->setStyleSheet("QLabel{border:1px solid red; padding:3px;}");
+		labelTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
-		QPushButton* localFileButton = new QPushButton;
-		localFileButton->setText(tr(u8"本地log文件..."));
-		layout->addWidget(localFileButton);
-		localFileButton->setStyleSheet("QPushButton{border:1px solid red; padding:3px;}");
-		//localFileButton->setStyleSheet("QPushButton{border:1px solid rgb(57,109,177);background-color: white;}");
+		QPushButton* buttonLocalFile = new QPushButton;
+		buttonLocalFile->setText(tr(u8"本地log文件..."));
+		layout->addWidget(buttonLocalFile);
+		buttonLocalFile->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");
+
+		QLabel* labelFileName = new QLabel;
+		labelFileName->setText(tr("log file path"));
+		layout->addWidget(labelFileName);
+		labelFileName->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
+		labelFileName->setDisabled(true);
+
+		layout->addSpacing(10);
+
+		QLabel* labelIPTag = new QLabel;
+		labelIPTag->setText(tr("ip"));
+		layout->addWidget(labelIPTag);
+		labelIPTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
+
+		QLineEdit* editIP = new QLineEdit;
+		editIP->setPlaceholderText(tr("ip"));
+		layout->addWidget(editIP);
+		editIP->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		editIP->setFixedWidth(150);
+
+		QLabel* labelPortTag = new QLabel;
+		labelPortTag->setText(tr("port"));
+		layout->addWidget(labelPortTag);
+		labelPortTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
+
+		QLineEdit* editPort = new QLineEdit;
+		editPort->setPlaceholderText(tr("port"));
+		layout->addWidget(editPort);
+		editPort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		editPort->setFixedWidth(100);
+
+		QPushButton* buttonConnect = new QPushButton;
+		buttonConnect->setText(tr(u8"连接"));
+		layout->addWidget(buttonConnect);
+		buttonConnect->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");	
 
 		layout->addStretch();
 	}
