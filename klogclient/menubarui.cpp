@@ -1,4 +1,4 @@
-#include "menubarui.h"
+﻿#include "menubarui.h"
 
 MenuBarui::MenuBarui()
 {
@@ -20,5 +20,7 @@ void MenuBarui::setupUi(QMenuBar* hostWidget)
 		m_viewMenu->addAction(tr("log head"));
 		m_viewMenu->addAction(tr("log filter"));
 		m_viewMenu->addAction(tr("log search"));
+		m_viewMenu->addAction(tr(u8"重置默认配置"));
+		m_viewMenu->addAction(tr(u8"清空log"));
 	}
 }

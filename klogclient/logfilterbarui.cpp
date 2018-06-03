@@ -49,7 +49,7 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		editNotShow->setFixedWidth(150);
 
 		QLabel* labelExecuteTimeTag = new QLabel;
-		labelExecuteTimeTag->setText(tr(u8"执行时间大于（毫秒)"));
+		labelExecuteTimeTag->setText(tr(u8"执行时间大于（毫秒)的函数"));
 		layout->addWidget(labelExecuteTimeTag);
 		labelExecuteTimeTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
