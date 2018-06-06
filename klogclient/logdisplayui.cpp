@@ -47,6 +47,8 @@ void LogDisplayui::setupUi(QWidget* hostWidget)
 		tableLogInfo->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
 	 	tableLogInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
    		tableLogInfo->setSelectionBehavior(QAbstractItemView::SelectRows);
+		//tableLogInfo->horizontalHeader()->setStretchLastSection(true);
+		//tableLogInfo->resizeColumnsToContents();		
 		tableLogInfo->verticalHeader()->setVisible(false);
 		tableLogInfo->horizontalHeader()->setFixedHeight(30);
 

@@ -14,6 +14,9 @@ public:
 protected:
 	virtual void paintEvent(QPaintEvent *) override;
 
+public slots:
+	void HandleButtonLocalFile();
+
 private:
 	LogFileBarui m_ui;
 };

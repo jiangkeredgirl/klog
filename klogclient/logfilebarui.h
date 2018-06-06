@@ -16,4 +16,6 @@ public:
 
 public:
 	QWidget*  m_hostWidget = nullptr;
+	QPushButton* m_buttonLocalFile = nullptr;
+	QLabel* m_labelFileName = nullptr;
 };

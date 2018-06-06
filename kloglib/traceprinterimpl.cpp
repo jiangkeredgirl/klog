@@ -171,7 +171,7 @@ namespace kk
 			{
 				break;
 			}
-			trace_text_ = trace_head_->head_text();
+			trace_text_ += trace_head_->head_text();
 			have_field = true;
 		} while (false);
 		do

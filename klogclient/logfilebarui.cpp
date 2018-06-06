@@ -26,16 +26,16 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(labelTag);
 		labelTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
-		QPushButton* buttonLocalFile = new QPushButton;
-		buttonLocalFile->setText(tr(u8"本地log文件..."));
-		layout->addWidget(buttonLocalFile);
-		buttonLocalFile->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");
+		m_buttonLocalFile = new QPushButton;
+		m_buttonLocalFile->setText(tr(u8"本地log文件..."));
+		layout->addWidget(m_buttonLocalFile);
+		m_buttonLocalFile->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");
 
-		QLabel* labelFileName = new QLabel;
-		labelFileName->setText(tr("log file path"));
-		layout->addWidget(labelFileName);
-		labelFileName->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
-		labelFileName->setDisabled(true);
+		m_labelFileName = new QLabel;
+		m_labelFileName->setText(tr("log file path"));
+		layout->addWidget(m_labelFileName);
+		m_labelFileName->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
+		m_labelFileName->setDisabled(true);
 
 		layout->addSpacing(10);
 
