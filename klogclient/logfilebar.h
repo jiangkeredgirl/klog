@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QWidget>
 #include "logfilebarui.h"
@@ -15,7 +15,7 @@ protected:
 	virtual void paintEvent(QPaintEvent *) override;
 
 public slots:
-	void HandleButtonLocalFile();
+	void SlotButtonLocalFile();
 
 private:
 	LogFileBarui m_ui;

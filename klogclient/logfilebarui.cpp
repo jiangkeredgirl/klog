@@ -36,6 +36,7 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(m_labelFileName);
 		m_labelFileName->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 		m_labelFileName->setDisabled(true);
+		m_labelFileName->setMaximumWidth(500);
 
 		layout->addSpacing(10);
 
