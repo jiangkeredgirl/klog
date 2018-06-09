@@ -51,6 +51,10 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(editIP);
 		editIP->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		editIP->setFixedWidth(150);
+		//editIP->setInputMask("000.000.000.000");
+		QRegExp rx("^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$");
+		QRegExpValidator* ipValidator = new QRegExpValidator(rx, this);
+		editIP->setValidator(ipValidator);
 
 		QLabel* labelPortTag = new QLabel;
 		labelPortTag->setText(tr("port"));
