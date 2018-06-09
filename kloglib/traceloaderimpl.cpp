@@ -52,7 +52,7 @@ namespace kk
 			{
 				break;
 			}
-			if (TracePrinterImpl::instance().trace_config().head_functiontime)
+			if (TracePrinterImpl::instance().trace_config().head_function_time)
 			{
 				begin_call_time_ = kk::Utility::GetRunTime();
 			}
@@ -75,10 +75,10 @@ namespace kk
 			//}	
 			if (trace_entry_->trace_head()->is_track)
 			{
-				if (TracePrinterImpl::instance().trace_config().head_functiontime)
+				if (TracePrinterImpl::instance().trace_config().head_function_time)
 				{
-					trace_entry_->trace_head_->runtime = kk::Utility::GetRunTimeStr();
-					trace_entry_->trace_head_->executetime = kk::Utility::Int64ToStr(kk::Utility::GetRunTime() - begin_call_time_, 10) + (" ms");
+					trace_entry_->trace_head_->runtime = kk::Utility::GetRunTime();
+					trace_entry_->trace_head_->function_time = trace_entry_->trace_head_->runtime - begin_call_time_;
 				}
 				trace_entry_->trace_head_->func_exit = ("<<");
 			}

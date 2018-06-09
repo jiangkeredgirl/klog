@@ -196,15 +196,15 @@ int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trac
 			break;
 		}
 		trace_config.head_runtime = doc["head_runtime"].GetBool();
-		if (!doc.HasMember("head_functiontime"))
+		if (!doc.HasMember("head_function_time"))
 		{
 			break;
 		}
-		if (!doc["head_functiontime"].IsBool())
+		if (!doc["head_function_time"].IsBool())
 		{
 			break;
 		}
-		trace_config.head_functiontime = doc["head_functiontime"].GetBool();
+		trace_config.head_function_time = doc["head_function_time"].GetBool();
 		if (!doc.HasMember("head_process_name"))
 		{
 			break;
@@ -518,13 +518,13 @@ int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jso
 		{
 			doc.AddMember("head_runtime", trace_config.head_runtime, allocator);
 		}
-		if (doc.HasMember("head_functiontime") && doc["head_functiontime"].IsBool())
+		if (doc.HasMember("head_function_time") && doc["head_function_time"].IsBool())
 		{
-			doc["head_functiontime"].SetBool(trace_config.head_functiontime);
+			doc["head_function_time"].SetBool(trace_config.head_function_time);
 		}
 		else
 		{
-			doc.AddMember("head_functiontime", trace_config.head_functiontime, allocator);
+			doc.AddMember("head_function_time", trace_config.head_function_time, allocator);
 		}
 		if (doc.HasMember("head_process_name") && doc["head_process_name"].IsBool())
 		{

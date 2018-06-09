@@ -12,24 +12,24 @@ namespace kk
 	struct TraceHead
 	{
 	public:
-		string index;                        ///< log序号
-		string level;                        ///< log等级
+		INT64  index = 0;                    ///< log序号
+		int    level = 0;                    ///< log等级
+		string macro_level;					 ///< log等级的宏形式
 		string label;                        ///< log标识	
 		string thread_id;                    ///< 线程id
-		string datetime;                     ///< log打印日期时间
-		string runtime;                      ///< log打印时程序运行时间
-		string executetime;                  ///< 函数体执行时间
+		INT64  datetime;                     ///< log打印日期时间
+		INT64  runtime = 0;                  ///< log打印时程序运行时间
+		INT64  function_time = 0;            ///< 函数体执行时间
 		string process_name;                 ///< 进程名
 		string module_name;                  ///< 模块名
 		string file_name;                    ///< file name;
 		string function_name;                ///< function name;
-		string line;                         ///< line number;
+		int    line = 0;                     ///< line number;
 		string func_enter;                   ///< function follow flag >>
 		string func_exit;                    ///< function follow flag <<
-		string async;                        ///< 是否为异步log
-		string sync_lock;                    ///< 同步模式下是否加锁		
+		bool   async = false;                ///< 是否为异步log
+		bool   sync_lock = false;            ///< 同步模式下是否加锁		
 		bool   is_track = false;
-		int    trace_level = 0;
 		const string& head_text();
 	private:
 		string head_text_;

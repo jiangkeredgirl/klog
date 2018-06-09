@@ -34,7 +34,7 @@ namespace kk
 		bool head_thread_id;
 		bool head_datetime;
 		bool head_runtime;
-		bool head_functiontime;
+		bool head_function_time;
 		bool head_process_name;
 		bool head_module_name;
 		bool head_file_name;

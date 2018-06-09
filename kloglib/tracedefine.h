@@ -40,7 +40,7 @@
 #define  TRACE_HEAD_THREAD_ID        1
 #define  TRACE_HEAD_DATETIME         1
 #define  TRACE_HEAD_RUNTIME          1
-#define  TRACE_HEAD_FUNCTIONTIME     1
+#define  TRACE_HEAD_FUNCTION_TIME    1
 #define  TRACE_HEAD_PROCESS_NAME     1                     ///< display processname
 #define  TRACE_HEAD_MODULE_NAME      1                     ///< display module namE
 #define  TRACE_HEAD_FILE_NAME        1

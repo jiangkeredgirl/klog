@@ -28,7 +28,7 @@ namespace kk
 		head_thread_id = TRACE_HEAD_THREAD_ID;
 		head_datetime = TRACE_HEAD_DATETIME;
 		head_runtime = TRACE_HEAD_RUNTIME;
-		head_functiontime = TRACE_HEAD_FUNCTIONTIME;
+		head_function_time = TRACE_HEAD_FUNCTION_TIME;
 		head_process_name = TRACE_HEAD_PROCESS_NAME;
 		head_module_name = TRACE_HEAD_MODULE_NAME;
 		head_file_name = TRACE_HEAD_FILE_NAME;
@@ -67,81 +67,86 @@ namespace kk
 				break;
 			}
 			head_text_ = "\"head\": {";
-			bool have_field = false;
+			string field = "";
 			if (!func_enter.empty())
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"func_track\":" + "\"" + func_enter + "\"";
-				have_field = true;
+				head_text_ += field + "\"func_track\":" + "\"" + func_enter + "\"";
+				field = ", ";
 			}
 			else if (!func_exit.empty())
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"func_track\":" + "\"" + func_exit + "\"";
-				have_field = true;
+				head_text_ += field + "\"func_track\":" + "\"" + func_exit + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_index)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"index\":" + "\"" + index + "\"";
-				have_field = true;
+				head_text_ += field + "\"index\":" + "\"" + to_string(index) + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_level)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"level\":" + "\"" + level + "\"";
-				have_field = true;
+				head_text_ += field + "\"level\":" + "\"" + macro_level + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_label)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"label\":" + "\"" + label + "\"";
-				have_field = true;
+				head_text_ += field + "\"label\":" + "\"" + label + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_thread_id)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"thread_id\":" + "\"" + thread_id + "\"";
-				have_field = true;
+				head_text_ += field + "\"thread_id\":" + "\"" + thread_id + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_process_name)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"process_name\":" + "\"" + process_name + "\"";
-				have_field = true;
+				head_text_ += field + "\"process_name\":" + "\"" + process_name + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_module_name)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"module_name\":" + "\"" + module_name + "\"";
-				have_field = true;
+				head_text_ += field + "\"module_name\":" + "\"" + module_name + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_file_name)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"file_name\":" + "\"" + file_name + "\"";
-				have_field = true;
+				head_text_ += field + "\"file_name\":" + "\"" + file_name + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_function_name)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"function_name\":" + "\"" + function_name + "\"";
-				have_field = true;
+				head_text_ += field + "\"function_name\":" + "\"" + function_name + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_line)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"line\":" + "\"" + line + "\"";
-				have_field = true;
+				head_text_ += field + "\"line\":" + "\"" + to_string(line) + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_datetime)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"datetime\":" + "\"" + datetime + "\"";
-				have_field = true;
+				head_text_ += field + "\"datetime\":" + "\"" + kk::Utility::GetDateTimeStr(datetime) + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_runtime)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"runtime\":" + "\"" + runtime + "\"";
-				have_field = true;
+				head_text_ += field + "\"runtime\":" + "\"" + kk::Utility::GetRunTimeStr(runtime) + "\"";
+				field = ", ";
+			}
+			if (is_track && TracePrinterImpl::instance().trace_config().head_function_time)
+			{
+				head_text_ += field + "\"function_time\":" + "\"" + to_string(function_time) + "ms" + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_async)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"async\":" + "\"" + async + "\"";
-				have_field = true;
+				head_text_ += field + "\"async\":" + "\"" + (async ? "true" : "false") + "\"";
+				field = ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_sync_lock)
 			{
-				head_text_ = head_text_ + (have_field ? ", " : "") + "\"sync_lock\":" + "\"" + sync_lock + "\"";
-				have_field = true;
+				head_text_ += field + "\"sync_lock\":" + "\"" + (sync_lock ? "true" : "false") + "\"";
+				field = ", ";
 			}
 			head_text_ = head_text_ + "}";
 		} while (false);
@@ -160,7 +165,7 @@ namespace kk
 	const string& TraceEntry::trace_text()
 	{
 		trace_text_ = "{";
-		bool have_field = false;
+		string field = "";
 		do
 		{			
 			if (trace_head_ == nullptr)
@@ -172,7 +177,7 @@ namespace kk
 				break;
 			}
 			trace_text_ += trace_head_->head_text();
-			have_field = true;
+			field = "\n,";
 		} while (false);
 		do
 		{
@@ -184,9 +189,9 @@ namespace kk
 			{
 				break;
 			}
-			trace_text_ = trace_text_ + (have_field ? "\n," : "") + trace_body_->body_text();
+			trace_text_ += field + trace_body_->body_text();
 		} while (false);
-		trace_text_ = trace_text_ + "}\n\n";
+		trace_text_ += "}\n\n";
 		return trace_text_;
 	}
 
@@ -330,68 +335,31 @@ namespace kk
 				break;
 			}
 			head = new TraceHead;
-			head->is_track = is_track;
-			head->trace_level = level;
 			static atomic<__int64> log_index(0);
-			//if (trace_config().head_index)
+			head->index = log_index++;
+			head->is_track = is_track;
+			head->level = level;
+			head->macro_level = strlevel;
+			transform(head->macro_level.begin(), head->macro_level.end(), head->macro_level.begin(), ::tolower);
+			head->label = label;
+			if (head->label.empty())
 			{
-				head->index = kk::Utility::Int64ToStr(log_index++, 10);
+				head->label = trace_config().head_label_text;
 			}
-			//if (trace_config().head_level)
-			{
-				head->level = strlevel;
-			}
-			//if (trace_config().head_label)
-			{
-				head->label = label;
-				if (head->label.empty())
-				{
-					head->label = trace_config().head_label_text;
-				}
-			}
-			//if (trace_config().head_thread_id)
-			{
-				std::thread::id this_id = std::this_thread::get_id();
-				std::stringstream ss;
-				ss << this_id;
-				head->thread_id = ss.str();
-			}
-			//if (trace_config().head_datetime)
-			{
-				head->datetime = kk::Utility::GetDateTimeStr();
-			}
-			//if (trace_config().head_runtime)
-			{
-				head->runtime = kk::Utility::GetRunTimeStr();
-			}
-			//if (trace_config().head_process_name)
-			{
-				head->process_name = process_name_;
-			}
-			//if (trace_config().head_module_name)
-			{
-				head->module_name = module_name;
-			}
-			//if (trace_config().head_file_name)
-			{
-				head->file_name = file_name;
-			}
-			//if (trace_config().head_function_name)
-			{
-				head->function_name = func_name;
-			}
-			//if (trace_config().head_line)
-			{
-				head->line = kk::Utility::Int64ToStr(line, 10);
-			}
-			//if (trace_config().head_async)
-			{
-				head->async = trace_config().async ? "async" : "sync";
-			}
-			//if (trace_config().head_sync_lock)
-			{
-				head->async = trace_config().head_sync_lock ? "lock" : "unlock";
-			}
+			std::thread::id this_id = std::this_thread::get_id();
+			std::stringstream ss;
+			ss << this_id;
+			head->thread_id = ss.str();
+			head->datetime = kk::Utility::GetDateTime();
+			head->runtime = kk::Utility::GetRunTime();
+			head->process_name = process_name_;
+			head->module_name = module_name;
+			head->file_name = file_name;
+			head->function_name = func_name;
+			head->line = line;
+			head->async = trace_config().async;
+			head->sync_lock = trace_config().sync_lock;
+
 		} while (false);
 		return head;
 	}
@@ -572,12 +540,12 @@ namespace kk
 
 	int TracePrinterImpl::OutToConsole(shared_ptr<TraceEntry> trace_entry)
 	{		
-		if (default_level_color.count(trace_entry->trace_head()->trace_level))
+		if (default_level_color.count(trace_entry->trace_head()->level))
 		{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_level_color[trace_entry->trace_head()->trace_level]);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_level_color[trace_entry->trace_head()->level]);
 		}
 		fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
-		if (default_level_color.count(trace_entry->trace_head()->trace_level))
+		if (default_level_color.count(trace_entry->trace_head()->level))
 		{
 			int defult_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defult_color);
@@ -606,14 +574,14 @@ namespace kk
 			// 整个进程所有模块的所有等级log输出
 			string trace_file_name = trace_file_dir
 				+ process_name_ + "_" + process_time_
-				+ "_TRACE_ALL.log";
+				+ "_trace_all.log";
 			OutToFile(trace_file_name, trace_entry_text);
 			// 整个进程按等级输出
 			if (trace_config().trace_target_level)
 			{
 				trace_file_name = trace_file_dir
 					+ process_name_ + "_" + process_time_
-					+ "_" + trace_entry->trace_head()->level + ".log";
+					+ "_" + trace_entry->trace_head()->macro_level + ".log";
 				OutToFile(trace_file_name, trace_entry_text);
 			}
 
@@ -622,14 +590,14 @@ namespace kk
 			{
 				trace_file_name = trace_file_dir
 					+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_
-					+ "_TRACE_ALL.log";
+					+ "_trace_all.log";
 				OutToFile(trace_file_name, trace_entry_text);
 				// 按模块按等级输出
 				if (trace_config().trace_target_level)
 				{
 					trace_file_name = trace_file_dir
 						+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_
-						+ "_" + trace_entry->trace_head()->level + ".log";
+						+ "_" + trace_entry->trace_head()->macro_level + ".log";
 					OutToFile(trace_file_name, trace_entry_text);
 				}
 			}
