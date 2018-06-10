@@ -23,296 +23,39 @@ int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trac
 		{
 			break;
 		}
+		DecodeValue(doc, "trace_out", trace_config.trace_out);
+		DecodeValue(doc, "track_out", trace_config.track_out);
+		DecodeValue(doc, "trace_target_compile", trace_config.trace_target_compile);
+		DecodeValue(doc, "trace_target_console", trace_config.trace_target_console);
+		DecodeValue(doc, "trace_target_com", trace_config.trace_target_com);
+		DecodeValue(doc, "trace_target_file", trace_config.trace_target_file);
+		DecodeValue(doc, "trace_target_socket", trace_config.trace_target_socket);
+		DecodeValue(doc, "trace_target_level", trace_config.trace_target_level);
+		DecodeValue(doc, "trace_target_module", trace_config.trace_target_module);
+		DecodeValue(doc, "trace_target_date", trace_config.trace_target_date);
+		DecodeValue(doc, "async", trace_config.async);
+		DecodeValue(doc, "sync_lock", trace_config.sync_lock);
+		DecodeValue(doc, "head", trace_config.head);
+		DecodeValue(doc, "head_index", trace_config.head_index);
+		DecodeValue(doc, "head_level", trace_config.head_level);
+		DecodeValue(doc, "head_label", trace_config.head_label);
+		DecodeValue(doc, "head_thread_id", trace_config.head_thread_id);
+		DecodeValue(doc, "head_datetime", trace_config.head_datetime);
+		DecodeValue(doc, "head_runtime", trace_config.head_runtime);
+		DecodeValue(doc, "head_function_time", trace_config.head_function_time);
+		DecodeValue(doc, "head_process_name", trace_config.head_process_name);
+		DecodeValue(doc, "head_module_name", trace_config.head_module_name);
+		DecodeValue(doc, "head_file_name", trace_config.head_file_name);
+		DecodeValue(doc, "head_function_name", trace_config.head_function_name);
+		DecodeValue(doc, "head_line", trace_config.head_line);
+		DecodeValue(doc, "head_async", trace_config.head_async);
+		DecodeValue(doc, "head_sync_lock", trace_config.head_sync_lock);
+		DecodeValue(doc, "valid_level", trace_config.valid_level);
+		DecodeValue(doc, "trace_file_size", trace_config.trace_file_size);
+		DecodeValue(doc, "head_label_text", trace_config.head_label_text);
+		DecodeValue(doc, "trace_file_dir", trace_config.trace_file_dir);
+		DecodeValue(doc, "trace_com_name", trace_config.trace_com_name);
 
-		if (!doc.HasMember("trace_out"))
-		{
-			break;
-		}
-		if (!doc["trace_out"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_out = doc["trace_out"].GetBool();
-		if (!doc.HasMember("track_out"))
-		{
-			break;
-		}
-		if (!doc["track_out"].IsBool())
-		{
-			break;
-		}
-		trace_config.track_out = doc["track_out"].GetBool();
-		if (!doc.HasMember("trace_target_compile"))
-		{
-			break;
-		}
-		if (!doc["trace_target_compile"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_target_compile = doc["trace_target_compile"].GetBool();
-		if (!doc.HasMember("trace_target_console"))
-		{
-			break;
-		}
-		if (!doc["trace_target_console"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_target_console = doc["trace_target_console"].GetBool();
-		if (!doc.HasMember("trace_target_com"))
-		{
-			break;
-		}
-		if (!doc["trace_target_com"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_target_com = doc["trace_target_com"].GetBool();
-		if (!doc.HasMember("trace_target_file"))
-		{
-			break;
-		}
-		if (!doc["trace_target_file"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_target_file = doc["trace_target_file"].GetBool();
-		if (!doc.HasMember("trace_target_socket"))
-		{
-			break;
-		}
-		if (!doc["trace_target_socket"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_target_socket = doc["trace_target_socket"].GetBool();
-		if (!doc.HasMember("trace_target_level"))
-		{
-			break;
-		}
-		if (!doc["trace_target_level"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_target_level = doc["trace_target_level"].GetBool();
-		if (!doc.HasMember("trace_target_module"))
-		{
-			break;
-		}
-		if (!doc["trace_target_module"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_target_module = doc["trace_target_module"].GetBool();
-		if (!doc.HasMember("trace_target_date"))
-		{
-			break;
-		}
-		if (!doc["trace_target_date"].IsBool())
-		{
-			break;
-		}
-		trace_config.trace_target_date = doc["trace_target_date"].GetBool();
-
-		if (!doc.HasMember("async"))
-		{
-			break;
-		}
-		if (!doc["async"].IsBool())
-		{
-			break;
-		}
-		trace_config.async = doc["async"].GetBool();
-		if (!doc.HasMember("sync_lock"))
-		{
-			break;
-		}
-		if (!doc["sync_lock"].IsBool())
-		{
-			break;
-		}
-		trace_config.sync_lock = doc["sync_lock"].GetBool();
-		if (!doc.HasMember("head"))
-		{
-			break;
-		}
-		if (!doc["head"].IsBool())
-		{
-			break;
-		}
-		trace_config.head = doc["head"].GetBool();
-		if (!doc.HasMember("head_index"))
-		{
-			break;
-		}
-		if (!doc["head_index"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_index = doc["head_index"].GetBool();
-		if (!doc.HasMember("head_level"))
-		{
-			break;
-		}
-		if (!doc["head_level"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_level = doc["head_level"].GetBool();
-		if (!doc.HasMember("head_label"))
-		{
-			break;
-		}
-		if (!doc["head_label"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_label = doc["head_label"].GetBool();
-		if (!doc.HasMember("head_thread_id"))
-		{
-			break;
-		}
-		if (!doc["head_thread_id"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_thread_id = doc["head_thread_id"].GetBool();
-		if (!doc.HasMember("head_datetime"))
-		{
-			break;
-		}
-		if (!doc["head_datetime"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_datetime = doc["head_datetime"].GetBool();
-		if (!doc.HasMember("head_runtime"))
-		{
-			break;
-		}
-		if (!doc["head_runtime"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_runtime = doc["head_runtime"].GetBool();
-		if (!doc.HasMember("head_function_time"))
-		{
-			break;
-		}
-		if (!doc["head_function_time"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_function_time = doc["head_function_time"].GetBool();
-		if (!doc.HasMember("head_process_name"))
-		{
-			break;
-		}
-		if (!doc["head_process_name"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_process_name = doc["head_process_name"].GetBool();
-		if (!doc.HasMember("head_module_name"))
-		{
-			break;
-		}
-		if (!doc["head_module_name"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_module_name = doc["head_module_name"].GetBool();
-		if (!doc.HasMember("head_file_name"))
-		{
-			break;
-		}
-		if (!doc["head_file_name"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_file_name = doc["head_file_name"].GetBool();
-		if (!doc.HasMember("head_function_name"))
-		{
-			break;
-		}
-		if (!doc["head_function_name"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_function_name = doc["head_function_name"].GetBool();
-		if (!doc.HasMember("head_line"))
-		{
-			break;
-		}
-		if (!doc["head_line"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_line = doc["head_line"].GetBool();
-		if (!doc.HasMember("head_async"))
-		{
-			break;
-		}
-		if (!doc["head_async"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_async = doc["head_async"].GetBool();
-		if (!doc.HasMember("head_sync_lock"))
-		{
-			break;
-		}
-		if (!doc["head_sync_lock"].IsBool())
-		{
-			break;
-		}
-		trace_config.head_sync_lock = doc["head_sync_lock"].GetBool();
-		if (!doc.HasMember("valid_level"))
-		{
-			break;
-		}
-		if (!doc["valid_level"].IsInt())
-		{
-			break;
-		}
-		trace_config.valid_level = doc["valid_level"].GetInt();
-		if (!doc.HasMember("trace_file_size"))
-		{
-			break;
-		}
-		if (!doc["trace_file_size"].IsInt())
-		{
-			break;
-		}
-		trace_config.trace_file_size = doc["trace_file_size"].GetInt();
-		if (!doc.HasMember("head_label_text"))
-		{
-			break;
-		}
-		if (!doc["head_label_text"].IsString())
-		{
-			break;
-		}
-		trace_config.head_label_text = doc["head_label_text"].GetString();
-		if (!doc.HasMember("trace_file_dir"))
-		{
-			break;
-		}
-		if (!doc["trace_file_dir"].IsString())
-		{
-			break;
-		}
-		trace_config.trace_file_dir = doc["trace_file_dir"].GetString();
-		if (!doc.HasMember("trace_com_name"))
-		{
-			break;
-		}
-		if (!doc["trace_com_name"].IsString())
-		{
-			break;
-		}
-		trace_config.trace_com_name = doc["trace_com_name"].GetString();
 		if (!doc.HasMember("level_on_off"))
 		{
 			break;
@@ -344,10 +87,10 @@ int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trac
 			if (!doc["level_on_off"][i]["value"].IsBool())
 			{
 				break;
-			}		
+			}
 			on_off.second = doc["level_on_off"][i]["value"].GetBool();
 			trace_config.level_on_off[on_off.first] = on_off.second;
-		}	
+		}
 		errorCode = 0;
 	} while (0);
 	return errorCode;
@@ -365,263 +108,38 @@ int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jso
 	}
 	do
 	{
-		if (doc.HasMember("trace_out") && doc["trace_out"].IsBool())
-		{
-			doc["trace_out"].SetBool(trace_config.trace_out);
-		}
-		else
-		{
-			doc.AddMember("trace_out", trace_config.trace_out, allocator);
-		}
-		if (doc.HasMember("track_out") && doc["track_out"].IsBool())
-		{
-			doc["track_out"].SetBool(trace_config.track_out);
-		}
-		else
-		{
-			doc.AddMember("track_out", trace_config.track_out, allocator);
-		}
-		if (doc.HasMember("trace_target_compile") && doc["trace_target_compile"].IsBool())
-		{
-			doc["trace_target_compile"].SetBool(trace_config.trace_target_compile);
-		}
-		else
-		{
-			doc.AddMember("trace_target_compile", trace_config.trace_target_compile, allocator);
-		}
-		if (doc.HasMember("trace_target_console") && doc["trace_target_console"].IsBool())
-		{
-			doc["trace_target_console"].SetBool(trace_config.trace_target_console);
-		}
-		else
-		{
-			doc.AddMember("trace_target_console", trace_config.trace_target_console, allocator);
-		}
-		if (doc.HasMember("trace_target_file") && doc["trace_target_file"].IsBool())
-		{
-			doc["trace_target_file"].SetBool(trace_config.trace_target_file);
-		}
-		else
-		{
-			doc.AddMember("trace_target_file", trace_config.trace_target_file, allocator);
-		}
-		if (doc.HasMember("trace_target_socket") && doc["trace_target_socket"].IsBool())
-		{
-			doc["trace_target_socket"].SetBool(trace_config.trace_target_socket);
-		}
-		else
-		{
-			doc.AddMember("trace_target_socket", trace_config.trace_target_socket, allocator);
-		}
-		if (doc.HasMember("trace_target_com") && doc["trace_target_com"].IsBool())
-		{
-			doc["trace_target_com"].SetBool(trace_config.trace_target_com);
-		}
-		else
-		{
-			doc.AddMember("trace_target_com", trace_config.trace_target_com, allocator);
-		}
-		if (doc.HasMember("trace_target_level") && doc["trace_target_level"].IsBool())
-		{
-			doc["trace_target_level"].SetBool(trace_config.trace_target_level);
-		}
-		else
-		{
-			doc.AddMember("trace_target_level", trace_config.trace_target_level, allocator);
-		}
-		if (doc.HasMember("trace_target_module") && doc["trace_target_module"].IsBool())
-		{
-			doc["trace_target_module"].SetBool(trace_config.trace_target_module);
-		}
-		else
-		{
-			doc.AddMember("trace_target_module", trace_config.trace_target_module, allocator);
-		}
-		if (doc.HasMember("trace_target_date") && doc["trace_target_date"].IsBool())
-		{
-			doc["trace_target_date"].SetBool(trace_config.trace_target_date);
-		}
-		else
-		{
-			doc.AddMember("trace_target_date", trace_config.trace_target_date, allocator);
-		}
-
-		if (doc.HasMember("async") && doc["async"].IsBool())
-		{
-			doc["async"].SetBool(trace_config.async);
-		}
-		else
-		{
-			doc.AddMember("async", trace_config.async, allocator);
-		}
-		if (doc.HasMember("sync_lock") && doc["sync_lock"].IsBool())
-		{
-			doc["sync_lock"].SetBool(trace_config.sync_lock);
-		}
-		else
-		{
-			doc.AddMember("sync_lock", trace_config.sync_lock, allocator);
-		}
-		if (doc.HasMember("head") && doc["head"].IsBool())
-		{
-			doc["head"].SetBool(trace_config.head);
-		}
-		else
-		{
-			doc.AddMember("head", trace_config.head, allocator);
-		}
-		if (doc.HasMember("head_index") && doc["head_index"].IsBool())
-		{
-			doc["head_index"].SetBool(trace_config.head_index);
-		}
-		else
-		{
-			doc.AddMember("head_index", trace_config.head_index, allocator);
-		}
-		if (doc.HasMember("head_level") && doc["head_level"].IsBool())
-		{
-			doc["head_level"].SetBool(trace_config.head_level);
-		}
-		else
-		{
-			doc.AddMember("head_level", trace_config.head_level, allocator);
-		}
-		if (doc.HasMember("head_label") && doc["head_label"].IsBool())
-		{
-			doc["head_label"].SetBool(trace_config.head_label);
-		}
-		else
-		{
-			doc.AddMember("head_label", trace_config.head_label, allocator);
-		}
-		if (doc.HasMember("head_thread_id") && doc["head_thread_id"].IsBool())
-		{
-			doc["head_thread_id"].SetBool(trace_config.head_thread_id);
-		}
-		else
-		{
-			doc.AddMember("head_thread_id", trace_config.head_thread_id, allocator);
-		}
-		if (doc.HasMember("head_datetime") && doc["head_datetime"].IsBool())
-		{
-			doc["head_datetime"].SetBool(trace_config.head_datetime);
-		}
-		else
-		{
-			doc.AddMember("head_datetime", trace_config.head_datetime, allocator);
-		}
-		if (doc.HasMember("head_runtime") && doc["head_runtime"].IsBool())
-		{
-			doc["head_runtime"].SetBool(trace_config.head_runtime);
-		}
-		else
-		{
-			doc.AddMember("head_runtime", trace_config.head_runtime, allocator);
-		}
-		if (doc.HasMember("head_function_time") && doc["head_function_time"].IsBool())
-		{
-			doc["head_function_time"].SetBool(trace_config.head_function_time);
-		}
-		else
-		{
-			doc.AddMember("head_function_time", trace_config.head_function_time, allocator);
-		}
-		if (doc.HasMember("head_process_name") && doc["head_process_name"].IsBool())
-		{
-			doc["head_process_name"].SetBool(trace_config.head_process_name);
-		}
-		else
-		{
-			doc.AddMember("head_process_name", trace_config.head_process_name, allocator);
-		}
-		if (doc.HasMember("head_module_name") && doc["head_module_name"].IsBool())
-		{
-			doc["head_module_name"].SetBool(trace_config.head_module_name);
-		}
-		else
-		{
-			doc.AddMember("head_module_name", trace_config.head_module_name, allocator);
-		}
-		if (doc.HasMember("head_file_name") && doc["head_file_name"].IsBool())
-		{
-			doc["head_file_name"].SetBool(trace_config.head_file_name);
-		}
-		else
-		{
-			doc.AddMember("head_file_name", trace_config.head_file_name, allocator);
-		}
-		if (doc.HasMember("head_function_name") && doc["head_function_name"].IsBool())
-		{
-			doc["head_function_name"].SetBool(trace_config.head_function_name);
-		}
-		else
-		{
-			doc.AddMember("head_function_name", trace_config.head_function_name, allocator);
-		}
-		if (doc.HasMember("head_line") && doc["head_line"].IsBool())
-		{
-			doc["head_line"].SetBool(trace_config.head_line);
-		}
-		else
-		{
-			doc.AddMember("head_line", trace_config.head_line, allocator);
-		}
-		if (doc.HasMember("head_async") && doc["head_async"].IsBool())
-		{
-			doc["head_async"].SetBool(trace_config.head_async);
-		}
-		else
-		{
-			doc.AddMember("head_async", trace_config.head_async, allocator);
-		}
-		if (doc.HasMember("head_sync_lock") && doc["head_sync_lock"].IsBool())
-		{
-			doc["head_sync_lock"].SetBool(trace_config.head_sync_lock);
-		}
-		else
-		{
-			doc.AddMember("head_sync_lock", trace_config.head_sync_lock, allocator);
-		}
-		if (doc.HasMember("valid_level") && doc["valid_level"].IsInt())
-		{
-			doc["valid_level"].SetInt(trace_config.valid_level);
-		}
-		else
-		{
-			doc.AddMember("valid_level", trace_config.valid_level, allocator);
-		}
-		if (doc.HasMember("trace_file_size") && doc["trace_file_size"].IsInt())
-		{
-			doc["trace_file_size"].SetInt(trace_config.trace_file_size);
-		}
-		else
-		{
-			doc.AddMember("trace_file_size", trace_config.trace_file_size, allocator);
-		}
-		if (doc.HasMember("head_label_text") && doc["head_label_text"].IsString())
-		{
-			doc["head_label_text"].SetString(trace_config.head_label_text.c_str(), (rapidjson::SizeType)trace_config.head_label_text.size(), allocator);
-		}
-		else
-		{
-			doc.AddMember("head_label_text", rapidjson::StringRef(trace_config.head_label_text.c_str(), trace_config.head_label_text.size()), allocator);
-		}
-		if (doc.HasMember("trace_file_dir") && doc["trace_file_dir"].IsString())
-		{
-			doc["trace_file_dir"].SetString(trace_config.trace_file_dir.c_str(), (rapidjson::SizeType)trace_config.trace_file_dir.size(), allocator);
-		}
-		else
-		{
-			doc.AddMember("trace_file_dir", rapidjson::StringRef(trace_config.trace_file_dir.c_str(), trace_config.trace_file_dir.size()), allocator);
-		}
-		if (doc.HasMember("trace_com_name") && doc["trace_com_name"].IsString())
-		{
-			doc["trace_com_name"].SetString(trace_config.trace_com_name.c_str(), (rapidjson::SizeType)trace_config.trace_com_name.size(), allocator);
-		}
-		else
-		{
-			doc.AddMember("trace_com_name", rapidjson::StringRef(trace_config.trace_com_name.c_str(), trace_config.trace_com_name.size()), allocator);
-		}
+		EncodeValue(doc, allocator, "trace_out", trace_config.trace_out);
+		EncodeValue(doc, allocator, "track_out", trace_config.track_out);
+		EncodeValue(doc, allocator, "trace_target_compile", trace_config.trace_target_compile);
+		EncodeValue(doc, allocator, "trace_target_console", trace_config.trace_target_console);
+		EncodeValue(doc, allocator, "trace_target_com", trace_config.trace_target_com);
+		EncodeValue(doc, allocator, "trace_target_file", trace_config.trace_target_file);
+		EncodeValue(doc, allocator, "trace_target_socket", trace_config.trace_target_socket);
+		EncodeValue(doc, allocator, "trace_target_level", trace_config.trace_target_level);
+		EncodeValue(doc, allocator, "trace_target_module", trace_config.trace_target_module);
+		EncodeValue(doc, allocator, "trace_target_date", trace_config.trace_target_date);
+		EncodeValue(doc, allocator, "async", trace_config.async);
+		EncodeValue(doc, allocator, "sync_lock", trace_config.sync_lock);
+		EncodeValue(doc, allocator, "head", trace_config.head);
+		EncodeValue(doc, allocator, "head_index", trace_config.head_index);
+		EncodeValue(doc, allocator, "head_level", trace_config.head_level);
+		EncodeValue(doc, allocator, "head_label", trace_config.head_label);
+		EncodeValue(doc, allocator, "head_thread_id", trace_config.head_thread_id);
+		EncodeValue(doc, allocator, "head_datetime", trace_config.head_datetime);
+		EncodeValue(doc, allocator, "head_runtime", trace_config.head_runtime);
+		EncodeValue(doc, allocator, "head_function_time", trace_config.head_function_time);
+		EncodeValue(doc, allocator, "head_process_name", trace_config.head_process_name);
+		EncodeValue(doc, allocator, "head_module_name", trace_config.head_module_name);
+		EncodeValue(doc, allocator, "head_file_name", trace_config.head_file_name);
+		EncodeValue(doc, allocator, "head_function_name", trace_config.head_function_name);
+		EncodeValue(doc, allocator, "head_line", trace_config.head_line);
+		EncodeValue(doc, allocator, "head_async", trace_config.head_async);
+		EncodeValue(doc, allocator, "head_sync_lock", trace_config.head_sync_lock);
+		EncodeValue(doc, allocator, "valid_level", trace_config.valid_level);
+		EncodeValue(doc, allocator, "trace_file_size", trace_config.trace_file_size);
+		EncodeValue(doc, allocator, "head_label_text", trace_config.head_label_text);
+		EncodeValue(doc, allocator, "trace_file_dir", trace_config.trace_file_dir);
+		EncodeValue(doc, allocator, "trace_com_name", trace_config.trace_com_name);
 
 		if (doc.HasMember("level_on_off") && doc["level_on_off"].IsArray())
 		{
@@ -646,4 +164,132 @@ int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jso
 		errorCode = 0;
 	} while (0);
 	return errorCode;
+}
+
+int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, int& value)
+{
+	int error_code = 1;
+	do
+	{
+		if (!object.HasMember(key.c_str()))
+		{
+			break;
+		}
+		if (!object[key.c_str()].IsInt())
+		{
+			break;
+		}
+		value = object[key.c_str()].GetInt();
+		error_code = 0;
+	} while (0);
+	return error_code;
+}
+
+int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, __int64& value)
+{
+	int error_code = 1;
+	do
+	{
+		if (!object.HasMember(key.c_str()))
+		{
+			break;
+		}
+		if (!object[key.c_str()].IsInt64())
+		{
+			break;
+		}
+		value = object[key.c_str()].GetInt64();
+		error_code = 0;
+	} while (0);
+	return error_code;
+}
+
+int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, bool& value)
+{
+	int error_code = 1;
+	do
+	{
+		if (!object.HasMember(key.c_str()))
+		{
+			break;
+		}
+		if (!object[key.c_str()].IsBool())
+		{
+			break;
+		}
+		value = object[key.c_str()].GetBool();
+		error_code = 0;
+	} while (0);
+	return error_code;
+}
+
+int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, string& value)
+{
+	int error_code = 1;
+	do
+	{
+		if (!object.HasMember(key.c_str()))
+		{
+			break;
+		}
+		if (!object[key.c_str()].IsString())
+		{
+			break;
+		}
+		value = object[key.c_str()].GetString();
+		error_code = 0;
+	} while (0);
+	return error_code;
+}
+
+int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, int value)
+{
+	if (object.HasMember(key.c_str()) && object[key.c_str()].IsInt())
+	{
+		object[key.c_str()].SetInt(value);
+	}
+	else
+	{
+		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+	}
+	return 0;
+}
+
+int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, __int64 value)
+{
+	if (object.HasMember(key.c_str()) && object[key.c_str()].IsInt64())
+	{
+		object[key.c_str()].SetInt64(value);
+	}
+	else
+	{
+		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+	}
+	return 0;
+}
+
+int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, bool value)
+{
+	if (object.HasMember(key.c_str()) && object[key.c_str()].IsBool())
+	{
+		object[key.c_str()].SetBool(value);
+	}
+	else
+	{
+		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+	}
+	return 0;
+}
+
+int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, const string& value)
+{
+	if (object.HasMember(key.c_str()) && object[key.c_str()].IsString())
+	{
+		object[key.c_str()].SetString(rapidjson::StringRef(value.c_str()));
+	}
+	else
+	{
+		object.AddMember(rapidjson::StringRef(key.c_str()), rapidjson::StringRef(value.c_str()), allocator);
+	}
+	return 0;
 }

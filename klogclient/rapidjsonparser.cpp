@@ -74,11 +74,11 @@ int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, int& v
 		{
 			break;
 		}
-		if (!object[key.c_str()].IsInt64())
+		if (!object[key.c_str()].IsInt())
 		{
 			break;
 		}
-		value = object[key.c_str()].GetInt64();
+		value = object[key.c_str()].GetInt();
 		error_code = 0;
 	} while (0);
 	return error_code;
@@ -139,4 +139,56 @@ int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, string
 		error_code = 0;
 	} while (0);
 	return error_code;
+}
+
+int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, int value)
+{
+	if (object.HasMember(key.c_str()) && object[key.c_str()].IsInt())
+	{
+		object[key.c_str()].SetInt(value);
+	}
+	else
+	{
+		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+	}
+	return 0;
+}
+
+int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, __int64 value)
+{
+	if (object.HasMember(key.c_str()) && object[key.c_str()].IsInt64())
+	{
+		object[key.c_str()].SetInt64(value);
+	}
+	else
+	{
+		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+	}
+	return 0;
+}
+
+int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, bool value)
+{
+	if (object.HasMember(key.c_str()) && object[key.c_str()].IsBool())
+	{
+		object[key.c_str()].SetBool(value);
+	}
+	else
+	{
+		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+	}
+	return 0;
+}
+
+int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, const string& value)
+{
+	if (object.HasMember(key.c_str()) && object[key.c_str()].IsString())
+	{
+		object[key.c_str()].SetString(rapidjson::StringRef(value.c_str()));
+	}
+	else
+	{
+		object.AddMember(rapidjson::StringRef(key.c_str()), rapidjson::StringRef(value.c_str()), allocator);
+	}
+	return 0;
 }
