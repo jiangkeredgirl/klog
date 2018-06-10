@@ -32,13 +32,13 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -123,6 +123,7 @@
     <ClCompile Include="klogclientui.cpp" />
     <ClCompile Include="logdisplay.cpp" />
     <ClCompile Include="logdisplayui.cpp" />
+    <ClCompile Include="logfile.cpp" />
     <ClCompile Include="logfilebar.cpp" />
     <ClCompile Include="logfilebarui.cpp" />
     <ClCompile Include="logfilterbar.cpp" />
@@ -136,6 +137,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menubar.cpp" />
     <ClCompile Include="menubarui.cpp" />
+    <ClCompile Include="rapidjsonparser.cpp" />
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="klogclient.h" />
@@ -259,6 +261,10 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB</Define>
     </QtMoc>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="logfile.h" />
+    <ClInclude Include="rapidjsonparser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Condition="Exists('$(QtMsBuild)\qt.targets')">
