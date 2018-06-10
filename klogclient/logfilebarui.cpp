@@ -47,7 +47,7 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		labelIPTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
 		QLineEdit* editIP = new QLineEdit;
-		editIP->setPlaceholderText(tr("ip"));
+		editIP->setPlaceholderText("127.0.0.1");
 		layout->addWidget(editIP);
 		editIP->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		editIP->setFixedWidth(150);

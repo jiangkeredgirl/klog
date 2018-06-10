@@ -59,6 +59,36 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		editExecuteTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		editExecuteTime->setFixedWidth(150);
 
+		layout->addSpacing(10);
+
+		QLabel* labelLogTimeTag = new QLabel;
+		labelLogTimeTag->setText(tr(u8"log时间"));
+		layout->addWidget(labelLogTimeTag);
+		labelLogTimeTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
+
+		QLineEdit* editLogBeginTime = new QLineEdit;
+		editLogBeginTime->setPlaceholderText(tr(""));
+		layout->addWidget(editLogBeginTime);
+		editLogBeginTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		editLogBeginTime->setFixedWidth(150);
+		editLogBeginTime->setPlaceholderText("yyyy-MM-dd hh:mm:ss");
+		//QRegExp rx("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]\:[0-9][0-9]\:[0-9][0-9]");
+		//QRegExpValidator* ipValidator = new QRegExpValidator(rx, this);
+		//editLogBeginTime->setValidator(ipValidator);
+
+		QLabel* labelToTag = new QLabel;
+		labelToTag->setText(tr(u8"到"));
+		layout->addWidget(labelToTag);
+		labelToTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
+
+		QLineEdit* editLogEndTime = new QLineEdit;
+		editLogEndTime->setPlaceholderText(tr(""));
+		layout->addWidget(editLogEndTime);
+		editLogEndTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		editLogEndTime->setFixedWidth(150);
+		editLogEndTime->setPlaceholderText("yyyy-MM-dd hh:mm:ss");
+		//editLogEndTime->setValidator(ipValidator);
+
 		layout->addStretch();
 	}
 }
