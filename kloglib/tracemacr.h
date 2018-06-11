@@ -27,3 +27,24 @@
 #endif // !TRACK_OUT
 
 #define WaitAsyncTraceEnd  KKTracePackage::TracePrinter::instance()->WaitTraceThreadEnd()
+
+
+
+/// replace between of printf and trace 
+#define PRINTF_TO_KLOG         0                     ///< print function convert to klog function
+#define KLOG_TO_PRINTF         0                     ///< klog function convert to print function
+
+#if PRINTF_TO_KLOG
+#define printf   TraceInfo
+#define cout     TraceInfoCout
+#define KLOG_TO_PRINTF         0
+#endif // PRINTF_TO_KLOG
+
+#if KLOG_TO_PRINTF
+#include <iostream>
+#define Trace(level, log_format, ...)       printf("\n");printf(log_format, ##__VA_ARGS__)
+#define TraceTrack(level, log_format, ...)  printf("\n");printf(log_format, ##__VA_ARGS__)
+#define TraceCout(level)                    std::cout << "\n";std::cout
+#define TraceTrackCout(level)               std::cout << "\n";std::cout
+#define PRINTF_TO_KLOG          0
+#endif // KLOG_TO_PRINT
