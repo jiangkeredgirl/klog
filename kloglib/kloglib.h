@@ -10,5 +10,5 @@
 #define KLOGLIB_API __declspec(dllimport)
 #endif
 
-
+#include "klogcustomsetting.h"
 #include "tracemacr.h"
