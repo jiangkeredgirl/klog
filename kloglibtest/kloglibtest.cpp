@@ -16,7 +16,7 @@ int trace_test(const string& log_content)
 {
 	//setlocale(LC_ALL, "");
 	// trace_test函数进入退出log
-#if 0
+#if 1
 	Track("333"); // 正确用法 注意要带参数("")，打印函数进入和退出的log
 #else
 	TrackCout << "333";

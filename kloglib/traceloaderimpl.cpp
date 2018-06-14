@@ -57,6 +57,8 @@ namespace kk
 				begin_call_time_ = kk::Utility::GetRunTime();
 			}
 			trace_entry_->trace_head_->func_enter = (">>");
+			trace_stream_ << trace_entry_->trace_body_->body;
+			trace_entry_->trace_body_->body = "";
 			TracePrinterImpl::instance().OutTraceEntry(trace_entry_);
 		} while (false);
 	}
