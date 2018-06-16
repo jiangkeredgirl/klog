@@ -66,89 +66,77 @@ namespace kk
 			{
 				break;
 			}
-			head_text_ = "\"head\": {";
-			string field = "";
+			head_text_ = "";
+			stringstream ss;
 			if (!func_enter.empty())
 			{
-				head_text_ += field + "\"func_track\":" + "\"" + func_enter + "\"";
-				field = ", ";
+				ss << "\"func_track\":\"" << func_enter << "\"" << ", ";
 			}
 			else if (!func_exit.empty())
 			{
-				head_text_ += field + "\"func_track\":" + "\"" + func_exit + "\"";
-				field = ", ";
+				ss << "\"func_track\":\"" << func_exit << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_index)
 			{
-				head_text_ += field + "\"index\":" + "\"" + to_string(index) + "\"";
-				field = ", ";
+				ss << "\"index\":" << to_string(index) << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_level)
 			{
-				head_text_ += field + "\"level\":" + "\"" + macro_level + "\"";
-				field = ", ";
+				ss << "\"level\":\"" << macro_level << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_label)
 			{
-				head_text_ += field + "\"label\":" + "\"" + label + "\"";
-				field = ", ";
+				ss << "\"label\":\"" << label << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_thread_id)
 			{
-				head_text_ += field + "\"thread_id\":" + "\"" + thread_id + "\"";
-				field = ", ";
+				ss << "\"thread_id\":\"" << thread_id << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_process_name)
 			{
-				head_text_ += field + "\"process_name\":" + "\"" + process_name + "\"";
-				field = ", ";
+				ss << "\"process_name\":\"" << process_name << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_module_name)
 			{
-				head_text_ += field + "\"module_name\":" + "\"" + module_name + "\"";
-				field = ", ";
+				ss << "\"module_name\":\"" << module_name << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_file_name)
 			{
-				head_text_ += field + "\"file_name\":" + "\"" + file_name + "\"";
-				field = ", ";
+				ss << "\"file_name\":\"" << file_name << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_function_name)
 			{
-				head_text_ += field + "\"function_name\":" + "\"" + function_name + "\"";
-				field = ", ";
+				ss << "\"function_name\":\"" << function_name << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_line)
 			{
-				head_text_ += field + "\"line\":" + "\"" + to_string(line) + "\"";
-				field = ", ";
+				ss << "\"line\":" << to_string(line) << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_datetime)
 			{
-				head_text_ += field + "\"datetime\":" + "\"" + kk::Utility::GetDateTimeStr(datetime) + "\"";
-				field = ", ";
+				ss << "\"datetime\":\"" << kk::Utility::GetDateTimeStr(datetime) << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_runtime)
 			{
-				head_text_ += field + "\"runtime\":" + "\"" + kk::Utility::GetRunTimeStr(runtime) + "\"";
-				field = ", ";
+				ss << "\"runtime\":\"" << kk::Utility::GetRunTimeStr(runtime) << "\"" << ", ";
 			}
 			if (is_track && TracePrinterImpl::instance().trace_config().head_function_time)
 			{
-				head_text_ += field + "\"function_time\":" + "\"" + to_string(function_time) + "ms" + "\"";
-				field = ", ";
+				ss << "\"function_time\":\"" << to_string(function_time) << "ms" << "\"" << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_async)
 			{
-				head_text_ += field + "\"async\":" + "\"" + (async ? "true" : "false") + "\"";
-				field = ", ";
+				ss << "\"async\":" << (async ? "true" : "false") << ", ";
 			}
 			if (TracePrinterImpl::instance().trace_config().head_sync_lock)
 			{
-				head_text_ += field + "\"sync_lock\":" + "\"" + (sync_lock ? "true" : "false") + "\"";
-				field = ", ";
+				ss << "\"sync_lock\":" << (sync_lock ? "true" : "false") << ", ";
 			}
-			head_text_ = head_text_ + "}";
+			head_text_ = ss.str();
+			if (!head_text_.empty())
+			{
+				head_text_.erase(head_text_.end() - 2);
+			}
 		} while (false);
 		return head_text_;
 	}
@@ -172,11 +160,12 @@ namespace kk
 			{
 				break;
 			}
-			if (trace_head_->head_text().empty())
+			string head = trace_head_->head_text();
+			if (head.empty())
 			{
 				break;
 			}
-			trace_text_ += trace_head_->head_text();
+			trace_text_ += head;
 			field = "\n,";
 		} while (false);
 		do
