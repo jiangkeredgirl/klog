@@ -10,14 +10,14 @@ namespace kk
 	{
 		trace_out = TRACE_OUT;
 		track_out = TRACK_OUT;
-		trace_target_compile = TRACE_TARGET_COMPILE;
-		trace_target_console = TRACE_TARGET_CONSOLE;
-		trace_target_com = TRACE_TARGET_COM;
-		trace_target_file = TRACE_TARGET_FILE;
-		trace_target_socket = TRACE_TARGET_SOCKET;
-		trace_target_level = TRACE_TARGET_LEVEL;
-		trace_target_module = TRACE_TARGET_MODULE;
-		trace_target_date = TRACE_TARGET_DATE;
+		output_compile = OUTPUT_COMPILE;
+		output_console = OUTPUT_CONSOLE;
+		output_com = OUTPUT_COM;
+		output_file = OUTPUT_FILE;
+		output_socket = OUTPUT_SOCKET;
+		file_level = FILE_LEVEL;
+		file_module = FILE_MODULE;
+		file_date = FILE_DATE;
 		
 		async = TRACE_ASYNC;
 		sync_lock = TRACE_SYNC_LOCK;
@@ -438,11 +438,11 @@ namespace kk
 
 	int TracePrinterImpl::InitTrace()
 	{
-		if (trace_config().trace_target_file)
+		if (trace_config().output_file)
 		{
 			kk::Utility::CreateDir(trace_config().trace_file_dir);
 		}
-		if (trace_config().trace_target_console)
+		if (trace_config().output_console)
 		{
 			InitConsole();
 		}
@@ -504,23 +504,23 @@ namespace kk
 	{
 		if (trace_config().trace_out)
 		{
-			if (trace_config().trace_target_compile)
+			if (trace_config().output_compile)
 			{
 				OutToCompile(trace_entry);
 			}
-			if (trace_config().trace_target_console)
+			if (trace_config().output_console)
 			{
 				OutToConsole(trace_entry);
 			}
-			if (trace_config().trace_target_file)
+			if (trace_config().output_file)
 			{
 				OutToFile(trace_entry);
 			}
-			if (trace_config().trace_target_socket)
+			if (trace_config().output_socket)
 			{
 				OutToSocket(trace_entry);
 			}
-			if (trace_config().trace_target_com)
+			if (trace_config().output_com)
 			{
 				OutToCom(trace_entry);
 			}
@@ -559,7 +559,7 @@ namespace kk
 		{
 			// 按日期创建文件夹
 			string trace_file_dir = trace_config().trace_file_dir;
-			if (trace_config().trace_target_date)
+			if (trace_config().file_date)
 			{
 				trace_file_dir += kk::Utility::GetDateStr() + "\\";
 				int error_code = kk::Utility::CreateDir(trace_file_dir);
@@ -577,7 +577,7 @@ namespace kk
 				+ "_trace_all.log";
 			OutToFile(trace_file_name, trace_entry_text);
 			// 整个进程按等级输出
-			if (trace_config().trace_target_level)
+			if (trace_config().file_level)
 			{
 				trace_file_name = trace_file_dir
 					+ process_name_ + "_" + process_time_
@@ -586,14 +586,14 @@ namespace kk
 			}
 
 			// 按模块输出所有等级log
-			if (trace_config().trace_target_module)
+			if (trace_config().file_module)
 			{
 				trace_file_name = trace_file_dir
 					+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_
 					+ "_trace_all.log";
 				OutToFile(trace_file_name, trace_entry_text);
 				// 按模块按等级输出
-				if (trace_config().trace_target_level)
+				if (trace_config().file_level)
 				{
 					trace_file_name = trace_file_dir
 						+ process_name_ + "_" + trace_entry->trace_head()->module_name + "_" + process_time_

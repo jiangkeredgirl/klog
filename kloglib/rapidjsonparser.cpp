@@ -25,14 +25,14 @@ int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trac
 		}
 		DecodeValue(doc, "trace_out", trace_config.trace_out);
 		DecodeValue(doc, "track_out", trace_config.track_out);
-		DecodeValue(doc, "trace_target_compile", trace_config.trace_target_compile);
-		DecodeValue(doc, "trace_target_console", trace_config.trace_target_console);
-		DecodeValue(doc, "trace_target_com", trace_config.trace_target_com);
-		DecodeValue(doc, "trace_target_file", trace_config.trace_target_file);
-		DecodeValue(doc, "trace_target_socket", trace_config.trace_target_socket);
-		DecodeValue(doc, "trace_target_level", trace_config.trace_target_level);
-		DecodeValue(doc, "trace_target_module", trace_config.trace_target_module);
-		DecodeValue(doc, "trace_target_date", trace_config.trace_target_date);
+		DecodeValue(doc, "output_compile", trace_config.output_compile);
+		DecodeValue(doc, "output_console", trace_config.output_console);
+		DecodeValue(doc, "output_com", trace_config.output_com);
+		DecodeValue(doc, "output_file", trace_config.output_file);
+		DecodeValue(doc, "output_socket", trace_config.output_socket);
+		DecodeValue(doc, "file_level", trace_config.file_level);
+		DecodeValue(doc, "file_module", trace_config.file_module);
+		DecodeValue(doc, "file_date", trace_config.file_date);
 		DecodeValue(doc, "async", trace_config.async);
 		DecodeValue(doc, "sync_lock", trace_config.sync_lock);
 		DecodeValue(doc, "head", trace_config.head);
@@ -110,14 +110,14 @@ int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jso
 	{
 		EncodeValue(doc, allocator, "trace_out", trace_config.trace_out);
 		EncodeValue(doc, allocator, "track_out", trace_config.track_out);
-		EncodeValue(doc, allocator, "trace_target_compile", trace_config.trace_target_compile);
-		EncodeValue(doc, allocator, "trace_target_console", trace_config.trace_target_console);
-		EncodeValue(doc, allocator, "trace_target_com", trace_config.trace_target_com);
-		EncodeValue(doc, allocator, "trace_target_file", trace_config.trace_target_file);
-		EncodeValue(doc, allocator, "trace_target_socket", trace_config.trace_target_socket);
-		EncodeValue(doc, allocator, "trace_target_level", trace_config.trace_target_level);
-		EncodeValue(doc, allocator, "trace_target_module", trace_config.trace_target_module);
-		EncodeValue(doc, allocator, "trace_target_date", trace_config.trace_target_date);
+		EncodeValue(doc, allocator, "output_compile", trace_config.output_compile);
+		EncodeValue(doc, allocator, "output_console", trace_config.output_console);
+		EncodeValue(doc, allocator, "output_com", trace_config.output_com);
+		EncodeValue(doc, allocator, "output_file", trace_config.output_file);
+		EncodeValue(doc, allocator, "output_socket", trace_config.output_socket);
+		EncodeValue(doc, allocator, "file_level", trace_config.file_level);
+		EncodeValue(doc, allocator, "file_module", trace_config.file_module);
+		EncodeValue(doc, allocator, "file_date", trace_config.file_date);
 		EncodeValue(doc, allocator, "async", trace_config.async);
 		EncodeValue(doc, allocator, "sync_lock", trace_config.sync_lock);
 		EncodeValue(doc, allocator, "head", trace_config.head);
@@ -250,7 +250,7 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	}
 	else
 	{
-		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+		object.AddMember(rapidjson::Value(key.c_str(), allocator), value, allocator);
 	}
 	return 0;
 }
@@ -263,7 +263,7 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	}
 	else
 	{
-		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+		object.AddMember(rapidjson::Value(key.c_str(), allocator), value, allocator);
 	}
 	return 0;
 }
@@ -276,7 +276,7 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	}
 	else
 	{
-		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+		object.AddMember(rapidjson::Value(key.c_str(), allocator), value, allocator);
 	}
 	return 0;
 }
@@ -289,7 +289,7 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	}
 	else
 	{
-		object.AddMember(rapidjson::StringRef(key.c_str()), rapidjson::StringRef(value.c_str()), allocator);
+		object.AddMember(rapidjson::Value(key.c_str(), allocator), rapidjson::StringRef(value.c_str()), allocator);
 	}
 	return 0;
 }

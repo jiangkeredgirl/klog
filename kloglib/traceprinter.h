@@ -17,14 +17,14 @@ namespace kk
 	{
 		bool trace_out;
 		bool track_out;
-		bool trace_target_compile;
-		bool trace_target_console;		
-		bool trace_target_file;
-		bool trace_target_socket;
-		bool trace_target_com;
-		bool trace_target_level;  ///< 是否分等级显示
-		bool trace_target_module; ///< 是否分模块显示
-		bool trace_target_date;   ///< 是否分日期显示
+		bool output_compile;
+		bool output_console;
+		bool output_file;
+		bool output_socket;
+		bool output_com;
+		bool file_level;  ///< 是否分等级显示
+		bool file_module; ///< 是否分模块显示
+		bool file_date;   ///< 是否分日期显示
 		bool async;
 		bool sync_lock;
 		bool head;
