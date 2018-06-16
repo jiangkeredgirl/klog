@@ -9,87 +9,31 @@
 namespace kk
 {
 
-	struct TraceHead
-	{
-	public:
-		INT64  index = 0;                    ///< log序号
-		int    level = 0;                    ///< log等级
-		string macro_level;					 ///< log等级的宏形式
-		string label;                        ///< log标识	
-		string thread_id;                    ///< 线程id
-		INT64  datetime;                     ///< log打印日期时间
-		INT64  runtime = 0;                  ///< log打印时程序运行时间
-		INT64  function_time = 0;            ///< 函数体执行时间
-		string process_name;                 ///< 进程名
-		string module_name;                  ///< 模块名
-		string file_name;                    ///< file name;
-		string function_name;                ///< function name;
-		int    line = 0;                     ///< line number;
-		string func_enter;                   ///< function follow flag >>
-		string func_exit;                    ///< function follow flag <<
-		bool   async = false;                ///< 是否为异步log
-		bool   sync_lock = false;            ///< 同步模式下是否加锁		
-		bool   is_track = false;
-		const string& head_text();
-	private:
-		string head_text_;
-	};
-
-	struct TraceBody
-	{
-	public:
-		string body;		
-		const string& body_text();
-	private:
-		string body_text_;
-	};
-
 	struct TraceEntry
 	{
-	public:
-		TraceEntry()
-		{
-		}
-		~TraceEntry()
-		{
-			if (trace_head_)
-			{
-				delete trace_head_;
-				trace_head_ = nullptr;
-			}
-			if (trace_body_)
-			{
-				delete trace_body_;
-				trace_body_ = nullptr;
-			}
-		}
-	public:
-		TraceHead* trace_head_ = nullptr;
-		TraceBody* trace_body_ = nullptr;
-		string     trace_text_;
-	public:
-		int trace_head(TraceHead* _trace_head)
-		{
-			trace_head_ = _trace_head;
-			return 0;
-		}
-		TraceHead* trace_head()
-		{
-			return trace_head_;
-		}
-		int trace_body(TraceBody* _trace_body)
-		{
-			trace_body_ = _trace_body;
-			return 0;
-		}
-		TraceBody* trace_body()
-		{
-			return trace_body_;
-		}
-		const string& trace_text();
-
+		__int64  index = 0;                    ///< log序号
+		int      level = 0;                    ///< log等级
+		string   macro_level;					 ///< log等级的宏形式
+		string   label;                        ///< log标识	
+		string   thread_id;                    ///< 线程id
+		__int64  datetime;                     ///< log打印日期时间
+		__int64  runtime = 0;                  ///< log打印时程序运行时间
+		__int64  function_time = 0;            ///< 函数体执行时间
+		string   process_name;                 ///< 进程名
+		string   module_name;                  ///< 模块名
+		string   file_name;                    ///< file name;
+		string   function_name;                ///< function name;
+		int      line = 0;                     ///< line number;
+		string   func_enter;                   ///< function follow flag >>
+		string   func_exit;                    ///< function follow flag <<
+		bool     async = false;                ///< 是否为异步log
+		bool     sync_lock = false;            ///< 同步模式下是否加锁		
+		bool     is_track = false;
+		string   body;
+		const    string& trace_text();
+	private:
+		string trace_text_;
 	};
-
 
 	class TracePrinterImpl : public TracePrinter
 	{
@@ -108,9 +52,6 @@ namespace kk
 	public:
 		shared_ptr<TraceEntry> TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body);
 		int OutTraceEntry(shared_ptr<TraceEntry> trace_entry);
-	private:
-		TraceHead* TraceFormatHead(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line);
-		TraceBody* TraceFormatBody(const string& log_body);
 	public:
 		bool IsOut(bool is_track, int level);
 	private:
