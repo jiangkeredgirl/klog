@@ -132,9 +132,9 @@ namespace kk
 					ss << ", \"sync_lock\":" << (sync_lock ? "true" : "false");
 				}
 			}
-			if (!body.empty())
+			if (!content.empty())
 			{
-				ss << "\n,\"body\": \"" << body << "\"";
+				ss << "\n,\"content\": \"" << content << "\"";
 			}
 			ss << "}\n\n";
 			trace_text_ = ss.str();
@@ -268,7 +268,7 @@ namespace kk
 				{
 					break;
 				}
-				trace_entry->body = std::move(log_body);
+				trace_entry->content = std::move(log_body);
 			} while (false);
 		} while (false);
 		return trace_entry;

@@ -57,10 +57,10 @@ namespace kk
 				begin_call_time_ = kk::Utility::GetRunTime();
 			}
 			trace_entry_->func_enter = (">>");
-			if (!trace_entry_->body.empty())
+			if (!trace_entry_->content.empty())
 			{
-				trace_stream_ << trace_entry_->body;
-				trace_entry_->body = "";
+				trace_stream_ << trace_entry_->content;
+				trace_entry_->content = "";
 			}
 			TracePrinterImpl::instance().OutTraceEntry(trace_entry_);
 		} while (false);
@@ -87,7 +87,7 @@ namespace kk
 				}
 				trace_entry_->func_exit = ("<<");
 			}
-			trace_entry_->body += trace_stream_.str();
+			trace_entry_->content += trace_stream_.str();
 			TracePrinterImpl::instance().OutTraceEntry(trace_entry_);
 		} while (false);
 	}

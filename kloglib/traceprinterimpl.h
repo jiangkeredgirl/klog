@@ -13,7 +13,7 @@ namespace kk
 	{
 		__int64  index = 0;                    ///< log序号
 		int      level = 0;                    ///< log等级
-		string   macro_level;					 ///< log等级的宏形式
+		string   macro_level;                  ///< log等级的宏形式
 		string   label;                        ///< log标识	
 		string   thread_id;                    ///< 线程id
 		__int64  datetime;                     ///< log打印日期时间
@@ -29,7 +29,7 @@ namespace kk
 		bool     async = false;                ///< 是否为异步log
 		bool     sync_lock = false;            ///< 同步模式下是否加锁		
 		bool     is_track = false;
-		string   body;
+		string   content;                      ///< log内容
 		const    string& trace_text();
 	private:
 		string trace_text_;
