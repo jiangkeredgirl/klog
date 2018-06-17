@@ -30,4 +30,5 @@ void LogFileBar::SlotButtonLocalFile()
 	QString logFilePath = QFileDialog::getOpenFileName(this, tr(u8"本地log文件"), defultLogDir, "*.log");
 	m_ui.m_labelFileName->setText(logFilePath);
 	m_ui.m_labelFileName->setToolTip(logFilePath);
+	SignalOpenLocalLogFile(logFilePath.toStdString());
 }

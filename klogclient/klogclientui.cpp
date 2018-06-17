@@ -1,14 +1,14 @@
-#include "klogclientui.h"
+﻿#include "klogclientui.h"
 
-Klogclientui::Klogclientui()
+KlogClientui::KlogClientui()
 {
 }
 
-Klogclientui::~Klogclientui()
+KlogClientui::~KlogClientui()
 {
 }
 
-void Klogclientui::setupUi(QMainWindow* hostWidget)
+void KlogClientui::setupUi(QMainWindow* hostWidget)
 {
 	m_hostWidget = hostWidget;
 	if (m_hostWidget)

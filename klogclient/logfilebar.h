@@ -2,6 +2,7 @@
 
 #include <QWidget>
 #include "logfilebarui.h"
+#include "cstandard.h"
 
 class LogFileBar : public QWidget
 {
@@ -13,6 +14,9 @@ public:
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;
+
+signals:
+	void SignalOpenLocalLogFile(const string& filename);
 
 public slots:
 	void SlotButtonLocalFile();

@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QtWidgets/QMainWindow>
 #include "klogclientui.h"
@@ -9,18 +9,22 @@
 #include "logfilterbar.h"
 #include "logsearchbar.h"
 #include "logdisplay.h"
+#include "cstandard.h"
 
-class klogclient : public QMainWindow
+class KlogClient : public QMainWindow
 {
 	Q_OBJECT
 
 public:
-	klogclient(QWidget *parent = Q_NULLPTR);
+	KlogClient(QWidget *parent = Q_NULLPTR);
 
 	void Init();
 
+public slots:
+	void SlotOpenLocalLogFile(const string& filename);
+
 private:
-	Klogclientui   m_ui;
+	KlogClientui   m_ui;
 
 	MenuBar*       m_menuBar = nullptr;
 	LogFileBar*    m_logFileBar = nullptr;

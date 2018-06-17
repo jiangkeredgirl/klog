@@ -1,15 +1,15 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
 #include "qtstandard.h"
 
-class Klogclientui : public QObject
+class KlogClientui : public QObject
 {
 	Q_OBJECT
 
 public:
-	Klogclientui();
-	~Klogclientui();
+	KlogClientui();
+	~KlogClientui();
 
 public:
 	void setupUi(QMainWindow* hostWidget);
