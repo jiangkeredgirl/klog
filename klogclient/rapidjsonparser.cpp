@@ -149,7 +149,7 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	}
 	else
 	{
-		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+		object.AddMember(rapidjson::Value(key.c_str(), allocator), value, allocator);
 	}
 	return 0;
 }
@@ -162,7 +162,7 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	}
 	else
 	{
-		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+		object.AddMember(rapidjson::Value(key.c_str(), allocator), value, allocator);
 	}
 	return 0;
 }
@@ -175,7 +175,7 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	}
 	else
 	{
-		object.AddMember(rapidjson::StringRef(key.c_str()), value, allocator);
+		object.AddMember(rapidjson::Value(key.c_str(), allocator), value, allocator);
 	}
 	return 0;
 }
@@ -188,7 +188,7 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	}
 	else
 	{
-		object.AddMember(rapidjson::StringRef(key.c_str()), rapidjson::StringRef(value.c_str()), allocator);
+		object.AddMember(rapidjson::Value(key.c_str(), allocator), rapidjson::StringRef(value.c_str()), allocator);
 	}
 	return 0;
 }

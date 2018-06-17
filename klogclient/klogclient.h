@@ -10,6 +10,7 @@
 #include "logsearchbar.h"
 #include "logdisplay.h"
 #include "cstandard.h"
+#include "logfile.h"
 
 class KlogClient : public QMainWindow
 {
@@ -20,8 +21,11 @@ public:
 
 	void Init();
 
-public slots:
+	public slots:
 	void SlotOpenLocalLogFile(const string& filename);
+
+public:
+	int ReadLocalLogFileCallBack(const TraceEntry& trace_entry, int status);
 
 private:
 	KlogClientui   m_ui;

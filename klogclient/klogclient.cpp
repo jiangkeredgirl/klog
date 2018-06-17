@@ -42,5 +42,11 @@ void KlogClient::Init()
 
 void KlogClient::SlotOpenLocalLogFile(const string& filename)
 {
+	LogFile::instance().ReadTraceEntry(filename, std::bind(&KlogClient::ReadLocalLogFileCallBack
+		, this, std::placeholders::_1, std::placeholders::_2));
+}
 
+int KlogClient::ReadLocalLogFileCallBack(const TraceEntry& trace_entry, int status)
+{
+	return 0;
 }
