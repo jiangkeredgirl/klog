@@ -3,6 +3,7 @@
 #include "rapidjson/document.h"  
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/stringbuffer.h"
+#include "logfile.h"
 
 
 CJsonParser& CJsonParser::instance()
@@ -29,11 +30,13 @@ int CJsonParser::DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_e
 		{
 			break;
 		}
+		string strlevel;
 		string  datetime;
 		string  runtime;
 		string  function_time;
 		DecodeValue(doc, "index", trace_entry.index);
-		DecodeValue(doc, "level", trace_entry.level);
+		DecodeValue(doc, "level", strlevel);
+		trace_entry.level = LogFile::instance().StrToLevel(strlevel);
 		DecodeValue(doc, "macro_level", trace_entry.macro_level);
 		DecodeValue(doc, "label", trace_entry.label);
 		DecodeValue(doc, "thread_id", trace_entry.thread_id);
