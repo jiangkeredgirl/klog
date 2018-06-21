@@ -13,7 +13,7 @@ public:
 	~LogDisplay();
 
 public slots:
-	int SlotAddTrace(const TraceEntry& trace_entry);
+	int SlotAddTrace(shared_ptr<TraceEntry> trace_entry);
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;

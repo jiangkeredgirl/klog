@@ -122,8 +122,8 @@ void LogFile::ReadThread(TraceEntryParserCallback trace_entry_callback)
 			one_trace_entry_record += "\n";
 			continue;
 		}
-		TraceEntry trace_entry;
-		int errorCode = CJsonParser::instance().DecodeTraceEntry(one_trace_entry_record, trace_entry);
+		shared_ptr<TraceEntry> trace_entry(new TraceEntry);
+		int errorCode = CJsonParser::instance().DecodeTraceEntry(one_trace_entry_record, *trace_entry);
 		if (trace_entry_callback)
 		{
 			trace_entry_callback(trace_entry, 0);

@@ -14,6 +14,7 @@ KlogClient::~KlogClient()
 
 void KlogClient::Init()
 {
+	qRegisterMetaType<shared_ptr<TraceEntry>>("shared_ptr<TraceEntry>");
 	// menubar
 	m_menuBar = new MenuBar(this);
 	this->setMenuBar(m_menuBar);
@@ -57,7 +58,7 @@ void KlogClient::SlotOpenLocalLogFile(const string& filename)
 		, this, std::placeholders::_1, std::placeholders::_2));
 }
 
-int KlogClient::ReadLocalLogFileCallBack(const TraceEntry& trace_entry, int status)
+int KlogClient::ReadLocalLogFileCallBack(shared_ptr<TraceEntry> trace_entry, int status)
 {
 	emit SignalAddTrace(trace_entry);
 	return 0;

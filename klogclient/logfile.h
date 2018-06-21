@@ -34,7 +34,7 @@ struct TraceEntry
 	string   content;                      ///< log内容
 };
 
-typedef std::function<int(const TraceEntry& trace_entry, int status)> TraceEntryParserCallback;
+typedef std::function<int(shared_ptr<TraceEntry> trace_entry, int status)> TraceEntryParserCallback;
 
 class LogFile
 {

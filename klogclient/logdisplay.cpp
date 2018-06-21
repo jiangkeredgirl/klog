@@ -10,11 +10,11 @@ LogDisplay::~LogDisplay()
 {
 }
 
-int LogDisplay::SlotAddTrace(const TraceEntry& trace_entry)
+int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry)
 {
 	int currentRow = m_ui.m_tableLogInfo->rowCount();	
 	m_ui.m_tableLogInfo->setRowCount(++currentRow);
-	SetCellText(currentRow, 5, trace_entry.content);
+	SetCellText(currentRow - 1, 5, trace_entry->content);
 	return 0;
 }
 

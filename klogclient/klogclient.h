@@ -27,10 +27,10 @@ public:
 	void SlotOpenLocalLogFile(const string& filename);
 
 signals:
-	void SignalAddTrace(const TraceEntry& trace_entry);
+	void SignalAddTrace(shared_ptr<TraceEntry> trace_entry);
 
 public:
-	int ReadLocalLogFileCallBack(const TraceEntry& trace_entry, int status);
+	int ReadLocalLogFileCallBack(shared_ptr<TraceEntry> trace_entry, int status);
 
 private:
 	KlogClientui   m_ui;
