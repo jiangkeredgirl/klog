@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
 #include "qtstandard.h"
@@ -16,4 +16,5 @@ public:
 
 public:
 	QWidget*  m_hostWidget = nullptr;
+	QTableWidget* m_tableLogInfo = nullptr;
 };

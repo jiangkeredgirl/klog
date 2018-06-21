@@ -1,4 +1,4 @@
-#include "logdisplay.h"
+﻿#include "logdisplay.h"
 
 LogDisplay::LogDisplay(QWidget *parent)
 	: QWidget(parent)
@@ -8,6 +8,21 @@ LogDisplay::LogDisplay(QWidget *parent)
 
 LogDisplay::~LogDisplay()
 {
+}
+
+int LogDisplay::SlotAddTrace(const TraceEntry& trace_entry)
+{
+	int currentRow = m_ui.m_tableLogInfo->rowCount();	
+	m_ui.m_tableLogInfo->setRowCount(++currentRow);
+	SetCellText(currentRow, 5, trace_entry.content);
+	return 0;
+}
+
+int LogDisplay::SetCellText(int row, int col, const string& text)
+{
+	QLabel *label = new QLabel(text.c_str());
+	m_ui.m_tableLogInfo->setCellWidget(row, col, label);
+	return 0;
 }
 
 void LogDisplay::paintEvent(QPaintEvent *event)

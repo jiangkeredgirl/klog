@@ -18,11 +18,16 @@ class KlogClient : public QMainWindow
 
 public:
 	KlogClient(QWidget *parent = Q_NULLPTR);
+	~KlogClient();
 
 	void Init();
+	void Uninit();
 
 	public slots:
 	void SlotOpenLocalLogFile(const string& filename);
+
+signals:
+	void SignalAddTrace(const TraceEntry& trace_entry);
 
 public:
 	int ReadLocalLogFileCallBack(const TraceEntry& trace_entry, int status);

@@ -112,6 +112,10 @@ void LogFile::ReadThread(TraceEntryParserCallback trace_entry_callback)
 		}
 		string a_line_record;
 		getline(m_logfile, a_line_record);
+		if (m_logfile.eof())
+		{
+			break;
+		}
 		one_trace_entry_record += a_line_record;
 		if (!CJsonParser::instance().IsJsonObject(one_trace_entry_record))
 		{

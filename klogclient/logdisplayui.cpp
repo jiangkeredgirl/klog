@@ -40,21 +40,21 @@ void LogDisplayui::setupUi(QWidget* hostWidget)
 			treeSourceFiles->addTopLevelItem(pItem);
 		}
 
-		QTableWidget* tableLogInfo = new QTableWidget(10, 15, m_hostWidget);
-		layout->addWidget(tableLogInfo);
-		tableLogInfo->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
+		m_tableLogInfo = new QTableWidget(10, 15, m_hostWidget);
+		layout->addWidget(m_tableLogInfo);
+		m_tableLogInfo->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
 
-		tableLogInfo->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
-	 	tableLogInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
-   		tableLogInfo->setSelectionBehavior(QAbstractItemView::SelectRows);
-		//tableLogInfo->horizontalHeader()->setStretchLastSection(true);
-		//tableLogInfo->resizeColumnsToContents();		
-		tableLogInfo->verticalHeader()->setVisible(false);
-		tableLogInfo->horizontalHeader()->setFixedHeight(30);
+		m_tableLogInfo->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
+	 	m_tableLogInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
+   		m_tableLogInfo->setSelectionBehavior(QAbstractItemView::SelectRows);
+		//m_tableLogInfo->horizontalHeader()->setStretchLastSection(true);
+		//m_tableLogInfo->resizeColumnsToContents();		
+		m_tableLogInfo->verticalHeader()->setVisible(false);
+		m_tableLogInfo->horizontalHeader()->setFixedHeight(30);
 
-		//QSizePolicy tableSizePolicy = tableLogInfo->sizePolicy();
+		//QSizePolicy tableSizePolicy = m_tableLogInfo->sizePolicy();
 		//tableSizePolicy.setHorizontalPolicy(QSizePolicy::MinimumExpanding);
-		//tableLogInfo->horizontalHeader()->setSizePolicy(tableSizePolicy);
+		//m_tableLogInfo->horizontalHeader()->setSizePolicy(tableSizePolicy);
 
 		QStringList headerTags = {
 			"index",
@@ -73,6 +73,6 @@ void LogDisplayui::setupUi(QWidget* hostWidget)
 			"synclock",
 			"logbody"
 		};
-		tableLogInfo->setHorizontalHeaderLabels(headerTags);
+		m_tableLogInfo->setHorizontalHeaderLabels(headerTags);
 	}
 }

@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include <QWidget>
 #include "logdisplayui.h"
+#include "logfile.h"
 
 class LogDisplay : public QWidget
 {
@@ -11,8 +12,14 @@ public:
 	LogDisplay(QWidget *parent);
 	~LogDisplay();
 
+public slots:
+	int SlotAddTrace(const TraceEntry& trace_entry);
+
 protected:
 	virtual void paintEvent(QPaintEvent *) override;
+
+private:
+	int SetCellText(int row, int col, const string& text);
 
 private:
 	LogDisplayui m_ui;

@@ -7,6 +7,11 @@ KlogClient::KlogClient(QWidget *parent)
 	Init();	
 }
 
+KlogClient::~KlogClient()
+{
+	Uninit();
+}
+
 void KlogClient::Init()
 {
 	// menubar
@@ -38,6 +43,12 @@ void KlogClient::Init()
 	m_ui.m_mainLayout->addWidget(m_logDisplay);
 
 	connect(m_logFileBar, &LogFileBar::SignalOpenLocalLogFile, this, &KlogClient::SlotOpenLocalLogFile);
+	connect(this, &KlogClient::SignalAddTrace, m_logDisplay, &LogDisplay::SlotAddTrace);
+}
+
+void KlogClient::Uninit()
+{
+	LogFile::instance().StopRead();
 }
 
 void KlogClient::SlotOpenLocalLogFile(const string& filename)
@@ -48,5 +59,6 @@ void KlogClient::SlotOpenLocalLogFile(const string& filename)
 
 int KlogClient::ReadLocalLogFileCallBack(const TraceEntry& trace_entry, int status)
 {
+	emit SignalAddTrace(trace_entry);
 	return 0;
 }

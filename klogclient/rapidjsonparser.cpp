@@ -45,7 +45,11 @@ int CJsonParser::DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_e
 		DecodeValue(doc, "runtime", runtime);
 		trace_entry.runtime = kk::Utility::GetRunTime(runtime);
 		DecodeValue(doc, "function_time", function_time);
-		trace_entry.function_time = stoi(function_time);
+		if (function_time.size() > 2)
+		{
+			function_time.erase(function_time.end() - 2, function_time.end());
+			trace_entry.function_time = stoi(function_time);
+		}		
 		DecodeValue(doc, "process_name", trace_entry.process_name);
 		DecodeValue(doc, "module_name", trace_entry.module_name);
 		DecodeValue(doc, "file_name", trace_entry.file_name);
