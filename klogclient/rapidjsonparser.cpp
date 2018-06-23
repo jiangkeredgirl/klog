@@ -37,7 +37,6 @@ int CJsonParser::DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_e
 		DecodeValue(doc, "index", trace_entry.index);
 		DecodeValue(doc, "level", strlevel);
 		trace_entry.level = LogFile::instance().StrToLevel(strlevel);
-		DecodeValue(doc, "macro_level", trace_entry.macro_level);
 		DecodeValue(doc, "label", trace_entry.label);
 		DecodeValue(doc, "thread_id", trace_entry.thread_id);
 		DecodeValue(doc, "datetime", datetime);
@@ -55,8 +54,7 @@ int CJsonParser::DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_e
 		DecodeValue(doc, "file_name", trace_entry.file_name);
 		DecodeValue(doc, "function_name", trace_entry.function_name);
 		DecodeValue(doc, "line", trace_entry.line);
-		DecodeValue(doc, "func_enter", trace_entry.func_enter);
-		DecodeValue(doc, "func_exit", trace_entry.func_exit);
+		DecodeValue(doc, "func_track", trace_entry.func_track);
 		DecodeValue(doc, "async", trace_entry.async);
 		DecodeValue(doc, "sync_lock", trace_entry.sync_lock);
 		DecodeValue(doc, "is_track", trace_entry.is_track);
