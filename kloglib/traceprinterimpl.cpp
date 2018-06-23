@@ -144,6 +144,24 @@ namespace kk
 
 	TracePrinterImpl::TracePrinterImpl(void)
 	{
+		level_to_strlevel_[TRACE_TRACk] = "trace_track";
+		level_to_strlevel_[TRACE_ERROR] = "trace_error";
+		level_to_strlevel_[TRACE_WARNING] = "trace_warning";
+		level_to_strlevel_[TRACE_OK] = "trace_ok";
+		level_to_strlevel_[TRACE_NOTICE] = "trace_notice";
+		level_to_strlevel_[TRACE_INFO] = "trace_info";
+		level_to_strlevel_[TRACE_DEBUG] = "trace_debug";
+		level_to_strlevel_[TRACE_TEMP] = "trace_temp";
+
+		strlevel_to_level_["trace_track"] = TRACE_TRACk;
+		strlevel_to_level_["trace_error"] = TRACE_ERROR;
+		strlevel_to_level_["trace_warning"] = TRACE_WARNING;
+		strlevel_to_level_["trace_ok"] = TRACE_OK;
+		strlevel_to_level_["trace_notice"] = TRACE_NOTICE;
+		strlevel_to_level_["trace_info"] = TRACE_INFO;
+		strlevel_to_level_["trace_debug"] = TRACE_DEBUG;
+		strlevel_to_level_["trace_temp"] = TRACE_TEMP;
+
 		process_name_ = kk::Utility::GetFileName(kk::Utility::GetProgramPath());
 		string process_name_dir = process_name_;
 		string::size_type pos = process_name_dir.rfind(".exe");
@@ -357,7 +375,7 @@ namespace kk
 
 	int TracePrinterImpl::trace_level_color(int level, int color)
 	{
-		default_level_color[level] = color;
+		default_level_color_[level] = color;
 		return 0;
 	}
 
@@ -465,12 +483,12 @@ namespace kk
 
 	int TracePrinterImpl::OutToConsole(shared_ptr<TraceEntry> trace_entry)
 	{		
-		if (default_level_color.count(trace_entry->level))
+		if (default_level_color_.count(trace_entry->level))
 		{
-			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_level_color[trace_entry->level]);
+			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_level_color_[trace_entry->level]);
 		}
 		fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
-		if (default_level_color.count(trace_entry->level))
+		if (default_level_color_.count(trace_entry->level))
 		{
 			int defult_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), defult_color);
@@ -574,14 +592,14 @@ namespace kk
 		coord.X = 200;
 		coord.Y = 10000;
 		SetConsoleScreenBufferSize(GetStdHandle(STD_OUTPUT_HANDLE), coord);
-		default_level_color[TRACE_TRACk] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-		default_level_color[TRACE_ERROR] = FOREGROUND_INTENSITY | FOREGROUND_RED;
-		default_level_color[TRACE_WARNING] = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN;
-		default_level_color[TRACE_OK] = FOREGROUND_INTENSITY | FOREGROUND_GREEN;
-		default_level_color[TRACE_NOTICE] = FOREGROUND_INTENSITY | FOREGROUND_BLUE;
-		default_level_color[TRACE_INFO] = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-		default_level_color[TRACE_DEBUG] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
-		default_level_color[TRACE_TEMP] = FOREGROUND_INTENSITY;
+		default_level_color_[TRACE_TRACk] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+		default_level_color_[TRACE_ERROR] = FOREGROUND_INTENSITY | FOREGROUND_RED;
+		default_level_color_[TRACE_WARNING] = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN;
+		default_level_color_[TRACE_OK] = FOREGROUND_INTENSITY | FOREGROUND_GREEN;
+		default_level_color_[TRACE_NOTICE] = FOREGROUND_INTENSITY | FOREGROUND_BLUE;
+		default_level_color_[TRACE_INFO] = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+		default_level_color_[TRACE_DEBUG] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
+		default_level_color_[TRACE_TEMP] = FOREGROUND_INTENSITY;
 		return 0;
 	}
 

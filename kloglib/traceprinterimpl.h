@@ -81,6 +81,8 @@ namespace kk
 		string                process_name_;
 		string                process_time_;
 		TraceConfig           trace_config_;		
-		map<int/*level*/, int/*color*/> default_level_color;
+		map<int/*level*/, int/*color*/> default_level_color_;
+		map<int, string>         level_to_strlevel_;
+		map<string, int>         strlevel_to_level_;
 	};
 }
