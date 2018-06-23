@@ -67,13 +67,17 @@ namespace kk
 			ss << "{";
 			if (is_track || TracePrinterImpl::instance().trace_config().head)
 			{
+				if (TracePrinterImpl::instance().trace_config().head_index)
+				{
+					ss << ", \"index\":" << to_string(index);
+				}
 				if (!func_track.empty())
 				{
 					ss << ", \"func_track\":\"" << func_track << "\"";
 				}
-				if (TracePrinterImpl::instance().trace_config().head_index)
+				if (is_track && TracePrinterImpl::instance().trace_config().head_function_time)
 				{
-					ss << ", \"index\":" << to_string(index);
+					ss << ", \"function_time\":\"" << to_string(function_time) << "ms" << "\"";
 				}
 				if (TracePrinterImpl::instance().trace_config().head_level)
 				{
@@ -114,10 +118,6 @@ namespace kk
 				if (TracePrinterImpl::instance().trace_config().head_runtime)
 				{
 					ss << ", \"runtime\":\"" << kk::Utility::GetRunTimeStr(runtime) << "\"";
-				}
-				if (is_track && TracePrinterImpl::instance().trace_config().head_function_time)
-				{
-					ss << ", \"function_time\":\"" << to_string(function_time) << "ms" << "\"";
 				}
 				if (TracePrinterImpl::instance().trace_config().head_async)
 				{

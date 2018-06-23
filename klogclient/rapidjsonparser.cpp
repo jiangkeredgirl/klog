@@ -35,29 +35,28 @@ int CJsonParser::DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_e
 		string  runtime;
 		string  function_time;
 		DecodeValue(doc, "index", trace_entry.index);
-		DecodeValue(doc, "level", strlevel);
-		trace_entry.level = LogFile::instance().StrToLevel(strlevel);
-		DecodeValue(doc, "label", trace_entry.label);
-		DecodeValue(doc, "thread_id", trace_entry.thread_id);
-		DecodeValue(doc, "datetime", datetime);
-		trace_entry.datetime = kk::Utility::GetDateTime(datetime);
-		DecodeValue(doc, "runtime", runtime);
-		trace_entry.runtime = kk::Utility::GetRunTime(runtime);
+		DecodeValue(doc, "func_track", trace_entry.func_track);
 		DecodeValue(doc, "function_time", function_time);
 		if (function_time.size() > 2)
 		{
 			function_time.erase(function_time.end() - 2, function_time.end());
 			trace_entry.function_time = stoi(function_time);
-		}		
+		}
+		DecodeValue(doc, "level", strlevel);
+		trace_entry.level = LogFile::instance().StrToLevel(strlevel);
+		DecodeValue(doc, "label", trace_entry.label);
+		DecodeValue(doc, "thread_id", trace_entry.thread_id);		
 		DecodeValue(doc, "process_name", trace_entry.process_name);
 		DecodeValue(doc, "module_name", trace_entry.module_name);
 		DecodeValue(doc, "file_name", trace_entry.file_name);
 		DecodeValue(doc, "function_name", trace_entry.function_name);
 		DecodeValue(doc, "line", trace_entry.line);
-		DecodeValue(doc, "func_track", trace_entry.func_track);
+		DecodeValue(doc, "datetime", datetime);
+		trace_entry.datetime = kk::Utility::GetDateTime(datetime);
+		DecodeValue(doc, "runtime", runtime);
+		trace_entry.runtime = kk::Utility::GetRunTime(runtime);
 		DecodeValue(doc, "async", trace_entry.async);
 		DecodeValue(doc, "sync_lock", trace_entry.sync_lock);
-		DecodeValue(doc, "is_track", trace_entry.is_track);
 		DecodeValue(doc, "content", trace_entry.content);
 		errorCode = 0;
 	} while (0);
