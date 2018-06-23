@@ -22,12 +22,12 @@ namespace kk
 #ifdef __cplusplus
 	extern "C" {
 #endif
-		KLOGLIB_API TraceLoader* NewTraceLoader(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
+		KLOGLIB_API TraceLoader* NewTraceLoader(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
 		KLOGLIB_API void DeleteTraceLoader(TraceLoader* loader);
 #ifdef __cplusplus
 	}
 #endif
 
-	typedef TraceLoader* (*NewTraceLoaderFun)(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
+	typedef TraceLoader* (*NewTraceLoaderFun)(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...);
 	typedef void (*DeleteTraceLoaderFun)(TraceLoader* loader);
 }

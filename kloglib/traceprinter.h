@@ -54,7 +54,7 @@ namespace kk
 	class TracePrinter
 	{
 	public:
-		virtual int TraceOutLog(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...) = 0;
+		virtual int TraceOutLog(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...) = 0;
 		virtual const TraceConfig& trace_config() const = 0;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) = 0;
 		virtual int WaitTraceThreadEnd() = 0;

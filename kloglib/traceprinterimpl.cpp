@@ -77,7 +77,7 @@ namespace kk
 				}
 				if (TracePrinterImpl::instance().trace_config().head_level)
 				{
-					ss << ", \"level\":\"" << macro_level << "\"";
+					ss << ", \"level\":\"" << TracePrinterImpl::instance().LevelToStr(level) << "\"";
 				}
 				if (TracePrinterImpl::instance().trace_config().head_label)
 				{
@@ -144,23 +144,23 @@ namespace kk
 
 	TracePrinterImpl::TracePrinterImpl(void)
 	{
-		level_to_strlevel_[TRACE_TRACk] = "trace_track";
-		level_to_strlevel_[TRACE_ERROR] = "trace_error";
-		level_to_strlevel_[TRACE_WARNING] = "trace_warning";
-		level_to_strlevel_[TRACE_OK] = "trace_ok";
-		level_to_strlevel_[TRACE_NOTICE] = "trace_notice";
-		level_to_strlevel_[TRACE_INFO] = "trace_info";
-		level_to_strlevel_[TRACE_DEBUG] = "trace_debug";
-		level_to_strlevel_[TRACE_TEMP] = "trace_temp";
+		level_to_str_[TRACE_TRACk] = "trace_track";
+		level_to_str_[TRACE_ERROR] = "trace_error";
+		level_to_str_[TRACE_WARNING] = "trace_warning";
+		level_to_str_[TRACE_OK] = "trace_ok";
+		level_to_str_[TRACE_NOTICE] = "trace_notice";
+		level_to_str_[TRACE_INFO] = "trace_info";
+		level_to_str_[TRACE_DEBUG] = "trace_debug";
+		level_to_str_[TRACE_TEMP] = "trace_temp";
 
-		strlevel_to_level_["trace_track"] = TRACE_TRACk;
-		strlevel_to_level_["trace_error"] = TRACE_ERROR;
-		strlevel_to_level_["trace_warning"] = TRACE_WARNING;
-		strlevel_to_level_["trace_ok"] = TRACE_OK;
-		strlevel_to_level_["trace_notice"] = TRACE_NOTICE;
-		strlevel_to_level_["trace_info"] = TRACE_INFO;
-		strlevel_to_level_["trace_debug"] = TRACE_DEBUG;
-		strlevel_to_level_["trace_temp"] = TRACE_TEMP;
+		str_to_level_["trace_track"] = TRACE_TRACk;
+		str_to_level_["trace_error"] = TRACE_ERROR;
+		str_to_level_["trace_warning"] = TRACE_WARNING;
+		str_to_level_["trace_ok"] = TRACE_OK;
+		str_to_level_["trace_notice"] = TRACE_NOTICE;
+		str_to_level_["trace_info"] = TRACE_INFO;
+		str_to_level_["trace_debug"] = TRACE_DEBUG;
+		str_to_level_["trace_temp"] = TRACE_TEMP;
 
 		process_name_ = kk::Utility::GetFileName(kk::Utility::GetProgramPath());
 		string process_name_dir = process_name_;
@@ -184,7 +184,7 @@ namespace kk
 		WaitTraceThreadEnd();
 	}
 
-	int TracePrinterImpl::TraceOutLog(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
+	int TracePrinterImpl::TraceOutLog(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
 	{
 		do
 		{
@@ -220,7 +220,7 @@ namespace kk
 				delete[] log_exp;
 			} while (false);
 			///
-			shared_ptr<TraceEntry> trace_entry = TraceFormatEntry(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_body);
+			shared_ptr<TraceEntry> trace_entry = TraceFormatEntry(is_track, level, label, module_name, file_name, func_name, line, log_body);
 			if (trace_entry == nullptr)
 			{
 				break;
@@ -234,7 +234,7 @@ namespace kk
 		return 0;
 	}
 
-	shared_ptr<TraceEntry> TracePrinterImpl::TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body)
+	shared_ptr<TraceEntry> TracePrinterImpl::TraceFormatEntry(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body)
 	{
 		shared_ptr<TraceEntry> trace_entry = nullptr;
 		do
@@ -254,8 +254,6 @@ namespace kk
 				trace_entry->index = log_index++;
 				trace_entry->is_track = is_track;
 				trace_entry->level = level;
-				trace_entry->macro_level = strlevel;
-				transform(trace_entry->macro_level.begin(), trace_entry->macro_level.end(), trace_entry->macro_level.begin(), ::tolower);
 				trace_entry->label = label;
 				if (trace_entry->label.empty())
 				{
@@ -524,7 +522,7 @@ namespace kk
 			{
 				trace_file_name = trace_file_dir
 					+ process_name_ + "_" + process_time_
-					+ "_" + trace_entry->macro_level + ".log";
+					+ "_" + TracePrinterImpl::instance().LevelToStr(trace_entry->level) + ".log";
 				OutToFile(trace_file_name, trace_entry_text);
 			}
 
@@ -540,7 +538,7 @@ namespace kk
 				{
 					trace_file_name = trace_file_dir
 						+ process_name_ + "_" + trace_entry->module_name + "_" + process_time_
-						+ "_" + trace_entry->macro_level + ".log";
+						+ "_" + TracePrinterImpl::instance().LevelToStr(trace_entry->level) + ".log";
 					OutToFile(trace_file_name, trace_entry_text);
 				}
 			}
@@ -602,6 +600,35 @@ namespace kk
 		default_level_color_[TRACE_TEMP] = FOREGROUND_INTENSITY;
 		return 0;
 	}
+
+	string TracePrinterImpl::LevelToStr(int level)
+	{
+		string str;
+		if (level_to_str_.count(level))
+		{
+			str = level_to_str_[level];
+		}
+		else
+		{
+			str = to_string(level);
+		}
+		return str;
+	}
+
+	int TracePrinterImpl::StrToLevel(const string& str)
+	{
+		int level = -1;
+		if (str_to_level_.count(str))
+		{
+			level = str_to_level_[str];
+		}
+		else
+		{
+			level = stoi(str);
+		}
+		return level;
+	}
+
 
 	KLOGLIB_API TracePrinter* TracePrinterInstance(void)
 	{

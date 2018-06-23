@@ -13,7 +13,6 @@ namespace kk
 	{
 		__int64  index = 0;                    ///< log序号
 		int      level = 0;                    ///< log等级
-		string   macro_level;                  ///< log等级的宏形式
 		string   label;                        ///< log标识	
 		string   thread_id;                    ///< 线程id
 		__int64  datetime = 0;                 ///< log打印日期时间
@@ -44,12 +43,12 @@ namespace kk
 	public:
 		static TracePrinterImpl& instance();
 	public:
-		virtual int TraceOutLog(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...) override;
+		virtual int TraceOutLog(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...) override;
 		virtual const TraceConfig& trace_config() const override;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) override;
 		virtual int WaitTraceThreadEnd() override;
 	public:
-		shared_ptr<TraceEntry> TraceFormatEntry(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body);
+		shared_ptr<TraceEntry> TraceFormatEntry(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body);
 		int OutTraceEntry(shared_ptr<TraceEntry> trace_entry);
 	public:
 		bool IsOut(bool is_track, int level);
@@ -69,6 +68,9 @@ namespace kk
 		int OutToCom(shared_ptr<TraceEntry> trace_entry);
 		int OutToFile(const string& trace_file_name, const string& trace_entry);
 		int InitConsole();
+	public:
+		string LevelToStr(int level);
+		int StrToLevel(const string& str);
 
 	private:
 		mutex                 trace_mutex_;
@@ -82,7 +84,7 @@ namespace kk
 		string                process_time_;
 		TraceConfig           trace_config_;		
 		map<int/*level*/, int/*color*/> default_level_color_;
-		map<int, string>         level_to_strlevel_;
-		map<string, int>         strlevel_to_level_;
+		map<int, string>         level_to_str_;
+		map<string, int>         str_to_level_;
 	};
 }

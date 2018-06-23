@@ -3,7 +3,7 @@
 
 namespace kk
 {
-	TraceLoaderImpl::TraceLoaderImpl(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
+	TraceLoaderImpl::TraceLoaderImpl(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
 	{
 		do
 		{
@@ -39,7 +39,7 @@ namespace kk
 				delete[] log_exp;
 			} while (false);
 			///
-			trace_entry_enter_ = TracePrinterImpl::instance().TraceFormatEntry(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_body);
+			trace_entry_enter_ = TracePrinterImpl::instance().TraceFormatEntry(is_track, level, label, module_name, file_name, func_name, line, log_body);
 			if (trace_entry_enter_ == nullptr)
 			{
 				break;
@@ -102,7 +102,7 @@ namespace kk
 		return trace_stream_;
 	}
 
-	KLOGLIB_API TraceLoader* NewTraceLoader(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
+	KLOGLIB_API TraceLoader* NewTraceLoader(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
 	{
 		string log_body;
 		do
@@ -134,7 +134,7 @@ namespace kk
 			}
 			delete[] log_exp;
 		} while (false);
-		return new TraceLoaderImpl(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_body.c_str());
+		return new TraceLoaderImpl(is_track, level, label, module_name, file_name, func_name, line, log_body.c_str());
 	}
 
 	KLOGLIB_API void DeleteTraceLoader(TraceLoader* loader)

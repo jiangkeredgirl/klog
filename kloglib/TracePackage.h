@@ -116,11 +116,11 @@ namespace KKTracePackage
 			return &_instance;
 		}
 		template <typename... Args>
-		int TraceOutLog(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, Args... args)
+		int TraceOutLog(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, Args... args)
 		{
 			if (m_TracePrinter)
 			{
-				m_TracePrinter->TraceOutLog(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_format, args...);
+				m_TracePrinter->TraceOutLog(is_track, level, label, module_name, file_name, func_name, line, log_format, args...);
 			}
 			return 0;
 		}
@@ -166,15 +166,15 @@ namespace KKTracePackage
 	{
 	public:
 		template <typename... Args>
-		TraceLoader(bool is_track, int level, const string& strlevel, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, Args... args)
+		TraceLoader(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, Args... args)
 		{
 #if KLOG_USE_DYNAMIC_DLL
 			if (TraceLibrary::instance()->m_NewTraceLoader)
 			{
-				m_TraceLoader = TraceLibrary::instance()->m_NewTraceLoader(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_format, args...);
+				m_TraceLoader = TraceLibrary::instance()->m_NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_format, args...);
 			}
 #else
-			m_TraceLoader = kk::NewTraceLoader(is_track, level, strlevel, label, module_name, file_name, func_name, line, log_format, args...);
+			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_format, args...);
 #endif
 		}
 		~TraceLoader()
