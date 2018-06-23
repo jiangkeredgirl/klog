@@ -16,7 +16,7 @@ namespace kk
 		string   macro_level;                  ///< log等级的宏形式
 		string   label;                        ///< log标识	
 		string   thread_id;                    ///< 线程id
-		__int64  datetime = 0;                     ///< log打印日期时间
+		__int64  datetime = 0;                 ///< log打印日期时间
 		__int64  runtime = 0;                  ///< log打印时程序运行时间
 		__int64  function_time = 0;            ///< 函数体执行时间
 		string   process_name;                 ///< 进程名
@@ -24,8 +24,7 @@ namespace kk
 		string   file_name;                    ///< file name;
 		string   function_name;                ///< function name;
 		int      line = 0;                     ///< line number;
-		string   func_enter;                   ///< function follow flag >>
-		string   func_exit;                    ///< function follow flag <<
+		string   func_track;                   ///< function follow flag >>	or <<
 		bool     async = false;                ///< 是否为异步log
 		bool     sync_lock = false;            ///< 同步模式下是否加锁		
 		bool     is_track = false;

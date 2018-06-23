@@ -67,13 +67,9 @@ namespace kk
 			ss << "{";
 			if (is_track || TracePrinterImpl::instance().trace_config().head)
 			{
-				if (!func_enter.empty())
+				if (!func_track.empty())
 				{
-					ss << ", \"func_track\":\"" << func_enter << "\"";
-				}
-				else if (!func_exit.empty())
-				{
-					ss << ", \"func_track\":\"" << func_exit << "\"";
+					ss << ", \"func_track\":\"" << func_track << "\"";
 				}
 				if (TracePrinterImpl::instance().trace_config().head_index)
 				{
@@ -455,7 +451,7 @@ namespace kk
 			}
 			if (trace_entry)
 			{
-				trace_entry->func_enter = "";
+				trace_entry->func_track = "";
 			}
 		}
 		return 0;

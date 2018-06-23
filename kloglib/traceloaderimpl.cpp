@@ -59,7 +59,7 @@ namespace kk
 			}
 			trace_entry_exit_ = shared_ptr<TraceEntry>(new TraceEntry);
 			*trace_entry_exit_ = *trace_entry_enter_;
-			trace_entry_enter_->func_enter = (">>");
+			trace_entry_enter_->func_track = ">>";
 			TracePrinterImpl::instance().OutTraceEntry(trace_entry_enter_);
 		} while (false);
 	}
@@ -89,7 +89,7 @@ namespace kk
 					trace_entry_exit_->runtime = kk::Utility::GetRunTime();
 					trace_entry_exit_->function_time = trace_entry_exit_->runtime - begin_call_time;
 				}
-				trace_entry_exit_->func_exit = ("<<");
+				trace_entry_exit_->func_track = "<<";
 				trace_entry_exit_->content += trace_stream_.str();
 				TracePrinterImpl::instance().OutTraceEntry(trace_entry_exit_);
 			}
