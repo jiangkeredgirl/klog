@@ -17,8 +17,8 @@ namespace kk
 		virtual stringstream& trace_stream() override;
 
 	private:
-		shared_ptr<TraceEntry>   trace_entry_;
-		__int64                  begin_call_time_;
+		shared_ptr<TraceEntry>   trace_entry_enter_;
+		shared_ptr<TraceEntry>   trace_entry_exit_;
 		stringstream             trace_stream_;
 	};
 }
