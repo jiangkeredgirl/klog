@@ -44,7 +44,7 @@ void KlogClient::Init()
 	m_ui.m_mainLayout->addWidget(m_logDisplay);
 
 	connect(m_logFileBar, &LogFileBar::SignalOpenLocalLogFile, this, &KlogClient::SlotOpenLocalLogFile);
-	connect(this, &KlogClient::SignalAddTrace, m_logDisplay, &LogDisplay::SlotAddTrace);
+	connect(this, &KlogClient::SignalAddTrace, m_logDisplay, &LogDisplay::SlotAddTrace, Qt::BlockingQueuedConnection);
 }
 
 void KlogClient::Uninit()
