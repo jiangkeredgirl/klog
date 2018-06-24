@@ -28,7 +28,7 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry)
 		SetCellText(rowCount, 1, trace_entry->func_track);
 		if (trace_entry->func_track == "<<")
 		{
-			SetCellText(rowCount, 2, to_string(trace_entry->function_time) + "ms");
+			SetCellText(rowCount, 2, to_string(trace_entry->func_time) + "ms");
 		}
 	}
 	SetCellText(rowCount, 3, LogFile::instance().LevelToStr(trace_entry->level));
@@ -37,7 +37,7 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry)
 	SetCellText(rowCount, 6, trace_entry->process_name);
 	SetCellText(rowCount, 7, trace_entry->module_name);
 	SetCellText(rowCount, 8, trace_entry->file_name);
-	SetCellText(rowCount, 9, trace_entry->function_name);
+	SetCellText(rowCount, 9, trace_entry->func_name);
 	SetCellText(rowCount, 10, to_string(trace_entry->line));
 	SetCellText(rowCount, 11, kk::Utility::GetDateTimeStr(trace_entry->datetime));
 	SetCellText(rowCount, 12, kk::Utility::GetRunTimeStr(trace_entry->runtime));

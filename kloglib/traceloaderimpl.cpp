@@ -87,7 +87,7 @@ namespace kk
 				{
 					__int64 begin_call_time = trace_entry_exit_->runtime;
 					trace_entry_exit_->runtime = kk::Utility::GetRunTime();
-					trace_entry_exit_->function_time = trace_entry_exit_->runtime - begin_call_time;
+					trace_entry_exit_->func_time = trace_entry_exit_->runtime - begin_call_time;
 				}
 				trace_entry_exit_->func_track = "<<";
 				trace_entry_exit_->content += trace_stream_.str();

@@ -77,7 +77,7 @@ namespace kk
 				}
 				if (is_track && TracePrinterImpl::instance().trace_config().head_function_time)
 				{
-					ss << ", \"function_time\":\"" << to_string(function_time) << "ms" << "\"";
+					ss << ", \"func_time\":\"" << to_string(func_time) << "ms" << "\"";
 				}
 				if (TracePrinterImpl::instance().trace_config().head_level)
 				{
@@ -105,7 +105,7 @@ namespace kk
 				}
 				if (TracePrinterImpl::instance().trace_config().head_function_name)
 				{
-					ss << ", \"function_name\":\"" << function_name << "\"";
+					ss << ", \"func_name\":\"" << func_name << "\"";
 				}
 				if (TracePrinterImpl::instance().trace_config().head_line)
 				{
@@ -130,7 +130,7 @@ namespace kk
 			}
 			if (!content.empty())
 			{
-				ss << "\n,\"content\": \"" << content << "\"";
+				ss << ",\"content\": \"" << content << "\"";
 			}
 			ss << "}\n\n";
 			trace_text_ = ss.str();
@@ -268,7 +268,7 @@ namespace kk
 				trace_entry->process_name = process_name_;
 				trace_entry->module_name = module_name;
 				trace_entry->file_name = file_name;
-				trace_entry->function_name = func_name;
+				trace_entry->func_name = func_name;
 				trace_entry->line = line;
 				trace_entry->async = trace_config().async;
 				trace_entry->sync_lock = trace_config().sync_lock;
