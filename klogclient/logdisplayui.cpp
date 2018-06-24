@@ -68,9 +68,11 @@ void LogDisplayui::setupUi(QWidget* hostWidget)
 		m_tableLogInfo->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
 		m_tableLogInfo->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
 		//m_tableLogInfo->horizontalHeader()->setStretchLastSection(true);
-		m_tableLogInfo->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-		m_tableLogInfo->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-		m_tableLogInfo->setAutoScroll(true);
+		//m_tableLogInfo->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+		//m_tableLogInfo->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+		//m_tableLogInfo->setAutoScroll(true);
+		m_tableLogInfo->resizeColumnsToContents();
+		m_tableLogInfo->resizeRowsToContents();
 		m_tableLogInfo->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
 
 

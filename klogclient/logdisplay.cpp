@@ -44,7 +44,9 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry)
 	SetCellText(rowCount, 13, trace_entry->async ? "true" : "false");
 	SetCellText(rowCount, 14, trace_entry->sync_lock ? "true" : "false");
 	SetCellText(rowCount, 15, trace_entry->content);
-	//m_ui.m_tableLogInfo->show();
+	m_ui.m_tableLogInfo->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+	m_ui.m_tableLogInfo->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+
 	return 0;
 }
 
