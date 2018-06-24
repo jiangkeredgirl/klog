@@ -1,1 +1,2 @@
-C:\Qt\Qt5.7.0\5.7\msvc2013\bin\windeployqt.exe GlassMaterialEditor.exe
+windeployqt.exe klogclient_x64_v141_Debug.exe
+pause
