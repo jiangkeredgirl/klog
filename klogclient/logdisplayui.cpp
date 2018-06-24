@@ -60,17 +60,19 @@ void LogDisplayui::setupUi(QWidget* hostWidget)
 		};
 		m_tableLogInfo = new QTableWidget(0, headerTags.size(), m_hostWidget);
 		layout->addWidget(m_tableLogInfo);
-
-		m_tableLogInfo->setHorizontalHeaderLabels(headerTags);
-		m_tableLogInfo->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
-
-		m_tableLogInfo->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
-	 	m_tableLogInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
-   		m_tableLogInfo->setSelectionBehavior(QAbstractItemView::SelectRows);
-		m_tableLogInfo->horizontalHeader()->setStretchLastSection(true);
-		m_tableLogInfo->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);		
+		m_tableLogInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		m_tableLogInfo->setSelectionBehavior(QAbstractItemView::SelectRows);
 		m_tableLogInfo->verticalHeader()->setVisible(false);
 		m_tableLogInfo->horizontalHeader()->setFixedHeight(30);
+		m_tableLogInfo->setHorizontalHeaderLabels(headerTags);
+		m_tableLogInfo->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
+		m_tableLogInfo->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
+		//m_tableLogInfo->horizontalHeader()->setStretchLastSection(true);
+		m_tableLogInfo->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+		m_tableLogInfo->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
+		m_tableLogInfo->setAutoScroll(true);
+		m_tableLogInfo->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
+
 
 		//m_tableLogInfo->setHorizontalHeaderLabels(headerTags);
 

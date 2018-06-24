@@ -32,6 +32,7 @@ LogFile &LogFile::instance()
 int LogFile::ReadTraceEntry(const string& logfile_name, TraceEntryParserCallback trace_entry_callback)
 {
 	int errorCode = 1;
+	StopRead();
 	do
 	{
 		m_logfile.open(logfile_name.c_str());
@@ -119,7 +120,7 @@ void LogFile::ReadThread(TraceEntryParserCallback trace_entry_callback)
 		one_trace_entry_record += a_line_record;
 		if (!CJsonParser::instance().IsJsonObject(one_trace_entry_record))
 		{
-			one_trace_entry_record += "\n";
+			one_trace_entry_record += "";
 			continue;
 		}
 		shared_ptr<TraceEntry> trace_entry(new TraceEntry);

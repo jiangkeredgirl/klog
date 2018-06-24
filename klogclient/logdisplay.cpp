@@ -11,6 +11,13 @@ LogDisplay::~LogDisplay()
 {
 }
 
+int LogDisplay::ClearTrace()
+{
+	m_ui.m_tableLogInfo->clearContents();
+	m_ui.m_tableLogInfo->setRowCount(0);
+	return 0;
+}
+
 int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry)
 {
 	int rowCount = m_ui.m_tableLogInfo->rowCount();
@@ -19,9 +26,12 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry)
 	if (!trace_entry->func_track.empty())
 	{
 		SetCellText(rowCount, 1, trace_entry->func_track);
-		SetCellText(rowCount, 2, to_string(trace_entry->function_time) + "ms");
+		if (trace_entry->func_track == "<<")
+		{
+			SetCellText(rowCount, 2, to_string(trace_entry->function_time) + "ms");
+		}
 	}
-	SetCellText(rowCount, 3, to_string(trace_entry->level));
+	SetCellText(rowCount, 3, LogFile::instance().LevelToStr(trace_entry->level));
 	SetCellText(rowCount, 4, trace_entry->label);
 	SetCellText(rowCount, 5, trace_entry->thread_id);
 	SetCellText(rowCount, 6, trace_entry->process_name);
@@ -34,12 +44,15 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry)
 	SetCellText(rowCount, 13, trace_entry->async ? "true" : "false");
 	SetCellText(rowCount, 14, trace_entry->sync_lock ? "true" : "false");
 	SetCellText(rowCount, 15, trace_entry->content);
+	//m_ui.m_tableLogInfo->show();
 	return 0;
 }
 
 int LogDisplay::SetCellText(int row, int col, const string& text)
 {
 	QLabel *label = new QLabel(text.c_str());
+	label->setAlignment(Qt::AlignCenter);
+	label->setContentsMargins(3, 0, 3, 0);
 	m_ui.m_tableLogInfo->setCellWidget(row, col, label);
 	return 0;
 }

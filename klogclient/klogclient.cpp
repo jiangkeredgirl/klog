@@ -54,6 +54,7 @@ void KlogClient::Uninit()
 
 void KlogClient::SlotOpenLocalLogFile(const string& filename)
 {
+	m_logDisplay->ClearTrace();
 	LogFile::instance().ReadTraceEntry(filename, std::bind(&KlogClient::ReadLocalLogFileCallBack
 		, this, std::placeholders::_1, std::placeholders::_2));
 }
