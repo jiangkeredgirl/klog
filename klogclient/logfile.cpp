@@ -120,7 +120,10 @@ void LogFile::ReadThread(TraceEntryParserCallback trace_entry_callback)
 		one_trace_entry_record += a_line_record;
 		if (!CJsonParser::instance().IsJsonObject(one_trace_entry_record))
 		{
-			one_trace_entry_record += "";
+			if (!one_trace_entry_record.empty())
+			{
+				one_trace_entry_record += "\\n";
+			}
 			continue;
 		}
 		shared_ptr<TraceEntry> trace_entry(new TraceEntry);
