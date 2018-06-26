@@ -44,18 +44,22 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry)
 	SetCellText(rowCount, 13, trace_entry->async ? "true" : "false");
 	SetCellText(rowCount, 14, trace_entry->sync_lock ? "true" : "false");
 	SetCellText(rowCount, 15, trace_entry->content);
-	m_ui.m_tableLogInfo->horizontalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-	m_ui.m_tableLogInfo->verticalHeader()->setSectionResizeMode(QHeaderView::ResizeToContents);
-
+	m_ui.m_tableLogInfo->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
+	m_ui.m_tableLogInfo->verticalHeader()->resizeSections(QHeaderView::ResizeToContents);
+	m_ui.m_tableLogInfo->scrollToBottom();
 	return 0;
 }
 
 int LogDisplay::SetCellText(int row, int col, const string& text)
 {
+#if 1
 	QLabel *label = new QLabel(text.c_str());
 	label->setAlignment(Qt::AlignCenter);
 	label->setContentsMargins(3, 0, 3, 0);
 	m_ui.m_tableLogInfo->setCellWidget(row, col, label);
+#else
+	m_ui.m_tableLogInfo->setItem(row, col, "kk");
+#endif
 	return 0;
 }
 
