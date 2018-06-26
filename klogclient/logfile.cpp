@@ -131,6 +131,7 @@ void LogFile::ReadThread(TraceEntryParserCallback trace_entry_callback)
 		if (trace_entry_callback)
 		{
 			trace_entry_callback(trace_entry, 0);
+			std::this_thread::sleep_for(std::chrono::milliseconds(100));
 		}
 		one_trace_entry_record = "";
 	}

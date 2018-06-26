@@ -58,7 +58,7 @@ int LogDisplay::SetCellText(int row, int col, const string& text)
 	label->setContentsMargins(3, 0, 3, 0);
 	m_ui.m_tableLogInfo->setCellWidget(row, col, label);
 #else
-	m_ui.m_tableLogInfo->setItem(row, col, "kk");
+	m_ui.m_tableLogInfo->setItem(row, col, new QTableWidgetItem(text.c_str()));
 #endif
 	return 0;
 }
