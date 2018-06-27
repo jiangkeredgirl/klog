@@ -26,4 +26,6 @@ private:
 
 private:
 	LogDisplayui m_ui;
+	map<int, QColor>  m_color_log_level;
+	QColor            m_color_row;
 };
