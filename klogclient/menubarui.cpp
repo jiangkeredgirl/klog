@@ -24,5 +24,6 @@ void MenuBarui::setupUi(QMenuBar* hostWidget)
 		m_viewMenu->addAction(tr(u8"清空log"));
 		m_viewMenu->addAction(tr(u8"函数调用实时图"));
 		m_viewMenu->addAction(tr(u8"函数调用静态图"));
+		m_viewMenu->addAction(tr(u8"函数执行时间靶点图"));
 	}
 }
