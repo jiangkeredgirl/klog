@@ -1,6 +1,7 @@
 ﻿#ifndef LOGFILE_H
 #define LOGFILE_H
 #include "cstandard.h"
+#include <QObject>
 
 #define TRACE_TRACk           1                     ///< track out,0 not output
 #define TRACE_ERROR           2                     ///< error out,0 not output
@@ -32,10 +33,18 @@ struct TraceEntry
 	string   content;                      ///< log内容
 };
 
-typedef std::function<int(shared_ptr<TraceEntry> trace_entry, int status)> TraceEntryParserCallback;
-
-class LogFile
+enum LogFileStatus
 {
+	LogFileIdle,
+	LogFileReadBegin,
+	LogFileReading,
+	LogFileReadEnd
+};
+
+class LogFile : public QObject
+{
+	Q_OBJECT
+
 private:
 	LogFile();
 public:
@@ -43,15 +52,18 @@ public:
 public:
     static LogFile& instance();
 
+signals:
+	int SignalAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
+
 public:
-	int ReadTraceEntry(const string& logfile_name, TraceEntryParserCallback trace_entry_callback);
+	int ReadTraceEntry(const string& logfile_name);
 	int StopRead();
 	int WriteTraceEntry(const string& logfile_name, const TraceEntry& trace_entry);
 	int StrToLevel(const string& strlevel);
 	string LevelToStr(int level);
 
 private:
-	void ReadThread(TraceEntryParserCallback trace_entry_callback);
+	void ReadThread();
 private:	
 	std::thread              m_thread_read;
 	atomic_bool              m_thread_exit = false;

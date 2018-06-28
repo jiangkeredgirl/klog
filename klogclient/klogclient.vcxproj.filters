@@ -137,11 +137,11 @@
     <QtMoc Include="logfilebarui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="logfile.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="logfile.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="rapidjsonparser.h">
       <Filter>Header Files</Filter>
     </ClInclude>

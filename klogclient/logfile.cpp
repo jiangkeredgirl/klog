@@ -29,7 +29,7 @@ LogFile &LogFile::instance()
     return _instance;
 }
 
-int LogFile::ReadTraceEntry(const string& logfile_name, TraceEntryParserCallback trace_entry_callback)
+int LogFile::ReadTraceEntry(const string& logfile_name)
 {
 	int errorCode = 1;
 	StopRead();
@@ -48,7 +48,7 @@ int LogFile::ReadTraceEntry(const string& logfile_name, TraceEntryParserCallback
 		if (!m_thread_read.joinable())
 		{
 			m_thread_exit = false;
-			m_thread_read = std::thread(bind(&LogFile::ReadThread, this, trace_entry_callback));
+			m_thread_read = std::thread(bind(&LogFile::ReadThread, this));
 		}
 		errorCode = 0;
 	} while (0);
@@ -102,8 +102,9 @@ string LogFile::LevelToStr(int level)
 	return strlevel;
 }
 
-void LogFile::ReadThread(TraceEntryParserCallback trace_entry_callback)
+void LogFile::ReadThread()
 {
+	emit SignalAddTrace(nullptr, LogFileStatus::LogFileReadBegin);
 	string one_trace_entry_record;
 	while (true)
 	{
@@ -114,7 +115,7 @@ void LogFile::ReadThread(TraceEntryParserCallback trace_entry_callback)
 		string a_line_record;
 		getline(m_logfile, a_line_record);
 		if (m_logfile.eof())
-		{
+		{			
 			break;
 		}
 		one_trace_entry_record += a_line_record;
@@ -128,12 +129,10 @@ void LogFile::ReadThread(TraceEntryParserCallback trace_entry_callback)
 		}
 		shared_ptr<TraceEntry> trace_entry(new TraceEntry);
 		int errorCode = CJsonParser::instance().DecodeTraceEntry(one_trace_entry_record, *trace_entry);
-		if (trace_entry_callback)
-		{
-			trace_entry_callback(trace_entry, 0);
-			std::this_thread::sleep_for(std::chrono::milliseconds(100));
-		}
+		emit SignalAddTrace(trace_entry, LogFileStatus::LogFileReading);
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));		
 		one_trace_entry_record = "";
 	}
 	m_logfile.close();
+	emit SignalAddTrace(nullptr, LogFileStatus::LogFileReadEnd);
 }

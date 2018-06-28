@@ -20,50 +20,56 @@ LogDisplay::~LogDisplay()
 {
 }
 
-int LogDisplay::ClearTrace()
-{
-	m_ui.m_tableLogInfo->clearContents();
-	m_ui.m_tableLogInfo->setRowCount(0);
-	return 0;
-}
 
-int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry)
+int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status)
 {
-	if (m_color_log_level.count(trace_entry->level))
+	if (status == LogFileStatus::LogFileReadBegin)
 	{
-		m_color_row = m_color_log_level[trace_entry->level];
+		m_ui.m_tableLogInfo->clearContents();
+		m_ui.m_tableLogInfo->setRowCount(0);
 	}
-	else
+	else if (status == LogFileStatus::LogFileReading && trace_entry)
 	{
-		m_color_row = QColor(0, 0, 0);
-	}
-	int rowCount = m_ui.m_tableLogInfo->rowCount();
-	m_ui.m_tableLogInfo->setRowCount(rowCount + 1);
-	SetCellText(rowCount, 0, to_string(trace_entry->index));
-	if (!trace_entry->func_track.empty())
-	{
-		SetCellText(rowCount, 1, trace_entry->func_track);
-		if (trace_entry->func_track == "<<")
+		if (m_color_log_level.count(trace_entry->level))
 		{
-			SetCellText(rowCount, 2, to_string(trace_entry->func_time) + "ms");
+			m_color_row = m_color_log_level[trace_entry->level];
 		}
+		else
+		{
+			m_color_row = QColor(0, 0, 0);
+		}
+		int rowCount = m_ui.m_tableLogInfo->rowCount();
+		m_ui.m_tableLogInfo->setRowCount(rowCount + 1);
+		SetCellText(rowCount, 0, to_string(trace_entry->index));
+		if (!trace_entry->func_track.empty())
+		{
+			SetCellText(rowCount, 1, trace_entry->func_track);
+			if (trace_entry->func_track == "<<")
+			{
+				SetCellText(rowCount, 2, to_string(trace_entry->func_time) + "ms");
+			}
+		}
+		SetCellText(rowCount, 3, LogFile::instance().LevelToStr(trace_entry->level));
+		SetCellText(rowCount, 4, trace_entry->label);
+		SetCellText(rowCount, 5, trace_entry->thread_id);
+		SetCellText(rowCount, 6, trace_entry->process_name);
+		SetCellText(rowCount, 7, trace_entry->module_name);
+		SetCellText(rowCount, 8, trace_entry->file_name);
+		SetCellText(rowCount, 9, trace_entry->func_name);
+		SetCellText(rowCount, 10, to_string(trace_entry->line));
+		SetCellText(rowCount, 11, kk::Utility::GetDateTimeStr(trace_entry->datetime));
+		SetCellText(rowCount, 12, kk::Utility::GetRunTimeStr(trace_entry->runtime));
+		SetCellText(rowCount, 13, trace_entry->async ? "true" : "false");
+		SetCellText(rowCount, 14, trace_entry->sync_lock ? "true" : "false");
+		SetCellText(rowCount, 15, trace_entry->content);
+		m_ui.m_tableLogInfo->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
+		m_ui.m_tableLogInfo->verticalHeader()->resizeSections(QHeaderView::ResizeToContents);
+		m_ui.m_tableLogInfo->scrollToBottom();
 	}
-	SetCellText(rowCount, 3, LogFile::instance().LevelToStr(trace_entry->level));
-	SetCellText(rowCount, 4, trace_entry->label);
-	SetCellText(rowCount, 5, trace_entry->thread_id);
-	SetCellText(rowCount, 6, trace_entry->process_name);
-	SetCellText(rowCount, 7, trace_entry->module_name);
-	SetCellText(rowCount, 8, trace_entry->file_name);
-	SetCellText(rowCount, 9, trace_entry->func_name);
-	SetCellText(rowCount, 10, to_string(trace_entry->line));
-	SetCellText(rowCount, 11, kk::Utility::GetDateTimeStr(trace_entry->datetime));
-	SetCellText(rowCount, 12, kk::Utility::GetRunTimeStr(trace_entry->runtime));
-	SetCellText(rowCount, 13, trace_entry->async ? "true" : "false");
-	SetCellText(rowCount, 14, trace_entry->sync_lock ? "true" : "false");
-	SetCellText(rowCount, 15, trace_entry->content);
-	m_ui.m_tableLogInfo->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
-	m_ui.m_tableLogInfo->verticalHeader()->resizeSections(QHeaderView::ResizeToContents);
-	m_ui.m_tableLogInfo->scrollToBottom();
+	else if (status == LogFileStatus::LogFileReadEnd)
+	{
+
+	}
 	return 0;
 }
 

@@ -15,6 +15,7 @@ KlogClient::~KlogClient()
 void KlogClient::Init()
 {
 	qRegisterMetaType<shared_ptr<TraceEntry>>("shared_ptr<TraceEntry>");
+	qRegisterMetaType<LogFileStatus>("LogFileStatus");
 	// menubar
 	m_menuBar = new MenuBar(this);
 	this->setMenuBar(m_menuBar);
@@ -44,7 +45,7 @@ void KlogClient::Init()
 	m_ui.m_mainLayout->addWidget(m_logDisplay);
 
 	connect(m_logFileBar, &LogFileBar::SignalOpenLocalLogFile, this, &KlogClient::SlotOpenLocalLogFile);
-	connect(this, &KlogClient::SignalAddTrace, m_logDisplay, &LogDisplay::SlotAddTrace, Qt::BlockingQueuedConnection);
+	connect(&LogFile::instance(), &LogFile::SignalAddTrace, m_logDisplay, &LogDisplay::SlotAddTrace, Qt::BlockingQueuedConnection);
 }
 
 void KlogClient::Uninit()
@@ -54,13 +55,5 @@ void KlogClient::Uninit()
 
 void KlogClient::SlotOpenLocalLogFile(const string& filename)
 {
-	m_logDisplay->ClearTrace();
-	LogFile::instance().ReadTraceEntry(filename, std::bind(&KlogClient::ReadLocalLogFileCallBack
-		, this, std::placeholders::_1, std::placeholders::_2));
-}
-
-int KlogClient::ReadLocalLogFileCallBack(shared_ptr<TraceEntry> trace_entry, int status)
-{
-	emit SignalAddTrace(trace_entry);
-	return 0;
+	LogFile::instance().ReadTraceEntry(filename);
 }

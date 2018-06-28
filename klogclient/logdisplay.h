@@ -12,11 +12,9 @@ public:
 	LogDisplay(QWidget *parent);
 	~LogDisplay();
 
-public:
-	int ClearTrace();
 
 public slots:
-	int SlotAddTrace(shared_ptr<TraceEntry> trace_entry);
+	int SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;

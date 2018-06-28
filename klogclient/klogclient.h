@@ -23,14 +23,8 @@ public:
 	void Init();
 	void Uninit();
 
-	public slots:
+public slots:
 	void SlotOpenLocalLogFile(const string& filename);
-
-signals:
-	void SignalAddTrace(shared_ptr<TraceEntry> trace_entry);
-
-public:
-	int ReadLocalLogFileCallBack(shared_ptr<TraceEntry> trace_entry, int status);
 
 private:
 	KlogClientui   m_ui;
