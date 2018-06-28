@@ -134,5 +134,8 @@ void LogFile::ReadThread()
 		one_trace_entry_record = "";
 	}
 	m_logfile.close();
-	emit SignalAddTrace(nullptr, LogFileStatus::LogFileReadEnd);
+	if (!m_thread_exit)
+	{
+		emit SignalAddTrace(nullptr, LogFileStatus::LogFileReadEnd);
+	}	
 }
