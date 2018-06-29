@@ -89,7 +89,7 @@ namespace kk
 				}
 				if (TracePrinterImpl::instance().trace_config().head_thread_id)
 				{
-					ss << ", \"thread_id\":\"" << thread_id << "\"";
+					ss << ", \"thread_id\":" << thread_id;
 				}
 				if (TracePrinterImpl::instance().trace_config().head_process_name)
 				{
@@ -109,7 +109,7 @@ namespace kk
 				}
 				if (TracePrinterImpl::instance().trace_config().head_line)
 				{
-					ss << ", \"line\":" << to_string(line);
+					ss << ", \"line\":" << line;
 				}
 				if (TracePrinterImpl::instance().trace_config().head_datetime)
 				{
@@ -259,10 +259,9 @@ namespace kk
 				{
 					trace_entry->label = trace_config().head_label_text;
 				}
-				std::thread::id this_id = std::this_thread::get_id();
 				std::stringstream ss;
-				ss << this_id;
-				trace_entry->thread_id = ss.str();
+				ss << std::this_thread::get_id();
+				ss >> trace_entry->thread_id;
 				trace_entry->datetime = kk::Utility::GetDateTime();
 				trace_entry->runtime = kk::Utility::GetRunTime();
 				trace_entry->process_name = process_name_;

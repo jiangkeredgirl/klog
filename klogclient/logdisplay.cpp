@@ -51,7 +51,7 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus s
 		}
 		SetCellText(rowCount, 3, LogFile::instance().LevelToStr(trace_entry->level));
 		SetCellText(rowCount, 4, trace_entry->label);
-		SetCellText(rowCount, 5, trace_entry->thread_id);
+		SetCellText(rowCount, 5, to_string(trace_entry->thread_id));
 		SetCellText(rowCount, 6, trace_entry->process_name);
 		SetCellText(rowCount, 7, trace_entry->module_name);
 		SetCellText(rowCount, 8, trace_entry->file_name);
