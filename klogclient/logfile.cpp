@@ -130,7 +130,7 @@ void LogFile::ReadThread()
 		shared_ptr<TraceEntry> trace_entry(new TraceEntry);
 		int errorCode = CJsonParser::instance().DecodeTraceEntry(one_trace_entry_record, *trace_entry);
 		emit SignalAddTrace(trace_entry, LogFileStatus::LogFileReading);
-		std::this_thread::sleep_for(std::chrono::milliseconds(1));		
+		//std::this_thread::sleep_for(std::chrono::milliseconds(1));		
 		one_trace_entry_record = "";
 	}
 	m_logfile.close();

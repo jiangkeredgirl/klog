@@ -39,7 +39,7 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus s
 			m_color_row = QColor(0, 0, 0);
 		}
 		int rowCount = m_ui.m_tableLogInfo->rowCount();
-		m_ui.m_tableLogInfo->setRowCount(rowCount + 1);
+		m_ui.m_tableLogInfo->insertRow(rowCount);
 		SetCellText(rowCount, 0, to_string(trace_entry->index));
 		if (!trace_entry->func_track.empty())
 		{
@@ -62,27 +62,29 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus s
 		SetCellText(rowCount, 13, trace_entry->async ? "true" : "false");
 		SetCellText(rowCount, 14, trace_entry->sync_lock ? "true" : "false");
 		SetCellText(rowCount, 15, trace_entry->content);
-		m_ui.m_tableLogInfo->horizontalHeader()->resizeSections(QHeaderView::ResizeToContents);
-		m_ui.m_tableLogInfo->verticalHeader()->resizeSections(QHeaderView::ResizeToContents);
+		m_ui.m_tableLogInfo->resizeRowToContents(rowCount);		
 		m_ui.m_tableLogInfo->scrollToBottom();
 	}
 	else if (status == LogFileStatus::LogFileReadEnd)
 	{
-
+		//m_ui.m_tableLogInfo->resizeRowsToContents();
+		m_ui.m_tableLogInfo->resizeColumnsToContents();
 	}
 	return 0;
 }
 
 int LogDisplay::SetCellText(int row, int col, const string& text)
 {
-#if 1
+#if 0
 	QLabel *label = new QLabel(text.c_str());
 	label->setAlignment(Qt::AlignCenter);
 	label->setContentsMargins(3, 0, 3, 0);
 	label->setStyleSheet("color:"+ m_color_row.name());
 	m_ui.m_tableLogInfo->setCellWidget(row, col, label);
 #else
-	m_ui.m_tableLogInfo->setItem(row, col, new QTableWidgetItem(text.c_str()));
+	QTableWidgetItem* item = new QTableWidgetItem(text.c_str());
+	item->setTextColor(m_color_row);
+	m_ui.m_tableLogInfo->setItem(row, col, item);
 #endif
 	return 0;
 }
