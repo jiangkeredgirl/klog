@@ -70,6 +70,7 @@ private:
 	ifstream                 m_logfile;
 	map<int, string>         m_level_to_str;
 	map<string, int>         m_str_to_level;
+	mutex                    m_thread_mutex;
 };
 
 #endif // LOGFILE_H
