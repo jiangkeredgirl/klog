@@ -26,7 +26,6 @@ void LogDisplayui::setupUi(QWidget* hostWidget)
 		m_treeSourceNames->setHeaderLabel(u8"函数名");
 		m_treeSourceNames->setStyleSheet("QTreeWidget{border:1px solid red;}");
 		m_treeSourceNames->setFixedWidth(200);
-		//m_treeSourceNames->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
 		//for (size_t i = 0; i < 5; i++)
 		//{
 		//	QTreeWidgetItem* pItem = new QTreeWidgetItem();

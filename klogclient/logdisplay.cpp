@@ -27,6 +27,7 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus s
 	{
 		m_ui.m_tableLogInfo->clearContents();
 		m_ui.m_tableLogInfo->setRowCount(0);
+		m_ui.m_treeSourceNames->clear();
 	}
 	else if (status == LogFileStatus::LogFileReading && trace_entry)
 	{
@@ -134,7 +135,7 @@ QTreeWidgetItem* LogDisplay::AddItem(QTreeWidgetItem* parentItem, const string& 
 		pItem->setText(0, name.c_str());
 		pItem->setCheckState(0, Qt::Checked);
 		parentItem->addChild(pItem);
-		//parentItem->res
+		m_ui.m_treeSourceNames->resizeColumnToContents(0);
 	}
 	return parentItem->child(childIndex);
 }
