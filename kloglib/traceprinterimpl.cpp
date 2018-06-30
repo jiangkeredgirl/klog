@@ -312,8 +312,12 @@ namespace kk
 				if (trace_config().sync_lock)
 				{
 					lock_guard<mutex> trace_out_lock(trace_sync_mutex_);
+					OutTrace(trace_entry);
 				}
-				OutTrace(trace_entry);
+				else
+				{
+					OutTrace(trace_entry);
+				}
 			}
 		} while (false);
 		return 0;
