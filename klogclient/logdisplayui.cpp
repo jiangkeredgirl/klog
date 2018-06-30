@@ -21,24 +21,26 @@ void LogDisplayui::setupUi(QWidget* hostWidget)
 		layout->setContentsMargins(1, 0, 1, 0);
 		layout->setSpacing(10);
 
-		QTreeWidget* treeSourceFiles = new QTreeWidget(m_hostWidget);
-		layout->addWidget(treeSourceFiles);
-		treeSourceFiles->setStyleSheet("QTreeWidget{border:1px solid red;}");
-		treeSourceFiles->setFixedWidth(200);
-		for (size_t i = 0; i < 5; i++)
-		{
-			QTreeWidgetItem* pItem = new QTreeWidgetItem();
-			pItem->setText(0, u8"程序名");
-			pItem->setCheckState(0, Qt::PartiallyChecked);
-			for (size_t i = 0; i < 5; i++)
-			{
-				QTreeWidgetItem* pItem1 = new QTreeWidgetItem();
-				pItem1->setText(0, u8"模块名");
-				pItem1->setCheckState(0, Qt::Checked);
-				pItem->addChild(pItem1);
-			}
-			treeSourceFiles->addTopLevelItem(pItem);
-		}
+		m_treeSourceNames = new QTreeWidget(m_hostWidget);
+		layout->addWidget(m_treeSourceNames);
+		m_treeSourceNames->setHeaderLabel(u8"函数名");
+		m_treeSourceNames->setStyleSheet("QTreeWidget{border:1px solid red;}");
+		m_treeSourceNames->setFixedWidth(200);
+		//m_treeSourceNames->header()->setSectionResizeMode(QHeaderView::ResizeToContents);
+		//for (size_t i = 0; i < 5; i++)
+		//{
+		//	QTreeWidgetItem* pItem = new QTreeWidgetItem();
+		//	pItem->setText(0, u8"程序名");
+		//	pItem->setCheckState(0, Qt::PartiallyChecked);
+		//	for (size_t i = 0; i < 5; i++)
+		//	{
+		//		QTreeWidgetItem* pItem1 = new QTreeWidgetItem();
+		//		pItem1->setText(0, u8"模块名");
+		//		pItem1->setCheckState(0, Qt::Checked);
+		//		pItem->addChild(pItem1);
+		//	}
+		//	treeSourceFiles->addTopLevelItem(pItem);
+		//}
 
 		QStringList headerTags = {
 			"index",

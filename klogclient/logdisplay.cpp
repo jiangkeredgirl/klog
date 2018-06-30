@@ -30,6 +30,7 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus s
 	}
 	else if (status == LogFileStatus::LogFileReading && trace_entry)
 	{
+		AddNames(trace_entry);
 		if (m_color_log_level.count(trace_entry->level))
 		{
 			m_color_row = m_color_log_level[trace_entry->level];
@@ -87,6 +88,55 @@ int LogDisplay::SetCellText(int row, int col, const string& text)
 	m_ui.m_tableLogInfo->setItem(row, col, item);
 #endif
 	return 0;
+}
+
+int LogDisplay::AddNames(shared_ptr<TraceEntry> trace_entry)
+{
+	/// 进程名
+	int processCount = m_ui.m_treeSourceNames->topLevelItemCount();
+	int processItemIndex = 0;
+	for (processItemIndex = 0; processItemIndex < processCount; processItemIndex++)
+	{
+		if (m_ui.m_treeSourceNames->topLevelItem(processItemIndex)->text(0).toStdString() == trace_entry->process_name)
+		{
+			break;
+		}
+	}
+	if (processItemIndex == processCount)
+	{
+		QTreeWidgetItem* pItem = new QTreeWidgetItem();
+		pItem->setText(0, trace_entry->process_name.c_str());
+		pItem->setCheckState(0, Qt::Checked);
+		m_ui.m_treeSourceNames->addTopLevelItem(pItem);
+	}
+	///	模块名
+	QTreeWidgetItem* moduleItem = AddItem(m_ui.m_treeSourceNames->topLevelItem(processItemIndex), trace_entry->module_name);
+	///	文件名
+	QTreeWidgetItem* fileItem = AddItem(moduleItem, trace_entry->file_name);
+	///	函数名
+	QTreeWidgetItem* funcItem = AddItem(fileItem, trace_entry->func_name);
+	return 0;
+}
+
+QTreeWidgetItem* LogDisplay::AddItem(QTreeWidgetItem* parentItem, const string& name)
+{
+	int childIndex = 0;
+	for (childIndex = 0; childIndex < parentItem->childCount(); childIndex++)
+	{
+		if (parentItem->child(childIndex)->text(0).toStdString() == name)
+		{
+			break;
+		}
+	}
+	if (childIndex == parentItem->childCount())
+	{
+		QTreeWidgetItem* pItem = new QTreeWidgetItem();
+		pItem->setText(0, name.c_str());
+		pItem->setCheckState(0, Qt::Checked);
+		parentItem->addChild(pItem);
+		//parentItem->res
+	}
+	return parentItem->child(childIndex);
 }
 
 void LogDisplay::paintEvent(QPaintEvent *event)

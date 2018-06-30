@@ -21,6 +21,8 @@ protected:
 
 private:
 	int SetCellText(int row, int col, const string& text);
+	int AddNames(shared_ptr<TraceEntry> trace_entry);
+	QTreeWidgetItem* AddItem(QTreeWidgetItem* parentItem, const string& name);
 
 private:
 	LogDisplayui m_ui;
