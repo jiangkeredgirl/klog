@@ -13,7 +13,7 @@ LogDisplay::LogDisplay(QWidget *parent)
 	m_color_log_level[TRACE_INFO]     = QColor(0, 0, 0);
 	m_color_log_level[TRACE_DEBUG]    = QColor(0, 0, 0);
 	m_color_log_level[TRACE_TEMP]     = QColor(0, 0, 0);
-
+	connect(m_ui.m_treeSourceNames, &QTreeWidget::itemChanged, this, &LogDisplay::SlotCheckStateChanged);
 }
 
 LogDisplay::~LogDisplay()
@@ -138,6 +138,79 @@ QTreeWidgetItem* LogDisplay::AddItem(QTreeWidgetItem* parentItem, const string& 
 		m_ui.m_treeSourceNames->resizeColumnToContents(0);
 	}
 	return parentItem->child(childIndex);
+}
+
+void LogDisplay::SlotCheckStateChanged(QTreeWidgetItem *item, int column)
+{
+	if (Qt::PartiallyChecked != item->checkState(column))
+	{
+		SetChildCheckState(item, item->checkState(column));
+	}
+	if (Qt::PartiallyChecked == item->checkState(column))
+	{
+		if (!IsTopItem(item))
+		{
+			item->parent()->setCheckState(column, Qt::PartiallyChecked);
+		}
+	}
+}
+
+bool LogDisplay::IsTopItem(QTreeWidgetItem* item)
+{
+	if (!item)
+	{
+		return false;
+	}
+	if (item->parent())
+	{
+		return false;
+	}
+	return true;
+}
+
+void LogDisplay::SetChildCheckState(QTreeWidgetItem *item, Qt::CheckState state)
+{
+	if (item)
+	{
+		for (int i = 0; i < item->childCount(); i++)
+		{
+			QTreeWidgetItem* child = item->child(i);
+			if (child->checkState(0) != state)
+			{
+				child->setCheckState(0, state);
+			}
+		}
+		SetParentCheckState(item->parent());
+	}
+}
+
+void LogDisplay::SetParentCheckState(QTreeWidgetItem *item)
+{
+	if (item)
+	{
+		int selectedCount = 0;
+		int childCount = item->childCount();
+		for (int i = 0; i < childCount; i++)
+		{
+			QTreeWidgetItem* child = item->child(i);
+			if (child->checkState(0) == Qt::Checked)
+			{
+				selectedCount++;
+			}
+		}
+		if (selectedCount == 0)
+		{
+			item->setCheckState(0, Qt::Unchecked);
+		}
+		else if (selectedCount == childCount)
+		{
+			item->setCheckState(0, Qt::Checked);
+		}
+		else
+		{
+			item->setCheckState(0, Qt::PartiallyChecked);
+		}
+	}
 }
 
 void LogDisplay::paintEvent(QPaintEvent *event)

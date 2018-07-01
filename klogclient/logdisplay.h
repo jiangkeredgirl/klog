@@ -15,6 +15,7 @@ public:
 
 public slots:
 	int SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
+	void SlotCheckStateChanged(QTreeWidgetItem *item, int column);
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;
@@ -23,6 +24,9 @@ private:
 	int SetCellText(int row, int col, const string& text);
 	int AddNames(shared_ptr<TraceEntry> trace_entry);
 	QTreeWidgetItem* AddItem(QTreeWidgetItem* parentItem, const string& name);
+	bool IsTopItem(QTreeWidgetItem* item);
+	void SetChildCheckState(QTreeWidgetItem *item, Qt::CheckState state);
+	void SetParentCheckState(QTreeWidgetItem *item);
 
 private:
 	LogDisplayui m_ui;
