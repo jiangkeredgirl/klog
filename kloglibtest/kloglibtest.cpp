@@ -5,9 +5,9 @@
 
 #include <stdio.h>
 #include <tchar.h>
-
-
 #include "kloglib.h"
+#include "TraceTest1.h"
+#include "TraceTest2.h"
 
 #define MYDEFINE_LEVEL 10
 
@@ -47,6 +47,33 @@ int trace_test(const string& log_content)
 	return 0;
 }
 
+int trace_test1(const string& log_content)
+{
+	TrackCout;
+	TraceErrorCout << log_content;//c++风格，编译器代码不能去掉
+	TraceWarningCout << log_content;
+	TraceOKCout << log_content; // tchar类型
+	TraceNoticeCout << log_content;
+	TraceInfoCout << log_content;
+	TraceDebugCout << log_content;
+	TraceTempCout << log_content;
+	TraceCout(MYDEFINE_LEVEL) << log_content;
+	return 0;
+}
+
+int trace_test2(const string& log_content)
+{
+	TrackCout;
+	TraceErrorCout << log_content;//c++风格，编译器代码不能去掉
+	TraceWarningCout << log_content;
+	TraceOKCout << log_content; // tchar类型
+	TraceNoticeCout << log_content;
+	TraceInfoCout << log_content;
+	TraceDebugCout << log_content;
+	TraceTempCout << log_content;
+	TraceCout(MYDEFINE_LEVEL) << log_content;
+	return 0;
+}
 
 void SetConsoleUTF8()
 {
@@ -70,6 +97,10 @@ int _tmain()
 {
 	SetConsoleUTF8();
 	trace_test(u8"my log content 支持中文");
+	trace_test1(u8"my log content 支持中文");
+	trace_test2(u8"my log content 支持中文");
+	TraceTest1 test1;
+	TraceTest2 test2;
 	WaitTrace;
 	return 0;
 }

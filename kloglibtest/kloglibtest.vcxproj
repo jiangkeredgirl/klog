@@ -199,9 +199,13 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="TraceTest1.h" />
+    <ClInclude Include="TraceTest2.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="kloglibtest.cpp" />
+    <ClCompile Include="TraceTest1.cpp" />
+    <ClCompile Include="TraceTest2.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
