@@ -142,6 +142,7 @@ QTreeWidgetItem* LogDisplay::AddItem(QTreeWidgetItem* parentItem, const string& 
 
 void LogDisplay::SlotCheckStateChanged(QTreeWidgetItem *item, int column)
 {
+	disconnect(m_ui.m_treeSourceNames, &QTreeWidget::itemChanged, this, &LogDisplay::SlotCheckStateChanged);
 	if (Qt::PartiallyChecked != item->checkState(column))
 	{
 		SetChildCheckState(item, item->checkState(column));
@@ -153,6 +154,7 @@ void LogDisplay::SlotCheckStateChanged(QTreeWidgetItem *item, int column)
 			item->parent()->setCheckState(column, Qt::PartiallyChecked);
 		}
 	}
+	connect(m_ui.m_treeSourceNames, &QTreeWidget::itemChanged, this, &LogDisplay::SlotCheckStateChanged);
 }
 
 bool LogDisplay::IsTopItem(QTreeWidgetItem* item)
@@ -178,6 +180,7 @@ void LogDisplay::SetChildCheckState(QTreeWidgetItem *item, Qt::CheckState state)
 			if (child->checkState(0) != state)
 			{
 				child->setCheckState(0, state);
+				SetChildCheckState(child, state);
 			}
 		}
 		SetParentCheckState(item->parent());
@@ -210,6 +213,7 @@ void LogDisplay::SetParentCheckState(QTreeWidgetItem *item)
 		{
 			item->setCheckState(0, Qt::PartiallyChecked);
 		}
+		SetParentCheckState(item->parent());
 	}
 }
 

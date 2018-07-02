@@ -50,6 +50,7 @@ void KlogClient::Init()
 
 void KlogClient::Uninit()
 {
+	disconnect(&LogFile::instance(), &LogFile::SignalAddTrace, m_logDisplay, &LogDisplay::SlotAddTrace);
 	LogFile::instance().StopRead();
 }
 
