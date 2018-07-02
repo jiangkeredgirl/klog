@@ -143,16 +143,19 @@ QTreeWidgetItem* LogDisplay::AddItem(QTreeWidgetItem* parentItem, const string& 
 void LogDisplay::SlotCheckStateChanged(QTreeWidgetItem *item, int column)
 {
 	disconnect(m_ui.m_treeSourceNames, &QTreeWidget::itemChanged, this, &LogDisplay::SlotCheckStateChanged);
-	if (Qt::PartiallyChecked != item->checkState(column))
+	if (item)
 	{
 		SetChildCheckState(item, item->checkState(column));
-	}
-	if (Qt::PartiallyChecked == item->checkState(column))
-	{
 		if (!IsTopItem(item))
 		{
-			item->parent()->setCheckState(column, Qt::PartiallyChecked);
+			SetParentCheckState(item->parent());
 		}
+		if (m_tree_cur_item)
+		{
+			m_tree_cur_item->setTextColor(0, qRgb(0, 0, 0));
+		}
+		m_tree_cur_item = item;
+		m_tree_cur_item->setTextColor(0, qRgb(255, 0, 0));
 	}
 	connect(m_ui.m_treeSourceNames, &QTreeWidget::itemChanged, this, &LogDisplay::SlotCheckStateChanged);
 }
@@ -183,7 +186,6 @@ void LogDisplay::SetChildCheckState(QTreeWidgetItem *item, Qt::CheckState state)
 				SetChildCheckState(child, state);
 			}
 		}
-		SetParentCheckState(item->parent());
 	}
 }
 
@@ -191,28 +193,39 @@ void LogDisplay::SetParentCheckState(QTreeWidgetItem *item)
 {
 	if (item)
 	{
-		int selectedCount = 0;
-		int childCount = item->childCount();
-		for (int i = 0; i < childCount; i++)
+		Qt::CheckState childState;
+		do
 		{
-			QTreeWidgetItem* child = item->child(i);
-			if (child->checkState(0) == Qt::Checked)
+			int i = 0;
+			for (i = 0; i < item->childCount(); i++)
 			{
-				selectedCount++;
+				QTreeWidgetItem* child = item->child(i);
+				if (child->checkState(0) != Qt::Checked)
+				{
+					break;
+				}
 			}
-		}
-		if (selectedCount == 0)
-		{
-			item->setCheckState(0, Qt::Unchecked);
-		}
-		else if (selectedCount == childCount)
-		{
-			item->setCheckState(0, Qt::Checked);
-		}
-		else
-		{
-			item->setCheckState(0, Qt::PartiallyChecked);
-		}
+			if (i == item->childCount())
+			{
+				childState = Qt::Checked;
+				break;
+			}
+			for (i = 0; i < item->childCount(); i++)
+			{
+				QTreeWidgetItem* child = item->child(i);
+				if (child->checkState(0) != Qt::Unchecked)
+				{
+					break;
+				}
+			}
+			if (i == item->childCount())
+			{
+				childState = Qt::Unchecked;
+				break;
+			}
+			childState = Qt::PartiallyChecked;
+		} while (false);
+		item->setCheckState(0, childState);
 		SetParentCheckState(item->parent());
 	}
 }
