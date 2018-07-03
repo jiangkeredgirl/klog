@@ -3,6 +3,7 @@
 #include <QWidget>
 #include "logdisplayui.h"
 #include "logfile.h"
+#include "cstandard.h"
 
 class LogDisplay : public QWidget
 {
@@ -16,6 +17,7 @@ public:
 public slots:
 	int SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
 	void SlotCheckStateChanged(QTreeWidgetItem *item, int column);
+	void SlotCheckDisplayChange(vector<string> names, Qt::CheckState state);
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;
@@ -27,6 +29,7 @@ private:
 	bool IsTopItem(QTreeWidgetItem* item);
 	void SetChildCheckState(QTreeWidgetItem *item, Qt::CheckState state);
 	void SetParentCheckState(QTreeWidgetItem *item);
+	bool CheckHide(shared_ptr<TraceEntry> trace_entry);	
 
 private:
 	LogDisplayui m_ui;

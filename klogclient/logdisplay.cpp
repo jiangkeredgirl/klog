@@ -156,8 +156,45 @@ void LogDisplay::SlotCheckStateChanged(QTreeWidgetItem *item, int column)
 		}
 		m_tree_cur_item = item;
 		m_tree_cur_item->setTextColor(0, qRgb(255, 0, 0));
+		Qt::CheckState state = item->checkState(column);
+		vector<string> check_names;
+		do
+		{
+			check_names.insert(check_names.begin(), item->text(0).toStdString());
+			item = item->parent();
+		} while (item);
+		SlotCheckDisplayChange(check_names, state);
 	}
 	connect(m_ui.m_treeSourceNames, &QTreeWidget::itemChanged, this, &LogDisplay::SlotCheckStateChanged);
+}
+
+void LogDisplay::SlotCheckDisplayChange(vector<string> names, Qt::CheckState state)
+{
+	if ((names.size() > 0) && (names.size() < 5))
+	{
+		for (size_t i = 0; i < m_ui.m_tableLogInfo->rowCount(); i++)
+		{
+			size_t j = 0;
+			for (j = 0; j < names.size(); j++)
+			{
+				if (m_ui.m_tableLogInfo->item(i, 6 + j)->text().toStdString() != names[j])
+				{
+					break;
+				}
+			}
+			if (j == names.size())
+			{
+				if (state == Qt::CheckState::Checked)
+				{
+					m_ui.m_tableLogInfo->showRow(i);
+				}
+				else if (state == Qt::CheckState::Unchecked)
+				{
+					m_ui.m_tableLogInfo->hideRow(i);
+				}
+			}
+		}
+	}
 }
 
 bool LogDisplay::IsTopItem(QTreeWidgetItem* item)
