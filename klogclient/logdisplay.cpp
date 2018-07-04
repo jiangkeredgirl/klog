@@ -32,6 +32,7 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus s
 	else if (status == LogFileStatus::LogFileReading && trace_entry)
 	{
 		AddNames(trace_entry);
+		bool hide = CheckHide(trace_entry);
 		if (m_color_log_level.count(trace_entry->level))
 		{
 			m_color_row = m_color_log_level[trace_entry->level];
@@ -42,6 +43,10 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus s
 		}
 		int rowCount = m_ui.m_tableLogInfo->rowCount();
 		m_ui.m_tableLogInfo->insertRow(rowCount);
+		if (hide)
+		{
+			m_ui.m_tableLogInfo->hideRow(rowCount);
+		}
 		SetCellText(rowCount, 0, to_string(trace_entry->index));
 		if (!trace_entry->func_track.empty())
 		{
@@ -64,7 +69,7 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus s
 		SetCellText(rowCount, 13, trace_entry->async ? "true" : "false");
 		SetCellText(rowCount, 14, trace_entry->sync_lock ? "true" : "false");
 		SetCellText(rowCount, 15, trace_entry->content);
-		m_ui.m_tableLogInfo->resizeRowToContents(rowCount);		
+		m_ui.m_tableLogInfo->resizeRowToContents(rowCount);
 		m_ui.m_tableLogInfo->scrollToBottom();
 	}
 	else if (status == LogFileStatus::LogFileReadEnd)
@@ -265,6 +270,97 @@ void LogDisplay::SetParentCheckState(QTreeWidgetItem *item)
 		item->setCheckState(0, childState);
 		SetParentCheckState(item->parent());
 	}
+}
+
+bool LogDisplay::CheckHide(shared_ptr<TraceEntry> trace_entry)
+{
+	bool hide = false;
+	do
+	{
+		if (trace_entry == nullptr)
+		{
+			hide = true;
+			break;
+		}
+		size_t i = 0;
+		for (i = 0; i < m_ui.m_treeSourceNames->topLevelItemCount(); i++)
+		{
+			if (m_ui.m_treeSourceNames->topLevelItem(i)->text(0).toStdString() == trace_entry->process_name)
+			{
+				break;
+			}
+		}
+		if (i == m_ui.m_treeSourceNames->topLevelItemCount())
+		{
+			break;
+		}
+		QTreeWidgetItem* topItem = m_ui.m_treeSourceNames->topLevelItem(i);
+		if (topItem->checkState(0) == Qt::Checked)
+		{
+			break;
+		}
+		if (topItem->checkState(0) == Qt::Unchecked)
+		{
+			hide = true;
+			break;
+		}
+		if (topItem->checkState(0) == Qt::PartiallyChecked)
+		{
+			vector<string> names;
+			names.resize(3);
+			names[0] = trace_entry->module_name;
+			names[1] = trace_entry->file_name;
+			names[2] = trace_entry->func_name;
+			hide = CheckHide(names, topItem);
+			break;
+		}
+	} while (false);
+	return hide;
+}
+
+bool LogDisplay::CheckHide(vector<string> names, QTreeWidgetItem* item)
+{
+	bool hide = false;
+	do
+	{
+		if (names.empty())
+		{ 
+			break;
+		}
+		if (item == nullptr)
+		{
+			break;
+		}
+		size_t i = 0;
+		for (i = 0; i < item->childCount(); i++)
+		{
+			if (item->child(i)->text(0).toStdString() == names[0])
+			{
+				break;
+			}
+		}
+		if (i == item->childCount())
+		{
+			break;
+		}
+		QTreeWidgetItem* childItem = item->child(i);
+		if (childItem->checkState(0) == Qt::Checked)
+		{
+			break;
+		}
+		if (childItem->checkState(0) == Qt::Unchecked)
+		{
+			hide = true;
+			break;
+		}
+		if (childItem->checkState(0) == Qt::PartiallyChecked)
+		{
+			names.erase(names.begin());
+			hide = CheckHide(names, childItem);
+			break;
+		}
+	} while (false);
+	return hide;
 }
 
 void LogDisplay::paintEvent(QPaintEvent *event)

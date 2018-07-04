@@ -29,7 +29,8 @@ private:
 	bool IsTopItem(QTreeWidgetItem* item);
 	void SetChildCheckState(QTreeWidgetItem *item, Qt::CheckState state);
 	void SetParentCheckState(QTreeWidgetItem *item);
-	bool CheckHide(shared_ptr<TraceEntry> trace_entry);	
+	bool CheckHide(shared_ptr<TraceEntry> trace_entry);
+	bool CheckHide(vector<string> names, QTreeWidgetItem* item);
 
 private:
 	LogDisplayui m_ui;
