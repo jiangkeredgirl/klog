@@ -1,4 +1,4 @@
-#include "loglevelbarui.h"
+﻿#include "loglevelbarui.h"
 #include "cstandard.h"
 
 LogLevelBarui::LogLevelBarui()
@@ -43,6 +43,7 @@ void LogLevelBarui::setupUi(QWidget* hostWidget)
 			QCheckBox* checkBox = new QCheckBox(m_hostWidget);
 			checkBox->setText(tr(item.c_str()));
 			layout->addWidget(checkBox);
+			checkBox->setChecked(true);
 			checkBox->setStyleSheet("QCheckBox{border:1px solid red; padding:4px;}");
 		}
 

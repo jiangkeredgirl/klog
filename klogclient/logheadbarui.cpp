@@ -1,4 +1,4 @@
-#include "logheadbarui.h"
+﻿#include "logheadbarui.h"
 #include "cstandard.h"
 
 LogHeadBarui::LogHeadBarui()
@@ -30,17 +30,18 @@ void LogHeadBarui::setupUi(QWidget* hostWidget)
 		vector<string> checkTags = {
 			"head",
 			"index",
+			"functrack",
+			"functime",
 			"level",
 			"label",
 			"threadid",
-			"datetime",
-			"runtime",
-			"functiontime",
 			"processname",
 			"modulename",
 			"filename",
-			"functionname",
+			"funcname",
 			"line",
+			"datetime",
+			"runtime",
 			"async",
 			"synclock",
 		};
@@ -49,6 +50,7 @@ void LogHeadBarui::setupUi(QWidget* hostWidget)
 			QCheckBox* checkBox = new QCheckBox(m_hostWidget);
 			checkBox->setText(tr(item.c_str()));
 			layout->addWidget(checkBox);
+			checkBox->setChecked(true);
 			checkBox->setStyleSheet("QCheckBox{border:1px solid red; padding:4px;}");
 		}
 

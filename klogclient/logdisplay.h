@@ -18,6 +18,8 @@ public slots:
 	int SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
 	void SlotCheckStateChanged(QTreeWidgetItem *item, int column);
 	void SlotCheckDisplayChange(vector<string> names, Qt::CheckState state);
+	void SlotLevelChange(const string& level, Qt::CheckState state);
+	void SlotHeadChange(const string& head, Qt::CheckState state);
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;

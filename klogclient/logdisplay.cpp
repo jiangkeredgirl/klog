@@ -202,6 +202,42 @@ void LogDisplay::SlotCheckDisplayChange(vector<string> names, Qt::CheckState sta
 	}
 }
 
+void LogDisplay::SlotLevelChange(const string& level, Qt::CheckState state)
+{
+	for (size_t i = 0; i < m_ui.m_tableLogInfo->rowCount(); i++)
+	{
+		if (level == m_ui.m_tableLogInfo->item(i, 3)->text().toStdString())
+		{
+			if (state == Qt::CheckState::Checked)
+			{
+				m_ui.m_tableLogInfo->showRow(i);
+			}
+			else if (state == Qt::CheckState::Unchecked)
+			{
+				m_ui.m_tableLogInfo->hideRow(i);
+			}
+		}
+	}
+}
+
+void LogDisplay::SlotHeadChange(const string& head, Qt::CheckState state)
+{
+	for (size_t i = 0; i < m_ui.m_tableLogInfo->horizontalHeader()->count(); i++)
+	{
+		if (head == "head" || head == m_ui.m_tableLogInfo->horizontalHeaderItem(i)->text().toStdString())
+		{
+			if (state == Qt::CheckState::Checked)
+			{
+				m_ui.m_tableLogInfo->showColumn(i);
+			}
+			else if (state == Qt::CheckState::Unchecked)
+			{
+				m_ui.m_tableLogInfo->hideColumn(i);
+			}
+		}
+	}
+}
+
 bool LogDisplay::IsTopItem(QTreeWidgetItem* item)
 {
 	if (!item)
