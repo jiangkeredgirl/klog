@@ -35,19 +35,20 @@
 // 定义输出的log头，是否需要输出log头，以及log的哪些字段
 #define  TRACE_HEAD                  1
 #define  TRACE_HEAD_INDEX            1
+#define  TRACE_HEAD_FUNCTRACK        1
+#define  TRACE_HEAD_FUNCTIME         1
 #define  TRACE_HEAD_LEVEL            1
 #define  TRACE_HEAD_LABEL            1
-#define  TRACE_HEAD_THREAD_ID        1
+#define  TRACE_HEAD_THREADID         1
+#define  TRACE_HEAD_PROCESSNAME      1                     ///< display processname
+#define  TRACE_HEAD_MODULENAME       1                     ///< display module namE
+#define  TRACE_HEAD_FILENAME         1
+#define  TRACE_HEAD_FUNCNAME         1
+#define  TRACE_HEAD_LINE             1
 #define  TRACE_HEAD_DATETIME         1
 #define  TRACE_HEAD_RUNTIME          1
-#define  TRACE_HEAD_FUNCTION_TIME    1
-#define  TRACE_HEAD_PROCESS_NAME     1                     ///< display processname
-#define  TRACE_HEAD_MODULE_NAME      1                     ///< display module namE
-#define  TRACE_HEAD_FILE_NAME        1
-#define  TRACE_HEAD_FUNCTION_NAME    1
-#define  TRACE_HEAD_LINE             1
 #define  TRACE_HEAD_ASYNC            1
-#define  TRACE_HEAD_SYNC_LOCK        1
+#define  TRACE_HEAD_SYNCLOCK         1
 // log 标签
 #define  TRACE_LABEL                ("kk")                ///< my output label
 
