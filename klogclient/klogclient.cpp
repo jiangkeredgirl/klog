@@ -56,5 +56,8 @@ void KlogClient::Uninit()
 
 void KlogClient::SlotOpenLocalLogFile(const string& filename)
 {
-	LogFile::instance().ReadTraceEntry(filename);
+	std::thread t([this, filename]() {
+		LogFile::instance().ReadTraceEntry(filename);
+	});
+	t.detach();
 }

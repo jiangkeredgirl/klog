@@ -56,11 +56,10 @@ int LogFile::ReadTraceEntry(const string& logfile_name)
 }
 
 int LogFile::StopRead()
-{	
+{
 	if (m_thread_read.joinable())
 	{
 		m_thread_exit = true;
-		//lock_guard<mutex> trace_out_lock(m_thread_mutex);
 		m_thread_read.join();
 	}
 	return 0;
@@ -113,7 +112,6 @@ void LogFile::ReadThread()
 		{
 			break;
 		}
-		//lock_guard<mutex> trace_out_lock(m_thread_mutex);
 		string a_line_record;
 		getline(m_logfile, a_line_record);
 		if (m_logfile.eof())
