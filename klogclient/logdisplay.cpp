@@ -206,7 +206,7 @@ void LogDisplay::SlotLevelChange(const string& level, Qt::CheckState state)
 {
 	for (size_t i = 0; i < m_ui.m_tableLogInfo->rowCount(); i++)
 	{
-		if (level == m_ui.m_tableLogInfo->item(i, 3)->text().toStdString())
+		if (("trace_" + level) == m_ui.m_tableLogInfo->item(i, 3)->text().toStdString())
 		{
 			if (state == Qt::CheckState::Checked)
 			{
@@ -222,7 +222,7 @@ void LogDisplay::SlotLevelChange(const string& level, Qt::CheckState state)
 
 void LogDisplay::SlotHeadChange(const string& head, Qt::CheckState state)
 {
-	for (size_t i = 0; i < m_ui.m_tableLogInfo->horizontalHeader()->count(); i++)
+	for (size_t i = 0; i < m_ui.m_tableLogInfo->horizontalHeader()->count()-1; i++)
 	{
 		if (head == "head" || head == m_ui.m_tableLogInfo->horizontalHeaderItem(i)->text().toStdString())
 		{
