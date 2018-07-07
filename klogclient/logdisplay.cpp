@@ -222,9 +222,9 @@ void LogDisplay::SlotLevelChange(const string& level, Qt::CheckState state)
 
 void LogDisplay::SlotHeadChange(const string& head, Qt::CheckState state)
 {
-	for (size_t i = 0; i < m_ui.m_tableLogInfo->horizontalHeader()->count()-1; i++)
+	if (head == "head")
 	{
-		if (head == "head" || head == m_ui.m_tableLogInfo->horizontalHeaderItem(i)->text().toStdString())
+		for (size_t i = 0; i < m_ui.m_tableLogInfo->horizontalHeader()->count() - 1; i++)
 		{
 			if (state == Qt::CheckState::Checked)
 			{
@@ -233,6 +233,24 @@ void LogDisplay::SlotHeadChange(const string& head, Qt::CheckState state)
 			else if (state == Qt::CheckState::Unchecked)
 			{
 				m_ui.m_tableLogInfo->hideColumn(i);
+			}
+		}
+	}
+	else
+	{
+		for (size_t i = 0; i < m_ui.m_tableLogInfo->horizontalHeader()->count() - 1; i++)
+		{
+			if (head == m_ui.m_tableLogInfo->horizontalHeaderItem(i)->text().toStdString())
+			{
+				if (state == Qt::CheckState::Checked)
+				{
+					m_ui.m_tableLogInfo->showColumn(i);
+				}
+				else if (state == Qt::CheckState::Unchecked)
+				{
+					m_ui.m_tableLogInfo->hideColumn(i);
+				}
+				break;
 			}
 		}
 	}
