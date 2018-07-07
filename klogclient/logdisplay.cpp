@@ -48,26 +48,26 @@ int LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus s
 			m_ui.m_tableLogInfo->hideRow(rowCount);
 		}
 		SetCellText(rowCount, 0, to_string(trace_entry->index));
-		if (!trace_entry->func_track.empty())
+		if (!trace_entry->functrack.empty())
 		{
-			SetCellText(rowCount, 1, trace_entry->func_track);
-			if (trace_entry->func_track == "<<")
+			SetCellText(rowCount, 1, trace_entry->functrack);
+			if (trace_entry->functrack == "<<")
 			{
-				SetCellText(rowCount, 2, to_string(trace_entry->func_time) + "ms");
+				SetCellText(rowCount, 2, to_string(trace_entry->functime) + "ms");
 			}
 		}
 		SetCellText(rowCount, 3, LogFile::instance().LevelToStr(trace_entry->level));
 		SetCellText(rowCount, 4, trace_entry->label);
-		SetCellText(rowCount, 5, to_string(trace_entry->thread_id));
-		SetCellText(rowCount, 6, trace_entry->process_name);
-		SetCellText(rowCount, 7, trace_entry->module_name);
-		SetCellText(rowCount, 8, trace_entry->file_name);
-		SetCellText(rowCount, 9, trace_entry->func_name);
+		SetCellText(rowCount, 5, to_string(trace_entry->threadid));
+		SetCellText(rowCount, 6, trace_entry->processname);
+		SetCellText(rowCount, 7, trace_entry->modulename);
+		SetCellText(rowCount, 8, trace_entry->filename);
+		SetCellText(rowCount, 9, trace_entry->funcname);
 		SetCellText(rowCount, 10, to_string(trace_entry->line));
 		SetCellText(rowCount, 11, kk::Utility::GetDateTimeStr(trace_entry->datetime));
 		SetCellText(rowCount, 12, kk::Utility::GetRunTimeStr(trace_entry->runtime));
 		SetCellText(rowCount, 13, trace_entry->async ? "true" : "false");
-		SetCellText(rowCount, 14, trace_entry->sync_lock ? "true" : "false");
+		SetCellText(rowCount, 14, trace_entry->synclock ? "true" : "false");
 		SetCellText(rowCount, 15, trace_entry->content);
 		m_ui.m_tableLogInfo->resizeRowToContents(rowCount);
 		m_ui.m_tableLogInfo->scrollToBottom();
@@ -103,7 +103,7 @@ int LogDisplay::AddNames(shared_ptr<TraceEntry> trace_entry)
 	int processItemIndex = 0;
 	for (processItemIndex = 0; processItemIndex < processCount; processItemIndex++)
 	{
-		if (m_ui.m_treeSourceNames->topLevelItem(processItemIndex)->text(0).toStdString() == trace_entry->process_name)
+		if (m_ui.m_treeSourceNames->topLevelItem(processItemIndex)->text(0).toStdString() == trace_entry->processname)
 		{
 			break;
 		}
@@ -111,16 +111,16 @@ int LogDisplay::AddNames(shared_ptr<TraceEntry> trace_entry)
 	if (processItemIndex == processCount)
 	{
 		QTreeWidgetItem* pItem = new QTreeWidgetItem();
-		pItem->setText(0, trace_entry->process_name.c_str());
+		pItem->setText(0, trace_entry->processname.c_str());
 		pItem->setCheckState(0, Qt::Checked);
 		m_ui.m_treeSourceNames->addTopLevelItem(pItem);
 	}
 	///	模块名
-	QTreeWidgetItem* moduleItem = AddItem(m_ui.m_treeSourceNames->topLevelItem(processItemIndex), trace_entry->module_name);
+	QTreeWidgetItem* moduleItem = AddItem(m_ui.m_treeSourceNames->topLevelItem(processItemIndex), trace_entry->modulename);
 	///	文件名
-	QTreeWidgetItem* fileItem = AddItem(moduleItem, trace_entry->file_name);
+	QTreeWidgetItem* fileItem = AddItem(moduleItem, trace_entry->filename);
 	///	函数名
-	QTreeWidgetItem* funcItem = AddItem(fileItem, trace_entry->func_name);
+	QTreeWidgetItem* funcItem = AddItem(fileItem, trace_entry->funcname);
 	return 0;
 }
 
@@ -321,7 +321,7 @@ bool LogDisplay::CheckHide(shared_ptr<TraceEntry> trace_entry)
 		size_t i = 0;
 		for (i = 0; i < m_ui.m_treeSourceNames->topLevelItemCount(); i++)
 		{
-			if (m_ui.m_treeSourceNames->topLevelItem(i)->text(0).toStdString() == trace_entry->process_name)
+			if (m_ui.m_treeSourceNames->topLevelItem(i)->text(0).toStdString() == trace_entry->processname)
 			{
 				break;
 			}
@@ -344,9 +344,9 @@ bool LogDisplay::CheckHide(shared_ptr<TraceEntry> trace_entry)
 		{
 			vector<string> names;
 			names.resize(3);
-			names[0] = trace_entry->module_name;
-			names[1] = trace_entry->file_name;
-			names[2] = trace_entry->func_name;
+			names[0] = trace_entry->modulename;
+			names[1] = trace_entry->filename;
+			names[2] = trace_entry->funcname;
 			hide = CheckHide(names, topItem);
 			break;
 		}
