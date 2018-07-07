@@ -1,7 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
 #include "qtstandard.h"
+#include "cstandard.h"
 
 class LogHeadBarui : public QObject
 {
@@ -16,4 +17,5 @@ public:
 
 public:
 	QWidget*  m_hostWidget = nullptr;
+	vector<QCheckBox*> m_checkboxs;
 };

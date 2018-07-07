@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QWidget>
 #include "loglevelbarui.h"
@@ -10,6 +10,12 @@ class LogLevelBar : public QWidget
 public:
 	LogLevelBar(QWidget *parent);
 	~LogLevelBar();
+
+signals:
+	void SignalStateChanged(const string& name, Qt::CheckState state);
+
+	public slots:
+	void SlotStateChanged(int state);
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;

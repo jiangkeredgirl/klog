@@ -44,6 +44,7 @@ void LogLevelBarui::setupUi(QWidget* hostWidget)
 			checkBox->setText(tr(item.c_str()));
 			layout->addWidget(checkBox);
 			checkBox->setChecked(true);
+			m_checkboxs.push_back(checkBox);
 			checkBox->setStyleSheet("QCheckBox{border:1px solid red; padding:4px;}");
 		}
 

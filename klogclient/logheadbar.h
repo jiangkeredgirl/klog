@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QWidget>
 #include "logheadbarui.h"
@@ -10,6 +10,12 @@ class LogHeadBar : public QWidget
 public:
 	LogHeadBar(QWidget *parent);
 	~LogHeadBar();
+
+signals:
+	void SignalStateChanged(const string& name, Qt::CheckState state);
+
+public slots:
+	void SlotStateChanged(int state);
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;
