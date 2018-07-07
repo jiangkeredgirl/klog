@@ -13,6 +13,15 @@ LogDisplay::LogDisplay(QWidget *parent)
 	m_color_log_level[TRACE_INFO]     = QColor(0, 0, 0);
 	m_color_log_level[TRACE_DEBUG]    = QColor(0, 0, 0);
 	m_color_log_level[TRACE_TEMP]     = QColor(0, 0, 0);
+	m_level_state["trace_track"] = Qt::CheckState::Checked;
+	m_level_state["trace_error"] = Qt::CheckState::Checked;
+	m_level_state["trace_warning"] = Qt::CheckState::Checked;
+	m_level_state["trace_ok"] = Qt::CheckState::Checked;
+	m_level_state["trace_notice"] = Qt::CheckState::Checked;
+	m_level_state["trace_info"] = Qt::CheckState::Checked;
+	m_level_state["trace_debug"] = Qt::CheckState::Checked;
+	m_level_state["trace_temp"] = Qt::CheckState::Checked;
+	m_level_state["trace_customer"] = Qt::CheckState::Checked;
 	connect(m_ui.m_treeSourceNames, &QTreeWidget::itemChanged, this, &LogDisplay::SlotCheckStateChanged);
 }
 
@@ -204,6 +213,7 @@ void LogDisplay::SlotCheckDisplayChange(vector<string> names, Qt::CheckState sta
 
 void LogDisplay::SlotLevelChange(const string& level, Qt::CheckState state)
 {
+	m_level_state[("trace_" + level)] = state;
 	for (size_t i = 0; i < m_ui.m_tableLogInfo->rowCount(); i++)
 	{
 		if (("trace_" + level) == m_ui.m_tableLogInfo->item(i, 3)->text().toStdString())
@@ -336,6 +346,11 @@ bool LogDisplay::CheckHide(shared_ptr<TraceEntry> trace_entry)
 			hide = true;
 			break;
 		}
+		hide = CheckLevelHide(trace_entry->level);
+		if (hide)
+		{
+			break;
+		}
 		size_t i = 0;
 		for (i = 0; i < m_ui.m_treeSourceNames->topLevelItemCount(); i++)
 		{
@@ -365,14 +380,14 @@ bool LogDisplay::CheckHide(shared_ptr<TraceEntry> trace_entry)
 			names[0] = trace_entry->modulename;
 			names[1] = trace_entry->filename;
 			names[2] = trace_entry->funcname;
-			hide = CheckHide(names, topItem);
+			hide = CheckNameHide(names, topItem);
 			break;
 		}
 	} while (false);
 	return hide;
 }
 
-bool LogDisplay::CheckHide(vector<string> names, QTreeWidgetItem* item)
+bool LogDisplay::CheckNameHide(vector<string> names, QTreeWidgetItem* item)
 {
 	bool hide = false;
 	do
@@ -410,10 +425,28 @@ bool LogDisplay::CheckHide(vector<string> names, QTreeWidgetItem* item)
 		if (childItem->checkState(0) == Qt::PartiallyChecked)
 		{
 			names.erase(names.begin());
-			hide = CheckHide(names, childItem);
+			hide = CheckNameHide(names, childItem);
 			break;
 		}
 	} while (false);
+	return hide;
+}
+
+bool LogDisplay::CheckLevelHide(int level)
+{
+	bool hide = false;
+	string strlevel = LogFile::instance().LevelToStr(level);
+	if (m_level_state.count(strlevel))
+	{
+		if (m_level_state[strlevel] == Qt::CheckState::Checked)
+		{
+			hide = false;
+		}
+		else if (m_level_state[strlevel] == Qt::CheckState::Unchecked)
+		{
+			hide = true;
+		}
+	}
 	return hide;
 }
 

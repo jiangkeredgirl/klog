@@ -32,11 +32,13 @@ private:
 	void SetChildCheckState(QTreeWidgetItem *item, Qt::CheckState state);
 	void SetParentCheckState(QTreeWidgetItem *item);
 	bool CheckHide(shared_ptr<TraceEntry> trace_entry);
-	bool CheckHide(vector<string> names, QTreeWidgetItem* item);
+	bool CheckNameHide(vector<string> names, QTreeWidgetItem* item);
+	bool CheckLevelHide(int level);
 
 private:
 	LogDisplayui m_ui;
 	map<int, QColor>  m_color_log_level;
 	QColor            m_color_row;
 	QTreeWidgetItem*  m_tree_cur_item = nullptr;
+	map<string, Qt::CheckState>	m_level_state;
 };
