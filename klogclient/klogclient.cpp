@@ -48,6 +48,7 @@ void KlogClient::Init()
 	connect(&LogFile::instance(), &LogFile::SignalAddTrace, m_logDisplay, &LogDisplay::SlotAddTrace, Qt::BlockingQueuedConnection);
 	connect(m_logLevelBar, &LogLevelBar::SignalStateChanged, m_logDisplay, &LogDisplay::SlotLevelChange);
 	connect(m_logHeadBar, &LogHeadBar::SignalStateChanged, m_logDisplay, &LogDisplay::SlotHeadChange);
+	connect(m_logFilterBar, &LogFilterBar::SignalFilter, m_logDisplay, &LogDisplay::SlotFilter);
 }
 
 void KlogClient::Uninit()

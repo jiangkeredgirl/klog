@@ -4,6 +4,7 @@
 #include "logdisplayui.h"
 #include "logfile.h"
 #include "cstandard.h"
+#include "logfilterbar.h"
 
 class LogDisplay : public QWidget
 {
@@ -20,6 +21,7 @@ public slots:
 	void SlotCheckDisplayChange(vector<string> names, Qt::CheckState state);
 	void SlotLevelChange(const string& level, Qt::CheckState state);
 	void SlotHeadChange(const string& head, Qt::CheckState state);
+	void SlotFilter(FilterCondition filter_condition);
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;
@@ -34,6 +36,7 @@ private:
 	bool CheckHide(shared_ptr<TraceEntry> trace_entry);
 	bool CheckNameHide(vector<string> names, QTreeWidgetItem* item);
 	bool CheckLevelHide(int level);
+	bool CheckFilterHide(shared_ptr<TraceEntry> trace_entry);
 
 private:
 	LogDisplayui m_ui;
@@ -41,4 +44,5 @@ private:
 	QColor            m_color_row;
 	QTreeWidgetItem*  m_tree_cur_item = nullptr;
 	map<string, Qt::CheckState>	m_level_state;
+	FilterCondition   m_filter_condition;
 };

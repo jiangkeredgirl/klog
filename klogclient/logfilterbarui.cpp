@@ -25,7 +25,7 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		labelTag->setText(tr("log filter"));
 		layout->addWidget(labelTag);
 		labelTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
-
+#if 0
 		QLabel* labelOnlyShowTag = new QLabel;
 		labelOnlyShowTag->setText(tr(u8"只显示"));
 		layout->addWidget(labelOnlyShowTag);
@@ -47,17 +47,26 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(editNotShow);
 		editNotShow->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		editNotShow->setFixedWidth(150);
-
+#endif
 		QLabel* labelExecuteTimeTag = new QLabel;
-		labelExecuteTimeTag->setText(tr(u8"执行时间大于（毫秒)的函数"));
+		labelExecuteTimeTag->setText(tr(u8"执行时间>="));
 		layout->addWidget(labelExecuteTimeTag);
 		labelExecuteTimeTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
-		QLineEdit* editExecuteTime = new QLineEdit;
-		editExecuteTime->setPlaceholderText(tr(""));
-		layout->addWidget(editExecuteTime);
-		editExecuteTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
-		editExecuteTime->setFixedWidth(150);
+		layout->addSpacing(-9);
+
+		m_editExecuteTime = new QLineEdit;
+		m_editExecuteTime->setPlaceholderText(tr(""));
+		layout->addWidget(m_editExecuteTime);
+		m_editExecuteTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		m_editExecuteTime->setFixedWidth(150);
+
+		layout->addSpacing(-9);
+
+		QLabel* labelExecuteTimeTagEnd = new QLabel;
+		labelExecuteTimeTagEnd->setText(tr(u8"毫秒的函数"));
+		layout->addWidget(labelExecuteTimeTagEnd);
+		labelExecuteTimeTagEnd->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
 		layout->addSpacing(10);
 
@@ -66,12 +75,12 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(labelLogTimeTag);
 		labelLogTimeTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
-		QLineEdit* editLogBeginTime = new QLineEdit;
-		editLogBeginTime->setPlaceholderText(tr(""));
-		layout->addWidget(editLogBeginTime);
-		editLogBeginTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
-		editLogBeginTime->setFixedWidth(150);
-		editLogBeginTime->setPlaceholderText("yyyy-MM-dd hh:mm:ss");
+		m_editLogBeginTime = new QLineEdit;
+		m_editLogBeginTime->setPlaceholderText(tr(""));
+		layout->addWidget(m_editLogBeginTime);
+		m_editLogBeginTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		m_editLogBeginTime->setFixedWidth(150);
+		m_editLogBeginTime->setPlaceholderText("yyyy-MM-dd hh:mm:ss");
 		//QRegExp rx("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]\:[0-9][0-9]\:[0-9][0-9]");
 		//QRegExpValidator* ipValidator = new QRegExpValidator(rx, this);
 		//editLogBeginTime->setValidator(ipValidator);
@@ -81,13 +90,18 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(labelToTag);
 		labelToTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
-		QLineEdit* editLogEndTime = new QLineEdit;
-		editLogEndTime->setPlaceholderText(tr(""));
-		layout->addWidget(editLogEndTime);
-		editLogEndTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
-		editLogEndTime->setFixedWidth(150);
-		editLogEndTime->setPlaceholderText("yyyy-MM-dd hh:mm:ss");
+		m_editLogEndTime = new QLineEdit;
+		m_editLogEndTime->setPlaceholderText(tr(""));
+		layout->addWidget(m_editLogEndTime);
+		m_editLogEndTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		m_editLogEndTime->setFixedWidth(150);
+		m_editLogEndTime->setPlaceholderText("yyyy-MM-dd_hh-mm-ss");
 		//editLogEndTime->setValidator(ipValidator);
+
+		m_buttonFilter = new QPushButton;
+		m_buttonFilter->setText(tr(u8"确认"));
+		layout->addWidget(m_buttonFilter);
+		m_buttonFilter->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");
 
 		layout->addStretch();
 	}

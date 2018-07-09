@@ -266,6 +266,31 @@ void LogDisplay::SlotHeadChange(const string& head, Qt::CheckState state)
 	}
 }
 
+void LogDisplay::SlotFilter(FilterCondition filter_condition)
+{
+	if (filter_condition.func_time != m_filter_condition.func_time
+		|| filter_condition.datetime_begin != m_filter_condition.datetime_begin
+		|| filter_condition.datetime_end != m_filter_condition.datetime_end)
+	{
+		m_filter_condition = filter_condition;
+		for (size_t i = 0; i < m_ui.m_tableLogInfo->rowCount(); i++)
+		{
+			//if (m_filter_condition.func_time <= m_ui.m_tableLogInfo->item(i, 2)->text().toInt())
+			//{
+			//	if (state == Qt::CheckState::Checked)
+			//	{
+			//		m_ui.m_tableLogInfo->showRow(i);
+			//	}
+			//	else if (state == Qt::CheckState::Unchecked)
+			//	{
+			//		m_ui.m_tableLogInfo->hideRow(i);
+			//	}
+			//}
+		}
+	}
+	
+}
+
 bool LogDisplay::IsTopItem(QTreeWidgetItem* item)
 {
 	if (!item)
@@ -447,6 +472,27 @@ bool LogDisplay::CheckLevelHide(int level)
 			hide = true;
 		}
 	}
+	return hide;
+}
+
+bool LogDisplay::CheckFilterHide(shared_ptr<TraceEntry> trace_entry)
+{
+	bool hide = false;
+	do
+	{
+		if (trace_entry->functime < m_filter_condition.func_time)
+		{
+			hide = true;
+			break;
+		}
+		if (kk::Utility::GetDateTimeStr(trace_entry->datetime) < m_filter_condition.datetime_begin
+			|| kk::Utility::GetDateTimeStr(trace_entry->datetime) > m_filter_condition.datetime_end)
+		{
+			hide = true;
+			break;
+		}
+	} while (false);
+
 	return hide;
 }
 

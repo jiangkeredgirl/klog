@@ -71,5 +71,6 @@ void LogDisplayui::setupUi(QWidget* hostWidget)
 		m_tableLogInfo->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
 		m_tableLogInfo->horizontalHeader()->setSectionsMovable(true);
 		m_tableLogInfo->horizontalHeader()->setHighlightSections(false);
+		m_tableLogInfo->horizontalHeader()->setStretchLastSection(true);
 	}
 }
