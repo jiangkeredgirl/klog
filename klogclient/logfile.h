@@ -53,7 +53,7 @@ public:
     static LogFile& instance();
 
 signals:
-	int SignalAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
+	void SignalAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
 
 public:
 	int ReadTraceEntry(const string& logfile_name);

@@ -103,6 +103,12 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(m_buttonFilter);
 		m_buttonFilter->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");
 
+		m_checkBoxAbortFun = new QCheckBox;
+		m_checkBoxAbortFun->setText(tr(u8"crash的函数"));
+		layout->addWidget(m_checkBoxAbortFun);
+		m_checkBoxAbortFun->setChecked(false);
+		m_checkBoxAbortFun->setStyleSheet("QCheckBox{border:1px solid red; padding:4px;}");
+
 		layout->addStretch();
 	}
 }

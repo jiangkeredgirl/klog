@@ -20,4 +20,5 @@ public:
 	QLineEdit* m_editLogBeginTime = nullptr;
 	QLineEdit* m_editLogEndTime = nullptr;
 	QPushButton* m_buttonFilter = nullptr;
+	QCheckBox* m_checkBoxAbortFun = nullptr;
 };
