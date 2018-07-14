@@ -6,6 +6,26 @@
 class LogDisplayui : public QObject
 {
 	Q_OBJECT
+public:
+		enum ColumIndex
+	{
+		INDEX,
+		FUNCTRACK,
+		FUNCTIME,
+		LEVEL,
+		LABEL,
+		THREADID,
+		PROCESSNAME,
+		MODULENAME,
+		FILENAME,
+		FUNCNAME,
+		LINE,
+		DATETIME,
+		RUNTIME,
+		ASYNC,
+		SYNCLOCK,
+		CONTENT
+	};
 
 public:
 	LogDisplayui();

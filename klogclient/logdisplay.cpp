@@ -40,8 +40,7 @@ void LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus 
 	}
 	else if (status == LogFileStatus::LogFileReading && trace_entry)
 	{
-		AddNames(trace_entry);
-		bool hide = CheckHide(trace_entry);
+		AddNames(trace_entry);		
 		if (m_color_log_level.count(trace_entry->level))
 		{
 			m_cur_row_color = m_color_log_level[trace_entry->level];
@@ -52,10 +51,6 @@ void LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus 
 		}
 		m_cur_row = m_ui.m_tableLogInfo->rowCount();
 		m_ui.m_tableLogInfo->insertRow(m_cur_row);
-		if (hide)
-		{
-			m_ui.m_tableLogInfo->hideRow(m_cur_row);
-		}
 		SetCellText(0, to_string(trace_entry->index));
 		if (!trace_entry->functrack.empty())
 		{
@@ -78,6 +73,11 @@ void LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus 
 		SetCellText(13, trace_entry->async ? "true" : "false");
 		SetCellText(14, trace_entry->synclock ? "true" : "false");
 		SetCellText(15, trace_entry->content);
+		bool hide = CheckHide(m_cur_row);
+		if (hide)
+		{
+			m_ui.m_tableLogInfo->hideRow(m_cur_row);
+		}
 		m_ui.m_tableLogInfo->resizeRowToContents(m_cur_row);
 		m_ui.m_tableLogInfo->scrollToBottom();
 	}
@@ -360,25 +360,53 @@ void LogDisplay::SetParentCheckState(QTreeWidgetItem *item)
 	}
 }
 
-bool LogDisplay::CheckHide(shared_ptr<TraceEntry> trace_entry)
+bool LogDisplay::CheckHide(int row)
 {
 	bool hide = false;
 	do
 	{
-		if (trace_entry == nullptr)
+		if (row < 0)
 		{
-			hide = true;
 			break;
 		}
-		hide = CheckLevelHide(trace_entry->level);
+		if (row >= m_ui.m_tableLogInfo->rowCount())
+		{
+			break;
+		}
+		hide = CheckLevelHide(m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::LEVEL)->text().toInt());
 		if (hide)
 		{
 			break;
 		}
+		vector<string> trace_names;
+		trace_names.resize(4);
+		trace_names[0] = m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::PROCESSNAME)->text().toStdString();
+		trace_names[1] = m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::MODULENAME)->text().toStdString();
+		trace_names[2] = m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::FILENAME)->text().toStdString();
+		trace_names[3] = m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::FUNCNAME)->text().toStdString();
+		hide = CheckNameHide(trace_names);
+		if (hide)
+		{
+			break;
+		}
+		hide = CheckFilterHide(m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::FUNCTIME)->text().toInt(), m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::DATETIME)->text().toStdString());
+		if (hide)
+		{
+			break;
+		}
+	} while (false);
+	return hide;
+}
+
+bool LogDisplay::CheckNameHide(vector<string> trace_names)
+{
+	bool hide = false;
+	do
+	{
 		size_t i = 0;
 		for (i = 0; i < m_ui.m_treeSourceNames->topLevelItemCount(); i++)
 		{
-			if (m_ui.m_treeSourceNames->topLevelItem(i)->text(0).toStdString() == trace_entry->processname)
+			if (m_ui.m_treeSourceNames->topLevelItem(i)->text(0).toStdString() == trace_names[0])
 			{
 				break;
 			}
@@ -399,24 +427,20 @@ bool LogDisplay::CheckHide(shared_ptr<TraceEntry> trace_entry)
 		}
 		if (topItem->checkState(0) == Qt::PartiallyChecked)
 		{
-			vector<string> names;
-			names.resize(3);
-			names[0] = trace_entry->modulename;
-			names[1] = trace_entry->filename;
-			names[2] = trace_entry->funcname;
-			hide = CheckNameHide(names, topItem);
+			trace_names.erase(trace_names.begin());
+			hide = CheckNameHide(trace_names, topItem);
 			break;
 		}
 	} while (false);
 	return hide;
 }
 
-bool LogDisplay::CheckNameHide(vector<string> names, QTreeWidgetItem* item)
+bool LogDisplay::CheckNameHide(vector<string> trace_names, QTreeWidgetItem* item)
 {
 	bool hide = false;
 	do
 	{
-		if (names.empty())
+		if (trace_names.empty())
 		{ 
 			break;
 		}
@@ -427,7 +451,7 @@ bool LogDisplay::CheckNameHide(vector<string> names, QTreeWidgetItem* item)
 		size_t i = 0;
 		for (i = 0; i < item->childCount(); i++)
 		{
-			if (item->child(i)->text(0).toStdString() == names[0])
+			if (item->child(i)->text(0).toStdString() == trace_names[0])
 			{
 				break;
 			}
@@ -448,8 +472,8 @@ bool LogDisplay::CheckNameHide(vector<string> names, QTreeWidgetItem* item)
 		}
 		if (childItem->checkState(0) == Qt::PartiallyChecked)
 		{
-			names.erase(names.begin());
-			hide = CheckNameHide(names, childItem);
+			trace_names.erase(trace_names.begin());
+			hide = CheckNameHide(trace_names, childItem);
 			break;
 		}
 	} while (false);
@@ -474,24 +498,29 @@ bool LogDisplay::CheckLevelHide(int level)
 	return hide;
 }
 
-bool LogDisplay::CheckFilterHide(shared_ptr<TraceEntry> trace_entry)
+bool LogDisplay::CheckFilterHide(int fun_time, const string& date_time)
 {
 	bool hide = false;
 	do
 	{
-		if (trace_entry->functime < m_filter_condition.func_time)
+		if (m_filter_condition.func_time > 0)
 		{
-			hide = true;
-			break;
+			if (fun_time < m_filter_condition.func_time)
+			{
+				hide = true;
+				break;
+			}
 		}
-		if (kk::Utility::GetDateTimeStr(trace_entry->datetime) < m_filter_condition.datetime_begin
-			|| kk::Utility::GetDateTimeStr(trace_entry->datetime) > m_filter_condition.datetime_end)
+		if (!m_filter_condition.datetime_begin.empty() && !m_filter_condition.datetime_end.empty())
 		{
-			hide = true;
-			break;
+			if (date_time < m_filter_condition.datetime_begin
+				|| date_time > m_filter_condition.datetime_end)
+			{
+				hide = true;
+				break;
+			}
 		}
 	} while (false);
-
 	return hide;
 }
 

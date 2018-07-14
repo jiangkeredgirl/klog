@@ -33,10 +33,11 @@ private:
 	bool IsTopItem(QTreeWidgetItem* item);
 	void SetChildCheckState(QTreeWidgetItem *item, Qt::CheckState state);
 	void SetParentCheckState(QTreeWidgetItem *item);
-	bool CheckHide(shared_ptr<TraceEntry> trace_entry);
-	bool CheckNameHide(vector<string> names, QTreeWidgetItem* item);
+	bool CheckHide(int row);
+	bool CheckNameHide(vector<string> trace_names);
+	bool CheckNameHide(vector<string> trace_names, QTreeWidgetItem* item);
 	bool CheckLevelHide(int level);
-	bool CheckFilterHide(shared_ptr<TraceEntry> trace_entry);
+	bool CheckFilterHide(int fun_time, const string& date_time);
 
 private:
 	LogDisplayui m_ui;
