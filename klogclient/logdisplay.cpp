@@ -57,7 +57,7 @@ void LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus 
 			SetCellText(1, trace_entry->functrack);
 			if (trace_entry->functrack == "<<")
 			{
-				SetCellText(2, to_string(trace_entry->functime) + "ms");
+				SetCellText(2, to_string(trace_entry->functime)/* + "ms"*/);
 			}
 		}
 		SetCellText(3, LogFile::instance().LevelToStr(trace_entry->level));
@@ -94,10 +94,11 @@ int LogDisplay::SetCellText(int col, const string& text)
 	QLabel *label = new QLabel(text.c_str());
 	label->setAlignment(Qt::AlignCenter);
 	label->setContentsMargins(3, 0, 3, 0);
-	label->setStyleSheet("color:"+ m_color_row.name());
+	label->setStyleSheet("color:" + m_color_row.name());
 	m_ui.m_tableLogInfo->setCellWidget(row, col, label);
 #else
 	QTableWidgetItem* item = new QTableWidgetItem(text.c_str());
+	item->setTextAlignment(Qt::AlignCenter);
 	item->setTextColor(m_cur_row_color);
 	m_ui.m_tableLogInfo->setItem(m_cur_row, col, item);
 #endif
@@ -190,20 +191,21 @@ void LogDisplay::SlotCheckDisplayChange(vector<string> names, Qt::CheckState sta
 			size_t j = 0;
 			for (j = 0; j < names.size(); j++)
 			{
-				if (m_ui.m_tableLogInfo->item(i, 6 + j)->text().toStdString() != names[j])
+				if (m_ui.m_tableLogInfo->item(i, LogDisplayui::ColumIndex::PROCESSNAME + j)->text().toStdString() != names[j])
 				{
 					break;
 				}
 			}
 			if (j == names.size())
 			{
-				if (state == Qt::CheckState::Checked)
-				{
-					m_ui.m_tableLogInfo->showRow(i);
-				}
-				else if (state == Qt::CheckState::Unchecked)
+				bool hide = CheckHide(i);
+				if (hide)
 				{
 					m_ui.m_tableLogInfo->hideRow(i);
+				}
+				else
+				{
+					m_ui.m_tableLogInfo->showRow(i);
 				}
 			}
 		}
@@ -215,15 +217,16 @@ void LogDisplay::SlotLevelChange(const string& level, Qt::CheckState state)
 	m_level_state[("trace_" + level)] = state;
 	for (size_t i = 0; i < m_ui.m_tableLogInfo->rowCount(); i++)
 	{
-		if (("trace_" + level) == m_ui.m_tableLogInfo->item(i, 3)->text().toStdString())
+		if (("trace_" + level) == m_ui.m_tableLogInfo->item(i, LogDisplayui::ColumIndex::LEVEL)->text().toStdString())
 		{
-			if (state == Qt::CheckState::Checked)
-			{
-				m_ui.m_tableLogInfo->showRow(i);
-			}
-			else if (state == Qt::CheckState::Unchecked)
+			bool hide = CheckHide(i);
+			if (hide)
 			{
 				m_ui.m_tableLogInfo->hideRow(i);
+			}
+			else
+			{
+				m_ui.m_tableLogInfo->showRow(i);
 			}
 		}
 	}
@@ -274,17 +277,15 @@ void LogDisplay::SlotFilter(FilterCondition filter_condition)
 		m_filter_condition = filter_condition;
 		for (size_t i = 0; i < m_ui.m_tableLogInfo->rowCount(); i++)
 		{
-			//if (m_filter_condition.func_time <= m_ui.m_tableLogInfo->item(i, 2)->text().toInt())
-			//{
-			//	if (state == Qt::CheckState::Checked)
-			//	{
-			//		m_ui.m_tableLogInfo->showRow(i);
-			//	}
-			//	else if (state == Qt::CheckState::Unchecked)
-			//	{
-			//		m_ui.m_tableLogInfo->hideRow(i);
-			//	}
-			//}
+			bool hide = CheckHide(i);
+			if (hide)
+			{
+				m_ui.m_tableLogInfo->hideRow(i);
+			}
+			else
+			{
+				m_ui.m_tableLogInfo->showRow(i);
+			}
 		}
 	}
 	
@@ -389,10 +390,13 @@ bool LogDisplay::CheckHide(int row)
 		{
 			break;
 		}
-		hide = CheckFilterHide(m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::FUNCTIME)->text().toInt(), m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::DATETIME)->text().toStdString());
-		if (hide)
+		if (m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::FUNCTIME) && !m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::FUNCTIME)->text().isEmpty())
 		{
-			break;
+			hide = CheckFilterHide(m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::FUNCTIME)->text().toInt(), m_ui.m_tableLogInfo->item(row, LogDisplayui::ColumIndex::DATETIME)->text().toStdString());
+			if (hide)
+			{
+				break;
+			}
 		}
 	} while (false);
 	return hide;

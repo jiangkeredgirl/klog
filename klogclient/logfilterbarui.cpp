@@ -80,7 +80,7 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(m_editLogBeginTime);
 		m_editLogBeginTime->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		m_editLogBeginTime->setFixedWidth(150);
-		m_editLogBeginTime->setPlaceholderText("yyyy-MM-dd hh:mm:ss");
+		m_editLogBeginTime->setPlaceholderText("yyyy-MM-dd_hh-mm-ss");
 		//QRegExp rx("[0-9][0-9][0-9][0-9]-[0-9][0-9]-[0-9][0-9] [0-9][0-9]\:[0-9][0-9]\:[0-9][0-9]");
 		//QRegExpValidator* ipValidator = new QRegExpValidator(rx, this);
 		//editLogBeginTime->setValidator(ipValidator);
