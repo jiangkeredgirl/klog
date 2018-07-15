@@ -25,5 +25,15 @@ void MenuBarui::setupUi(QMenuBar* hostWidget)
 		m_viewMenu->addAction(tr(u8"函数调用实时图"));
 		m_viewMenu->addAction(tr(u8"函数调用静态图"));
 		m_viewMenu->addAction(tr(u8"函数执行时间靶点图"));
+		QList<QAction*> actions = m_viewMenu->actions();
+		int i = 0;
+		for (auto item : actions)
+		{
+			item->setCheckable(true);
+			if (i++ < 5)
+			{
+				item->setChecked(true);
+			}
+		}
 	}
 }

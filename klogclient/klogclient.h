@@ -25,6 +25,7 @@ public:
 
 public slots:
 	void SlotOpenLocalLogFile(const string& filename);
+	void SlotActionTriggered(QAction * action);
 
 private:
 	KlogClientui   m_ui;

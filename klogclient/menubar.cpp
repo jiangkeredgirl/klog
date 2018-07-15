@@ -1,15 +1,20 @@
-#include "menubar.h"
+﻿#include "menubar.h"
 
 MenuBar::MenuBar(QWidget *parent)
 	: QMenuBar(parent)
 {
 	m_ui.setupUi(this);
+	connect(m_ui.m_viewMenu, &QMenu::triggered, this, &MenuBar::SlotTriggered);
 }
 
 MenuBar::~MenuBar()
 {
 }
 
+void MenuBar::SlotTriggered(QAction * action)
+{
+	emit SignalActionTriggered(action);
+}
 
 //void MenuBar::paintEvent(QPaintEvent *event)
 //{

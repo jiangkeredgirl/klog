@@ -49,6 +49,7 @@ void KlogClient::Init()
 	connect(m_logLevelBar, &LogLevelBar::SignalStateChanged, m_logDisplay, &LogDisplay::SlotLevelChange);
 	connect(m_logHeadBar, &LogHeadBar::SignalStateChanged, m_logDisplay, &LogDisplay::SlotHeadChange);
 	connect(m_logFilterBar, &LogFilterBar::SignalFilter, m_logDisplay, &LogDisplay::SlotFilter);
+	connect(m_menuBar, &MenuBar::SignalActionTriggered, this, &KlogClient::SlotActionTriggered);
 }
 
 void KlogClient::Uninit()
@@ -63,4 +64,63 @@ void KlogClient::SlotOpenLocalLogFile(const string& filename)
 		LogFile::instance().ReadTraceEntry(filename);
 	});
 	t.detach();
+}
+
+void KlogClient::SlotActionTriggered(QAction * action)
+{
+	if (action->text() == tr("log file"))
+	{
+		if (action->isChecked())
+		{
+			m_logFileBar->show();
+		}
+		else
+		{
+			m_logFileBar->hide();
+		}
+	}
+	else if (action->text() == tr("log level"))
+	{
+		if (action->isChecked())
+		{
+			m_logLevelBar->show();
+		}
+		else
+		{
+			m_logLevelBar->hide();
+		}
+	}
+	else if (action->text() == tr("log head"))
+	{
+		if (action->isChecked())
+		{
+			m_logHeadBar->show();
+		}
+		else
+		{
+			m_logHeadBar->hide();
+		}
+	}
+	else if (action->text() == tr("log filter"))
+	{
+		if (action->isChecked())
+		{
+			m_logFilterBar->show();
+		}
+		else
+		{
+			m_logFilterBar->hide();
+		}
+	}
+	else if (action->text() == tr("log search"))
+	{
+		if (action->isChecked())
+		{
+			m_logSearchBar->show();
+		}
+		else
+		{
+			m_logSearchBar->hide();
+		}
+	}
 }

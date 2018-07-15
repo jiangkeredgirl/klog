@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QWidget>
 #include "menubarui.h"
@@ -10,6 +10,12 @@ class MenuBar : public QMenuBar
 public:
 	MenuBar(QWidget *parent);
 	~MenuBar();
+
+signals:
+	void SignalActionTriggered(QAction * action);
+
+public slots:
+	void SlotTriggered(QAction * action);
 
 //protected:
 //	virtual void paintEvent(QPaintEvent *) override;
