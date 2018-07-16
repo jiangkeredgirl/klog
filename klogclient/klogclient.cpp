@@ -44,6 +44,10 @@ void KlogClient::Init()
 	m_logDisplay = new LogDisplay(this->centralWidget());
 	m_ui.m_mainLayout->addWidget(m_logDisplay);
 
+	m_funcDynamicStack = new FuncDynamicStack(this->centralWidget());
+	m_funcStaticStack = new FuncStaticStack(this->centralWidget());
+
+
 	connect(m_logFileBar, &LogFileBar::SignalOpenLocalLogFile, this, &KlogClient::SlotOpenLocalLogFile);
 	connect(&LogFile::instance(), &LogFile::SignalAddTrace, m_logDisplay, &LogDisplay::SlotAddTrace, Qt::BlockingQueuedConnection);
 	connect(m_logLevelBar, &LogLevelBar::SignalStateChanged, m_logDisplay, &LogDisplay::SlotLevelChange);
@@ -121,6 +125,28 @@ void KlogClient::SlotActionTriggered(QAction * action)
 		else
 		{
 			m_logSearchBar->hide();
+		}
+	}
+	else if (action->text() == tr(u8"函数调用实时图"))
+	{
+		if (action->isChecked())
+		{
+			m_funcDynamicStack->show();
+		}
+		else
+		{
+			m_funcDynamicStack->hide();
+		}
+	}
+	else if (action->text() == tr(u8"函数调用静态图"))
+	{
+		if (action->isChecked())
+		{
+			m_funcStaticStack->show();
+		}
+		else
+		{
+			m_funcStaticStack->hide();
 		}
 	}
 }

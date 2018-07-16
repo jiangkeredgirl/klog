@@ -11,6 +11,8 @@
 #include "logdisplay.h"
 #include "cstandard.h"
 #include "logfile.h"
+#include "funcdynamicstack.h"
+#include "funcstaticstack.h"
 
 class KlogClient : public QMainWindow
 {
@@ -37,4 +39,6 @@ private:
 	LogFilterBar*  m_logFilterBar = nullptr;
 	LogSearchBar*  m_logSearchBar = nullptr;
 	LogDisplay*    m_logDisplay = nullptr;
+	FuncDynamicStack* m_funcDynamicStack = nullptr;
+	FuncStaticStack*  m_funcStaticStack = nullptr;
 };
