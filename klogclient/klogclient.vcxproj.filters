@@ -87,6 +87,18 @@
     <ClCompile Include="rapidjsonparser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="funcdynamicstack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcstaticstack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcdynamicstackui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcstaticstackui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="klogclient.h">
@@ -138,6 +150,18 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="logfile.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcdynamicstack.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcstaticstack.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcdynamicstackui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcstaticstackui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
