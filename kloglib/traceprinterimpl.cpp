@@ -89,7 +89,7 @@ namespace kk
 				}
 				if (TracePrinterImpl::instance().trace_config().head_threadid)
 				{
-					ss << ", \"threadid\":" << threadid;
+					ss << ", \"threadid\":\"" << threadid << "\"";
 				}
 				if (TracePrinterImpl::instance().trace_config().head_processname)
 				{

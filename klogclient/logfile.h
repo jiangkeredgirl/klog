@@ -20,7 +20,7 @@ struct TraceEntry
 	__int64  functime = 0;                 ///< 函数体执行时间
 	int      level = 0;                    ///< log等级
 	string   label;                        ///< log标识	
-	__int64  threadid;                     ///< 线程id
+	string   threadid;                     ///< 线程id
 	string   processname;                  ///< 进程名
 	string   modulename;                   ///< 模块名
 	string   filename;                     ///< file name;
