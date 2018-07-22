@@ -1,6 +1,8 @@
-#pragma once
+﻿#pragma once
 
 #include <QDialog>
+#include "cstandard.h"
+#include "funcdynamicstackui.h"
 
 class FuncDynamicStack : public QDialog
 {
@@ -9,4 +11,13 @@ class FuncDynamicStack : public QDialog
 public:
 	FuncDynamicStack(QWidget *parent);
 	~FuncDynamicStack();
+
+signals:
+	void SignalCloseDialog(const string& title);
+
+public:
+	virtual void closeEvent(QCloseEvent *e) override;
+
+private:
+	FuncDynamicStackui m_ui;
 };

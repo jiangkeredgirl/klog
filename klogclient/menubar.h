@@ -20,6 +20,6 @@ public slots:
 //protected:
 //	virtual void paintEvent(QPaintEvent *) override;
 
-private:
+public:
 	MenuBarui m_ui;
 };

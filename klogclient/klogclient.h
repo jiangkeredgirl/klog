@@ -28,6 +28,7 @@ public:
 public slots:
 	void SlotOpenLocalLogFile(const string& filename);
 	void SlotActionTriggered(QAction * action);
+	void SlotCloseStackDialog(const string& title);
 
 private:
 	KlogClientui   m_ui;

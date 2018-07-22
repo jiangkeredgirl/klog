@@ -54,6 +54,8 @@ void KlogClient::Init()
 	connect(m_logHeadBar, &LogHeadBar::SignalStateChanged, m_logDisplay, &LogDisplay::SlotHeadChange);
 	connect(m_logFilterBar, &LogFilterBar::SignalFilter, m_logDisplay, &LogDisplay::SlotFilter);
 	connect(m_menuBar, &MenuBar::SignalActionTriggered, this, &KlogClient::SlotActionTriggered);
+	connect(m_funcDynamicStack, &FuncDynamicStack::SignalCloseDialog, this, &KlogClient::SlotCloseStackDialog);
+	connect(m_funcStaticStack, &FuncStaticStack::SignalCloseDialog, this, &KlogClient::SlotCloseStackDialog);
 }
 
 void KlogClient::Uninit()
@@ -147,6 +149,18 @@ void KlogClient::SlotActionTriggered(QAction * action)
 		else
 		{
 			m_funcStaticStack->hide();
+		}
+	}
+}
+
+void KlogClient::SlotCloseStackDialog(const string& title)
+{
+	QList<QAction*> actions = m_menuBar->m_ui.m_viewMenu->actions();
+	for (auto item : actions)
+	{
+		if (item->text().toStdString() == title)
+		{
+			item->setChecked(false);
 		}
 	}
 }
