@@ -99,6 +99,12 @@
     <ClCompile Include="funcstaticstackui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="processfuncstack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="processfuncstackui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="klogclient.h">
@@ -162,6 +168,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="funcstaticstackui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="processfuncstack.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="processfuncstackui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
