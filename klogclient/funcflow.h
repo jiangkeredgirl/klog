@@ -2,15 +2,15 @@
 
 #include <QDialog>
 #include "cstandard.h"
-#include "funcstaticstackui.h"
+#include "funcflowui.h"
 
-class FuncStaticStack : public QDialog
+class FuncFlow : public QDialog
 {
 	Q_OBJECT
 
 public:
-	FuncStaticStack(QWidget *parent);
-	~FuncStaticStack();
+	FuncFlow(QWidget *parent);
+	~FuncFlow();
 
 signals:
 	void SignalCloseDialog(const string& title);
@@ -19,5 +19,5 @@ public:
 	virtual void closeEvent(QCloseEvent *e) override;
 
 private:
-	FuncStaticStackui m_ui;
+	FuncFlowui m_ui;
 };

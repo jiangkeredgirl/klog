@@ -44,8 +44,8 @@ void KlogClient::Init()
 	m_logDisplay = new LogDisplay(this->centralWidget());
 	m_ui.m_mainLayout->addWidget(m_logDisplay);
 
-	m_funcDynamicStack = new FuncDynamicStack(this->centralWidget());
-	m_funcStaticStack = new FuncStaticStack(this->centralWidget());
+	m_funcStack = new FuncStack(this->centralWidget());
+	m_funcFlow = new FuncFlow(this->centralWidget());
 
 
 	connect(m_logFileBar, &LogFileBar::SignalOpenLocalLogFile, this, &KlogClient::SlotOpenLocalLogFile);
@@ -54,8 +54,8 @@ void KlogClient::Init()
 	connect(m_logHeadBar, &LogHeadBar::SignalStateChanged, m_logDisplay, &LogDisplay::SlotHeadChange);
 	connect(m_logFilterBar, &LogFilterBar::SignalFilter, m_logDisplay, &LogDisplay::SlotFilter);
 	connect(m_menuBar, &MenuBar::SignalActionTriggered, this, &KlogClient::SlotActionTriggered);
-	connect(m_funcDynamicStack, &FuncDynamicStack::SignalCloseDialog, this, &KlogClient::SlotCloseStackDialog);
-	connect(m_funcStaticStack, &FuncStaticStack::SignalCloseDialog, this, &KlogClient::SlotCloseStackDialog);
+	connect(m_funcStack, &FuncStack::SignalCloseDialog, this, &KlogClient::SlotCloseStackDialog);
+	connect(m_funcFlow, &FuncFlow::SignalCloseDialog, this, &KlogClient::SlotCloseStackDialog);
 }
 
 void KlogClient::Uninit()
@@ -133,22 +133,22 @@ void KlogClient::SlotActionTriggered(QAction * action)
 	{
 		if (action->isChecked())
 		{
-			m_funcDynamicStack->show();
+			m_funcStack->show();
 		}
 		else
 		{
-			m_funcDynamicStack->hide();
+			m_funcStack->hide();
 		}
 	}
 	else if (action->text() == tr(u8"函数调用静态图"))
 	{
 		if (action->isChecked())
 		{
-			m_funcStaticStack->show();
+			m_funcFlow->show();
 		}
 		else
 		{
-			m_funcStaticStack->hide();
+			m_funcFlow->hide();
 		}
 	}
 }

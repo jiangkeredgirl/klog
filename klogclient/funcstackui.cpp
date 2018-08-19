@@ -1,15 +1,15 @@
-﻿#include "funcdynamicstackui.h"
+﻿#include "funcstackui.h"
 
-FuncDynamicStackui::FuncDynamicStackui()
+FuncStackui::FuncStackui()
 	: QObject()
 {
 }
 
-FuncDynamicStackui::~FuncDynamicStackui()
+FuncStackui::~FuncStackui()
 {
 }
 
-void FuncDynamicStackui::setupUi(QDialog* hostDialog)
+void FuncStackui::setupUi(QDialog* hostDialog)
 {
 	m_hostDialog = hostDialog;
 	if (m_hostDialog)
@@ -20,7 +20,7 @@ void FuncDynamicStackui::setupUi(QDialog* hostDialog)
 		flags |= Qt::WindowCloseButtonHint;
 		m_hostDialog->setWindowFlags(flags);
 		m_hostDialog->resize(1280, 720);
-		m_hostDialog->setStyleSheet("FuncDynamicStack{border:1px solid red;}");
+		m_hostDialog->setStyleSheet("FuncStack{border:1px solid red;}");
 
 		QHBoxLayout* layout = new QHBoxLayout;
 		m_hostDialog->setLayout(layout);

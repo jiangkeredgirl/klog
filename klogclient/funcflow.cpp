@@ -1,16 +1,16 @@
-﻿#include "funcstaticstack.h"
+﻿#include "funcflow.h"
 
-FuncStaticStack::FuncStaticStack(QWidget *parent)
+FuncFlow::FuncFlow(QWidget *parent)
 	: QDialog(parent)
 {
 	m_ui.setupUi(this);
 }
 
-FuncStaticStack::~FuncStaticStack()
+FuncFlow::~FuncFlow()
 {
 }
 
-void FuncStaticStack::closeEvent(QCloseEvent *e)
+void FuncFlow::closeEvent(QCloseEvent *e)
 {
 	emit SignalCloseDialog(tr(u8"函数调用静态图").toStdString());
 }

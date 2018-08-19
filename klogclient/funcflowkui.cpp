@@ -1,15 +1,15 @@
-﻿#include "funcstaticstackui.h"
+﻿#include "funcflowui.h"
 
-FuncStaticStackui::FuncStaticStackui()
+FuncFlowui::FuncFlowui()
 	: QObject()
 {
 }
 
-FuncStaticStackui::~FuncStaticStackui()
+FuncFlowui::~FuncFlowui()
 {
 }
 
-void FuncStaticStackui::setupUi(QDialog* hostDialog)
+void FuncFlowui::setupUi(QDialog* hostDialog)
 {
 	m_hostDialog = hostDialog;
 	if (m_hostDialog)
@@ -20,7 +20,7 @@ void FuncStaticStackui::setupUi(QDialog* hostDialog)
 		flags |= Qt::WindowCloseButtonHint;
 		m_hostDialog->setWindowFlags(flags);
 		m_hostDialog->resize(1280, 720);
-		m_hostDialog->setStyleSheet("FuncStaticStack{border:1px solid red;}");
+		m_hostDialog->setStyleSheet("FuncFlow{border:1px solid red;}");
 
 		QHBoxLayout* layout = new QHBoxLayout;
 		m_hostDialog->setLayout(layout);

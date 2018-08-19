@@ -1,16 +1,16 @@
-﻿#include "funcdynamicstack.h"
+﻿#include "funcstack.h"
 
-FuncDynamicStack::FuncDynamicStack(QWidget *parent)
+FuncStack::FuncStack(QWidget *parent)
 	: QDialog(parent)
 {
 	m_ui.setupUi(this);
 }
 
-FuncDynamicStack::~FuncDynamicStack()
+FuncStack::~FuncStack()
 {
 }
 
-void FuncDynamicStack::closeEvent(QCloseEvent *e)
+void FuncStack::closeEvent(QCloseEvent *e)
 {
 	emit SignalCloseDialog(tr(u8"函数调用实时图").toStdString());
 }

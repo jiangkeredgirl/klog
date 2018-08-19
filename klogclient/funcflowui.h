@@ -3,13 +3,13 @@
 #include <QObject>
 #include "qtstandard.h"
 
-class FuncStaticStackui : public QObject
+class FuncFlowui : public QObject
 {
 	Q_OBJECT
 
 public:
-	FuncStaticStackui();
-	~FuncStaticStackui();
+	FuncFlowui();
+	~FuncFlowui();
 
 public:
 	void setupUi(QDialog* hostDialog);
