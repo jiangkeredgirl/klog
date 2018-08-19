@@ -129,7 +129,7 @@ void KlogClient::SlotActionTriggered(QAction * action)
 			m_logSearchBar->hide();
 		}
 	}
-	else if (action->text() == tr(u8"函数调用实时图"))
+	else if (action->text() == tr(u8"函数调用栈"))
 	{
 		if (action->isChecked())
 		{
@@ -140,7 +140,7 @@ void KlogClient::SlotActionTriggered(QAction * action)
 			m_funcStack->hide();
 		}
 	}
-	else if (action->text() == tr(u8"函数调用静态图"))
+	else if (action->text() == tr(u8"函数调用流"))
 	{
 		if (action->isChecked())
 		{

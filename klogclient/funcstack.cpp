@@ -12,5 +12,5 @@ FuncStack::~FuncStack()
 
 void FuncStack::closeEvent(QCloseEvent *e)
 {
-	emit SignalCloseDialog(tr(u8"函数调用实时图").toStdString());
+	emit SignalCloseDialog(tr(u8"函数调用栈").toStdString());
 }

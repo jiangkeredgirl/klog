@@ -14,7 +14,7 @@ void FuncFlowui::setupUi(QDialog* hostDialog)
 	m_hostDialog = hostDialog;
 	if (m_hostDialog)
 	{
-		m_hostDialog->setWindowTitle(tr(u8"函数调用静态图"));
+		m_hostDialog->setWindowTitle(tr(u8"函数调用流"));
 		Qt::WindowFlags flags = Qt::Dialog;
 		flags |= Qt::WindowMinMaxButtonsHint;
 		flags |= Qt::WindowCloseButtonHint;

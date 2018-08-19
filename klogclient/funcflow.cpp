@@ -12,5 +12,5 @@ FuncFlow::~FuncFlow()
 
 void FuncFlow::closeEvent(QCloseEvent *e)
 {
-	emit SignalCloseDialog(tr(u8"函数调用静态图").toStdString());
+	emit SignalCloseDialog(tr(u8"函数调用流").toStdString());
 }
