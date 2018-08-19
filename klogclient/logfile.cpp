@@ -105,6 +105,7 @@ string LogFile::LevelToStr(int level)
 void LogFile::ReadThread()
 {
 	emit SignalReceiveTrace(nullptr, LogFileStatus::LogFileReadBegin);
+	emit SignalReceiveTrack(nullptr, LogFileStatus::LogFileReadBegin);
 	string one_trace_entry_record;
 	while (true)
 	{
@@ -117,6 +118,7 @@ void LogFile::ReadThread()
 		if (m_logfile.eof())
 		{
 			emit SignalReceiveTrace(nullptr, LogFileStatus::LogFileReadEnd);
+			emit SignalReceiveTrack(nullptr, LogFileStatus::LogFileReadEnd);
 			break;
 		}
 		one_trace_entry_record += a_line_record;
@@ -131,6 +133,10 @@ void LogFile::ReadThread()
 		shared_ptr<TraceEntry> trace_entry(new TraceEntry);
 		int errorCode = CJsonParser::instance().DecodeTraceEntry(one_trace_entry_record, *trace_entry);
 		emit SignalReceiveTrace(trace_entry, LogFileStatus::LogFileReading);
+		if (trace_entry->is_track)
+		{
+			emit SignalReceiveTrack(trace_entry, LogFileStatus::LogFileReading);
+		}		
 		//std::this_thread::sleep_for(std::chrono::milliseconds(1));		
 		one_trace_entry_record = "";
 	}

@@ -54,6 +54,7 @@ public:
 
 signals:
 	void SignalReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
+	void SignalReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatus status);
 
 public:
 	int ReadTraceEntry(const string& logfile_name);

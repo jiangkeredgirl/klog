@@ -50,6 +50,7 @@ void KlogClient::Init()
 
 	connect(m_logFileBar, &LogFileBar::SignalOpenLocalLogFile, this, &KlogClient::SlotOpenLocalLogFile);
 	connect(&LogFile::instance(), &LogFile::SignalReceiveTrace, m_logDisplay, &LogDisplay::SlotReceiveTrace, Qt::BlockingQueuedConnection);
+	connect(&LogFile::instance(), &LogFile::SignalReceiveTrack, m_funcStack, &FuncStack::SlotReceiveTrack, Qt::BlockingQueuedConnection);
 	connect(m_logLevelBar, &LogLevelBar::SignalStateChanged, m_logDisplay, &LogDisplay::SlotLevelChange);
 	connect(m_logHeadBar, &LogHeadBar::SignalStateChanged, m_logDisplay, &LogDisplay::SlotHeadChange);
 	connect(m_logFilterBar, &LogFilterBar::SignalFilter, m_logDisplay, &LogDisplay::SlotFilter);
