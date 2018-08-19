@@ -50,7 +50,11 @@ void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStat
 			}
 			if (track_entry->functrack == ">>")
 			{
-				string func_path = track_entry->modulename + track_entry->filename + track_entry->funcname + to_string(track_entry->line);
+				FuncPath func_path;
+				func_path.modulename = track_entry->modulename;
+				func_path.filename = track_entry->filename;
+				func_path.funcname = track_entry->funcname;
+				func_path.line = track_entry->line;
 				m_stacks[track_entry->processname][track_entry->threadid].push_back(make_pair(track_entry->index, func_path));
 			}
 			else if (track_entry->functrack == "<<")
@@ -59,8 +63,12 @@ void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStat
 				{
 					break;
 				}
-				string func_path = track_entry->modulename + track_entry->filename + track_entry->funcname + to_string(track_entry->line);
-				list<pair<__int64/*logindex*/, string/*func_path*/>>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
+				FuncPath func_path;
+				func_path.modulename = track_entry->modulename;
+				func_path.filename = track_entry->filename;
+				func_path.funcname = track_entry->funcname;
+				func_path.line = track_entry->line;
+				list<pair<__int64/*logindex*/, FuncPath/*func_path*/>>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
 				if (track_entry->index != pop_iter->first)
 				{
 					break;
