@@ -16,7 +16,7 @@ public:
 
 
 public slots:
-	void SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
+	void SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status);
 	void SlotCheckStateChanged(QTreeWidgetItem *item, int column);
 	void SlotCheckDisplayChange(vector<string> names, Qt::CheckState state);
 	void SlotLevelChange(const string& level, Qt::CheckState state);

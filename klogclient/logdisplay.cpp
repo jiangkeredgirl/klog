@@ -30,7 +30,7 @@ LogDisplay::~LogDisplay()
 }
 
 
-void LogDisplay::SlotAddTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status)
+void LogDisplay::SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status)
 {
 	if (status == LogFileStatus::LogFileReadBegin)
 	{
