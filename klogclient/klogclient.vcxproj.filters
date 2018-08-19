@@ -87,22 +87,22 @@
     <ClCompile Include="rapidjsonparser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="funcdynamicstack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="funcstaticstack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="funcdynamicstackui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="funcstaticstackui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="processfuncstack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="processfuncstackui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcflow.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcflowkui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcstack.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcstackui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -158,22 +158,22 @@
     <QtMoc Include="logfile.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="funcdynamicstack.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="funcstaticstack.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="funcdynamicstackui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="funcstaticstackui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="processfuncstack.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="processfuncstackui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcflow.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcflowui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcstack.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcstackui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
