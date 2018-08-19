@@ -20,7 +20,7 @@ void FuncStaticStackui::setupUi(QDialog* hostDialog)
 		flags |= Qt::WindowCloseButtonHint;
 		m_hostDialog->setWindowFlags(flags);
 		m_hostDialog->resize(1280, 720);
-		m_hostDialog->setStyleSheet("LogDisplay{border:1px solid red;}");
+		m_hostDialog->setStyleSheet("FuncStaticStack{border:1px solid red;}");
 
 		QHBoxLayout* layout = new QHBoxLayout;
 		m_hostDialog->setLayout(layout);

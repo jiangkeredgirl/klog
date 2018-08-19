@@ -14,18 +14,18 @@ void ProcessFuncStackui::setupUi(QWidget* hostWidget)
 	m_hostWidget = hostWidget;
 	if (m_hostWidget)
 	{
-		m_hostWidget->setStyleSheet("LogDisplay{border:1px solid red;}");
+		m_hostWidget->setStyleSheet("ProcessFuncStack{border:1px solid red;}");
 
 		QHBoxLayout* layout = new QHBoxLayout;
 		m_hostWidget->setLayout(layout);
 		layout->setContentsMargins(1, 0, 1, 0);
 		layout->setSpacing(10);
 
-		m_treeSourceNames = new QTreeWidget(m_hostWidget);
-		layout->addWidget(m_treeSourceNames);
-		m_treeSourceNames->setHeaderLabel(u8"函数名");
-		m_treeSourceNames->setStyleSheet("QTreeWidget{border:1px solid red;}");
-		m_treeSourceNames->setFixedWidth(200);
+		m_labelProcessName = new QLabel(m_hostWidget);
+		layout->addWidget(m_labelProcessName);
+		m_labelProcessName->setText(u8"进程名");
+		m_labelProcessName->setStyleSheet("QLabel{border:1px solid red;}");
+		//m_labelProcessName->setFixedWidth(200);
 		//for (size_t i = 0; i < 5; i++)
 		//{
 		//	QTreeWidgetItem* pItem = new QTreeWidgetItem();
@@ -59,18 +59,18 @@ void ProcessFuncStackui::setupUi(QWidget* hostWidget)
 			"synclock",
 			"content"
 		};
-		m_tableLogInfo = new QTableWidget(0, headerTags.size(), m_hostWidget);
-		layout->addWidget(m_tableLogInfo);
-		m_tableLogInfo->setHorizontalHeaderLabels(headerTags);
-		m_tableLogInfo->horizontalHeader()->setFixedHeight(30);
+		m_tableStack = new QTableWidget(0, headerTags.size(), m_hostWidget);
+		layout->addWidget(m_tableStack);
+		m_tableStack->setHorizontalHeaderLabels(headerTags);
+		m_tableStack->horizontalHeader()->setFixedHeight(30);
 		//m_tableLogInfo->verticalHeader()->setVisible(false);
-		m_tableLogInfo->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
-		m_tableLogInfo->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
-		m_tableLogInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
-		m_tableLogInfo->setSelectionBehavior(QAbstractItemView::SelectRows);
-		m_tableLogInfo->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
-		m_tableLogInfo->horizontalHeader()->setSectionsMovable(true);
-		m_tableLogInfo->horizontalHeader()->setHighlightSections(false);
-		m_tableLogInfo->horizontalHeader()->setStretchLastSection(true);
+		m_tableStack->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
+		m_tableStack->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
+		m_tableStack->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		m_tableStack->setSelectionBehavior(QAbstractItemView::SelectRows);
+		m_tableStack->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
+		m_tableStack->horizontalHeader()->setSectionsMovable(true);
+		m_tableStack->horizontalHeader()->setHighlightSections(false);
+		m_tableStack->horizontalHeader()->setStretchLastSection(true);
 	}
 }

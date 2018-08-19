@@ -16,6 +16,6 @@ public:
 
 public:
 	QWidget*  m_hostWidget = nullptr;
-	QTableWidget* m_tableLogInfo = nullptr;
-	QTreeWidget*  m_treeSourceNames = nullptr;
+	QTableWidget* m_tableStack = nullptr;
+	QLabel*  m_labelProcessName = nullptr;
 };
