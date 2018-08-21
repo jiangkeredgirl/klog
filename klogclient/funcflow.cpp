@@ -20,6 +20,7 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 	if (status == LogFileStatus::LogFileReadBegin)
 	{
 		m_stacks.clear();
+		m_stacks_end.clear();
 	}
 	else if (status == LogFileStatus::LogFileReadEnd)
 	{
@@ -51,11 +52,13 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 			if (track_entry->functrack == ">>")
 			{
 				FuncPath func_path;
+				func_path.logindex = track_entry->index;
 				func_path.modulename = track_entry->modulename;
 				func_path.filename = track_entry->filename;
 				func_path.funcname = track_entry->funcname;
 				func_path.line = track_entry->line;
-				m_stacks[track_entry->processname][track_entry->threadid].push_back(make_pair(track_entry->index, func_path));
+				m_stacks[track_entry->processname][track_entry->threadid].push_back(func_path);
+				m_stacks_end[track_entry->processname][track_entry->threadid] = false;
 			}
 			else if (track_entry->functrack == "<<")
 			{
@@ -64,21 +67,38 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 					break;
 				}
 				FuncPath func_path;
+				func_path.logindex = track_entry->index;
 				func_path.modulename = track_entry->modulename;
 				func_path.filename = track_entry->filename;
 				func_path.funcname = track_entry->funcname;
 				func_path.line = track_entry->line;
-				list<pair<__int64/*logindex*/, FuncPath/*func_path*/>>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
-				if (track_entry->index != pop_iter->first)
-				{
-					break;
-				}
-				if (func_path != pop_iter->second)
+				list<FuncPath/*func_path*/>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
+				if (func_path != *pop_iter)
 				{
 					break;
 				}
 				m_stacks[track_entry->processname][track_entry->threadid].erase(pop_iter);
+				m_stacks_end[track_entry->processname][track_entry->threadid] = true;
 			}
 		} while (false);
 	}
+}
+
+void FuncFlow::FuncStacksAddInTrees(const string& process_name, const string& threadid, const list<FuncPath>& func_stacks)
+{
+
+}
+
+void FuncFlow::FuncStacksAddInTree(list<FuncPath>& func_stacks, list<FuncTree>& func_trees)
+{
+	//for (size_t i = 0; i < func_trees.size(); i++)
+	//{
+	//	for (size_t j = 0; j < funcs.size(); j++)
+	//	{
+	//		if (func_trees[i].funcs[i] != funcs[j])
+	//		{
+	//			break;
+	//		}
+	//	}
+	//}
 }

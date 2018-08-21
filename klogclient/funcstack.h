@@ -7,13 +7,15 @@
 
 struct FuncPath
 {
+	__int64 logindex = 0;
 	string modulename;
 	string filename;
 	string funcname;
 	int    line = 0;
-	bool operator == (const FuncPath& other)
+	bool operator == (const FuncPath& other) const
 	{
-		if (modulename == other.modulename
+		if (logindex == other.logindex
+			&& modulename == other.modulename
 			&& filename == other.filename
 			&& funcname == other.funcname
 			&& line == other.line)
@@ -22,7 +24,7 @@ struct FuncPath
 		}
 		return false;
 	}
-	bool operator != (const FuncPath& other)
+	bool operator != (const FuncPath& other) const
 	{
 		return !(operator == (other));
 	}
@@ -47,5 +49,5 @@ public slots:
 
 private:
 	FuncStackui m_ui;
-	map<string/*process_name*/, map<string/*threadid*/, list<pair<__int64/*logindex*/, FuncPath/*func_path*/>>>> m_stacks;
+	map<string/*process_name*/, map<string/*threadid*/, list<FuncPath/*func_path*/>>> m_stacks;
 };
