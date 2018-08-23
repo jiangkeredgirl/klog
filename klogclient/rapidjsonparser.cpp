@@ -36,6 +36,10 @@ int CJsonParser::DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_e
 		string  functime;
 		DecodeValue(doc, "index", trace_entry.index);
 		DecodeValue(doc, "functrack", trace_entry.functrack);
+		if (!trace_entry.functrack.empty())
+		{
+			trace_entry.is_track = true;
+		}
 		DecodeValue(doc, "functime", functime);
 		if (functime.size() > 2)
 		{

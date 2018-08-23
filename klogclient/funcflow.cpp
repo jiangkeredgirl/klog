@@ -21,6 +21,7 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 	{
 		m_stacks.clear();
 		m_stacks_end.clear();
+		m_func_trees.clear();
 	}
 	else if (status == LogFileStatus::LogFileReadEnd)
 	{
