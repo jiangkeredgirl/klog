@@ -77,28 +77,44 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 				{
 					break;
 				}
+				if (m_stacks_end[track_entry->processname][track_entry->threadid] == false)
+				{
+					m_stacks_end[track_entry->processname][track_entry->threadid] = true;
+					FuncStacksAddInTrees(track_entry->processname, track_entry->threadid, m_stacks[track_entry->processname][track_entry->threadid]);
+				}
 				m_stacks[track_entry->processname][track_entry->threadid].erase(pop_iter);
-				m_stacks_end[track_entry->processname][track_entry->threadid] = true;
 			}
 		} while (false);
 	}
 }
 
-void FuncFlow::FuncStacksAddInTrees(const string& process_name, const string& threadid, const list<FuncPath>& func_stacks)
+void FuncFlow::FuncStacksAddInTrees(const string& process_name, const string& threadid, list<FuncPath>& func_stacks)
 {
-
+	FuncStacksAddInTree(func_stacks, m_func_trees[process_name][threadid]);
 }
 
-void FuncFlow::FuncStacksAddInTree(list<FuncPath>& func_stacks, list<FuncTree>& func_trees)
+void FuncFlow::FuncStacksAddInTree(list<FuncPath>& func_stacks, list<FuncTree>& _func_trees)
 {
-	//for (size_t i = 0; i < func_trees.size(); i++)
-	//{
-	//	for (size_t j = 0; j < funcs.size(); j++)
-	//	{
-	//		if (func_trees[i].funcs[i] != funcs[j])
-	//		{
-	//			break;
-	//		}
-	//	}
-	//}
+	auto & func_trees = _func_trees;	
+	for (auto & func_path : func_stacks)
+	{
+		bool exist = false;
+		func_path.logindex = 0;		
+		for (auto & tree : func_trees)
+		{
+			if (func_path == tree.func_path)
+			{
+				func_trees = tree.branchs;
+				exist = true;
+				break;
+			}
+		}
+		if (exist == false)
+		{
+			FuncTree tree;
+			tree.func_path = func_path;
+			func_trees.push_back(tree);
+			func_trees = tree.branchs;
+		}
+	}
 }

@@ -30,7 +30,7 @@ public:
 	void SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatus status);
 
 private:
-	void FuncStacksAddInTrees(const string& process_name, const string& threadid, const list<FuncPath>& func_stacks);
+	void FuncStacksAddInTrees(const string& process_name, const string& threadid, list<FuncPath>& func_stacks);
 	void FuncStacksAddInTree(list<FuncPath>& func_stacks, list<FuncTree>& func_trees);
 
 private:
