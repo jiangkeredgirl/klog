@@ -15,8 +15,8 @@ public:
     static Config& instance();
 
 public:
-	int GetTraceConfig(kk::TraceConfig& trace_config);
-	int SetTraceConfig(const kk::TraceConfig& trace_config);
+	int GetTraceConfig(const string& proccess_name, kk::TraceConfig& trace_config);
+	int SetTraceConfig(const string& proccess_name, const kk::TraceConfig& trace_config);
 };
 
 #endif // CONFIG_H

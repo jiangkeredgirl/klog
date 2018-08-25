@@ -170,10 +170,10 @@ namespace kk
 			process_name_dir = process_name_dir.substr(0, process_name_dir.size()-4);
 		}
 		process_time_ = kk::Utility::GetLogDateTimeStr();
-		int errorCode = Config::instance().GetTraceConfig(trace_config_);
+		int errorCode = Config::instance().GetTraceConfig(process_name_, trace_config_);
 		if(errorCode)
 		{
-			Config::instance().SetTraceConfig(trace_config_);
+			Config::instance().SetTraceConfig(process_name_, trace_config_);
 		}
 		trace_config_.trace_file_dir = ".\\klogs\\" + process_name_dir + "\\";
 		InitTrace();
@@ -363,7 +363,7 @@ namespace kk
 	const TraceConfig& TracePrinterImpl::trace_config(const TraceConfig& config)
 	{
 		trace_config_ = config;
-		Config::instance().SetTraceConfig(trace_config_);
+		Config::instance().SetTraceConfig(process_name_, trace_config_);
 		InitTrace();
 		return trace_config_;
 	}

@@ -13,10 +13,14 @@ Config &Config::instance()
     return _instance;
 }
 
-int Config::GetTraceConfig(kk::TraceConfig& trace_config)
+int Config::GetTraceConfig(const string& proccess_name, kk::TraceConfig& trace_config)
 {
 	int errorCode = 1;
-	string path = CONFIG_FILE_NAME;
+	string path = proccess_name + "_" + CONFIG_FILE_NAME;
+	if (!kk::Utility::PathIsExist(path))
+	{
+		path = CONFIG_FILE_NAME;
+	}
 	string configContent;
 	kk::Utility::ReadFile(path, configContent);
 	if(!configContent.empty())
@@ -26,10 +30,14 @@ int Config::GetTraceConfig(kk::TraceConfig& trace_config)
 	return errorCode;
 }
 
-int Config::SetTraceConfig(const kk::TraceConfig& trace_config)
+int Config::SetTraceConfig(const string& proccess_name, const kk::TraceConfig& trace_config)
 {
 	int errorCode = 1;
-	string path = CONFIG_FILE_NAME;
+	string path = proccess_name + "_" + CONFIG_FILE_NAME;
+	if (!kk::Utility::PathIsExist(path))
+	{
+		path = CONFIG_FILE_NAME;
+	}
 	string configContent;	
 	errorCode = CJsonParser::instance().SetTraceConfig(trace_config, configContent);
 	kk::Utility::WriteFile(path, configContent);
