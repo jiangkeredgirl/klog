@@ -52,12 +52,12 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 			}
 			if (track_entry->functrack == ">>")
 			{
-				FuncPath func_path;
-				func_path.logindex = track_entry->index;
-				func_path.modulename = track_entry->modulename;
-				func_path.filename = track_entry->filename;
-				func_path.funcname = track_entry->funcname;
-				func_path.line = track_entry->line;
+				shared_ptr<FuncPath> func_path(new FuncPath());
+				func_path->logindex = track_entry->index;
+				func_path->modulename = track_entry->modulename;
+				func_path->filename = track_entry->filename;
+				func_path->funcname = track_entry->funcname;
+				func_path->line = track_entry->line;
 				m_stacks[track_entry->processname][track_entry->threadid].push_back(func_path);
 				m_stacks_end[track_entry->processname][track_entry->threadid] = false;
 			}
@@ -73,8 +73,8 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 				func_path.filename = track_entry->filename;
 				func_path.funcname = track_entry->funcname;
 				func_path.line = track_entry->line;
-				list<FuncPath/*func_path*/>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
-				if (func_path != *pop_iter)
+				list<shared_ptr<FuncPath>/*func_path*/>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
+				if (func_path != **pop_iter)
 				{
 					break;
 				}
@@ -89,33 +89,33 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 	}
 }
 
-void FuncFlow::FuncStacksAddInTrees(const string& process_name, const string& threadid, list<FuncPath>& func_stacks)
+void FuncFlow::FuncStacksAddInTrees(const string& process_name, const string& threadid, list<shared_ptr<FuncPath>>& func_stacks)
 {
 	FuncStacksAddInTree(func_stacks, m_func_trees[process_name][threadid]);
 }
 
-void FuncFlow::FuncStacksAddInTree(list<FuncPath>& func_stacks, list<FuncTree>& _func_trees)
+void FuncFlow::FuncStacksAddInTree(list<shared_ptr<FuncPath>>& func_stacks, list<shared_ptr<FuncTree>>& _func_trees)
 {
-	auto & func_trees = _func_trees;	
+	list<shared_ptr<FuncTree>>* func_trees = &_func_trees;
 	for (auto & func_path : func_stacks)
 	{
 		bool exist = false;
-		func_path.logindex = 0;		
-		for (auto & tree : func_trees)
+		func_path->logindex = 0;
+		for (auto & tree : *func_trees)
 		{
-			if (func_path == tree.func_path)
+			if (*func_path == *tree->func_path)
 			{
-				func_trees = tree.branchs;
+				func_trees = &tree->branchs;
 				exist = true;
 				break;
 			}
 		}
 		if (exist == false)
 		{
-			FuncTree tree;
-			tree.func_path = func_path;
-			func_trees.push_back(tree);
-			func_trees = tree.branchs;
+			shared_ptr<FuncTree> tree(new FuncTree());
+			tree->func_path = func_path;
+			func_trees->push_back(tree);
+			func_trees = &tree->branchs;
 		}
 	}
 }

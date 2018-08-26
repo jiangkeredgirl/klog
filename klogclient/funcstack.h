@@ -5,8 +5,9 @@
 #include "funcstackui.h"
 #include "logfile.h"
 
-struct FuncPath
+class FuncPath
 {
+public:
 	__int64 logindex = 0;
 	string modulename;
 	string filename;
@@ -49,5 +50,5 @@ public slots:
 
 private:
 	FuncStackui m_ui;
-	map<string/*process_name*/, map<string/*threadid*/, list<FuncPath/*func_path*/>>> m_stacks;
+	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<FuncPath>/*func_path*/>>> m_stacks;
 };

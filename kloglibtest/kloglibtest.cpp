@@ -11,6 +11,9 @@
 
 #define MYDEFINE_LEVEL 10
 
+int trace_test1(const string& log_content);
+int trace_test2(const string& log_content);
+
 // test trace
 int trace_test(const string& log_content)
 {
@@ -44,6 +47,7 @@ int trace_test(const string& log_content)
 	printf("printf=================================\n");
 	//cout << "cout==================================" << endl;
 	//std::cout << "std::cout==================================" << endl;
+	trace_test1(u8"my log content 支持中文");
 	return 0;
 }
 
@@ -58,6 +62,7 @@ int trace_test1(const string& log_content)
 	TraceDebugCout << log_content;
 	TraceTempCout << log_content;
 	TraceCout(MYDEFINE_LEVEL) << log_content;
+	trace_test2(u8"my log content 支持中文");
 	return 0;
 }
 
@@ -96,11 +101,10 @@ void SetConsoleUTF8()
 int _tmain()
 {
 	SetConsoleUTF8();
-	trace_test(u8"my log content 支持中文");
-	trace_test1(u8"my log content 支持中文");
-	trace_test2(u8"my log content 支持中文");
-	TraceTest1 test1;
-	TraceTest2 test2;
+	TrackCout;
+	trace_test(u8"my log content 支持中文");	
+	//TraceTest1 test1;
+	//TraceTest2 test2;
 	WaitTrace;
 	return 0;
 }

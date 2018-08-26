@@ -50,12 +50,12 @@ void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStat
 			}
 			if (track_entry->functrack == ">>")
 			{
-				FuncPath func_path;
-				func_path.logindex = track_entry->index;
-				func_path.modulename = track_entry->modulename;
-				func_path.filename = track_entry->filename;
-				func_path.funcname = track_entry->funcname;
-				func_path.line = track_entry->line;
+				shared_ptr<FuncPath> func_path(new FuncPath());
+				func_path->logindex = track_entry->index;
+				func_path->modulename = track_entry->modulename;
+				func_path->filename = track_entry->filename;
+				func_path->funcname = track_entry->funcname;
+				func_path->line = track_entry->line;
 				m_stacks[track_entry->processname][track_entry->threadid].push_back(func_path);
 			}
 			else if (track_entry->functrack == "<<")
@@ -70,8 +70,8 @@ void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStat
 				func_path.filename = track_entry->filename;
 				func_path.funcname = track_entry->funcname;
 				func_path.line = track_entry->line;
-				list<FuncPath/*func_path*/>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
-				if (func_path != *pop_iter)
+				list<shared_ptr<FuncPath/*func_path*/>>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
+				if (func_path != **pop_iter)
 				{
 					break;
 				}

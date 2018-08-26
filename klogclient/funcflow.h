@@ -6,10 +6,11 @@
 #include "logfile.h"
 #include "funcstack.h"
 
-struct FuncTree
+class FuncTree
 {
-	FuncPath func_path;
-	list<FuncTree> branchs;
+public:
+	shared_ptr<FuncPath> func_path;
+	list<shared_ptr<FuncTree>> branchs;
 };
 
 class FuncFlow : public QDialog
@@ -30,12 +31,12 @@ public:
 	void SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatus status);
 
 private:
-	void FuncStacksAddInTrees(const string& process_name, const string& threadid, list<FuncPath>& func_stacks);
-	void FuncStacksAddInTree(list<FuncPath>& func_stacks, list<FuncTree>& func_trees);
+	void FuncStacksAddInTrees(const string& process_name, const string& threadid, list<shared_ptr<FuncPath>>& func_stacks);
+	void FuncStacksAddInTree(list<shared_ptr<FuncPath>>& func_stacks, list<shared_ptr<FuncTree>>& func_trees);
 
 private:
 	FuncFlowui m_ui;
-	map<string/*process_name*/, map<string/*threadid*/, list<FuncPath/*func_path*/>>> m_stacks;
+	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<FuncPath>/*func_path*/>>> m_stacks;
 	map<string/*process_name*/, map<string/*threadid*/, bool>> m_stacks_end;
-	map<string/*process_name*/, map<string/*threadid*/, list<FuncTree>>> m_func_trees;
+	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<FuncTree>>>> m_func_trees;
 };
