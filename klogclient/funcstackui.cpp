@@ -27,36 +27,20 @@ void FuncStackui::setupUi(QDialog* hostDialog)
 		layout->setContentsMargins(1, 0, 1, 0);
 		layout->setSpacing(10);
 
-		QStringList headerTags = {
-			"index",
-			"functrack",
-			"functime",
-			"level",
-			"label",
-			"threadid",
-			"processname",
-			"modulename",
-			"filename",
-			"funcname",
-			"line",
-			"datetime",
-			"runtime",
-			"async",
-			"synclock",
-			"content"
-		};
-		m_tableLogInfo = new QTableWidget(0, headerTags.size(), m_hostDialog);
-		layout->addWidget(m_tableLogInfo);
-		m_tableLogInfo->setHorizontalHeaderLabels(headerTags);
-		m_tableLogInfo->horizontalHeader()->setFixedHeight(30);
-		//m_tableLogInfo->verticalHeader()->setVisible(false);
-		m_tableLogInfo->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
-		m_tableLogInfo->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
-		m_tableLogInfo->setEditTriggers(QAbstractItemView::NoEditTriggers);
-		m_tableLogInfo->setSelectionBehavior(QAbstractItemView::SelectRows);
-		m_tableLogInfo->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
-		m_tableLogInfo->horizontalHeader()->setSectionsMovable(true);
-		m_tableLogInfo->horizontalHeader()->setHighlightSections(false);
-		m_tableLogInfo->horizontalHeader()->setStretchLastSection(true);
+		QStringList headerTags = {"function stacks"};
+		m_tableFuncStacks = new QTableWidget(0, headerTags.size(), m_hostDialog);
+		layout->addWidget(m_tableFuncStacks);
+		m_tableFuncStacks->setHorizontalHeaderLabels(headerTags);
+		m_tableFuncStacks->horizontalHeader()->setFixedHeight(30);
+		m_tableFuncStacks->horizontalHeader()->setVisible(false);
+		m_tableFuncStacks->verticalHeader()->setVisible(false);
+		m_tableFuncStacks->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
+		m_tableFuncStacks->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
+		m_tableFuncStacks->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		m_tableFuncStacks->setSelectionBehavior(QAbstractItemView::SelectRows);
+		m_tableFuncStacks->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
+		m_tableFuncStacks->horizontalHeader()->setSectionsMovable(true);
+		m_tableFuncStacks->horizontalHeader()->setHighlightSections(false);
+		m_tableFuncStacks->horizontalHeader()->setStretchLastSection(true);
 	}
 }

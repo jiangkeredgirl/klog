@@ -16,5 +16,5 @@ public:
 
 public:
 	QDialog*  m_hostDialog = nullptr;
-	QTableWidget* m_tableLogInfo = nullptr;
+	QTableWidget* m_tableFuncStacks = nullptr;
 };
