@@ -1,8 +1,9 @@
 ﻿#include "processfuncstack.h"
 
-ProcessFuncStack::ProcessFuncStack(QWidget *parent)
+ProcessFuncStack::ProcessFuncStack(QWidget *parent, const string& process_name)
 	: QWidget(parent)
 {
+	m_process_name = process_name;
 	m_ui.setupUi(this);
 }
 

@@ -9,11 +9,12 @@ class ProcessFuncStack : public QWidget
 	Q_OBJECT
 
 public:
-	ProcessFuncStack(QWidget *parent);
+	ProcessFuncStack(QWidget *parent, const string& process_name);
 	~ProcessFuncStack();
 
 public:
-	void InitStack(const string& process_name, map<string/*threadid*/, list<string/*func_name*/>>);
+	void PushStack(map<string/*threadid*/, list<string/*func_name*/>>);
+	void PopStack(map<string/*threadid*/, list<string/*func_name*/>>);
 
 protected:
 	virtual void paintEvent(QPaintEvent *) override;
