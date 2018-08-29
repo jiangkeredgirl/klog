@@ -87,12 +87,6 @@
     <ClCompile Include="rapidjsonparser.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="processfuncstack.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="processfuncstackui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="funcflow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -156,12 +150,6 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="logfile.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="processfuncstack.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="processfuncstackui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="funcflow.h">
