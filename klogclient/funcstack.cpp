@@ -50,13 +50,7 @@ void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStat
 			}
 			if (track_entry->functrack == ">>")
 			{
-				shared_ptr<FuncPath> func_path(new FuncPath());
-				func_path->logindex = track_entry->index;
-				func_path->modulename = track_entry->modulename;
-				func_path->filename = track_entry->filename;
-				func_path->funcname = track_entry->funcname;
-				func_path->line = track_entry->line;
-				m_stacks[track_entry->processname][track_entry->threadid].push_back(func_path);
+				m_stacks[track_entry->processname][track_entry->threadid].push_back(track_entry);
 				PushStack(track_entry);
 			}
 			else if (track_entry->functrack == "<<")
@@ -65,14 +59,8 @@ void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStat
 				{
 					break;
 				}
-				FuncPath func_path;
-				func_path.logindex = track_entry->index;
-				func_path.modulename = track_entry->modulename;
-				func_path.filename = track_entry->filename;
-				func_path.funcname = track_entry->funcname;
-				func_path.line = track_entry->line;
-				list<shared_ptr<FuncPath/*func_path*/>>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
-				if (func_path != **pop_iter)
+				list<shared_ptr<TraceEntry>>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
+				if (!IsPairTrack(*pop_iter, track_entry))
 				{
 					break;
 				}
@@ -91,4 +79,36 @@ void FuncStack::PushStack(shared_ptr<TraceEntry> track_entry)
 void FuncStack::PopStack(shared_ptr<TraceEntry> track_entry)
 {
 
+}
+
+bool FuncStack::IsPairTrack(shared_ptr<TraceEntry> push_track_entry, shared_ptr<TraceEntry> pop_track_entry)
+{
+	bool is_pair = false;
+	if (push_track_entry
+		&& pop_track_entry
+		&& push_track_entry->index == pop_track_entry->index
+		&& push_track_entry->modulename == pop_track_entry->modulename
+		&& push_track_entry->filename == pop_track_entry->filename
+		&& push_track_entry->funcname == pop_track_entry->funcname
+		&& push_track_entry->line == pop_track_entry->line)
+	{
+		is_pair = true;
+	}
+	return is_pair;
+}
+
+bool FuncStack::IsExistTrack(shared_ptr<TraceEntry> old_track_entry, shared_ptr<TraceEntry> new_track_entry)
+{
+	bool is_exist = false;
+	if (old_track_entry
+		&& new_track_entry
+		//&& push_track_entry->index == pop_track_entry->index
+		&& old_track_entry->modulename == new_track_entry->modulename
+		&& old_track_entry->filename == new_track_entry->filename
+		&& old_track_entry->funcname == new_track_entry->funcname
+		&& old_track_entry->line == new_track_entry->line)
+	{
+		is_exist = true;
+	}
+	return is_exist;
 }

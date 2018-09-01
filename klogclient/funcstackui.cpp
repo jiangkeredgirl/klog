@@ -28,29 +28,29 @@ void FuncStackui::setupUi(QDialog* hostDialog)
 		layout->setSpacing(10);
 
 		QStringList headerTags = {"function stacks"};
-		m_tableStacks = new QTableWidget(0, headerTags.size(), m_hostDialog);
-		layout->addWidget(m_tableStacks);
-		m_tableStacks->setHorizontalHeaderLabels(headerTags);
-		m_tableStacks->horizontalHeader()->setFixedHeight(30);
-		m_tableStacks->horizontalHeader()->setVisible(false);
-		m_tableStacks->verticalHeader()->setVisible(false);
-		m_tableStacks->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
-		m_tableStacks->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
-		m_tableStacks->setEditTriggers(QAbstractItemView::NoEditTriggers);
-		m_tableStacks->setSelectionBehavior(QAbstractItemView::SelectRows);
-		m_tableStacks->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
-		m_tableStacks->horizontalHeader()->setSectionsMovable(true);
-		m_tableStacks->horizontalHeader()->setHighlightSections(false);
-		m_tableStacks->horizontalHeader()->setStretchLastSection(true);
+		m_stacks_ui = new QTableWidget(0, headerTags.size(), m_hostDialog);
+		layout->addWidget(m_stacks_ui);
+		m_stacks_ui->setHorizontalHeaderLabels(headerTags);
+		m_stacks_ui->horizontalHeader()->setFixedHeight(30);
+		m_stacks_ui->horizontalHeader()->setVisible(false);
+		m_stacks_ui->verticalHeader()->setVisible(false);
+		m_stacks_ui->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
+		m_stacks_ui->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
+		m_stacks_ui->setEditTriggers(QAbstractItemView::NoEditTriggers);
+		m_stacks_ui->setSelectionBehavior(QAbstractItemView::SelectRows);
+		m_stacks_ui->setVerticalScrollMode(QAbstractItemView::ScrollPerItem);
+		m_stacks_ui->horizontalHeader()->setSectionsMovable(true);
+		m_stacks_ui->horizontalHeader()->setHighlightSections(false);
+		m_stacks_ui->horizontalHeader()->setStretchLastSection(true);
 	}
 }
 
 void FuncStackui::PushStack(const string& proccess_name, const string& threadid, const string& func_name)
 {
 	size_t i = 0;
-	for (; i < m_tableStacks->rowCount(); i++)
+	for (; i < m_stacks_ui->rowCount(); i++)
 	{
-		QTableWidget* proccess_stacks = qobject_cast<QTableWidget*>(m_tableStacks->cellWidget(i, 0));
+		QTableWidget* proccess_stacks = qobject_cast<QTableWidget*>(m_stacks_ui->cellWidget(i, 0));
 		if (proccess_stacks->item(0, 0)->text().toStdString() == proccess_name)
 		{
 			size_t j = 0;

@@ -9,7 +9,7 @@
 class FuncTree
 {
 public:
-	shared_ptr<FuncPath> func_path;
+	shared_ptr<TraceEntry> func_path;
 	list<shared_ptr<FuncTree>> branchs;
 };
 
@@ -31,12 +31,12 @@ public:
 	void SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatus status);
 
 private:
-	void FuncStacksAddInTrees(const string& process_name, const string& threadid, list<shared_ptr<FuncPath>>& func_stacks);
-	void FuncStacksAddInTree(list<shared_ptr<FuncPath>>& func_stacks, list<shared_ptr<FuncTree>>& func_trees);
+	void FuncStacksAddInTrees(const string& process_name, const string& threadid, list<shared_ptr<TraceEntry>>& func_stacks);
+	void FuncStacksAddInTree(list<shared_ptr<TraceEntry>>& func_stacks, list<shared_ptr<FuncTree>>& func_trees);
 
 private:
 	FuncFlowui m_ui;
-	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<FuncPath>/*func_path*/>>> m_stacks;
+	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<TraceEntry>>>> m_stacks;
 	map<string/*process_name*/, map<string/*threadid*/, bool>> m_stacks_end;
 	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<FuncTree>>>> m_func_trees;
 };

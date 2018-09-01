@@ -52,13 +52,7 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 			}
 			if (track_entry->functrack == ">>")
 			{
-				shared_ptr<FuncPath> func_path(new FuncPath());
-				func_path->logindex = track_entry->index;
-				func_path->modulename = track_entry->modulename;
-				func_path->filename = track_entry->filename;
-				func_path->funcname = track_entry->funcname;
-				func_path->line = track_entry->line;
-				m_stacks[track_entry->processname][track_entry->threadid].push_back(func_path);
+				m_stacks[track_entry->processname][track_entry->threadid].push_back(track_entry);
 				m_stacks_end[track_entry->processname][track_entry->threadid] = false;
 			}
 			else if (track_entry->functrack == "<<")
@@ -67,14 +61,8 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 				{
 					break;
 				}
-				FuncPath func_path;
-				func_path.logindex = track_entry->index;
-				func_path.modulename = track_entry->modulename;
-				func_path.filename = track_entry->filename;
-				func_path.funcname = track_entry->funcname;
-				func_path.line = track_entry->line;
-				list<shared_ptr<FuncPath>/*func_path*/>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
-				if (func_path != **pop_iter)
+				list<shared_ptr<TraceEntry>/*func_path*/>::iterator pop_iter = --m_stacks[track_entry->processname][track_entry->threadid].end();
+				if (!FuncStack::IsPairTrack(*pop_iter, track_entry))
 				{
 					break;
 				}
@@ -89,21 +77,20 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 	}
 }
 
-void FuncFlow::FuncStacksAddInTrees(const string& process_name, const string& threadid, list<shared_ptr<FuncPath>>& func_stacks)
+void FuncFlow::FuncStacksAddInTrees(const string& process_name, const string& threadid, list<shared_ptr<TraceEntry>>& func_stacks)
 {
 	FuncStacksAddInTree(func_stacks, m_func_trees[process_name][threadid]);
 }
 
-void FuncFlow::FuncStacksAddInTree(list<shared_ptr<FuncPath>>& func_stacks, list<shared_ptr<FuncTree>>& _func_trees)
+void FuncFlow::FuncStacksAddInTree(list<shared_ptr<TraceEntry>>& func_stacks, list<shared_ptr<FuncTree>>& _func_trees)
 {
 	list<shared_ptr<FuncTree>>* func_trees = &_func_trees;
 	for (auto & func_path : func_stacks)
 	{
 		bool exist = false;
-		func_path->logindex = 0;
 		for (auto & tree : *func_trees)
 		{
-			if (*func_path == *tree->func_path)
+			if (FuncStack::IsExistTrack(tree->func_path, func_path))
 			{
 				func_trees = &tree->branchs;
 				exist = true;

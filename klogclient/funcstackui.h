@@ -21,6 +21,6 @@ public:
 
 public:
 	QDialog*  m_hostDialog = nullptr;
-	QTableWidget* m_tableStacks = nullptr;
+	QTableWidget* m_stacks_ui = nullptr;
 
 };

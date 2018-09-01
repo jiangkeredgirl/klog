@@ -5,32 +5,6 @@
 #include "funcstackui.h"
 #include "logfile.h"
 
-class FuncPath
-{
-public:
-	__int64 logindex = 0;
-	string modulename;
-	string filename;
-	string funcname;
-	int    line = 0;
-	bool operator == (const FuncPath& other) const
-	{
-		if (logindex == other.logindex
-			&& modulename == other.modulename
-			&& filename == other.filename
-			&& funcname == other.funcname
-			&& line == other.line)
-		{
-			return true;
-		}
-		return false;
-	}
-	bool operator != (const FuncPath& other) const
-	{
-		return !(operator == (other));
-	}
-};
-
 class FuncStack : public QDialog
 {
 	Q_OBJECT
@@ -51,8 +25,10 @@ public slots:
 public:
 	void PushStack(shared_ptr<TraceEntry> track_entry);
 	void PopStack(shared_ptr<TraceEntry> track_entry);
+	static bool IsPairTrack(shared_ptr<TraceEntry> push_track_entry, shared_ptr<TraceEntry> pop_track_entry);
+	static bool IsExistTrack(shared_ptr<TraceEntry> old_track_entry, shared_ptr<TraceEntry> new_track_entry);
 
 private:
 	FuncStackui m_ui;
-	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<FuncPath>/*func_path*/>>> m_stacks;
+	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<TraceEntry>>>> m_stacks;
 };
