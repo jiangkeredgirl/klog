@@ -57,6 +57,7 @@ void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStat
 				func_path->funcname = track_entry->funcname;
 				func_path->line = track_entry->line;
 				m_stacks[track_entry->processname][track_entry->threadid].push_back(func_path);
+				PushStack(track_entry);
 			}
 			else if (track_entry->functrack == "<<")
 			{
@@ -76,7 +77,18 @@ void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStat
 					break;
 				}
 				m_stacks[track_entry->processname][track_entry->threadid].erase(pop_iter);
+				PopStack(track_entry);
 			}
 		} while (false);
 	}
+}
+
+void FuncStack::PushStack(shared_ptr<TraceEntry> track_entry)
+{
+
+}
+
+void FuncStack::PopStack(shared_ptr<TraceEntry> track_entry)
+{
+
 }

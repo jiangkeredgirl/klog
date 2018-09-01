@@ -48,6 +48,10 @@ public:
 public slots:
 	void SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatus status);
 
+public:
+	void PushStack(shared_ptr<TraceEntry> track_entry);
+	void PopStack(shared_ptr<TraceEntry> track_entry);
+
 private:
 	FuncStackui m_ui;
 	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<FuncPath>/*func_path*/>>> m_stacks;
