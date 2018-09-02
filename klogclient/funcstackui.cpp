@@ -51,10 +51,16 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 	{
 		QListWidgetItem *item = new QListWidgetItem();
 		m_stacks_list->addItem(item);
-		item->setSizeHint(QSize(m_stacks_list->size().width(), m_stacks_list->size().height() / m_stacks_list->count()));
+		item->setSizeHint(QSize(m_stacks_list->contentsRect().width(), m_stacks_list->contentsRect().height() / m_stacks_list->count()));
 		QTableWidget* process_stacks = new QTableWidget(2, 1);
 		m_stacks_list->setItemWidget(item, process_stacks);
 		process_stacks->setItem(0, 0, new QTableWidgetItem(process_name.c_str()));
+		process_stacks->horizontalHeader()->setVisible(false);
+		process_stacks->verticalHeader()->setVisible(false);
+		process_stacks->resize(item->sizeHint());
+		process_stacks->setRowHeight(0, 30);
+		process_stacks->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
+		process_stacks->setStyleSheet("QTableWidget::item{border:1px solid red; margin:0px}");
 	}
 	QTableWidget* process_stacks = qobject_cast<QTableWidget*>(m_stacks_list->itemWidget(m_stacks_list->item(process_row)));
 	int thread_column = 0;
@@ -77,6 +83,7 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 		thread_stacks = new QListWidget();
 		process_stacks->setCellWidget(1, thread_column, thread_stacks);
 		thread_stacks->setWindowTitle(threadid.c_str());
+		thread_stacks->setStyleSheet("QListWidget{border:1px solid green; margin:0px;}");
 	}
 	thread_stacks->addItem(func_name.c_str());
 }
@@ -92,7 +99,13 @@ bool FuncStackui::eventFilter(QObject *target, QEvent *event)
 	{
 		for (int i = 0; i < m_stacks_list->count(); i++)
 		{
-			m_stacks_list->item(i)->setSizeHint(QSize(m_stacks_list->size().width(), m_stacks_list->size().height() / m_stacks_list->count()));
+			m_stacks_list->item(i)->setSizeHint(QSize(m_stacks_list->contentsRect().width(), m_stacks_list->contentsRect().height() / m_stacks_list->count()));
+			QTableWidget* process_stacks = qobject_cast<QTableWidget*>(m_stacks_list->itemWidget(m_stacks_list->item(i)));
+			if (process_stacks)
+			{
+				process_stacks->resize(m_stacks_list->item(i)->sizeHint());
+				process_stacks->setRowHeight(1, process_stacks->contentsRect().height() - process_stacks->rowHeight(0));
+			}
 		}
 	}
 	return QObject::eventFilter(target, event);
