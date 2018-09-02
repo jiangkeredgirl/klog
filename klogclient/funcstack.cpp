@@ -73,12 +73,18 @@ void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStat
 
 void FuncStack::PushStack(shared_ptr<TraceEntry> track_entry)
 {
-
+	if (track_entry)
+	{
+		m_ui.PushStack(track_entry->processname, track_entry->threadid, track_entry->funcname);
+	}
 }
 
 void FuncStack::PopStack(shared_ptr<TraceEntry> track_entry)
 {
-
+	if (track_entry)
+	{
+		m_ui.PopStack(track_entry->processname, track_entry->threadid, track_entry->funcname);
+	}
 }
 
 bool FuncStack::IsPairTrack(shared_ptr<TraceEntry> push_track_entry, shared_ptr<TraceEntry> pop_track_entry)

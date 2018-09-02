@@ -16,8 +16,8 @@ public:
 	void setupUi(QDialog* hostDialog);
 
 public:
-	void PushStack(const string& proccess_name, const string& threadid, const string& func_name);
-	void PopStack(const string& proccess_name, const string& threadid, const string& func_name);
+	void PushStack(const string& process_name, const string& threadid, const string& func_name);
+	void PopStack(const string& process_name, const string& threadid, const string& func_name);
 
 public:
 	QDialog*  m_hostDialog = nullptr;

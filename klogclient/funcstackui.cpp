@@ -32,8 +32,8 @@ void FuncStackui::setupUi(QDialog* hostDialog)
 		layout->addWidget(m_stacks_ui);
 		m_stacks_ui->setHorizontalHeaderLabels(headerTags);
 		m_stacks_ui->horizontalHeader()->setFixedHeight(30);
-		m_stacks_ui->horizontalHeader()->setVisible(false);
-		m_stacks_ui->verticalHeader()->setVisible(false);
+		m_stacks_ui->horizontalHeader()->setVisible(true);
+		m_stacks_ui->verticalHeader()->setVisible(true);
 		m_stacks_ui->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
 		m_stacks_ui->horizontalHeader()->setStyleSheet("QHeaderView{border:none; border-bottom:1px solid red;}");
 		m_stacks_ui->setEditTriggers(QAbstractItemView::NoEditTriggers);
@@ -45,28 +45,52 @@ void FuncStackui::setupUi(QDialog* hostDialog)
 	}
 }
 
-void FuncStackui::PushStack(const string& proccess_name, const string& threadid, const string& func_name)
+void FuncStackui::PushStack(const string& process_name, const string& threadid, const string& func_name)
 {
-	size_t i = 0;
-	for (; i < m_stacks_ui->rowCount(); i++)
+	int process_row = 0;
+	for (; process_row < m_stacks_ui->rowCount(); process_row++)
 	{
-		QTableWidget* proccess_stacks = qobject_cast<QTableWidget*>(m_stacks_ui->cellWidget(i, 0));
-		if (proccess_stacks->item(0, 0)->text().toStdString() == proccess_name)
+		QTableWidget* process_stacks = qobject_cast<QTableWidget*>(m_stacks_ui->cellWidget(process_row, 0));
+		if (process_stacks->item(0, 0)->text().toStdString() == process_name)
 		{
-			size_t j = 0;
-			for (; j < proccess_stacks->columnCount(); j++)
-			{
-				QListWidget* thread_stacks = qobject_cast<QListWidget*>(proccess_stacks->cellWidget(1, j));
-				if (thread_stacks->windowTitle().toStdString() == threadid)
-				{
-					thread_stacks->addItem(func_name.c_str());
-				}
-			}
+			break;
 		}
 	}
+	// 添加进程
+	if (process_row == m_stacks_ui->rowCount())
+	{
+		m_stacks_ui->insertRow(process_row);
+		QTableWidget* process_stacks = new QTableWidget(2, 1);
+		m_stacks_ui->setCellWidget(process_row, 0, process_stacks);
+		QTableWidgetItem* item = new QTableWidgetItem(process_name.c_str());
+		process_stacks->setItem(0, 0, item);
+	}
+	QTableWidget* process_stacks = qobject_cast<QTableWidget*>(m_stacks_ui->cellWidget(process_row, 0));
+	int thread_column = 0;
+	for (; thread_column < process_stacks->columnCount(); thread_column++)
+	{
+		QListWidget* thread_stacks = qobject_cast<QListWidget*>(process_stacks->cellWidget(1, thread_column));
+		if (thread_stacks == nullptr || thread_stacks->windowTitle().toStdString() == threadid)
+		{
+			break;
+		}
+	}
+	if (thread_column == process_stacks->columnCount())
+	{
+		process_stacks->insertColumn(thread_column);
+	}
+	QListWidget* thread_stacks = qobject_cast<QListWidget*>(process_stacks->cellWidget(1, thread_column));
+	// 添加线程
+	if (thread_stacks == nullptr)
+	{
+		thread_stacks = new QListWidget();
+		process_stacks->setCellWidget(1, thread_column, thread_stacks);
+		thread_stacks->setWindowTitle(threadid.c_str());
+	}
+	thread_stacks->addItem(func_name.c_str());
 }
 
-void FuncStackui::PopStack(const string& proccess_name, const string& threadid, const string& func_name)
+void FuncStackui::PopStack(const string& process_name, const string& threadid, const string& func_name)
 {
 
 }
