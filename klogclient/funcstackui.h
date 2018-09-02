@@ -14,6 +14,7 @@ public:
 
 public:
 	void setupUi(QDialog* hostDialog);
+	bool eventFilter(QObject *target, QEvent *event);
 
 public:
 	void PushStack(const string& process_name, const string& threadid, const string& func_name);
@@ -21,6 +22,5 @@ public:
 
 public:
 	QDialog*  m_hostDialog = nullptr;
-	QTableWidget* m_stacks_ui = nullptr;
-
+	QListWidget* m_stacks_list = nullptr;
 };
