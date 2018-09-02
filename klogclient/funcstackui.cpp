@@ -31,6 +31,8 @@ void FuncStackui::setupUi(QDialog* hostDialog)
 		layout->addWidget(m_stacks_list);
 		m_stacks_list->setStyleSheet("QListWidget{border:1px solid red; margin:0px;}");
 		m_stacks_list->setResizeMode(QListWidget::Adjust);
+		m_stacks_list->setViewMode(QListView::ListMode);
+		m_stacks_list->setWindowTitle("stacks");
 		m_stacks_list->installEventFilter(this);
 	}
 }
@@ -58,6 +60,7 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 		process_stacks->setStyleSheet("QTableWidget::item{border:1px solid red; margin:0px}");
 		m_stacks_list->setItemWidget(item, process_stacks);
 		process_stacks->setItem(0, 0, new QTableWidgetItem(process_name.c_str()));
+		process_stacks->item(0, 0)->setTextAlignment(Qt::AlignCenter);
 		process_stacks->horizontalHeader()->setVisible(false);
 		process_stacks->verticalHeader()->setVisible(false);
 		qDebug() << "item->sizeHint() = " << item->sizeHint();
@@ -84,11 +87,14 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 	if (thread_stacks == nullptr)
 	{
 		thread_stacks = new QListWidget();
-		process_stacks->setCellWidget(1, thread_column, thread_stacks);
+		thread_stacks->setStyleSheet("QListWidget{border:1px solid red; margin:0px;}");
+		m_stacks_list->setViewMode(QListView::ListMode);
 		thread_stacks->setWindowTitle(threadid.c_str());
-		thread_stacks->setStyleSheet("QListWidget{border:1px solid green; margin:0px;}");
+		process_stacks->setCellWidget(1, thread_column, thread_stacks);
+		process_stacks->setColumnWidth(thread_column, process_stacks->contentsRect().width() / process_stacks->columnCount());
 	}
 	thread_stacks->addItem(func_name.c_str());
+	thread_stacks->item(thread_stacks->count() - 1)->setTextAlignment(Qt::AlignCenter);
 }
 
 void FuncStackui::PopStack(const string& process_name, const string& threadid, const string& func_name)
