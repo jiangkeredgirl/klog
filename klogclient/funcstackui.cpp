@@ -95,7 +95,7 @@ void FuncStackui::PopStack(const string& process_name, const string& threadid, c
 
 bool FuncStackui::eventFilter(QObject *target, QEvent *event)
 {
-	if (target == m_stacks_list && event->type() == QEvent::Resize)
+	if (target == m_stacks_list && (event->type() == QEvent::Resize || event->type() == QEvent::Show))
 	{
 		for (int i = 0; i < m_stacks_list->count(); i++)
 		{
