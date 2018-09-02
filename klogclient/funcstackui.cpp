@@ -51,16 +51,19 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 	{
 		QListWidgetItem *item = new QListWidgetItem();
 		m_stacks_list->addItem(item);
+		qDebug() << "m_stacks_list->contentsRect() = " << m_stacks_list->contentsRect();
 		item->setSizeHint(QSize(m_stacks_list->contentsRect().width(), m_stacks_list->contentsRect().height() / m_stacks_list->count()));
 		QTableWidget* process_stacks = new QTableWidget(2, 1);
+		process_stacks->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
+		process_stacks->setStyleSheet("QTableWidget::item{border:1px solid red; margin:0px}");
 		m_stacks_list->setItemWidget(item, process_stacks);
 		process_stacks->setItem(0, 0, new QTableWidgetItem(process_name.c_str()));
 		process_stacks->horizontalHeader()->setVisible(false);
 		process_stacks->verticalHeader()->setVisible(false);
+		qDebug() << "item->sizeHint() = " << item->sizeHint();
 		process_stacks->resize(item->sizeHint());
 		process_stacks->setRowHeight(0, 30);
-		process_stacks->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
-		process_stacks->setStyleSheet("QTableWidget::item{border:1px solid red; margin:0px}");
+		process_stacks->setRowHeight(1, process_stacks->contentsRect().height() - process_stacks->rowHeight(0));
 	}
 	QTableWidget* process_stacks = qobject_cast<QTableWidget*>(m_stacks_list->itemWidget(m_stacks_list->item(process_row)));
 	int thread_column = 0;
