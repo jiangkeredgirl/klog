@@ -31,7 +31,6 @@ void FuncStackui::setupUi(QDialog* hostDialog)
 		layout->addWidget(m_stacks_list);
 		m_stacks_list->setStyleSheet("QListWidget{border:1px solid red; margin:0px;}");
 		m_stacks_list->setResizeMode(QListWidget::Adjust);
-		m_stacks_list->setViewMode(QListView::ListMode);
 		m_stacks_list->setWindowTitle("stacks");
 		m_stacks_list->installEventFilter(this);
 	}
@@ -55,7 +54,7 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 		m_stacks_list->addItem(item);
 		qDebug() << "m_stacks_list->contentsRect() = " << m_stacks_list->contentsRect();
 		item->setSizeHint(QSize(m_stacks_list->contentsRect().width(), m_stacks_list->contentsRect().height() / m_stacks_list->count()));
-		QTableWidget* process_stacks = new QTableWidget(2, 1);
+		QTableWidget* process_stacks = new QTableWidget(3, 1);
 		process_stacks->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");
 		process_stacks->setStyleSheet("QTableWidget::item{border:1px solid red; margin:0px}");
 		m_stacks_list->setItemWidget(item, process_stacks);
@@ -65,15 +64,15 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 		process_stacks->verticalHeader()->setVisible(false);
 		qDebug() << "item->sizeHint() = " << item->sizeHint();
 		process_stacks->resize(item->sizeHint());
-		process_stacks->setRowHeight(0, 30);
-		process_stacks->setRowHeight(1, process_stacks->contentsRect().height() - process_stacks->rowHeight(0));
+		//process_stacks->setRowHeight(0, 30);
+		process_stacks->setRowHeight(2, process_stacks->contentsRect().height() - process_stacks->rowHeight(0) - process_stacks->rowHeight(1));
 	}
 	QTableWidget* process_stacks = qobject_cast<QTableWidget*>(m_stacks_list->itemWidget(m_stacks_list->item(process_row)));
 	int thread_column = 0;
 	for (; thread_column < process_stacks->columnCount(); thread_column++)
 	{
-		QListWidget* thread_stacks = qobject_cast<QListWidget*>(process_stacks->cellWidget(1, thread_column));
-		if (thread_stacks == nullptr || thread_stacks->windowTitle().toStdString() == threadid)
+		QTableWidgetItem* threadidItem = process_stacks->item(1, thread_column);
+		if (threadidItem == nullptr || threadidItem->text().toStdString() == threadid)
 		{
 			break;
 		}
@@ -82,15 +81,15 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 	{
 		process_stacks->insertColumn(thread_column);
 	}
-	QListWidget* thread_stacks = qobject_cast<QListWidget*>(process_stacks->cellWidget(1, thread_column));
+	QListWidget* thread_stacks = qobject_cast<QListWidget*>(process_stacks->cellWidget(2, thread_column));
 	// 添加线程
 	if (thread_stacks == nullptr)
 	{
+		process_stacks->setItem(1, 0, new QTableWidgetItem(threadid.c_str()));
+		process_stacks->item(1, 0)->setTextAlignment(Qt::AlignCenter);
 		thread_stacks = new QListWidget();
 		thread_stacks->setStyleSheet("QListWidget{border:1px solid red; margin:0px;}");
-		m_stacks_list->setViewMode(QListView::ListMode);
-		thread_stacks->setWindowTitle(threadid.c_str());
-		process_stacks->setCellWidget(1, thread_column, thread_stacks);
+		process_stacks->setCellWidget(2, thread_column, thread_stacks);
 		process_stacks->setColumnWidth(thread_column, process_stacks->contentsRect().width() / process_stacks->columnCount());
 	}
 	thread_stacks->addItem(func_name.c_str());
@@ -113,7 +112,7 @@ bool FuncStackui::eventFilter(QObject *target, QEvent *event)
 			if (process_stacks)
 			{
 				process_stacks->resize(m_stacks_list->item(i)->sizeHint());
-				process_stacks->setRowHeight(1, process_stacks->contentsRect().height() - process_stacks->rowHeight(0));
+				process_stacks->setRowHeight(2, process_stacks->contentsRect().height() - process_stacks->rowHeight(0) - process_stacks->rowHeight(1));
 			}
 		}
 	}
