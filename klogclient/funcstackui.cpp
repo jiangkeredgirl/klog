@@ -98,7 +98,46 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 
 void FuncStackui::PopStack(const string& process_name, const string& threadid, const string& func_name)
 {
-
+	do
+	{
+		int process_row = 0;
+		for (; process_row < m_stacks_list->count(); process_row++)
+		{
+			QTableWidget* process_stacks = qobject_cast<QTableWidget*>(m_stacks_list->itemWidget(m_stacks_list->item(process_row)));
+			if (process_stacks->item(0, 0)->text().toStdString() == process_name)
+			{
+				break;
+			}
+		}
+		if (process_row == m_stacks_list->count())
+		{
+			break;
+		}
+		QTableWidget* process_stacks = qobject_cast<QTableWidget*>(m_stacks_list->itemWidget(m_stacks_list->item(process_row)));
+		int thread_column = 0;
+		for (; thread_column < process_stacks->columnCount(); thread_column++)
+		{
+			QTableWidgetItem* threadidItem = process_stacks->item(1, thread_column);
+			if (threadidItem && threadidItem->text().toStdString() == threadid)
+			{
+				break;
+			}
+		}
+		if (thread_column == process_stacks->columnCount())
+		{
+			break;
+		}
+		QListWidget* thread_stacks = qobject_cast<QListWidget*>(process_stacks->cellWidget(2, thread_column));
+		if (thread_stacks == nullptr)
+		{
+			break;
+		}
+		if (thread_stacks->item(thread_stacks->count() - 1)->text().toStdString() != func_name)
+		{
+			break;
+		}
+		thread_stacks->takeItem(thread_stacks->count() - 1);
+	} while (false);
 }
 
 bool FuncStackui::eventFilter(QObject *target, QEvent *event)
