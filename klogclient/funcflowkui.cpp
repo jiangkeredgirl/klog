@@ -64,7 +64,6 @@ void FuncFlowui::FuncStacksAddInTrees(const string& process_name, const string& 
 		process_stacks->verticalHeader()->setVisible(false);
 		qDebug() << "item->sizeHint() = " << item->sizeHint();
 		process_stacks->resize(item->sizeHint());
-		//process_stacks->setRowHeight(0, 30);
 		process_stacks->setRowHeight(2, process_stacks->contentsRect().height() - process_stacks->rowHeight(0) - process_stacks->rowHeight(1));
 	}
 	QTableWidget* process_stacks = qobject_cast<QTableWidget*>(m_trees_list->itemWidget(m_trees_list->item(process_row)));
