@@ -14,7 +14,7 @@ void FuncStackui::setupUi(QDialog* hostDialog)
 	m_hostDialog = hostDialog;
 	if (m_hostDialog)
 	{
-		m_hostDialog->setWindowTitle(tr(u8"函数调用实时图"));
+		m_hostDialog->setWindowTitle(tr(u8"函数调用栈"));
 		Qt::WindowFlags flags = Qt::Dialog;
 		flags |= Qt::WindowMinMaxButtonsHint;
 		flags |= Qt::WindowCloseButtonHint;

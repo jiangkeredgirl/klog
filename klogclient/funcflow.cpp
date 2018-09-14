@@ -80,6 +80,12 @@ void FuncFlow::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatu
 void FuncFlow::FuncStacksAddInTrees(const string& process_name, const string& threadid, list<shared_ptr<TraceEntry>>& func_stacks)
 {
 	FuncStacksAddInTree(func_stacks, m_func_trees[process_name][threadid]);
+	list<string> stacks;
+	for (auto item : func_stacks)
+	{
+		stacks.push_back(item->funcname);
+	}
+	m_ui.FuncStacksAddInTrees(process_name, threadid, stacks);
 }
 
 void FuncFlow::FuncStacksAddInTree(list<shared_ptr<TraceEntry>>& func_stacks, list<shared_ptr<FuncTree>>& _func_trees)
