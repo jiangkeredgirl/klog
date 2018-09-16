@@ -47,6 +47,9 @@ namespace kk
 		virtual const TraceConfig& trace_config() const override;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) override;
 		virtual int WaitTraceThreadEnd() override;
+		virtual int CreateConsole() override;
+		virtual int GenerateDumpInfo() override;
+
 	public:
 		shared_ptr<TraceEntry> TraceFormatEntry(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body);
 		int OutTraceEntry(shared_ptr<TraceEntry> trace_entry);

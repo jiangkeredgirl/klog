@@ -59,6 +59,9 @@ namespace kk
 		virtual const TraceConfig& trace_config() const = 0;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) = 0;
 		virtual int WaitTraceThreadEnd() = 0;
+		virtual int CreateConsole() = 0;
+		virtual int GenerateDumpInfo() = 0;
+
 		static string GetModuleName()
 		{
 			char module_name[100] = { 0 };

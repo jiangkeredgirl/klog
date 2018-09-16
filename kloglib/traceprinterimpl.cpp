@@ -3,6 +3,7 @@
 
 #include "TracePrinterimpl.h"
 #include "config.h"
+#include "GenerateDumpInfo.h"
 
 namespace kk
 {
@@ -421,6 +422,23 @@ namespace kk
 			trace_condition_.notify_one();
 			trace_thread_.join();
 		}
+		return 0;
+	}
+
+	int TracePrinterImpl::CreateConsole()
+	{
+		AllocConsole();
+		FILE *stream;
+		freopen_s(&stream, "CONOUT$", "w+t", stdout);
+		freopen_s(&stream, "CONIN$", "r+t", stdin);
+		freopen_s(&stream, "CONERR$", "r+t", stderr);
+		SetConsoleTitleA("klog");
+		return 0;
+	}
+
+	int TracePrinterImpl::GenerateDumpInfo()
+	{
+		GenerateDumpInfo::instance().Generate("");
 		return 0;
 	}
 

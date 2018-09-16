@@ -179,6 +179,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="config.h" />
+    <ClInclude Include="GenerateDumpInfo.h" />
     <ClInclude Include="klogcustomsetting.h" />
     <ClInclude Include="kloglib.h" />
     <ClInclude Include="rapidjsonparser.h" />
@@ -193,6 +194,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="config.cpp" />
+    <ClCompile Include="GenerateDumpInfo.cpp" />
     <ClCompile Include="rapidjsonparser.cpp" />
     <ClCompile Include="traceloaderimpl.cpp" />
     <ClCompile Include="traceprinterimpl.cpp" />
