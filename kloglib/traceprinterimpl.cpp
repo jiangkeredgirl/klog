@@ -439,7 +439,7 @@ namespace kk
 
 	int TracePrinterImpl::GenerateDumpInfo()
 	{
-		GenerateDumpInfo::instance().Generate("");
+		GenerateDumpInfo::instance().Generate(process_name_);
 		return 0;
 	}
 

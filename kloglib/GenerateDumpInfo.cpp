@@ -2,6 +2,7 @@
 #include <Windows.h>
 #include <DbgHelp.h>
 #include <tchar.h>
+#include "kutility.h"
 
 //#ifndef _M_IX86
 //#error "The following code only works for x86!"
@@ -27,6 +28,7 @@ GenerateDumpInfo& GenerateDumpInfo::instance()
 }
 
 
+static std::string g_dumpFileName;
 int GenerateMiniDump(PEXCEPTION_POINTERS pExceptionPointers)
 {
 	// 定义函数指针
@@ -56,11 +58,10 @@ int GenerateMiniDump(PEXCEPTION_POINTERS pExceptionPointers)
 	}
 	// 创建 dmp 文件件
 	TCHAR szFileName[MAX_PATH] = { 0 };
-	TCHAR* szVersion = _T("DumpDemo_v1.0");
 	SYSTEMTIME stLocalTime;
 	GetLocalTime(&stLocalTime);
 	wsprintf(szFileName, L"%s-%04d%02d%02d-%02d%02d%02d.dmp",
-		szVersion, stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay,
+		kk::Utility::StringToWstring(g_dumpFileName).c_str(), stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay,
 		stLocalTime.wHour, stLocalTime.wMinute, stLocalTime.wSecond);
 	HANDLE hDumpFile = CreateFile(szFileName, GENERIC_READ | GENERIC_WRITE,
 		FILE_SHARE_WRITE | FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
@@ -94,6 +95,7 @@ LONG WINAPI ExceptionFilter(LPEXCEPTION_POINTERS lpExceptionInfo)
 
 int GenerateDumpInfo::Generate(const std::string dumpFileName)
 {
+	g_dumpFileName = dumpFileName;
 	SetUnhandledExceptionFilter(ExceptionFilter);
 	return 0;
 }
