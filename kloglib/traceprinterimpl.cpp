@@ -432,7 +432,7 @@ namespace kk
 		freopen_s(&stream, "CONOUT$", "w+t", stdout);
 		freopen_s(&stream, "CONIN$", "r+t", stdin);
 		freopen_s(&stream, "CONERR$", "r+t", stderr);
-		SetConsoleTitleA("klog");
+		SetConsoleTitle(L"klog输出UTF8格式");
 		SetConsoleUTF8();
 		return 0;
 	}
@@ -625,8 +625,7 @@ namespace kk
 	}
 
 	int TracePrinterImpl::SetConsoleUTF8()
-	{
-		SetConsoleTitle(L"klog输出UTF8格式");
+	{		
 		SetConsoleOutputCP(CP_UTF8);
 		SetConsoleCP(CP_UTF8);
 		CONSOLE_FONT_INFOEX fontInfo;
