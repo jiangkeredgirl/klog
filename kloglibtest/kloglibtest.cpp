@@ -106,6 +106,7 @@ int _tmain()
 	//TraceTest1 test1;
 	//TraceTest2 test2;
 	WaitTrace;
+
 	return 0;
 }
 

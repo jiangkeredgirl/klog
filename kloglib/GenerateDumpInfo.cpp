@@ -1,6 +1,14 @@
-#include "GenerateDumpInfo.h"
+Ôªø#include "GenerateDumpInfo.h"
 #include <Windows.h>
 #include <DbgHelp.h>
+#include <tchar.h>
+
+//#ifndef _M_IX86
+//#error "The following code only works for x86!"
+//#endif
+//#ifndef _M_IX86
+//#error "The following code only works for x86!"
+//#endif
 
 GenerateDumpInfo::GenerateDumpInfo()
 {
@@ -18,13 +26,10 @@ GenerateDumpInfo& GenerateDumpInfo::instance()
 	return _instance;
 }
 
-//…˙≤˙DUMPŒƒº˛
-int GenerateMiniDump(HANDLE hFile, PEXCEPTION_POINTERS pExceptionPointers, PWCHAR pwAppName)
-{
-	BOOL bOwnDumpFile = FALSE;
-	HANDLE hDumpFile = hFile;
-	MINIDUMP_EXCEPTION_INFORMATION ExpParam;
 
+int GenerateMiniDump(PEXCEPTION_POINTERS pExceptionPointers)
+{
+	// ÂÆö‰πâÂáΩÊï∞ÊåáÈíà
 	typedef BOOL(WINAPI * MiniDumpWriteDumpT)(
 		HANDLE,
 		DWORD,
@@ -34,105 +39,61 @@ int GenerateMiniDump(HANDLE hFile, PEXCEPTION_POINTERS pExceptionPointers, PWCHA
 		PMINIDUMP_USER_STREAM_INFORMATION,
 		PMINIDUMP_CALLBACK_INFORMATION
 		);
-
+	// ‰ªé "DbgHelp.dll" Â∫ì‰∏≠Ëé∑Âèñ "MiniDumpWriteDump" ÂáΩÊï∞
 	MiniDumpWriteDumpT pfnMiniDumpWriteDump = NULL;
-	HMODULE hDbgHelp = LoadLibrary(L"DbgHelp.dll");
-	if (hDbgHelp)
-		pfnMiniDumpWriteDump = (MiniDumpWriteDumpT)GetProcAddress(hDbgHelp, "MiniDumpWriteDump");
-
-	if (pfnMiniDumpWriteDump)
+	HMODULE hDbgHelp = LoadLibrary(_T("DbgHelp.dll"));
+	if (NULL == hDbgHelp)
 	{
-		if (hDumpFile == NULL || hDumpFile == INVALID_HANDLE_VALUE)
-		{
-			//TCHAR szPath[MAX_PATH] = { 0 };
-			TCHAR szFileName[MAX_PATH] = { 0 };
-			//TCHAR* szAppName = pwAppName;
-			TCHAR* szVersion = L"v1.0";
-			TCHAR dwBufferSize = MAX_PATH;
-			SYSTEMTIME stLocalTime;
-
-			GetLocalTime(&stLocalTime);
-			//GetTempPath(dwBufferSize, szPath);
-
-			//wsprintf(szFileName, L"%s%s", szPath, szAppName);
-			CreateDirectory(szFileName, NULL);
-
-			wsprintf(szFileName, L"%s-%04d%02d%02d-%02d%02d%02d-%ld-%ld.dmp",
-				//szPath, szAppName, szVersion,
-				szVersion,
-				stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay,
-				stLocalTime.wHour, stLocalTime.wMinute, stLocalTime.wSecond,
-				GetCurrentProcessId(), GetCurrentThreadId());
-			hDumpFile = CreateFile(szFileName, GENERIC_READ | GENERIC_WRITE,
-				FILE_SHARE_WRITE | FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
-
-			bOwnDumpFile = TRUE;
-			OutputDebugString(szFileName);
-		}
-
-		if (hDumpFile != INVALID_HANDLE_VALUE)
-		{
-			ExpParam.ThreadId = GetCurrentThreadId();
-			ExpParam.ExceptionPointers = pExceptionPointers;
-			ExpParam.ClientPointers = FALSE;
-
-			pfnMiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(),
-				hDumpFile, MiniDumpWithDataSegs, (pExceptionPointers ? &ExpParam : NULL), NULL, NULL);
-
-			if (bOwnDumpFile)
-				CloseHandle(hDumpFile);
-		}
+		return EXCEPTION_CONTINUE_EXECUTION;
 	}
+	pfnMiniDumpWriteDump = (MiniDumpWriteDumpT)GetProcAddress(hDbgHelp, "MiniDumpWriteDump");
 
-	if (hDbgHelp != NULL)
+
+	if (NULL == pfnMiniDumpWriteDump)
+	{
 		FreeLibrary(hDbgHelp);
-
+		return EXCEPTION_CONTINUE_EXECUTION;
+	}
+	// ÂàõÂª∫ dmp Êñá‰ª∂‰ª∂
+	TCHAR szFileName[MAX_PATH] = { 0 };
+	TCHAR* szVersion = _T("DumpDemo_v1.0");
+	SYSTEMTIME stLocalTime;
+	GetLocalTime(&stLocalTime);
+	wsprintf(szFileName, L"%s-%04d%02d%02d-%02d%02d%02d.dmp",
+		szVersion, stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay,
+		stLocalTime.wHour, stLocalTime.wMinute, stLocalTime.wSecond);
+	HANDLE hDumpFile = CreateFile(szFileName, GENERIC_READ | GENERIC_WRITE,
+		FILE_SHARE_WRITE | FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);
+	if (INVALID_HANDLE_VALUE == hDumpFile)
+	{
+		FreeLibrary(hDbgHelp);
+		return EXCEPTION_CONTINUE_EXECUTION;
+	}
+	// ÂÜôÂÖ• dmp Êñá‰ª∂
+	MINIDUMP_EXCEPTION_INFORMATION expParam;
+	expParam.ThreadId = GetCurrentThreadId();
+	expParam.ExceptionPointers = pExceptionPointers;
+	expParam.ClientPointers = FALSE;
+	pfnMiniDumpWriteDump(GetCurrentProcess(), GetCurrentProcessId(),
+		hDumpFile, MiniDumpWithDataSegs, (pExceptionPointers ? &expParam : NULL), NULL, NULL);
+	// ÈáäÊîæÊñá‰ª∂
+	CloseHandle(hDumpFile);
+	FreeLibrary(hDbgHelp);
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
-
 LONG WINAPI ExceptionFilter(LPEXCEPTION_POINTERS lpExceptionInfo)
 {
+	// ËøôÈáåÂÅö‰∏Ä‰∫õÂºÇÂ∏∏ÁöÑËøáÊª§ÊàñÊèêÁ§∫
 	if (IsDebuggerPresent())
 	{
 		return EXCEPTION_CONTINUE_SEARCH;
 	}
-
-	return GenerateMiniDump(NULL, lpExceptionInfo, L"test");
+	return GenerateMiniDump(lpExceptionInfo);
 }
-
-//#ifndef _M_IX86
-//#error "The following code only works for x86!"
-//#endif
-
-// ¥À∫Ø ˝“ªµ©≥…π¶µ˜”√£¨÷Æ∫Û∂‘ SetUnhandledExceptionFilter µƒµ˜”√Ω´Œﬁ–ß
-//void DisableSetUnhandledExceptionFilter()
-//{
-//	void* addr = (void*)GetProcAddress(LoadLibraryA("kernel32.dll"),
-//		"SetUnhandledExceptionFilter");
-//
-//	if (addr)
-//	{
-//		unsigned char code[16];
-//		int size = 0;
-//
-//		code[size++] = 0x33;
-//		code[size++] = 0xC0;
-//		code[size++] = 0xC2;
-//		code[size++] = 0x04;
-//		code[size++] = 0x00;
-//
-//		DWORD dwOldFlag, dwTempFlag;
-//		VirtualProtect(addr, size, PAGE_READWRITE, &dwOldFlag);
-//		WriteProcessMemory(GetCurrentProcess(), addr, code, size, NULL);
-//		VirtualProtect(addr, size, dwOldFlag, &dwTempFlag);
-//	}
-//}
 
 int GenerateDumpInfo::Generate(const std::string dumpFileName)
 {
-	//º”»Î±¿¿£dumpŒƒº˛π¶ƒ‹ 
 	SetUnhandledExceptionFilter(ExceptionFilter);
-	//DisableSetUnhandledExceptionFilter();
 	return 0;
 }
