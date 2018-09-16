@@ -64,3 +64,5 @@
 #define TrackCout                            TraceTrackCout(TRACE_TRACk)
 
 #define WaitTrace                            WaitAsyncTraceEnd
+#define CreateConsole                        CreateKlogConsole
+#define GenerateDump                         GenerateDumpInfo
