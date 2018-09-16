@@ -47,7 +47,7 @@ namespace kk
 		virtual const TraceConfig& trace_config() const override;
 		virtual const TraceConfig& trace_config(const TraceConfig& config) override;
 		virtual int WaitTraceThreadEnd() override;
-		virtual int CreateConsole() override;
+		virtual int CreateKlogConsole() override;
 		virtual int GenerateDumpInfo() override;
 
 	public:

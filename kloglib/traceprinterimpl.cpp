@@ -425,7 +425,7 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::CreateConsole()
+	int TracePrinterImpl::CreateKlogConsole()
 	{
 		AllocConsole();
 		FILE *stream;

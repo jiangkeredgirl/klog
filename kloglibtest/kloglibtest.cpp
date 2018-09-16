@@ -100,6 +100,8 @@ void SetConsoleUTF8()
 
 int _tmain()
 {
+	CreateConsole;
+	GenerateDump;
 	SetConsoleUTF8();
 	TrackCout;
 	trace_test(u8"my log content 支持中文");	

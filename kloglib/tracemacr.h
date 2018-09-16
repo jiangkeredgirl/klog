@@ -27,7 +27,7 @@
 #endif // !TRACK_OUT
 
 #define WaitAsyncTraceEnd  KKTracePackage::TracePrinter::instance()->WaitTraceThreadEnd()
-#define CreateKlogConsole  KKTracePackage::TracePrinter::instance()->CreateConsole()
+#define CreateKlogConsole  KKTracePackage::TracePrinter::instance()->CreateKlogConsole()
 #define GenerateDumpInfo   KKTracePackage::TracePrinter::instance()->GenerateDumpInfo()
 
 

@@ -134,6 +134,24 @@ namespace KKTracePackage
 			return 0;
 		}
 
+		virtual int CreateKlogConsole()
+		{
+			if (m_TracePrinter)
+			{
+				m_TracePrinter->CreateKlogConsole();
+			}
+			return 0;
+		}
+
+		virtual int GenerateDumpInfo()
+		{
+			if (m_TracePrinter)
+			{
+				m_TracePrinter->GenerateDumpInfo();
+			}
+			return 0;
+		}
+
 	public:
 		static string GetModuleName()
 		{
