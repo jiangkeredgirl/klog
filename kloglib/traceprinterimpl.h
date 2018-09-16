@@ -71,6 +71,7 @@ namespace kk
 		int OutToCom(shared_ptr<TraceEntry> trace_entry);
 		int OutToFile(const string& trace_file_name, const string& trace_entry);
 		int InitConsole();
+		int SetConsoleUTF8();
 	public:
 		string LevelToStr(int level);
 		int StrToLevel(const string& str);

@@ -433,6 +433,7 @@ namespace kk
 		freopen_s(&stream, "CONIN$", "r+t", stdin);
 		freopen_s(&stream, "CONERR$", "r+t", stderr);
 		SetConsoleTitleA("klog");
+		SetConsoleUTF8();
 		return 0;
 	}
 
@@ -619,6 +620,26 @@ namespace kk
 		default_level_color_[TRACE_INFO] = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
 		default_level_color_[TRACE_DEBUG] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
 		default_level_color_[TRACE_TEMP] = FOREGROUND_INTENSITY;
+		SetConsoleUTF8();
+		return 0;
+	}
+
+	int TracePrinterImpl::SetConsoleUTF8()
+	{
+		SetConsoleTitle(L"klog输出UTF8格式");
+		SetConsoleOutputCP(CP_UTF8);
+		SetConsoleCP(CP_UTF8);
+		CONSOLE_FONT_INFOEX fontInfo;
+		memset(&fontInfo, 0, sizeof(CONSOLE_FONT_INFOEX));
+		fontInfo.cbSize = sizeof(fontInfo);
+		HANDLE hConsole = GetStdHandle(STD_OUTPUT_HANDLE);
+		GetCurrentConsoleFontEx(hConsole, false, &fontInfo);
+		fontInfo.FontFamily = 54;
+		fontInfo.dwFontSize.X = 8;
+		fontInfo.dwFontSize.Y = 14;
+		fontInfo.FontWeight = FW_NORMAL;
+		wcscpy_s(fontInfo.FaceName, L"KaiTi");
+		SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
 		return 0;
 	}
 
