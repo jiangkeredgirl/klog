@@ -32,13 +32,13 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;.\KlogSDK\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;.\KlogSDK\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') or !Exists('$(QtMsBuild)\qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
