@@ -52,7 +52,7 @@ void FuncStackui::PushStack(const string& process_name, const string& threadid, 
 	{
 		QListWidgetItem *item = new QListWidgetItem();
 		m_stacks_list->addItem(item);
-		qDebug() << "m_stacks_list->contentsRect() = " << m_stacks_list->contentsRect();
+		qDebug() << "m_stacks_list->contentsRect() = " << m_stacks_list->contentsRect() << ", m_stacks_list->count() = " << m_stacks_list->count();
 		item->setSizeHint(QSize(m_stacks_list->contentsRect().width(), m_stacks_list->contentsRect().height() / m_stacks_list->count()));
 		QTableWidget* process_stacks = new QTableWidget(3, 1);
 		process_stacks->setStyleSheet("QTableWidget{border:1px solid red; margin:0px;}");

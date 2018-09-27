@@ -63,12 +63,16 @@ void KlogClient::Init()
 void KlogClient::Uninit()
 {
 	disconnect(&LogFile::instance(), &LogFile::SignalReceiveTrace, m_logDisplay, &LogDisplay::SlotReceiveTrace);
-	LogFile::instance().StopRead();
+	std::thread t([this]() {
+		LogFile::instance().StopRead();
+	});
+	t.detach();
 }
 
 void KlogClient::SlotOpenLocalLogFile(const string& filename)
 {
 	std::thread t([this, filename]() {
+		LogFile::instance().StopRead();
 		LogFile::instance().ReadTraceEntry(filename);
 	});
 	t.detach();

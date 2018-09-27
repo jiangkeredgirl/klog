@@ -32,7 +32,7 @@ LogFile &LogFile::instance()
 int LogFile::ReadTraceEntry(const string& logfile_name)
 {
 	int errorCode = 1;
-	StopRead();
+	//StopRead();
 	do
 	{
 		m_logfile.open(logfile_name.c_str());

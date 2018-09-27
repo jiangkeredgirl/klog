@@ -1,5 +1,6 @@
 ﻿#include "logdisplay.h"
 #include "kutility.h"
+#include "kloglib.h"
 
 LogDisplay::LogDisplay(QWidget *parent)
 	: QWidget(parent)
@@ -32,6 +33,7 @@ LogDisplay::~LogDisplay()
 
 void LogDisplay::SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status)
 {
+	TrackCout;
 	if (status == LogFileStatus::LogFileReadBegin)
 	{
 		m_ui.m_tableLogInfo->clearContents();
@@ -40,6 +42,7 @@ void LogDisplay::SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileSta
 	}
 	else if (status == LogFileStatus::LogFileReading && trace_entry)
 	{
+		m_ui.m_tableLogInfo->setUpdatesEnabled(false);
 		AddNames(trace_entry);		
 		if (m_color_log_level.count(trace_entry->level))
 		{
@@ -80,6 +83,7 @@ void LogDisplay::SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileSta
 		}
 		m_ui.m_tableLogInfo->resizeRowToContents(m_cur_row);
 		m_ui.m_tableLogInfo->scrollToBottom();
+		m_ui.m_tableLogInfo->setUpdatesEnabled(true);
 	}
 	else if (status == LogFileStatus::LogFileReadEnd)
 	{
@@ -90,6 +94,7 @@ void LogDisplay::SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileSta
 
 int LogDisplay::SetCellText(int col, const string& text)
 {
+	//TrackCout;
 #if 0
 	QLabel *label = new QLabel(text.c_str());
 	label->setAlignment(Qt::AlignCenter);
@@ -107,6 +112,7 @@ int LogDisplay::SetCellText(int col, const string& text)
 
 int LogDisplay::AddNames(shared_ptr<TraceEntry> trace_entry)
 {
+	//TrackCout;
 	/// 进程名
 	int processCount = m_ui.m_treeSourceNames->topLevelItemCount();
 	int processItemIndex = 0;
@@ -135,6 +141,7 @@ int LogDisplay::AddNames(shared_ptr<TraceEntry> trace_entry)
 
 QTreeWidgetItem* LogDisplay::AddItem(QTreeWidgetItem* parentItem, const string& name)
 {
+	//TrackCout;
 	int childIndex = 0;
 	for (childIndex = 0; childIndex < parentItem->childCount(); childIndex++)
 	{
