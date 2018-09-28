@@ -38,4 +38,5 @@ public:
 	QWidget*  m_hostWidget = nullptr;
 	QTableWidget* m_tableLogInfo = nullptr;
 	QTreeWidget*  m_treeSourceNames = nullptr;
+	QLabel*       m_label_loading = nullptr;
 };

@@ -66,6 +66,10 @@ int LogFile::StopRead()
 	{
 		m_thread_exit = true;
 		m_thread_read.join();
+	}
+	if (m_thread_display.joinable())
+	{
+		m_thread_exit = true;
 		m_thread_display_condition.notify_one();
 		m_thread_display.join();
 	}
@@ -124,6 +128,12 @@ void LogFile::ReadThread()
 		getline(m_logfile, a_line_record);
 		if (m_logfile.eof())
 		{
+			if (m_thread_display.joinable())
+			{
+				m_thread_exit = true;
+				m_thread_display_condition.notify_one();
+				m_thread_display.join();
+			}
 			emit SignalReceiveTrace(nullptr, LogFileStatus::LogFileReadEnd);
 			emit SignalReceiveTrack(nullptr, LogFileStatus::LogFileReadEnd);
 			break;

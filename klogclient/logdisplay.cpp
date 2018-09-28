@@ -2,6 +2,8 @@
 #include "kutility.h"
 #include "kloglib.h"
 
+#define ROWBYROW_SHOW     0  // 一行一行显示
+
 LogDisplay::LogDisplay(QWidget *parent)
 	: QWidget(parent)
 {
@@ -39,7 +41,10 @@ void LogDisplay::SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileSta
 		m_ui.m_tableLogInfo->clearContents();
 		m_ui.m_tableLogInfo->setRowCount(0);
 		m_ui.m_treeSourceNames->clear();
+#if !ROWBYROW_SHOW
 		//m_ui.m_tableLogInfo->setUpdatesEnabled(false);
+		m_ui.m_tableLogInfo->hide();
+#endif
 	}
 	else if (status == LogFileStatus::LogFileReading && trace_entry)
 	{
@@ -83,15 +88,24 @@ void LogDisplay::SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileSta
 		}
 		else
 		{
-			//m_ui.m_tableLogInfo->resizeRowToContents(m_cur_row);
+#if ROWBYROW_SHOW
+			m_ui.m_tableLogInfo->resizeRowToContents(m_cur_row);
+#endif
 		}
+#if ROWBYROW_SHOW
 		m_ui.m_tableLogInfo->scrollToBottom();
+#endif
 	}
 	else if (status == LogFileStatus::LogFileReadEnd)
-	{
-		m_ui.m_tableLogInfo->resizeRowsToContents();
+	{		
 		m_ui.m_tableLogInfo->resizeColumnsToContents();
+#if !ROWBYROW_SHOW
+		m_ui.m_tableLogInfo->resizeRowsToContents();
+		qDebug() << "m_ui.m_tableLogInfo->rowCount = " << m_ui.m_tableLogInfo->rowCount();
+		m_ui.m_tableLogInfo->scrollToBottom();
+		m_ui.m_tableLogInfo->show();
 		//m_ui.m_tableLogInfo->setUpdatesEnabled(true);
+#endif
 	}
 }
 

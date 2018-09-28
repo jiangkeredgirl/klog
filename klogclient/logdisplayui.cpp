@@ -59,8 +59,15 @@ void LogDisplayui::setupUi(QWidget* hostWidget)
 			"synclock",
 			"content"
 		};
-		m_tableLogInfo = new QTableWidget(0, headerTags.size(), m_hostWidget);
-		layout->addWidget(m_tableLogInfo);
+		m_label_loading = new QLabel(u8"正在加载log文件...", m_hostWidget);
+		layout->addWidget(m_label_loading);
+		QHBoxLayout* table_layout = new QHBoxLayout;
+		m_label_loading->setLayout(table_layout);
+		table_layout->setContentsMargins(0, 0, 0, 0);
+		m_label_loading->setAlignment(Qt::AlignCenter);
+
+		m_tableLogInfo = new QTableWidget(0, headerTags.size(), m_label_loading);
+		table_layout->addWidget(m_tableLogInfo);
 		m_tableLogInfo->setHorizontalHeaderLabels(headerTags);
 		m_tableLogInfo->horizontalHeader()->setFixedHeight(30);
 		//m_tableLogInfo->verticalHeader()->setVisible(false);
