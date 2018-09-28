@@ -50,6 +50,11 @@ int LogFile::ReadTraceEntry(const string& logfile_name)
 			m_thread_exit = false;
 			m_thread_read = std::thread(bind(&LogFile::ReadThread, this));
 		}
+		if (!m_thread_display.joinable())
+		{
+			m_thread_exit = false;
+			m_thread_display = std::thread(bind(&LogFile::DisplayThread, this));
+		}
 		errorCode = 0;
 	} while (0);
 	return errorCode;
@@ -61,6 +66,8 @@ int LogFile::StopRead()
 	{
 		m_thread_exit = true;
 		m_thread_read.join();
+		m_thread_display_condition.notify_one();
+		m_thread_display.join();
 	}
 	return 0;
 }
@@ -132,13 +139,32 @@ void LogFile::ReadThread()
 		}
 		shared_ptr<TraceEntry> trace_entry(new TraceEntry);
 		int errorCode = CJsonParser::instance().DecodeTraceEntry(one_trace_entry_record, *trace_entry);
-		emit SignalReceiveTrace(trace_entry, LogFileStatus::LogFileReading);
-		if (trace_entry->is_track)
-		{
-			emit SignalReceiveTrack(trace_entry, LogFileStatus::LogFileReading);
-		}		
-		//std::this_thread::sleep_for(std::chrono::milliseconds(1));		
+		m_trace_entry_list.push_back(trace_entry);
+		m_thread_display_condition.notify_one();		
 		one_trace_entry_record = "";
 	}
 	m_logfile.close();	
+}
+
+void LogFile::DisplayThread()
+{
+	unique_lock<mutex> threadLock(m_thread_display_mutex);
+	while (true)
+	{
+		m_thread_display_condition.wait(threadLock);
+		while (!m_trace_entry_list.empty())
+		{
+			shared_ptr<TraceEntry> trace_entry = m_trace_entry_list.front();
+			m_trace_entry_list.pop_front();
+			emit SignalReceiveTrace(trace_entry, LogFileStatus::LogFileReading);
+			if (trace_entry->is_track)
+			{
+				emit SignalReceiveTrack(trace_entry, LogFileStatus::LogFileReading);
+			}
+		}
+		if (m_thread_exit)
+		{
+			break;
+		}
+	}
 }

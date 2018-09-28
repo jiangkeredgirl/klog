@@ -65,6 +65,7 @@ public:
 
 private:
 	void ReadThread();
+	void DisplayThread();
 private:	
 	std::thread              m_thread_read;
 	atomic_bool              m_thread_exit = false;
@@ -72,6 +73,10 @@ private:
 	map<int, string>         m_level_to_str;
 	map<string, int>         m_str_to_level;
 	//mutex                    m_thread_mutex;
+	list<shared_ptr<TraceEntry>> m_trace_entry_list;
+	std::thread              m_thread_display;
+	mutex                    m_thread_display_mutex;
+	condition_variable       m_thread_display_condition;
 };
 
 #endif // LOGFILE_H

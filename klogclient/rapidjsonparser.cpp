@@ -4,6 +4,7 @@
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/stringbuffer.h"
 #include "logfile.h"
+#include "kloglib.h"
 
 
 CJsonParser& CJsonParser::instance()
@@ -21,6 +22,7 @@ bool CJsonParser::IsJsonObject(const string& jsonContent)
 
 int CJsonParser::DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_entry)
 {
+	//TrackCout;
 	int errorCode = 1;
 	rapidjson::Document doc;
 	doc.Parse(jsonContent.c_str());

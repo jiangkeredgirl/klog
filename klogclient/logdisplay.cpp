@@ -33,17 +33,17 @@ LogDisplay::~LogDisplay()
 
 void LogDisplay::SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileStatus status)
 {
-	TrackCout;
+	//TrackCout;
 	if (status == LogFileStatus::LogFileReadBegin)
 	{
 		m_ui.m_tableLogInfo->clearContents();
 		m_ui.m_tableLogInfo->setRowCount(0);
 		m_ui.m_treeSourceNames->clear();
+		//m_ui.m_tableLogInfo->setUpdatesEnabled(false);
 	}
 	else if (status == LogFileStatus::LogFileReading && trace_entry)
 	{
-		m_ui.m_tableLogInfo->setUpdatesEnabled(false);
-		AddNames(trace_entry);		
+		AddNames(trace_entry);
 		if (m_color_log_level.count(trace_entry->level))
 		{
 			m_cur_row_color = m_color_log_level[trace_entry->level];
@@ -81,14 +81,17 @@ void LogDisplay::SlotReceiveTrace(shared_ptr<TraceEntry> trace_entry, LogFileSta
 		{
 			m_ui.m_tableLogInfo->hideRow(m_cur_row);
 		}
-		m_ui.m_tableLogInfo->resizeRowToContents(m_cur_row);
+		else
+		{
+			//m_ui.m_tableLogInfo->resizeRowToContents(m_cur_row);
+		}
 		m_ui.m_tableLogInfo->scrollToBottom();
-		m_ui.m_tableLogInfo->setUpdatesEnabled(true);
 	}
 	else if (status == LogFileStatus::LogFileReadEnd)
 	{
-		//m_ui.m_tableLogInfo->resizeRowsToContents();
+		m_ui.m_tableLogInfo->resizeRowsToContents();
 		m_ui.m_tableLogInfo->resizeColumnsToContents();
+		//m_ui.m_tableLogInfo->setUpdatesEnabled(true);
 	}
 }
 
