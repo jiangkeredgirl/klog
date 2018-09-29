@@ -77,6 +77,7 @@ private:
 	std::thread              m_thread_display;
 	mutex                    m_thread_display_mutex;
 	condition_variable       m_thread_display_condition;
+	mutex                    m_trace_entry_list_mutex;
 };
 
 #endif // LOGFILE_H

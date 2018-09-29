@@ -4,7 +4,7 @@
 
 int main(int argc, char *argv[])
 {
-	//CreateConsole;
+	CreateConsole;
 	GenerateDump;
 	TrackCout;	
 	QApplication a(argc, argv);

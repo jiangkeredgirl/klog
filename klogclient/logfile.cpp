@@ -149,8 +149,11 @@ void LogFile::ReadThread()
 		}
 		shared_ptr<TraceEntry> trace_entry(new TraceEntry);
 		int errorCode = CJsonParser::instance().DecodeTraceEntry(one_trace_entry_record, *trace_entry);
-		m_trace_entry_list.push_back(trace_entry);
-		m_thread_display_condition.notify_one();		
+		{
+			lock_guard<mutex> listLock(m_trace_entry_list_mutex);
+			m_trace_entry_list.push_back(trace_entry);
+		}
+		m_thread_display_condition.notify_one();
 		one_trace_entry_record = "";
 	}
 	m_logfile.close();	
@@ -164,8 +167,12 @@ void LogFile::DisplayThread()
 		m_thread_display_condition.wait(threadLock);
 		while (!m_trace_entry_list.empty())
 		{
-			shared_ptr<TraceEntry> trace_entry = m_trace_entry_list.front();
-			m_trace_entry_list.pop_front();
+			shared_ptr<TraceEntry> trace_entry = nullptr;
+			{
+				lock_guard<mutex> listLock(m_trace_entry_list_mutex);
+				trace_entry = m_trace_entry_list.front();
+				m_trace_entry_list.pop_front();
+			}
 			emit SignalReceiveTrace(trace_entry, LogFileStatus::LogFileReading);
 			if (trace_entry->is_track)
 			{

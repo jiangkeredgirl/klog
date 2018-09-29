@@ -430,8 +430,9 @@ namespace kk
 		AllocConsole();
 		FILE *stream;
 		freopen_s(&stream, "CONOUT$", "w+t", stdout);
-		freopen_s(&stream, "CONIN$", "r+t", stdin);
-		freopen_s(&stream, "CONERR$", "r+t", stderr);
+		// 以下2行代码导致qDebug() crash
+		//freopen_s(&stream, "CONIN$", "r+t", stdin);
+		//freopen_s(&stream, "CONERR$", "r+t", stderr);
 		SetConsoleTitle(L"klog输出UTF8格式");
 		SetConsoleUTF8();
 		return 0;
