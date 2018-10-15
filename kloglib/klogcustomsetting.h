@@ -5,15 +5,15 @@
 #if KLOG_USE_DYNAMIC_DLL
 #ifdef _WIN64
 #ifdef _DEBUG
-#define KLOG_DLL_NAME  "kloglib_x64_v141_Debug.dll"
+#define KLOG_DLL_NAME  "kloglib_x64_Debug.dll"
 #else
-#define KLOG_DLL_NAME  "kloglib_x64_v141_Release.dll"
+#define KLOG_DLL_NAME  "kloglib_x64_Release.dll"
 #endif
 #else
 #ifdef _DEBUG
-#define KLOG_DLL_NAME  "kloglib_x32_v141_Debug.dll"
+#define KLOG_DLL_NAME  "kloglib_x32_Debug.dll"
 #else
-#define KLOG_DLL_NAME  "kloglib_x32_v141_Release.dll"
+#define KLOG_DLL_NAME  "kloglib_x32_Release.dll"
 #endif
 #endif
 #endif

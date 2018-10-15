@@ -74,7 +74,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
-    <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
+    <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
     <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -82,7 +82,7 @@
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
-    <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
+    <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
     <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -90,7 +90,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
-    <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
+    <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
     <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -98,7 +98,7 @@
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
-    <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration)</TargetName>
+    <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
     <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
@@ -114,7 +114,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kloglib_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kloglib_x$(PlatformArchitecture)_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>PreBuildEvent.bat</Command>
@@ -135,7 +135,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kloglib_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kloglib_x$(PlatformArchitecture)_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>PreBuildEvent.bat</Command>
@@ -160,7 +160,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kloglib_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kloglib_x$(PlatformArchitecture)_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>PreBuildEvent.bat</Command>
@@ -185,7 +185,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>kloglib_x$(PlatformArchitecture)_$(DefaultPlatformToolset)_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>kloglib_x$(PlatformArchitecture)_$(Configuration).lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
       <Command>PreBuildEvent.bat</Command>
