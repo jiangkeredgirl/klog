@@ -80,7 +80,7 @@ int trace_test2(const string& log_content)
 	return 0;
 }
 
-void SetConsoleUTF8()
+void SetConsoleUtf8()
 {
 	SetConsoleTitle(L"klog输出");
 	SetConsoleOutputCP(CP_UTF8);
@@ -101,8 +101,8 @@ void SetConsoleUTF8()
 int _tmain()
 {
 	CreateConsole;
+	SetConsoleUTF8;
 	GenerateDump;
-	//SetConsoleUTF8();
 	TrackCout;
 	trace_test(u8"my log content 支持中文");	
 	//TraceTest1 test1;

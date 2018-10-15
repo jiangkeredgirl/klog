@@ -29,6 +29,7 @@
 #define WaitAsyncTraceEnd  KKTracePackage::TracePrinter::instance()->WaitTraceThreadEnd()
 #define CreateKlogConsole  KKTracePackage::TracePrinter::instance()->CreateKlogConsole()
 #define GenerateDumpInfo   KKTracePackage::TracePrinter::instance()->GenerateDumpInfo()
+#define SetKlogConsoleUTF8   KKTracePackage::TracePrinter::instance()->SetKlogConsoleUTF8()
 
 
 

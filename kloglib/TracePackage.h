@@ -143,6 +143,15 @@ namespace KKTracePackage
 			return 0;
 		}
 
+		virtual int SetKlogConsoleUTF8()
+		{
+			if (m_TracePrinter)
+			{
+				m_TracePrinter->SetKlogConsoleUTF8();
+			}
+			return 0;
+		}
+
 		virtual int GenerateDumpInfo()
 		{
 			if (m_TracePrinter)

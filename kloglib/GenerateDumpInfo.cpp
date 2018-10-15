@@ -60,8 +60,8 @@ int GenerateMiniDump(PEXCEPTION_POINTERS pExceptionPointers)
 	TCHAR szFileName[MAX_PATH] = { 0 };
 	SYSTEMTIME stLocalTime;
 	GetLocalTime(&stLocalTime);
-	wsprintf(szFileName, L"%s-%04d%02d%02d-%02d%02d%02d.dmp",
-		kk::Utility::StringToWstring(g_dumpFileName).c_str(), stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay,
+	wsprintf(szFileName, TEXT("%s-%04d%02d%02d-%02d%02d%02d.dmp"),
+		kk::Utility::StrToTStr(g_dumpFileName).c_str(), stLocalTime.wYear, stLocalTime.wMonth, stLocalTime.wDay,
 		stLocalTime.wHour, stLocalTime.wMinute, stLocalTime.wSecond);
 	HANDLE hDumpFile = CreateFile(szFileName, GENERIC_READ | GENERIC_WRITE,
 		FILE_SHARE_WRITE | FILE_SHARE_READ, 0, CREATE_ALWAYS, 0, 0);

@@ -433,14 +433,20 @@ namespace kk
 		// 以下2行代码导致qDebug() crash
 		//freopen_s(&stream, "CONIN$", "r+t", stdin);
 		//freopen_s(&stream, "CONERR$", "r+t", stderr);
-		SetConsoleTitle(L"klog输出UTF8格式");
-		SetConsoleUTF8();
+		SetConsoleTitle(TEXT("klog输出"));
+		//SetConsoleUTF8();
 		return 0;
 	}
 
 	int TracePrinterImpl::GenerateDumpInfo()
 	{
 		GenerateDumpInfo::instance().Generate(process_name_);
+		return 0;
+	}
+
+	int TracePrinterImpl::SetKlogConsoleUTF8()
+	{
+		SetConsoleUTF8();
 		return 0;
 	}
 
@@ -621,7 +627,7 @@ namespace kk
 		default_level_color_[TRACE_INFO] = FOREGROUND_INTENSITY | FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
 		default_level_color_[TRACE_DEBUG] = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
 		default_level_color_[TRACE_TEMP] = FOREGROUND_INTENSITY;
-		SetConsoleUTF8();
+		//SetConsoleUTF8();
 		return 0;
 	}
 
@@ -640,6 +646,11 @@ namespace kk
 		fontInfo.FontWeight = FW_NORMAL;
 		wcscpy_s(fontInfo.FaceName, L"KaiTi");
 		SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
+		TCHAR old_title[64] = { 0 };
+		GetConsoleTitle(old_title, 63);
+		tstring title = old_title;
+		title = title + TEXT("_UTF8格式");
+		SetConsoleTitle(title.c_str());
 		return 0;
 	}
 

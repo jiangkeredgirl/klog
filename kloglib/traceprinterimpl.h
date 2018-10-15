@@ -49,6 +49,7 @@ namespace kk
 		virtual int WaitTraceThreadEnd() override;
 		virtual int CreateKlogConsole() override;
 		virtual int GenerateDumpInfo() override;
+		virtual int SetKlogConsoleUTF8() override;
 
 	public:
 		shared_ptr<TraceEntry> TraceFormatEntry(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body);

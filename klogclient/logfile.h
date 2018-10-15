@@ -68,7 +68,7 @@ private:
 	void DisplayThread();
 private:	
 	std::thread              m_thread_read;
-	atomic_bool              m_thread_exit = false;
+	bool                     m_thread_exit = false;
 	ifstream                 m_logfile;
 	map<int, string>         m_level_to_str;
 	map<string, int>         m_str_to_level;

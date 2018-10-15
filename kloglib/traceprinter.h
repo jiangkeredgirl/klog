@@ -61,6 +61,7 @@ namespace kk
 		virtual int WaitTraceThreadEnd() = 0;
 		virtual int CreateKlogConsole() = 0;
 		virtual int GenerateDumpInfo() = 0;
+		virtual int SetKlogConsoleUTF8() = 0;
 
 		static string GetModuleName()
 		{

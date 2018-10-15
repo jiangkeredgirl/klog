@@ -66,3 +66,4 @@
 #define WaitTrace                            WaitAsyncTraceEnd
 #define CreateConsole                        CreateKlogConsole
 #define GenerateDump                         GenerateDumpInfo
+#define SetConsoleUTF8                       SetKlogConsoleUTF8
