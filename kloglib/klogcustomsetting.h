@@ -1,23 +1,5 @@
 ﻿#pragma once
 
-#define KLOG_USE_DYNAMIC_DLL    1
-
-#if KLOG_USE_DYNAMIC_DLL
-#ifdef _WIN64
-#ifdef _DEBUG
-#define KLOG_DLL_NAME  "kloglib_x64_Debug.dll"
-#else
-#define KLOG_DLL_NAME  "kloglib_x64_Release.dll"
-#endif
-#else
-#ifdef _DEBUG
-#define KLOG_DLL_NAME  "kloglib_x32_Debug.dll"
-#else
-#define KLOG_DLL_NAME  "kloglib_x32_Release.dll"
-#endif
-#endif
-#endif
-
 
 // 是否生成trace 函数
 #define TRACE_OUT             1                     ///< 0 not output log, 1 output log
