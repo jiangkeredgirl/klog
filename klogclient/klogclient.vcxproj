@@ -90,7 +90,7 @@
       <Command>PreBuildEvent.bat</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>PostBuildEvent.bat</Command>
+      <Command>PostBuildEvent.bat $(TargetName)$(TargetExt)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -127,7 +127,7 @@
       <Command>PreBuildEvent.bat</Command>
     </PreBuildEvent>
     <PostBuildEvent>
-      <Command>PostBuildEvent.bat</Command>
+      <Command>PostBuildEvent.bat $(TargetName)$(TargetExt)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>

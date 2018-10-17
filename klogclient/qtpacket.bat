@@ -1,2 +1,4 @@
-windeployqt.exe klogclient_x64_v141_Debug.exe
+set program_name=%1
+echo program_name=%program_name%
+windeployqt.exe %program_name%
 pause
