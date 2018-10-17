@@ -1,7 +1,5 @@
-@call "%VS141COMNTOOLS%VsDevCmd.bat"
+set project_name=klogclient
+set platform_version=141
 cd /d %~dp0
-MSBuild klogclient.vcxproj /t:rebuild /p:platform=x64 /p:configuration=debug   /p:PlatformToolset=v141
-MSBuild klogclient.vcxproj /t:rebuild /p:platform=x64 /p:Configuration=release /p:PlatformToolset=v141
-MSBuild klogclient.vcxproj /t:rebuild /p:platform=x64 /p:configuration=debug   /p:PlatformToolset=v141
-MSBuild klogclient.vcxproj /t:rebuild /p:platform=x64 /p:Configuration=release /p:PlatformToolset=v141
+call build_project.bat "%VS141COMNTOOLS%",%project_name%,%platform_version%
 pause
