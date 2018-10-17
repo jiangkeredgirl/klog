@@ -1,4 +1,4 @@
-﻿#include "klogclientui.h"
+﻿#include "klogclient_ui.h"
 
 KlogClientui::KlogClientui()
 {

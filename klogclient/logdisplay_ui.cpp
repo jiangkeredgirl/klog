@@ -1,4 +1,4 @@
-﻿#include "logdisplayui.h"
+﻿#include "logdisplay_ui.h"
 #include "cstandard.h"
 
 LogDisplayui::LogDisplayui()

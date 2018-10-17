@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QWidget>
-#include "logdisplayui.h"
+#include "logdisplay_ui.h"
 #include "logfile.h"
 #include "cstandard.h"
 #include "logfilterbar.h"

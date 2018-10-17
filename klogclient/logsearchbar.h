@@ -1,7 +1,7 @@
-#pragma once
+﻿#pragma once
 
 #include <QWidget>
-#include "logsearchbarui.h"
+#include "logsearchbar_ui.h"
 
 class LogSearchBar : public QWidget
 {

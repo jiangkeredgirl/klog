@@ -1,4 +1,4 @@
-﻿#include "funcstackui.h"
+﻿#include "funcstack_ui.h"
 
 FuncStackui::FuncStackui()
 	: QObject()

@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QWidget>
-#include "logfilterbarui.h"
+#include "logfilterbar_ui.h"
 #include "cstandard.h"
 
 struct FilterCondition

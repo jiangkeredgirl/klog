@@ -1,4 +1,4 @@
-﻿#include "loglevelbarui.h"
+﻿#include "loglevelbar_ui.h"
 #include "cstandard.h"
 
 LogLevelBarui::LogLevelBarui()

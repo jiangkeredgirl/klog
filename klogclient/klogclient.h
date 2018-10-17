@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QtWidgets/QMainWindow>
-#include "klogclientui.h"
+#include "klogclient_ui.h"
 #include "menubar.h"
 #include "logfilebar.h"
 #include "loglevelbar.h"

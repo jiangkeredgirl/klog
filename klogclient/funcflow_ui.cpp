@@ -1,4 +1,4 @@
-﻿#include "funcflowui.h"
+﻿#include "funcflow_ui.h"
 
 FuncFlowui::FuncFlowui()
 	: QObject()

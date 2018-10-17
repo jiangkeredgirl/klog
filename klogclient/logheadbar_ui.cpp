@@ -1,4 +1,4 @@
-﻿#include "logheadbarui.h"
+﻿#include "logheadbar_ui.h"
 #include "cstandard.h"
 
 LogHeadBarui::LogHeadBarui()

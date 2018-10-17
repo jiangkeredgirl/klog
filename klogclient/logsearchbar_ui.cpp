@@ -1,4 +1,4 @@
-﻿#include "logsearchbarui.h"
+﻿#include "logsearchbar_ui.h"
 
 LogSearchBarui::LogSearchBarui()
 {

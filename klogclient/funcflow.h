@@ -2,7 +2,7 @@
 
 #include <QDialog>
 #include "cstandard.h"
-#include "funcflowui.h"
+#include "funcflow_ui.h"
 #include "logfile.h"
 #include "funcstack.h"
 

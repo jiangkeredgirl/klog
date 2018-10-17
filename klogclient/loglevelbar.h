@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QWidget>
-#include "loglevelbarui.h"
+#include "loglevelbar_ui.h"
 
 class LogLevelBar : public QWidget
 {

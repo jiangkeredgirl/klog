@@ -36,9 +36,6 @@
     <ClCompile Include="klogclient.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="klogclientui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="menubar.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -60,27 +57,6 @@
     <ClCompile Include="logdisplay.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="menubarui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="loglevelbarui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="logheadbarui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="logfilterbarui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="logsearchbarui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="logdisplayui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="logfilebarui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="logfile.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -90,21 +66,42 @@
     <ClCompile Include="funcflow.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="funcflowkui.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="funcstack.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="funcstackui.cpp">
+    <ClCompile Include="funcflow_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcstack_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="klogclient_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logdisplay_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logfilebar_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logfilterbar_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logheadbar_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="loglevelbar_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="logsearchbar_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="menubar_ui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="klogclient.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="klogclientui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="menubar.h">
@@ -128,40 +125,43 @@
     <QtMoc Include="logdisplay.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="menubarui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="loglevelbarui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="logheadbarui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="logfilterbarui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="logsearchbarui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="logdisplayui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
-    <QtMoc Include="logfilebarui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="logfile.h">
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="funcflow.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="funcflowui.h">
-      <Filter>Header Files</Filter>
-    </QtMoc>
     <QtMoc Include="funcstack.h">
       <Filter>Header Files</Filter>
     </QtMoc>
-    <QtMoc Include="funcstackui.h">
+    <QtMoc Include="funcflow_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcstack_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="klogclient_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logdisplay_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logfilebar_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logfilterbar_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logheadbar_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="loglevelbar_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="logsearchbar_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="menubar_ui.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>

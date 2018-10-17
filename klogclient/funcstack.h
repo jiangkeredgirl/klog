@@ -2,7 +2,7 @@
 
 #include <QDialog>
 #include "cstandard.h"
-#include "funcstackui.h"
+#include "funcstack_ui.h"
 #include "logfile.h"
 
 class FuncStack : public QDialog

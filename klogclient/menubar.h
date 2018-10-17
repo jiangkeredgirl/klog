@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QWidget>
-#include "menubarui.h"
+#include "menubar_ui.h"
 
 class MenuBar : public QMenuBar
 {
