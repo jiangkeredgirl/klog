@@ -1,7 +1,5 @@
-@call "%VS141COMNTOOLS%VsDevCmd.bat"
+set sln_name=klog
+set platform_version=141
 cd /d %~dp0
-MSBuild klog.sln /t:rebuild /p:platform=x86 /p:configuration=debug   /p:PlatformToolset=v141
-MSBuild klog.sln /t:rebuild /p:platform=x86 /p:Configuration=release /p:PlatformToolset=v141
-MSBuild klog.sln /t:rebuild /p:platform=x64 /p:configuration=debug   /p:PlatformToolset=v141
-MSBuild klog.sln /t:rebuild /p:platform=x64 /p:Configuration=release /p:PlatformToolset=v141
+call build_sln.bat "%VS141COMNTOOLS%",%sln_name%,%platform_version%
 pause
