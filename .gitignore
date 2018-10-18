@@ -10,3 +10,4 @@ KlogSDK
 GeneratedFiles
 /klogclient/*.user
 OutKlogClientBin
+OutKlogServerBin
