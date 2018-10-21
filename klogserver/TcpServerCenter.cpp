@@ -58,14 +58,6 @@ int TcpServerCenter::Run(bool async)
 			{
 				break;
 			}
-			if (async)
-			{
-				tcpserver->AsyncBroadcast(input_flag.c_str(), input_flag.size());
-			}
-			else
-			{
-				tcpserver->Broadcast(input_flag.c_str(), input_flag.size());
-			}
 		} while (true);
 		tcpserver->Stop();
 		cout << "tcp have closed" << endl;

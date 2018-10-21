@@ -4,6 +4,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 VisualStudioVersion = 15.0.26730.8
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kloglib", "kloglib\kloglib.vcxproj", "{CA1EF072-0045-483B-AD2D-454258F11C65}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F424024-40CB-4081-B712-E41EB6C819F9} = {9F424024-40CB-4081-B712-E41EB6C819F9}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kloglibtest", "kloglibtest\kloglibtest.vcxproj", "{929AF77E-A558-4F3D-84AD-9CBE225400AD}"
 	ProjectSection(ProjectDependencies) = postProject
@@ -11,8 +14,16 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "kloglibtest", "kloglibtest\
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "klogclient", "klogclient\klogclient.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F424024-40CB-4081-B712-E41EB6C819F9} = {9F424024-40CB-4081-B712-E41EB6C819F9}
+	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "klogserver", "klogserver\klogserver.vcxproj", "{625678BB-85EF-46AB-86C0-5A4DE644C1C5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{9F424024-40CB-4081-B712-E41EB6C819F9} = {9F424024-40CB-4081-B712-E41EB6C819F9}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "klognetprotocollib", "klognetprotocollib\klognetprotocollib.vcxproj", "{9F424024-40CB-4081-B712-E41EB6C819F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -54,6 +65,14 @@ Global
 		{625678BB-85EF-46AB-86C0-5A4DE644C1C5}.Release|x64.Build.0 = Release|x64
 		{625678BB-85EF-46AB-86C0-5A4DE644C1C5}.Release|x86.ActiveCfg = Release|Win32
 		{625678BB-85EF-46AB-86C0-5A4DE644C1C5}.Release|x86.Build.0 = Release|Win32
+		{9F424024-40CB-4081-B712-E41EB6C819F9}.Debug|x64.ActiveCfg = Debug|x64
+		{9F424024-40CB-4081-B712-E41EB6C819F9}.Debug|x64.Build.0 = Debug|x64
+		{9F424024-40CB-4081-B712-E41EB6C819F9}.Debug|x86.ActiveCfg = Debug|Win32
+		{9F424024-40CB-4081-B712-E41EB6C819F9}.Debug|x86.Build.0 = Debug|Win32
+		{9F424024-40CB-4081-B712-E41EB6C819F9}.Release|x64.ActiveCfg = Release|x64
+		{9F424024-40CB-4081-B712-E41EB6C819F9}.Release|x64.Build.0 = Release|x64
+		{9F424024-40CB-4081-B712-E41EB6C819F9}.Release|x86.ActiveCfg = Release|Win32
+		{9F424024-40CB-4081-B712-E41EB6C819F9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
