@@ -1,14 +1,7 @@
 ﻿#pragma once
 
-#ifdef KLOGNETPROTOCOLLIB_EXPORTS
-#define KLOGNETPROTOCOLLIB_API __declspec(dllexport)
-#else
-#define KLOGNETPROTOCOLLIB_API __declspec(dllimport)
-#endif
-
-#include "cstandard.h"
-
-
+#include <string>
+using namespace std;
 
 enum NetEventType
 {

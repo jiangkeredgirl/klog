@@ -1,32 +1,34 @@
 ﻿#pragma once
+#ifdef KLOGNETPROTOCOLLIB_EXPORTS
+#define KLOGNETPROTOCOLLIB_API __declspec(dllexport)
+#else
+#define KLOGNETPROTOCOLLIB_API __declspec(dllimport)
+#endif
+
 #include "klognetprotocol.h"
-#include "cstandard.h"
 
-template<class T>
-int GetMemoryDataFromSerial(const string& sdata, T& cdata)
+class IProtocolSerial
 {
-	TraceBackDebugCout();
-	TraceCout(TRACE_INFO) << "serialized text data:" << sdata;
-	std::stringstream text_ss;
-	text_ss << sdata;
-	boost::archive::text_iarchive text_ia(text_ss);
-	text_ia >> cdata;
-	return 0;
+public:
+	virtual int Serial(const string& serial, SendKlogConfig& object) = 0;
+	virtual int Serial(const SendKlogConfig& object, string& serial) = 0;
+	virtual int Serial(const string& serial, GetKlogConfig& object) = 0;
+	virtual int Serial(const GetKlogConfig& object, string& serial) = 0;
+	virtual int Serial(const string& serial, SendKlogMessage& object) = 0;
+	virtual int Serial(const SendKlogMessage& object, string& serial) = 0;
+	virtual int Serial(const string& serial, GetKlogMessage& object) = 0;
+	virtual int Serial(const GetKlogMessage& object, string& serial) = 0;
+};
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+	KLOGNETPROTOCOLLIB_API IProtocolSerial* NewSerial();
+	typedef IProtocolSerial* (*NewSerialFun)();
+	KLOGNETPROTOCOLLIB_API void DeleteSerial(IProtocolSerial* serial);
+	typedef void(*DeleteSerialFun)(IProtocolSerial* serial);
+
+#ifdef __cplusplus
 }
-
-template<class T>
-int GetSerialFromMemoryData(const T& cdata, string& sdata)
-{
-	TraceBackDebugCout();
-	std::stringstream text_ss;
-	boost::archive::text_oarchive text_oa(text_ss);
-	text_oa << cdata;
-	sdata = text_ss.str();
-	TraceCout(TRACE_INFO) << "serialized text size:" << sdata.size() << ", serialized text data:" << sdata;
-	/// test 
-	//T data_test;
-	//GetMemoryDataFromSerial(sdata, data_test);
-	return 0;
-}
-
+#endif

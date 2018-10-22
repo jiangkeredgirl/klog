@@ -21,9 +21,6 @@
     <ClInclude Include="targetver.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="klognetprotocollib.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="klognetprotocol.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -33,12 +30,15 @@
     <ClInclude Include="protocolserial.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="protocolserialimpl.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="protocolserialpackage.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="klognetprotocollib.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="protocolserial.cpp">
+    <ClCompile Include="protocolserialimpl.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
