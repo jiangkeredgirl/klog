@@ -28,7 +28,7 @@ int main()
 	//}
 
 	cout << "klog server start" << endl;
-	TcpServerCenter::instance().Run(true);	
+	TcpServerCenter::instance().Run();	
 	cout << "klog server end" << endl;
 	//system("pause");
     return 0;

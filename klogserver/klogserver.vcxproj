@@ -186,11 +186,15 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KlogManageServer.h" />
+    <ClInclude Include="KlogMessageServer.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TcpServerCenter.h" />
     <ClInclude Include="TcpServerHandlerCenter.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="KlogManageServer.cpp" />
+    <ClCompile Include="KlogMessageServer.cpp" />
     <ClCompile Include="klogserver.cpp" />
     <ClCompile Include="TcpServerCenter.cpp" />
     <ClCompile Include="TcpServerHandlerCenter.cpp" />

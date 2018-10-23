@@ -1,8 +1,8 @@
 ﻿#include "TcpServerCenter.h"
-#include "TcpServerHandlerCenter.h"
-#include "TcpPackage.h"
 #include "cstandard.h"
+#include "KlogManageServer.h"
 
+#define KLOG_SERVER_PORT 2012
 
 TcpServerCenter::TcpServerCenter()
 {
@@ -19,52 +19,31 @@ TcpServerCenter& TcpServerCenter::instance()
 	return _instance;
 }
 
-int TcpServerCenter::Run(bool async)
+int TcpServerCenter::Run()
 {
-	cout << "please input server port, default is 2012" << endl;
+	cout << "please input klog server port, default is " << KLOG_SERVER_PORT << endl;
 	string strport;
 	getline(std::cin, strport);
-	int port = 2012;
+	int port = KLOG_SERVER_PORT;
 	if (!strport.empty())
 	{
 		port = stoi(strport);
 	}
 	do
 	{
-		ITcpServer* tcpserver = TcpLibrary::instance()->NewTcpServer(port);
-		if (tcpserver == nullptr)
-		{
-			cout << "tcp server create failed" << endl;
-			break;
-		}
-		TcpServerHandlerCenter handler_center(tcpserver);
-		tcpserver->RegisterHandler(&handler_center);
-		if (async)
-		{
-			tcpserver->AsyncStart();
-			cout << "tcp async server runing, port:" << port << endl;
-		}
-		else
-		{
-			tcpserver->Start();
-			cout << "tcp sync server runing, port:" << port << endl;
-		}
+		KlogManageServer::instance().ServerStart(port, true);
 		string input_flag;
 		do
 		{
-			cout << "please input text for send to server, \'c\' will close server" << endl;
+			cout << "input \'c\' will close server" << endl;
 			cin >> input_flag;
 			if (input_flag == "c")
 			{
 				break;
 			}
 		} while (true);
-		tcpserver->Stop();
-		cout << "tcp have closed" << endl;
-		if (tcpserver)
-		{
-			TcpLibrary::instance()->DeleteTcpServer(tcpserver);
-		}
+		KlogManageServer::instance().ServerStop();
+		cout << "klog server closed" << endl;
 	} while (false);
 	return 0;
 }

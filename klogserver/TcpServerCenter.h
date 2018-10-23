@@ -7,6 +7,6 @@ public:
 	static TcpServerCenter& instance();
 
 public:
-	int Run(bool async);
+	int Run();
 };
 
