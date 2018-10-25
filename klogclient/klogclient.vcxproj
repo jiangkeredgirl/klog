@@ -137,6 +137,7 @@
     <ClCompile Include="funcstack_ui.cpp" />
     <ClCompile Include="klogclient.cpp" />
     <ClCompile Include="klogclient_ui.cpp" />
+    <ClCompile Include="klogsink.cpp" />
     <ClCompile Include="logdisplay.cpp" />
     <ClCompile Include="logdisplay_ui.cpp" />
     <ClCompile Include="logfile.cpp" />
@@ -293,6 +294,7 @@
       <IncludePath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles;.;$(QTDIR)\include;.\GeneratedFiles\$(ConfigurationName)\.;$(QTDIR)\include\QtCore;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtWidgets</IncludePath>
       <Define Condition="'$(Configuration)|$(Platform)'=='Release|x64'">UNICODE;_UNICODE;WIN32;WIN64;QT_DLL;QT_NO_DEBUG;NDEBUG;QT_CORE_LIB;QT_GUI_LIB;QT_WIDGETS_LIB</Define>
     </QtMoc>
+    <ClInclude Include="klogsink.h" />
     <ClInclude Include="rapidjsonparser.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

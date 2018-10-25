@@ -99,6 +99,9 @@
     <ClCompile Include="menubar_ui.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="klogsink.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="klogclient.h">
@@ -167,6 +170,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rapidjsonparser.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="klogsink.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

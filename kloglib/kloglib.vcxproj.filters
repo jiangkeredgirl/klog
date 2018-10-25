@@ -57,6 +57,9 @@
     <ClInclude Include="GenerateDumpInfo.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="klogsource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="traceprinterimpl.cpp">
@@ -72,6 +75,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="GenerateDumpInfo.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="klogsource.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
