@@ -75,32 +75,32 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\boost_1_66_0\;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\thirdparty\boost_1_66_0\lib32-msvc-141\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\boost\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\thirdparty\boost\lib\msvc-$(PlatformToolsetVersion)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\boost_1_66_0\;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\thirdparty\boost_1_66_0\lib64-msvc-141\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\boost\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\thirdparty\boost\lib\msvc-$(PlatformToolsetVersion)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\boost_1_66_0\;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\thirdparty\boost_1_66_0\lib32-msvc-141\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\boost\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\thirdparty\boost\lib\msvc-$(PlatformToolsetVersion)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\boost_1_66_0\;$(IncludePath)</IncludePath>
-    <LibraryPath>..\..\thirdparty\boost_1_66_0\lib64-msvc-141\;$(LibraryPath)</LibraryPath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\boost\;$(IncludePath)</IncludePath>
+    <LibraryPath>..\..\thirdparty\boost\lib\msvc-$(PlatformToolsetVersion)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -108,7 +108,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>WIN32;_DEBUG;KLOGNETPROTOCOLLIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>BOOST_ALL_DYN_LINK;WIN32;_DEBUG;KLOGNETPROTOCOLLIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -116,7 +116,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>PostBuildEvent.bat</Command>
+      <Command>PostBuildEvent.bat $(PlatformToolsetVersion)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -125,7 +125,7 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;KLOGNETPROTOCOLLIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>BOOST_ALL_DYN_LINK;_DEBUG;KLOGNETPROTOCOLLIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -133,7 +133,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>PostBuildEvent.bat</Command>
+      <Command>PostBuildEvent.bat $(PlatformToolsetVersion)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -144,7 +144,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>WIN32;NDEBUG;KLOGNETPROTOCOLLIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>BOOST_ALL_DYN_LINK;WIN32;NDEBUG;KLOGNETPROTOCOLLIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -154,7 +154,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>PostBuildEvent.bat</Command>
+      <Command>PostBuildEvent.bat $(PlatformToolsetVersion)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -165,7 +165,7 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;KLOGNETPROTOCOLLIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>BOOST_ALL_DYN_LINK;NDEBUG;KLOGNETPROTOCOLLIB_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
     </ClCompile>
     <Link>
@@ -175,7 +175,7 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PostBuildEvent>
-      <Command>PostBuildEvent.bat</Command>
+      <Command>PostBuildEvent.bat $(PlatformToolsetVersion)</Command>
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
