@@ -46,31 +46,31 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(labelIPTag);
 		labelIPTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
-		QLineEdit* editIP = new QLineEdit;
-		editIP->setPlaceholderText("127.0.0.1");
-		layout->addWidget(editIP);
-		editIP->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
-		editIP->setFixedWidth(150);
+		m_editIP = new QLineEdit;
+		m_editIP->setPlaceholderText("127.0.0.1");
+		layout->addWidget(m_editIP);
+		m_editIP->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		m_editIP->setFixedWidth(150);
 		//editIP->setInputMask("000.000.000.000");
 		QRegExp rx("^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$");
 		QRegExpValidator* ipValidator = new QRegExpValidator(rx, this);
-		editIP->setValidator(ipValidator);
+		m_editIP->setValidator(ipValidator);
 
 		QLabel* labelPortTag = new QLabel;
 		labelPortTag->setText(tr("port"));
 		layout->addWidget(labelPortTag);
 		labelPortTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
-		QLineEdit* editPort = new QLineEdit;
-		editPort->setPlaceholderText(tr("port"));
-		layout->addWidget(editPort);
-		editPort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
-		editPort->setFixedWidth(100);
+		m_editPort = new QLineEdit;
+		m_editPort->setPlaceholderText(tr("port"));
+		layout->addWidget(m_editPort);
+		m_editPort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		m_editPort->setFixedWidth(100);
 
-		QPushButton* buttonConnect = new QPushButton;
-		buttonConnect->setText(tr(u8"连接"));
-		layout->addWidget(buttonConnect);
-		buttonConnect->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");	
+		m_buttonConnect = new QPushButton;
+		m_buttonConnect->setText(tr(u8"连接"));
+		layout->addWidget(m_buttonConnect);
+		m_buttonConnect->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");
 
 		layout->addStretch();
 	}

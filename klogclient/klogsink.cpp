@@ -21,6 +21,8 @@ klogsink& klogsink::instance()
 int klogsink::Connect(const string& ip, int port, bool async)
 {
 	int error_code = 1;
+	m_ip = ip;
+	m_port = port;
 	do
 	{
 		m_tcp_client = TcpLibrary::instance()->NewTcpClient();
@@ -36,6 +38,7 @@ int klogsink::Connect(const string& ip, int port, bool async)
 			if (async)
 			{
 				error_code = m_tcp_client->AsyncTcpConnect(ip, port);
+				break;
 			}
 			else
 			{
@@ -69,7 +72,20 @@ int klogsink::Disconnect()
 
 int klogsink::OnTcpConnect(int status)
 {
-	cout << "have connected, status:" << status << endl;
+	if (status == 0)
+	{
+		cout << "have connected, status:" << status << endl;
+	}
+	else
+	{
+		cout << "connect failed, status:" << status << endl;
+		cout << "connect failed, sleep 3s and continue connect" << endl;
+		std::thread t([this]() {
+			std::this_thread::sleep_for(std::chrono::milliseconds(3000));
+			m_tcp_client->AsyncTcpConnect(m_ip, m_port);
+		});
+		t.detach();
+	}
 	return 0;
 }
 

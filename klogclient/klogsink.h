@@ -21,5 +21,7 @@ public:
 
 private:
 	ITcpClient*  m_tcp_client = nullptr;
+	string m_ip;
+	int m_port = 0;
 };
 

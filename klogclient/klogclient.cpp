@@ -1,4 +1,5 @@
 ﻿#include "klogclient.h"
+#include "klogsink.h"
 
 KlogClient::KlogClient(QWidget *parent)
 	: QMainWindow(parent)
@@ -49,6 +50,7 @@ void KlogClient::Init()
 
 
 	connect(m_logFileBar, &LogFileBar::SignalOpenLocalLogFile, this, &KlogClient::SlotOpenLocalLogFile);
+	connect(m_logFileBar, &LogFileBar::SignalOpenRemoteLogMessage, this, &KlogClient::SlotOpenRemoteLogMessage);
 	connect(&LogFile::instance(), &LogFile::SignalReceiveTrace, m_logDisplay, &LogDisplay::SlotReceiveTrace, Qt::BlockingQueuedConnection);
 	connect(&LogFile::instance(), &LogFile::SignalReceiveTrack, m_funcStack, &FuncStack::SlotReceiveTrack, Qt::BlockingQueuedConnection);
 	connect(&LogFile::instance(), &LogFile::SignalReceiveTrack, m_funcFlow, &FuncFlow::SlotReceiveTrack, Qt::BlockingQueuedConnection);
@@ -74,6 +76,14 @@ void KlogClient::SlotOpenLocalLogFile(const string& filename)
 	std::thread t([this, filename]() {
 		LogFile::instance().StopRead();
 		LogFile::instance().ReadTraceEntry(filename);
+	});
+	t.detach();
+}
+
+void KlogClient::SlotOpenRemoteLogMessage(const string& ip, int port)
+{
+	std::thread t([ip, port]() {
+		klogsink::instance().Connect(ip, port, true);
 	});
 	t.detach();
 }

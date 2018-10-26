@@ -1,4 +1,4 @@
-#pragma once
+﻿#pragma once
 
 #include <QObject>
 #include "qtstandard.h"
@@ -16,6 +16,9 @@ public:
 
 public:
 	QWidget*  m_hostWidget = nullptr;
-	QPushButton* m_buttonLocalFile = nullptr;
 	QLabel* m_labelFileName = nullptr;
+	QPushButton* m_buttonLocalFile = nullptr;
+	QLineEdit* m_editIP = nullptr;
+	QLineEdit* m_editPort = nullptr;
+	QPushButton* m_buttonConnect = nullptr;
 };

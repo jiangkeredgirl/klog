@@ -6,6 +6,7 @@ LogFileBar::LogFileBar(QWidget *parent)
 {
 	m_ui.setupUi(this);
 	connect(m_ui.m_buttonLocalFile, &QPushButton::clicked, this, &LogFileBar::SlotButtonLocalFile);
+	connect(m_ui.m_buttonConnect, &QPushButton::clicked, this, &LogFileBar::SlotButtonRemoteMessage);
 }
 
 LogFileBar::~LogFileBar()
@@ -33,5 +34,13 @@ void LogFileBar::SlotButtonLocalFile()
 		m_ui.m_labelFileName->setText(logFilePath);
 		m_ui.m_labelFileName->setToolTip(logFilePath);
 		emit SignalOpenLocalLogFile(logFilePath.toStdString());
+	}
+}
+
+void LogFileBar::SlotButtonRemoteMessage()
+{
+	if (!m_ui.m_editIP->text().isEmpty() && !m_ui.m_editPort->text().isEmpty())
+	{
+		emit SignalOpenRemoteLogMessage(m_ui.m_editIP->text().toStdString(), m_ui.m_editPort->text().toInt());
 	}
 }

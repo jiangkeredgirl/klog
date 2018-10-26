@@ -17,9 +17,11 @@ protected:
 
 signals:
 	void SignalOpenLocalLogFile(const string& filename);
+	void SignalOpenRemoteLogMessage(const string& ip, int port);
 
 public slots:
 	void SlotButtonLocalFile();
+	void SlotButtonRemoteMessage();
 
 private:
 	LogFileBarui m_ui;
