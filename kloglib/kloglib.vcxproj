@@ -79,7 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;..\NetworkSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;..\NetworkSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
@@ -93,7 +93,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;..\NetworkSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;..\NetworkSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
@@ -114,6 +114,9 @@
     <PostBuildEvent>
       <Command>PostBuildEvent.bat</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>PreBuildEvent.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -131,6 +134,9 @@
     <PostBuildEvent>
       <Command>PostBuildEvent.bat</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>PreBuildEvent.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -152,6 +158,9 @@
     <PostBuildEvent>
       <Command>PostBuildEvent.bat</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>PreBuildEvent.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -173,6 +182,9 @@
     <PostBuildEvent>
       <Command>PostBuildEvent.bat</Command>
     </PostBuildEvent>
+    <PreBuildEvent>
+      <Command>PreBuildEvent.bat</Command>
+    </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
     <Text Include="ReadMe.txt" />
