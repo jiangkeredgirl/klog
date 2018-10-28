@@ -92,6 +92,15 @@ int klogsink::OnTcpConnect(int status)
 int klogsink::OnTcpDisconnect(int status)
 {
 	cout << "have disconnected, status:" << status << endl;
+	if (status != 1236)
+	{
+		cout << "abnormal disconnect, reconnect" << endl;
+		std::thread t([this]()
+		{
+			m_tcp_client->AsyncTcpConnect(m_ip, m_port);
+		});
+		t.detach();
+	}
 	return 0;
 }
 
