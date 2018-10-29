@@ -32,42 +32,72 @@ ProtocolSerial::~ProtocolSerial(void)
 
 }
 
-int ProtocolSerial::Serial(const string& serial, SendKlogConfig& object)
+int ProtocolSerial::Serial(const string& serial, NetEvent& object)
 {
 	return GetObjectFromSerial(serial, object);
 }
 
-int ProtocolSerial::Serial(const SendKlogConfig& object, string& serial)
+int ProtocolSerial::Serial(const NetEvent& object, string& serial)
 {
 	return GetSerialFromObject(object, serial);
 }
 
-int ProtocolSerial::Serial(const string& serial, GetKlogConfig& object)
+int ProtocolSerial::Serial(const string& serial, GetKlogServerPortEvent& object)
 {
 	return GetObjectFromSerial(serial, object);
 }
 
-int ProtocolSerial::Serial(const GetKlogConfig& object, string& serial)
+int ProtocolSerial::Serial(const GetKlogServerPortEvent& object, string& serial)
 {
 	return GetSerialFromObject(object, serial);
 }
 
-int ProtocolSerial::Serial(const string& serial, SendKlogMessage& object)
+int ProtocolSerial::Serial(const string& serial, SendKlogServerPortEvent& object)
 {
 	return GetObjectFromSerial(serial, object);
 }
 
-int ProtocolSerial::Serial(const SendKlogMessage& object, string& serial)
+int ProtocolSerial::Serial(const SendKlogServerPortEvent& object, string& serial)
 {
 	return GetSerialFromObject(object, serial);
 }
 
-int ProtocolSerial::Serial(const string& serial, GetKlogMessage& object)
+int ProtocolSerial::Serial(const string& serial, SendKlogConfigEvent& object)
 {
 	return GetObjectFromSerial(serial, object);
 }
 
-int ProtocolSerial::Serial(const GetKlogMessage& object, string& serial)
+int ProtocolSerial::Serial(const SendKlogConfigEvent& object, string& serial)
+{
+	return GetSerialFromObject(object, serial);
+}
+
+int ProtocolSerial::Serial(const string& serial, GetKlogConfigEvent& object)
+{
+	return GetObjectFromSerial(serial, object);
+}
+
+int ProtocolSerial::Serial(const GetKlogConfigEvent& object, string& serial)
+{
+	return GetSerialFromObject(object, serial);
+}
+
+int ProtocolSerial::Serial(const string& serial, SendKlogMessageEvent& object)
+{
+	return GetObjectFromSerial(serial, object);
+}
+
+int ProtocolSerial::Serial(const SendKlogMessageEvent& object, string& serial)
+{
+	return GetSerialFromObject(object, serial);
+}
+
+int ProtocolSerial::Serial(const string& serial, GetKlogMessageEvent& object)
+{
+	return GetObjectFromSerial(serial, object);
+}
+
+int ProtocolSerial::Serial(const GetKlogMessageEvent& object, string& serial)
 {
 	return GetSerialFromObject(object, serial);
 }

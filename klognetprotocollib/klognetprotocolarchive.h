@@ -9,9 +9,19 @@
 #include <boost/serialization/deque.hpp>
 #include <boost/serialization/shared_ptr.hpp>
 #include <boost/serialization/shared_ptr_132.hpp>
+#include <boost/serialization/access.hpp>
+#include <boost/serialization/base_object.hpp>
+#include <boost/serialization/export.hpp>
 #include "cstandard.h"
-
 #include "klognetprotocol.h"
+
+BOOST_CLASS_EXPORT_GUID(GetKlogServerPortEvent, "GetKlogServerPortEvent")
+BOOST_CLASS_EXPORT_GUID(SendKlogServerPortEvent, "SendKlogServerPortEvent")
+BOOST_CLASS_EXPORT_GUID(KlogSourceInfo, "KlogSourceInfo")
+BOOST_CLASS_EXPORT_GUID(SendKlogConfigEvent, "SendKlogConfigEvent")
+BOOST_CLASS_EXPORT_GUID(GetKlogConfigEvent, "GetKlogConfigEvent")
+BOOST_CLASS_EXPORT_GUID(SendKlogMessageEvent, "SendKlogMessageEvent")
+BOOST_CLASS_EXPORT_GUID(GetKlogMessageEvent, "GetKlogMessageEvent")
 
 namespace boost
 {
@@ -23,6 +33,21 @@ namespace boost
 		{
 			ar & object.event_type;
 		}
+		
+		template<class Archive>
+		void serialize(Archive & ar, GetKlogServerPortEvent & object, const unsigned int version)
+		{
+			ar & object.event_type;
+			ar & object.client_type;
+		}
+
+		template<class Archive>
+		void serialize(Archive & ar, SendKlogServerPortEvent & object, const unsigned int version)
+		{
+			ar & object.event_type;
+			ar & object.sync_message_port;
+			ar & object.async_message_port;
+		}
 
 		template<class Archive>
 		void serialize(Archive & ar, KlogSourceInfo & object, const unsigned int version)
@@ -33,7 +58,7 @@ namespace boost
 		}
 
 		template<class Archive>
-		void serialize(Archive & ar, SendKlogConfig & object, const unsigned int version)
+		void serialize(Archive & ar, SendKlogConfigEvent & object, const unsigned int version)
 		{
 			ar & object.event_type;
 			ar & object.klog_config;
@@ -41,13 +66,13 @@ namespace boost
 		}
 
 		template<class Archive>
-		void serialize(Archive & ar, GetKlogConfig & object, const unsigned int version)
+		void serialize(Archive & ar, GetKlogConfigEvent & object, const unsigned int version)
 		{
 			ar & object.event_type;
 		}
 
 		template<class Archive>
-		void serialize(Archive & ar, SendKlogMessage & object, const unsigned int version)
+		void serialize(Archive & ar, SendKlogMessageEvent & object, const unsigned int version)
 		{
 
 			ar & object.event_type;
@@ -56,7 +81,7 @@ namespace boost
 		}
 
 		template<class Archive>
-		void serialize(Archive & ar, GetKlogMessage & object, const unsigned int version)
+		void serialize(Archive & ar, GetKlogMessageEvent & object, const unsigned int version)
 		{
 			ar & object.event_type;
 			ar & object.source_info;

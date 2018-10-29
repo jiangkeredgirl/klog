@@ -1,6 +1,6 @@
 ﻿#include "klogsink.h"
 #include "cstandard.h"
-
+#include "protocolserialpackage.h"
 
 klogsink::klogsink()
 {
@@ -55,6 +55,7 @@ int klogsink::Connect(const string& ip, int port, bool async)
 				break;
 			}
 		}
+		m_serial_parse = KlogNetProtocolLibrary::instance()->GetProtocolSerial();
 	} while (false);
 	return error_code;
 }
@@ -75,6 +76,7 @@ int klogsink::OnTcpConnect(int status)
 	if (status == 0)
 	{
 		cout << "have connected, status:" << status << endl;
+		GetKlogServerPort();
 	}
 	else
 	{
@@ -118,6 +120,19 @@ int klogsink::OnTcpWrite(const char* data, size_t size, int status)
 	if (data)
 	{
 		cout << "writed data:" << data << endl;
+	}
+	return 0;
+}
+
+int klogsink::GetKlogServerPort()
+{
+	if (m_serial_parse)
+	{
+		GetKlogServerPortEvent get_port_event;
+		get_port_event.client_type = KlogClientType::SINK_ENDPOINT;
+		string serial_event_data;
+		m_serial_parse->Serial(get_port_event, serial_event_data);
+		m_tcp_client->AsyncTcpWrite(serial_event_data.c_str(), serial_event_data.size());
 	}
 	return 0;
 }

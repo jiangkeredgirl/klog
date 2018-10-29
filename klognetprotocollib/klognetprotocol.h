@@ -3,60 +3,97 @@
 #include <string>
 using namespace std;
 
-enum NetEventType
+enum class NetEventType
 {
 	UNKNOWN = 0,
+	GET_KLOG_SERVER_PORT,
+	SEND_KLOG_SERVER_PORT,
 	SEND_KLOG_CONFIG,
 	GET_KLOG_CONFIG,
 	SEND_KLOG_MESSAGE,
 	GET_KLOG_MESSAGE
 };
 
-struct NetEvent
+enum class KlogClientType
 {
+	UNKNOWN = 0,
+	SOURCE_ENDPOINT,
+	SINK_ENDPOINT
+};
+
+class NetEvent
+{
+public:
+	virtual ~NetEvent() {};
 	NetEventType event_type;
 };
 
-struct KlogSourceInfo
+class GetKlogServerPortEvent : public NetEvent
 {
+public:
+	virtual ~GetKlogServerPortEvent() {};
+	KlogClientType client_type;
+};
+
+class SendKlogServerPortEvent : public NetEvent
+{
+public:
+	virtual ~SendKlogServerPortEvent() {};
+	int sync_message_port;
+	int async_message_port;
+};
+
+class KlogSourceInfo
+{
+public:
+	virtual ~KlogSourceInfo() {};
 	string sourece_ip;
 	int    source_port = 0;
 	string source_program_name;
 };
 
-struct SendKlogConfig : public NetEvent
+class SendKlogConfigEvent : public NetEvent
 {
-	KlogSourceInfo source_info;
-	string         klog_config; // 配置文件
-	SendKlogConfig()
+public:
+	SendKlogConfigEvent()
 	{
 		event_type = NetEventType::SEND_KLOG_CONFIG;
 	}
+	virtual ~SendKlogConfigEvent() {};
+	KlogSourceInfo source_info;
+	string         klog_config; // 配置文件
+
 };
 
-struct GetKlogConfig : public NetEvent
+class GetKlogConfigEvent : public NetEvent
 {
-	GetKlogConfig()
+public:
+	GetKlogConfigEvent()
 	{
 		event_type = NetEventType::GET_KLOG_CONFIG;
 	}
+	virtual ~GetKlogConfigEvent() {};
 };
 
-struct SendKlogMessage : public NetEvent
+class SendKlogMessageEvent : public NetEvent
 {
-	KlogSourceInfo source_info;
-	string         klog_message; // klog 日志
-	SendKlogMessage()
+public:
+	SendKlogMessageEvent()
 	{
 		event_type = NetEventType::SEND_KLOG_MESSAGE;
 	}
+	virtual ~SendKlogMessageEvent() {};
+	KlogSourceInfo source_info;
+	string         klog_message; // klog 日志	
 };
 
-struct GetKlogMessage : public NetEvent
+class GetKlogMessageEvent : public NetEvent
 {
-	KlogSourceInfo source_info;
-	GetKlogMessage()
+public:
+	GetKlogMessageEvent()
 	{
 		event_type = NetEventType::GET_KLOG_MESSAGE;
 	}
+	virtual ~GetKlogMessageEvent() {};
+	KlogSourceInfo source_info;
 };

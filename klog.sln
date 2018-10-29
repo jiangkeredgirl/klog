@@ -16,6 +16,7 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "klogclient", "klogclient\klogclient.vcxproj", "{B12702AD-ABFB-343A-A199-8E24837244A3}"
 	ProjectSection(ProjectDependencies) = postProject
 		{9F424024-40CB-4081-B712-E41EB6C819F9} = {9F424024-40CB-4081-B712-E41EB6C819F9}
+		{CA1EF072-0045-483B-AD2D-454258F11C65} = {CA1EF072-0045-483B-AD2D-454258F11C65}
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "klogserver", "klogserver\klogserver.vcxproj", "{625678BB-85EF-46AB-86C0-5A4DE644C1C5}"

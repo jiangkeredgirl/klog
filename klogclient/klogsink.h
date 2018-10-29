@@ -2,6 +2,7 @@
 #include "tcpclienthandler.h"
 #include "TcpPackage.h"
 
+class IProtocolSerial;
 class klogsink : public ITcpClientHandler
 {
 public:
@@ -20,7 +21,11 @@ public:
 	virtual int OnTcpWrite(const char* data, size_t size, int status) override;
 
 private:
+	int GetKlogServerPort();
+
+private:
 	ITcpClient*  m_tcp_client = nullptr;
+	IProtocolSerial* m_serial_parse = nullptr;
 	string m_ip;
 	int m_port = 0;
 };

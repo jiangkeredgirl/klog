@@ -7,12 +7,18 @@ public:
 	virtual ~ProtocolSerial(void);
 
 public:
-	virtual int Serial(const string& serial, SendKlogConfig& object) override;
-	virtual int Serial(const SendKlogConfig& object, string& serial) override;
-	virtual int Serial(const string& serial, GetKlogConfig& object) override;
-	virtual int Serial(const GetKlogConfig& object, string& serial) override;
-	virtual int Serial(const string& serial, SendKlogMessage& object) override;
-	virtual int Serial(const SendKlogMessage& object, string& serial) override;
-	virtual int Serial(const string& serial, GetKlogMessage& object) override;
-	virtual int Serial(const GetKlogMessage& object, string& serial) override;
+	virtual int Serial(const string& serial, NetEvent& object) override;
+	virtual int Serial(const NetEvent& object, string& serial) override;
+	virtual int Serial(const string& serial, GetKlogServerPortEvent& object) override;
+	virtual int Serial(const GetKlogServerPortEvent& object, string& serial) override;
+	virtual int Serial(const string& serial, SendKlogServerPortEvent& object) override;
+	virtual int Serial(const SendKlogServerPortEvent& object, string& serial) override;
+	virtual int Serial(const string& serial, SendKlogConfigEvent& object) override;
+	virtual int Serial(const SendKlogConfigEvent& object, string& serial) override;
+	virtual int Serial(const string& serial, GetKlogConfigEvent& object) override;
+	virtual int Serial(const GetKlogConfigEvent& object, string& serial) override;
+	virtual int Serial(const string& serial, SendKlogMessageEvent& object) override;
+	virtual int Serial(const SendKlogMessageEvent& object, string& serial) override;
+	virtual int Serial(const string& serial, GetKlogMessageEvent& object) override;
+	virtual int Serial(const GetKlogMessageEvent& object, string& serial) override;
 };
