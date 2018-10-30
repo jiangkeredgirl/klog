@@ -18,6 +18,7 @@ namespace kk
 		int SetTraceConfig(const kk::TraceConfig& trace_config, string& jsonContent);
 		int DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_entry);
 		int EncodeTraceEntry(const TraceEntry& trace_entry, string& jsonContent);
+		int EncodeTraceContent(const string& trace_content, string& jsonContent);
 
 	private:
 		int DecodeValue(rapidjson::Value& object, const string& key, int& value);

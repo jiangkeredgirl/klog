@@ -311,6 +311,31 @@ namespace kk
 		return errorCode;
 	}
 
+	int CJsonParser::EncodeTraceContent(const string& trace_content, string& jsonContent)
+	{
+		int errorCode = 1;
+		rapidjson::Document doc;
+		rapidjson::Document::AllocatorType& allocator = doc.GetAllocator();
+		doc.Parse(jsonContent.c_str());
+		if (!doc.IsObject())
+		{
+			doc.SetObject();
+		}
+		if (!trace_content.empty())
+		{
+
+			EncodeValue(doc, allocator, "content", trace_content);
+			rapidjson::StringBuffer buffer;
+			rapidjson::Writer<rapidjson::StringBuffer> writer(buffer); //PrettyWriter是格式化的json，如果是Writer则是换行空格压缩后的json
+			doc.Accept(writer);
+			jsonContent = buffer.GetString();
+			jsonContent.erase(0, 1);
+			jsonContent.erase(jsonContent.size() - 1, 1);
+			errorCode = 0;
+		}
+		return errorCode;
+	}
+
 	int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, int& value)
 	{
 		int error_code = 1;

@@ -4,6 +4,7 @@
 #include "TracePrinterimpl.h"
 #include "config.h"
 #include "GenerateDumpInfo.h"
+#include "rapidjsonparser.h"
 
 namespace kk
 {
@@ -18,7 +19,7 @@ namespace kk
 		output_socket = OUTPUT_SOCKET;
 		file_level = FILE_LEVEL;
 		file_module = FILE_MODULE;
-		file_date = FILE_DATE;		
+		file_date = FILE_DATE;
 		async = TRACE_ASYNC;
 		sync_lock = TRACE_SYNC_LOCK;
 		head = TRACE_HEAD;
@@ -27,7 +28,7 @@ namespace kk
 		head_functime = TRACE_HEAD_FUNCTIME;
 		head_level = TRACE_HEAD_LEVEL;
 		head_label = TRACE_HEAD_LABEL;
-		head_threadid = TRACE_HEAD_THREADID;		
+		head_threadid = TRACE_HEAD_THREADID;
 		head_processname = TRACE_HEAD_PROCESSNAME;
 		head_modulename = TRACE_HEAD_MODULENAME;
 		head_filename = TRACE_HEAD_FILENAME;
@@ -36,22 +37,22 @@ namespace kk
 		head_datetime = TRACE_HEAD_DATETIME;
 		head_runtime = TRACE_HEAD_RUNTIME;
 		head_async = TRACE_HEAD_ASYNC;
-		head_synclock = TRACE_HEAD_SYNCLOCK;		
+		head_synclock = TRACE_HEAD_SYNCLOCK;
 		valid_level = TRACE_VALID_LEVEL;
 		trace_file_size = TRACE_FILE_SIZE;
-		head_label_text = TRACE_LABEL;		
+		head_label_text = TRACE_LABEL;
 		//string program_path = kk::Utility::GetProgramPath();
 		//string program_directory = kk::Utility::GetDirectoryName(program_path);
 		//trace_file_dir = program_directory + ("klogs\\");
 		//trace_file_dir = ".\\klogs\\";
-		level_on_off[TRACE_TRACk]   = static_cast<bool>(TRACE_TRACk);
-		level_on_off[TRACE_ERROR]   = static_cast<bool>(TRACE_ERROR);
+		level_on_off[TRACE_TRACk] = static_cast<bool>(TRACE_TRACk);
+		level_on_off[TRACE_ERROR] = static_cast<bool>(TRACE_ERROR);
 		level_on_off[TRACE_WARNING] = static_cast<bool>(TRACE_WARNING);
-		level_on_off[TRACE_OK]      = static_cast<bool>(TRACE_OK);
-		level_on_off[TRACE_NOTICE]  = static_cast<bool>(TRACE_NOTICE);
-		level_on_off[TRACE_INFO]    = static_cast<bool>(TRACE_INFO);
-		level_on_off[TRACE_DEBUG]   = static_cast<bool>(TRACE_DEBUG);
-		level_on_off[TRACE_TEMP]    = static_cast<bool>(TRACE_TEMP);
+		level_on_off[TRACE_OK] = static_cast<bool>(TRACE_OK);
+		level_on_off[TRACE_NOTICE] = static_cast<bool>(TRACE_NOTICE);
+		level_on_off[TRACE_INFO] = static_cast<bool>(TRACE_INFO);
+		level_on_off[TRACE_DEBUG] = static_cast<bool>(TRACE_DEBUG);
+		level_on_off[TRACE_TEMP] = static_cast<bool>(TRACE_TEMP);
 	}
 
 
@@ -131,7 +132,18 @@ namespace kk
 			}
 			if (!content.empty())
 			{
-				ss << ",\"content\": \"" << content << "\"";
+				string _content(content);
+				if (_content.size() != strlen(_content.c_str()))
+				{
+					_content = "may be binary data by klog provide";
+				}
+#if 0
+				ss << ",\"content\": \"" << _content << "\"";
+#else
+				string json_content;
+				CJsonParser::instance().EncodeTraceContent(_content, json_content);
+				ss << "," << json_content;
+#endif
 			}
 			ss << "}\n\n";
 			trace_text_ = ss.str();
@@ -168,11 +180,11 @@ namespace kk
 		string::size_type pos = process_name_dir.rfind(".exe");
 		if (pos != string::npos)
 		{
-			process_name_dir = process_name_dir.substr(0, process_name_dir.size()-4);
+			process_name_dir = process_name_dir.substr(0, process_name_dir.size() - 4);
 		}
 		process_time_ = kk::Utility::GetLogDateTimeStr();
 		int errorCode = Config::instance().GetTraceConfig(process_name_, trace_config_);
-		if(errorCode)
+		if (errorCode)
 		{
 			Config::instance().SetTraceConfig(process_name_, trace_config_);
 		}
@@ -225,7 +237,7 @@ namespace kk
 			if (trace_entry == nullptr)
 			{
 				break;
-			}			
+			}
 			//if (trace_entry->trace_text().empty())
 			//{
 			//	break;
@@ -323,7 +335,7 @@ namespace kk
 		} while (false);
 		return 0;
 	}
-	
+
 	bool TracePrinterImpl::IsOut(bool is_track, int level)
 	{
 		bool is_out = false;
@@ -509,7 +521,7 @@ namespace kk
 	}
 
 	int TracePrinterImpl::OutToConsole(shared_ptr<TraceEntry> trace_entry)
-	{		
+	{
 		if (default_level_color_.count(trace_entry->level))
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_level_color_[trace_entry->level]);
@@ -632,7 +644,7 @@ namespace kk
 	}
 
 	int TracePrinterImpl::SetConsoleUTF8()
-	{		
+	{
 		SetConsoleOutputCP(CP_UTF8);
 		SetConsoleCP(CP_UTF8);
 		CONSOLE_FONT_INFOEX fontInfo;
