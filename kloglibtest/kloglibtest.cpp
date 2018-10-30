@@ -104,7 +104,10 @@ int _tmain()
 	SetConsoleUTF8;
 	GenerateDump;
 	TrackCout;
-	trace_test(u8"my log content 支持中文");	
+	TraceOKCout << u8"\"支持双引号\"";
+	int nvalue = 29;
+	(TraceOKCout << "支持二进制数据:").write(reinterpret_cast<const char*>(&nvalue), sizeof(nvalue));
+	//trace_test(u8"my log content 支持中文");	
 	//TraceTest1 test1;
 	//TraceTest2 test2;
 	WaitTrace;
