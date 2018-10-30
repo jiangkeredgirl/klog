@@ -124,8 +124,6 @@ void LogFile::ReadThread()
 		{
 			break;
 		}
-		string a_line_record;
-		getline(m_logfile, a_line_record);
 		if (m_logfile.eof())
 		{
 			if (m_thread_display.joinable())
@@ -138,6 +136,8 @@ void LogFile::ReadThread()
 			emit SignalReceiveTrack(nullptr, LogFileStatus::LogFileReadEnd);
 			break;
 		}
+		string a_line_record;
+		getline(m_logfile, a_line_record);
 		one_trace_entry_record += a_line_record;
 		if (!CJsonParser::instance().IsJsonObject(one_trace_entry_record))
 		{
