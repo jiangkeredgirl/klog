@@ -5,18 +5,23 @@
 using namespace std;
 #include "TracePrinter.h"
 
-class Config
+namespace kk
 {
-private:
-    Config();
-public:
-    ~Config(){};
-public:
-    static Config& instance();
 
-public:
-	int GetTraceConfig(const string& proccess_name, kk::TraceConfig& trace_config);
-	int SetTraceConfig(const string& proccess_name, const kk::TraceConfig& trace_config);
-};
+	class Config
+	{
+	private:
+		Config();
+	public:
+		~Config() {};
+	public:
+		static Config& instance();
+
+	public:
+		int GetTraceConfig(const string& proccess_name, kk::TraceConfig& trace_config);
+		int SetTraceConfig(const string& proccess_name, const kk::TraceConfig& trace_config);
+	};
+
+}
 
 #endif // CONFIG_H

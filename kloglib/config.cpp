@@ -3,43 +3,48 @@
 #include "rapidjsonparser.h"
 #define CONFIG_FILE_NAME ("klog.config")
 
-Config::Config()
+namespace kk
 {
-}
 
-Config &Config::instance()
-{
-    static Config _instance;
-    return _instance;
-}
+	Config::Config()
+	{
+	}
 
-int Config::GetTraceConfig(const string& proccess_name, kk::TraceConfig& trace_config)
-{
-	int errorCode = 1;
-	string path = proccess_name + "_" + CONFIG_FILE_NAME;
-	if (!kk::Utility::PathIsExist(path))
+	Config &Config::instance()
 	{
-		path = CONFIG_FILE_NAME;
+		static Config _instance;
+		return _instance;
 	}
-	string configContent;
-	kk::Utility::ReadFile(path, configContent);
-	if(!configContent.empty())
-	{
-		errorCode = CJsonParser::instance().GetTraceConfig(configContent, trace_config);
-	}
-	return errorCode;
-}
 
-int Config::SetTraceConfig(const string& proccess_name, const kk::TraceConfig& trace_config)
-{
-	int errorCode = 1;
-	string path = proccess_name + "_" + CONFIG_FILE_NAME;
-	if (!kk::Utility::PathIsExist(path))
+	int Config::GetTraceConfig(const string& proccess_name, kk::TraceConfig& trace_config)
 	{
-		path = CONFIG_FILE_NAME;
+		int errorCode = 1;
+		string path = proccess_name + "_" + CONFIG_FILE_NAME;
+		if (!kk::Utility::PathIsExist(path))
+		{
+			path = CONFIG_FILE_NAME;
+		}
+		string configContent;
+		kk::Utility::ReadFile(path, configContent);
+		if (!configContent.empty())
+		{
+			errorCode = CJsonParser::instance().GetTraceConfig(configContent, trace_config);
+		}
+		return errorCode;
 	}
-	string configContent;	
-	errorCode = CJsonParser::instance().SetTraceConfig(trace_config, configContent);
-	kk::Utility::WriteFile(path, configContent);
-	return errorCode;
+
+	int Config::SetTraceConfig(const string& proccess_name, const kk::TraceConfig& trace_config)
+	{
+		int errorCode = 1;
+		string path = proccess_name + "_" + CONFIG_FILE_NAME;
+		if (!kk::Utility::PathIsExist(path))
+		{
+			path = CONFIG_FILE_NAME;
+		}
+		string configContent;
+		errorCode = CJsonParser::instance().SetTraceConfig(trace_config, configContent);
+		kk::Utility::WriteFile(path, configContent);
+		return errorCode;
+	}
+
 }
