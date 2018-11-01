@@ -43,7 +43,9 @@ namespace kk
 		bool head_runtime;
 		bool head_async;
 		bool head_synclock;
-		int valid_level;
+		int valid_level;	      // 有效输出等级
+		int valid_console_level;  // 控制台有效输出等级
+		int console_format;       // 默认 0 json模式， 1 print或者cout模式
 		int trace_file_size;
 		string head_label_text;
 		string trace_file_dir;

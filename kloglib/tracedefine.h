@@ -21,13 +21,15 @@
 #define  TRACE_DEBUG           7                     ///< debug out,0 not output
 #define  TRACE_TEMP            8                     ///< temporary out,0 not output
 #define  TRACE_VALID_LEVEL     (TRACE_TEMP+10)      ///< 输出等级，1<= level && level <= TRACE_valid_level的trace全部输出
+#define  TRACE_VALID_CONSOLE_LEVEL     (TRACE_TEMP+10)
+#define  TRACE_CONSOLE_FORMAT  1                    ///< 0 json, 1 cout
 
 // 定义输出目标窗口，包括编译器输出窗口，控制台窗口，文件，tcp网络，com口，分等级，分模块，分日期显示
-#define  OUTPUT_COMPILE      1                     ///< 0 not output to compile output,1 output to compile output
+#define  OUTPUT_COMPILE      0                     ///< 0 not output to compile output,1 output to compile output
 #define  OUTPUT_CONSOLE      1                     ///< 0 not output to console,1 output to sonsole
 #define  OUTPUT_FILE         1                     ///< 0 not output to file, 1 output to file
-#define  OUTPUT_SOCKET       1                     ///< 0 not output to network, 1 output to network
-#define  OUTPUT_COM          1                     ///< 0 not output to com, 1 output to com
+#define  OUTPUT_SOCKET       0                     ///< 0 not output to network, 1 output to network
+#define  OUTPUT_COM          0                     ///< 0 not output to com, 1 output to com
 #define  FILE_LEVEL          0                     ///< 是否分等级显示
 #define  FILE_MODULE         0                     ///< 是否分模块显示
 #define  FILE_DATE           1                     ///< 是否分日期显示

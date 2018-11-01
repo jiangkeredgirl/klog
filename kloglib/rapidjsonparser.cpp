@@ -54,6 +54,8 @@ namespace kk
 			DecodeValue(doc, "head_async", trace_config.head_async);
 			DecodeValue(doc, "head_synclock", trace_config.head_synclock);
 			DecodeValue(doc, "valid_level", trace_config.valid_level);
+			DecodeValue(doc, "valid_console_level", trace_config.valid_console_level);
+			DecodeValue(doc, "console_format", trace_config.console_format);
 			DecodeValue(doc, "trace_file_size", trace_config.trace_file_size);
 			DecodeValue(doc, "head_label_text", trace_config.head_label_text);
 			DecodeValue(doc, "trace_file_dir", trace_config.trace_file_dir);
@@ -140,6 +142,8 @@ namespace kk
 			EncodeValue(doc, allocator, "head_async", trace_config.head_async);
 			EncodeValue(doc, allocator, "head_synclock", trace_config.head_synclock);
 			EncodeValue(doc, allocator, "valid_level", trace_config.valid_level);
+			EncodeValue(doc, allocator, "valid_console_level", trace_config.valid_console_level);
+			EncodeValue(doc, allocator, "console_format", trace_config.console_format);
 			EncodeValue(doc, allocator, "trace_file_size", trace_config.trace_file_size);
 			EncodeValue(doc, allocator, "head_label_text", trace_config.head_label_text);
 			EncodeValue(doc, allocator, "trace_file_dir", trace_config.trace_file_dir);

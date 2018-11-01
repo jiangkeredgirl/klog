@@ -39,6 +39,8 @@ namespace kk
 		head_async = TRACE_HEAD_ASYNC;
 		head_synclock = TRACE_HEAD_SYNCLOCK;
 		valid_level = TRACE_VALID_LEVEL;
+		valid_console_level = TRACE_VALID_CONSOLE_LEVEL;
+		console_format = TRACE_CONSOLE_FORMAT;
 		trace_file_size = TRACE_FILE_SIZE;
 		head_label_text = TRACE_LABEL;
 		//string program_path = kk::Utility::GetProgramPath();
@@ -56,7 +58,7 @@ namespace kk
 	}
 
 
-	const string& TraceEntry::trace_text()
+	const string& TraceEntry::trace_json_text()
 	{
 		do
 		{
@@ -64,7 +66,7 @@ namespace kk
 			{
 				break;
 			}
-			trace_text_ = "";
+			trace_json_text_ = "";
 			stringstream ss;
 			ss << "{";
 			if (is_track || TracePrinterImpl::instance().trace_config().head)
@@ -135,24 +137,73 @@ namespace kk
 				string _content(content);
 				if (_content.size() != strlen(_content.c_str()))
 				{
-					_content = "may be binary data by klog provide";
+					_content = "contain invalid character, string size: " + to_string(_content.size()) + " by klog provide";
 				}
 #if 0
-				ss << ",\"content\": \"" << _content << "\"";
+				ss << ", \"content\":\"" << _content << "\"";
 #else
 				string json_content;
 				CJsonParser::instance().EncodeTraceContent(_content, json_content);
-				ss << "," << json_content;
+				ss << ", " << json_content;
 #endif
 			}
 			ss << "}\n\n";
-			trace_text_ = ss.str();
-			if (trace_text_.size() > 6)
+			trace_json_text_ = ss.str();
+			if (trace_json_text_.size() > 3)
 			{
-				trace_text_.erase(1, 2);
+				trace_json_text_.erase(1, 2);
 			}
 		} while (false);
-		return trace_text_;
+		return trace_json_text_;
+	}
+
+	const string& TraceEntry::trace_console_text()
+	{
+		do
+		{
+			if (is_track)
+			{
+				break;
+			}
+			trace_console_text_ = "";
+			stringstream ss;
+			ss << "[";
+			if (TracePrinterImpl::instance().trace_config().head)
+			{
+				if (TracePrinterImpl::instance().trace_config().head_level)
+				{
+					ss << ", " << TracePrinterImpl::instance().LevelToStr(level);
+				}
+				if (TracePrinterImpl::instance().trace_config().head_threadid)
+				{
+					ss << ", " << threadid;
+				}
+				if (TracePrinterImpl::instance().trace_config().head_filename)
+				{
+					ss << ", " << filename;
+				}
+				if (TracePrinterImpl::instance().trace_config().head_funcname)
+				{
+					ss << ", " << funcname;
+				}
+				if (TracePrinterImpl::instance().trace_config().head_line)
+				{
+					ss << ", #" << line;
+				}
+			}
+			ss << "]";
+			if (!content.empty())
+			{
+				ss << content;
+			}
+			ss << "\n";
+			trace_console_text_ = ss.str();
+			if (trace_console_text_.size() > 3)
+			{
+				trace_console_text_.erase(1, 2);
+			}
+		} while (false);
+		return trace_console_text_;
 	}
 
 	TracePrinterImpl::TracePrinterImpl(void)
@@ -490,7 +541,7 @@ namespace kk
 			{
 				OutToCompile(trace_entry);
 			}
-			if (trace_config().output_console)
+			if (trace_config().output_console && trace_entry->level <= trace_config().valid_console_level)
 			{
 				OutToConsole(trace_entry);
 			}
@@ -516,7 +567,7 @@ namespace kk
 
 	int TracePrinterImpl::OutToCompile(shared_ptr<TraceEntry> trace_entry)
 	{
-		OutputDebugStringA(trace_entry->trace_text().c_str());
+		OutputDebugStringA(trace_entry->trace_json_text().c_str());
 		return 0;
 	}
 
@@ -526,7 +577,17 @@ namespace kk
 		{
 			SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), default_level_color_[trace_entry->level]);
 		}
-		fprintf(stdout, ("%s"), trace_entry->trace_text().c_str());
+		if (trace_config().console_format == 0)
+		{
+			fputs(trace_entry->trace_json_text().c_str(), stdout);
+		}
+		else
+		{
+			if (!trace_entry->trace_console_text().empty())
+			{
+				fwrite(trace_entry->trace_console_text().c_str(), 1, trace_entry->trace_console_text().size(), stdout);
+			}
+		}
 		if (default_level_color_.count(trace_entry->level))
 		{
 			int defult_color = FOREGROUND_RED | FOREGROUND_GREEN | FOREGROUND_BLUE;
@@ -551,7 +612,7 @@ namespace kk
 					break;
 				}
 			}
-			const string& trace_entry_text = trace_entry->trace_text();
+			const string& trace_entry_text = trace_entry->trace_json_text();
 
 			// 整个进程所有模块的所有等级log输出
 			string trace_file_name = trace_file_dir

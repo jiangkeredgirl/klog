@@ -28,9 +28,11 @@ namespace kk
 		bool     async = false;                ///< 是否为异步log
 		bool     synclock = false;             ///< 同步模式下是否加锁
 		string   content;                      ///< log内容
-		const    string& trace_text();
+		const    string& trace_json_text();
+		const    string& trace_console_text();
 	private:
-		string trace_text_;
+		string trace_json_text_;
+		string trace_console_text_;
 	};
 
 	class TracePrinterImpl : public TracePrinter
