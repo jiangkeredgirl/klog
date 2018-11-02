@@ -85,7 +85,7 @@ namespace kk
 		thread                trace_thread_;
 		bool                  trace_thread_kill_;
 		list<shared_ptr<TraceEntry>>     traces_list_;
-		//mutex                 trace_list_mutex_;
+		mutex                 trace_list_mutex_;
 		mutex                 trace_sync_mutex_;
 		string                process_name_;
 		string                process_time_;

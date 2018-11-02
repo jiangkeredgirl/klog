@@ -363,13 +363,18 @@ namespace kk
 			//}
 			if (trace_config().async && trace_thread_.joinable())
 			{
-				if (traces_list_.size() < TRACE_LIST_SIZE)
+				if (traces_list_.size() > TRACE_LIST_SIZE)
 				{
-					//lock_guard<mutex> trace_list_lock(trace_list_mutex_);
-					traces_list_.push_back(trace_entry);
-					//unique_lock<mutex> trace_lock(trace_mutex_);
-					trace_condition_.notify_one();
+					lock_guard<mutex> trace_list_lock(trace_list_mutex_);
+					traces_list_.clear();
+					trace_entry->content = "traces_list_.size() > " + to_string(TRACE_LIST_SIZE) + " ,so clear list by klog provide";
 				}
+				{
+					lock_guard<mutex> trace_list_lock(trace_list_mutex_);
+					traces_list_.push_back(trace_entry);
+				}
+				//unique_lock<mutex> trace_lock(trace_mutex_);
+				trace_condition_.notify_one();
 			}
 			else
 			{
@@ -521,9 +526,12 @@ namespace kk
 			trace_condition_.wait(trace_lock);
 			while (!traces_list_.empty())
 			{
-				//lock_guard<mutex> trace_list_lock(trace_list_mutex_);
-				shared_ptr<TraceEntry> trace_entry = traces_list_.front();
-				traces_list_.pop_front();
+				shared_ptr<TraceEntry> trace_entry = nullptr;
+				{
+					lock_guard<mutex> trace_list_lock(trace_list_mutex_);
+					trace_entry = traces_list_.front();
+					traces_list_.pop_front();
+				}
 				OutTrace(trace_entry);
 			}
 			if (trace_thread_kill_)
