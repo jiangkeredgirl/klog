@@ -545,10 +545,6 @@ namespace kk
 	{
 		if (trace_config().trace_out)
 		{
-			if (trace_config().output_compile)
-			{
-				OutToCompile(trace_entry);
-			}
 			if (trace_config().output_console && trace_entry->level <= trace_config().valid_console_level)
 			{
 				OutToConsole(trace_entry);
@@ -560,6 +556,10 @@ namespace kk
 			if (trace_config().output_socket)
 			{
 				OutToSocket(trace_entry);
+			}
+			if (trace_config().output_compile)
+			{
+				OutToCompile(trace_entry);
 			}
 			if (trace_config().output_com)
 			{
