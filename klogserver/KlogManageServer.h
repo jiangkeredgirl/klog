@@ -5,6 +5,8 @@
 
 class ITcpServer;
 class IProtocolSerial;
+class NetEvent;
+
 class KlogManageServer : public ITcpServerHandler
 {
 public:
@@ -23,13 +25,16 @@ public:
 	virtual int  OnTcpDisconnect(shared_ptr<ITcpConnect> connect, int status) override;
 
 private:
-	int HandleKlogManageEvent(const NetEvent& net_event, const string& serial_event_data);
-	int HandleKlogManageEvent(const NetEvent* net_event);
+	int HandleKlogManageEvent(const NetEvent& net_event, const string& serial_event_data, shared_ptr<ITcpConnect> connect);
+	int HandleKlogManageEvent(const NetEvent& net_event, shared_ptr<ITcpConnect> connect);
+
+private:
+	int SendEvent(NetEvent& event, shared_ptr<ITcpConnect> connect);
 
 private:
 	ITcpServer* m_TcpServer = nullptr;
 	IProtocolSerial* m_serial_parse = nullptr;
-	list<shared_ptr<ITcpConnect> /*connect*/> source_connects;
-	list<shared_ptr<ITcpConnect> /*connect*/> sinck_connects;
+	list<shared_ptr<ITcpConnect> /*connect*/> m_source_connects;
+	list<shared_ptr<ITcpConnect> /*connect*/> m_sinck_connects;
 };
 

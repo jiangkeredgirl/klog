@@ -2,7 +2,6 @@
 #include "cstandard.h"
 #include "KlogManageServer.h"
 
-#define KLOG_SERVER_PORT 2012
 
 TcpServerCenter::TcpServerCenter()
 {

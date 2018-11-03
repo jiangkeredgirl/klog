@@ -3,6 +3,8 @@
 #include "TcpPackage.h"
 
 class IProtocolSerial;
+class NetEvent;
+
 class klogsink : public ITcpClientHandler
 {
 public:
@@ -21,12 +23,21 @@ public:
 	virtual int OnTcpWrite(const char* data, size_t size, int status) override;
 
 private:
+	int HandleKlogManageEvent(const NetEvent& net_event, const string& serial_event_data);
+	int HandleKlogManageEvent(const NetEvent& net_event);
+
+private:
 	int GetKlogServerPort();
+
+private:
+	int SendEvent(NetEvent& event);
 
 private:
 	ITcpClient*  m_tcp_client = nullptr;
 	IProtocolSerial* m_serial_parse = nullptr;
 	string m_ip;
 	int m_port = 0;
+	int m_sync_message_port = 0;
+	int m_async_message_port = 0;
 };
 
