@@ -31,6 +31,10 @@ public:
 class GetKlogServerPortEvent : public NetEvent
 {
 public:
+	GetKlogServerPortEvent()
+	{
+		event_type = NetEventType::GET_KLOG_SERVER_PORT;
+	}
 	virtual ~GetKlogServerPortEvent() {};
 	KlogClientType client_type;
 };
@@ -38,6 +42,10 @@ public:
 class SendKlogServerPortEvent : public NetEvent
 {
 public:
+	SendKlogServerPortEvent()
+	{
+		event_type = NetEventType::SEND_KLOG_SERVER_PORT;
+	}
 	virtual ~SendKlogServerPortEvent() {};
 	int sync_message_port;
 	int async_message_port;

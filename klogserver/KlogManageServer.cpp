@@ -64,13 +64,13 @@ int KlogManageServer::OnTcpRead(shared_ptr<ITcpConnect> connect, const char* dat
 {
 	if (data)
 	{
-		cout << "readed data:" << data << endl;		
+		cout << "readed data:" << data << endl;
 		if (m_serial_parse)
 		{
 			string serial_event_data(data, size);
 			NetEvent event;
 			m_serial_parse->Serial(serial_event_data, event);
-			HandleKlogManageEvent(event, serial_event_data, connect);
+			ParseKlogManageEvent(event, serial_event_data, connect);
 		}
 	}
 	return 0;
@@ -123,7 +123,7 @@ int KlogManageServer::OnTcpDisconnect(shared_ptr<ITcpConnect> connect, int statu
 	return 0;
 }
 
-int KlogManageServer::HandleKlogManageEvent(const NetEvent& net_event, const string& serial_event_data, shared_ptr<ITcpConnect> connect)
+int KlogManageServer::ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data, shared_ptr<ITcpConnect> connect)
 {
 	switch (net_event.event_type)
 	{
@@ -161,7 +161,9 @@ int KlogManageServer::HandleKlogManageEvent(const NetEvent& net_event, shared_pt
 		SendKlogServerPortEvent send_event;
 		send_event.sync_message_port = KLOG_SYNC_MESSAGE_PORT;
 		send_event.async_message_port = KLOG_ASYNC_MESSAGE_PORT;
-		SendEvent(send_event, connect);
+		string serial_event_data;
+		m_serial_parse->Serial(send_event, serial_event_data);
+		SendEvent(serial_event_data, connect);
 		break;
 	}
 	default:
@@ -170,10 +172,8 @@ int KlogManageServer::HandleKlogManageEvent(const NetEvent& net_event, shared_pt
 	return 0;
 }
 
-int KlogManageServer::SendEvent(NetEvent& event, shared_ptr<ITcpConnect> connect)
+int KlogManageServer::SendEvent(const string& serial_event_data, shared_ptr<ITcpConnect> connect)
 {
-	string serial_event_data;
-	m_serial_parse->Serial(event, serial_event_data);
 	connect->AsyncWrite(serial_event_data.c_str(), serial_event_data.size());
 	return 0;
 }

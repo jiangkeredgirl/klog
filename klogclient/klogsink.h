@@ -30,7 +30,7 @@ private:
 	int GetKlogServerPort();
 
 private:
-	int SendEvent(NetEvent& event);
+	int SendEvent(const string& serial_event_data);
 
 private:
 	ITcpClient*  m_tcp_client = nullptr;

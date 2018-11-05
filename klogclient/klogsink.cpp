@@ -174,15 +174,15 @@ int klogsink::GetKlogServerPort()
 	{
 		GetKlogServerPortEvent get_port_event;
 		get_port_event.client_type = KlogClientType::SINK_ENDPOINT;
-		SendEvent(get_port_event);
+		string serial_event_data;
+		m_serial_parse->Serial(get_port_event, serial_event_data);
+		SendEvent(serial_event_data);
 	}
 	return 0;
 }
 
-int klogsink::SendEvent(NetEvent& event)
+int klogsink::SendEvent(const string& serial_event_data)
 {
-	string serial_event_data;
-	m_serial_parse->Serial(event, serial_event_data);
 	m_tcp_client->AsyncTcpWrite(serial_event_data.c_str(), serial_event_data.size());
 	return 0;
 }

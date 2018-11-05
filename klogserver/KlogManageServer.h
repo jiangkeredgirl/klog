@@ -25,11 +25,11 @@ public:
 	virtual int  OnTcpDisconnect(shared_ptr<ITcpConnect> connect, int status) override;
 
 private:
-	int HandleKlogManageEvent(const NetEvent& net_event, const string& serial_event_data, shared_ptr<ITcpConnect> connect);
+	int ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data, shared_ptr<ITcpConnect> connect);
 	int HandleKlogManageEvent(const NetEvent& net_event, shared_ptr<ITcpConnect> connect);
 
 private:
-	int SendEvent(NetEvent& event, shared_ptr<ITcpConnect> connect);
+	int SendEvent(const string& serial_event_data, shared_ptr<ITcpConnect> connect);
 
 private:
 	ITcpServer* m_TcpServer = nullptr;
