@@ -23,7 +23,7 @@ public:
 	virtual int OnTcpWrite(const char* data, size_t size, int status) override;
 
 private:
-	int HandleKlogManageEvent(const NetEvent& net_event, const string& serial_event_data);
+	int ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data);
 	int HandleKlogManageEvent(const NetEvent& net_event);
 
 private:

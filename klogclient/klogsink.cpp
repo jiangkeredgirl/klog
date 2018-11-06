@@ -116,7 +116,7 @@ int klogsink::OnTcpRead(const char* data, size_t size, int status)
 			string serial_event_data(data, size);
 			NetEvent event;
 			m_serial_parse->Serial(serial_event_data, event);
-			HandleKlogManageEvent(event, serial_event_data);
+			ParseKlogManageEvent(event, serial_event_data);
 		}
 	}
 	return 0;
@@ -131,7 +131,7 @@ int klogsink::OnTcpWrite(const char* data, size_t size, int status)
 	return 0;
 }
 
-int klogsink::HandleKlogManageEvent(const NetEvent& net_event, const string& serial_event_data)
+int klogsink::ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data)
 {
 	switch (net_event.event_type)
 	{
