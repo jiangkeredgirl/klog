@@ -186,18 +186,18 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="KlogAsyncMessageServer.h" />
     <ClInclude Include="KlogManageServer.h" />
-    <ClInclude Include="KlogMessageServer.h" />
+    <ClInclude Include="KlogSyncMessageServer.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="TcpServerCenter.h" />
-    <ClInclude Include="TcpServerHandlerCenter.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="KlogAsyncMessageServer.cpp" />
     <ClCompile Include="KlogManageServer.cpp" />
-    <ClCompile Include="KlogMessageServer.cpp" />
     <ClCompile Include="klogserver.cpp" />
+    <ClCompile Include="KlogSyncMessageServer.cpp" />
     <ClCompile Include="TcpServerCenter.cpp" />
-    <ClCompile Include="TcpServerHandlerCenter.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -24,13 +24,13 @@
     <ClInclude Include="TcpServerCenter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="TcpServerHandlerCenter.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="KlogManageServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KlogMessageServer.h">
+    <ClInclude Include="KlogAsyncMessageServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KlogSyncMessageServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -41,13 +41,13 @@
     <ClCompile Include="TcpServerCenter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="TcpServerHandlerCenter.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="KlogManageServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="KlogMessageServer.cpp">
+    <ClCompile Include="KlogAsyncMessageServer.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="KlogSyncMessageServer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
