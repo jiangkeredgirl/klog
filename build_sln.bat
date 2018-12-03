@@ -8,4 +8,4 @@ MSBuild %sln_name%.sln /t:rebuild /p:platform=x86 /p:configuration=debug   /p:Pl
 MSBuild %sln_name%.sln /t:rebuild /p:platform=x86 /p:Configuration=release /p:PlatformToolset=v%platform_version%
 MSBuild %sln_name%.sln /t:rebuild /p:platform=x64 /p:configuration=debug   /p:PlatformToolset=v%platform_version%
 MSBuild %sln_name%.sln /t:rebuild /p:platform=x64 /p:Configuration=release /p:PlatformToolset=v%platform_version%
-pause
+rem pause 影响每天的自动编译
