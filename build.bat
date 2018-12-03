@@ -12,7 +12,7 @@ echo f|xcopy /y /s /i /f .\klogclient\OutKlogClientBin\*                 .\OutBi
 set out_path=%1
 if "%out_path%"=="" ( echo out_path is null) else (
 echo out_path is "%out_path%
-echo f|xcopy /e /y  .\OutBinOfSln\*  %out_path%
+echo f|xcopy /e /y  .\OutBinOfSln\*  %out_path%\
 )
 
 rem pause effect daily build
