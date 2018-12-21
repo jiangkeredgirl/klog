@@ -187,16 +187,12 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="config.h" />
     <ClInclude Include="GenerateDumpInfo.h" />
     <ClInclude Include="klogcustomsetting.h" />
     <ClInclude Include="kloglib.h" />
     <ClInclude Include="klogsource.h" />
     <ClInclude Include="rapidjsonparser.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="tracedefine.h" />
     <ClInclude Include="traceloader.h" />
     <ClInclude Include="traceloaderimpl.h" />

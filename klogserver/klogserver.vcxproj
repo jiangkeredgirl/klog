@@ -183,13 +183,9 @@
     </PreBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="KlogAsyncMessageServer.h" />
     <ClInclude Include="KlogManageServer.h" />
     <ClInclude Include="KlogSyncMessageServer.h" />
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="TcpServerCenter.h" />
   </ItemGroup>
   <ItemGroup>

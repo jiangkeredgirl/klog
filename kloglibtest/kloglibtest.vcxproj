@@ -195,10 +195,6 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="targetver.h" />
     <ClInclude Include="TraceTest1.h" />
     <ClInclude Include="TraceTest2.h" />
   </ItemGroup>

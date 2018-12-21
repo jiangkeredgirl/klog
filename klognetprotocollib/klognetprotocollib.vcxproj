@@ -179,15 +179,11 @@
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <Text Include="ReadMe.txt" />
-  </ItemGroup>
-  <ItemGroup>
     <ClInclude Include="klognetprotocol.h" />
     <ClInclude Include="klognetprotocolarchive.h" />
     <ClInclude Include="protocolserial.h" />
     <ClInclude Include="protocolserialimpl.h" />
     <ClInclude Include="protocolserialpackage.h" />
-    <ClInclude Include="targetver.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="protocolserialimpl.cpp" />
