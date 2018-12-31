@@ -23,7 +23,6 @@ namespace kk
 		file_module = FILE_MODULE;
 		file_date = FILE_DATE;
 		async = TRACE_ASYNC;
-		sync_lock = TRACE_SYNC_LOCK;
 		head = TRACE_HEAD;
 		head_index = TRACE_HEAD_INDEX;
 		head_functrack = TRACE_HEAD_FUNCTRACK;
@@ -39,7 +38,6 @@ namespace kk
 		head_datetime = TRACE_HEAD_DATETIME;
 		head_runtime = TRACE_HEAD_RUNTIME;
 		head_async = TRACE_HEAD_ASYNC;
-		head_synclock = TRACE_HEAD_SYNCLOCK;
 		valid_level = TRACE_VALID_LEVEL;
 		valid_console_level = TRACE_VALID_CONSOLE_LEVEL;
 		console_format = TRACE_CONSOLE_FORMAT;
@@ -128,10 +126,6 @@ namespace kk
 				if (TracePrinterImpl::instance().trace_config().head_async)
 				{
 					ss << ", \"async\":" << (async ? "true" : "false");
-				}
-				if (TracePrinterImpl::instance().trace_config().head_synclock)
-				{
-					ss << ", \"synclock\":" << (synclock ? "true" : "false");
 				}
 			}
 			if (!content.empty())
@@ -318,7 +312,7 @@ namespace kk
 					break;
 				}
 				static atomic<__int64> log_index(0);
-				trace_entry->index = log_index++;
+				trace_entry->index = ++log_index;
 				trace_entry->is_track = is_track;
 				trace_entry->level = level;
 				trace_entry->label = label;
@@ -337,8 +331,6 @@ namespace kk
 				trace_entry->funcname = func_name;
 				trace_entry->line = line;
 				trace_entry->async = trace_config().async;
-				trace_entry->synclock = trace_config().sync_lock;
-
 			} while (false);
 			do
 			{
@@ -381,15 +373,8 @@ namespace kk
 			}
 			else
 			{
-				if (trace_config().sync_lock)
-				{
-					lock_guard<mutex> trace_out_lock(trace_sync_mutex_);
-					OutTrace(trace_entry);
-				}
-				else
-				{
-					OutTrace(trace_entry);
-				}
+				lock_guard<mutex> trace_out_lock(trace_sync_mutex_);
+				OutTrace(trace_entry);
 			}
 		} while (false);
 		return 0;

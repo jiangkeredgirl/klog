@@ -9,7 +9,6 @@
 
 // 是否使用线程输出trace
 #define  TRACE_ASYNC           0                     ///< 0 not output log, 1 output log
-#define  TRACE_SYNC_LOCK       1                     ///< 0 no use lock, 1 use lock when sync model
 
 // 预定义8种trace等级，数字越大输出等级越低
 #define  TRACE_TRACk           1                     ///< track out,0 not output

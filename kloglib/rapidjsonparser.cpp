@@ -36,7 +36,6 @@ namespace kk
 			DecodeValue(doc, "file_module", trace_config.file_module);
 			DecodeValue(doc, "file_date", trace_config.file_date);
 			DecodeValue(doc, "async", trace_config.async);
-			DecodeValue(doc, "sync_lock", trace_config.sync_lock);
 			DecodeValue(doc, "head", trace_config.head);
 			DecodeValue(doc, "head_index", trace_config.head_index);
 			DecodeValue(doc, "head_functrack", trace_config.head_functrack);
@@ -52,7 +51,6 @@ namespace kk
 			DecodeValue(doc, "head_datetime", trace_config.head_datetime);
 			DecodeValue(doc, "head_runtime", trace_config.head_runtime);
 			DecodeValue(doc, "head_async", trace_config.head_async);
-			DecodeValue(doc, "head_synclock", trace_config.head_synclock);
 			DecodeValue(doc, "valid_level", trace_config.valid_level);
 			DecodeValue(doc, "valid_console_level", trace_config.valid_console_level);
 			DecodeValue(doc, "console_format", trace_config.console_format);
@@ -124,7 +122,6 @@ namespace kk
 			EncodeValue(doc, allocator, "file_module", trace_config.file_module);
 			EncodeValue(doc, allocator, "file_date", trace_config.file_date);
 			EncodeValue(doc, allocator, "async", trace_config.async);
-			EncodeValue(doc, allocator, "sync_lock", trace_config.sync_lock);
 			EncodeValue(doc, allocator, "head", trace_config.head);
 			EncodeValue(doc, allocator, "head_index", trace_config.head_index);
 			EncodeValue(doc, allocator, "head_functrack", trace_config.head_functrack);
@@ -140,7 +137,6 @@ namespace kk
 			EncodeValue(doc, allocator, "head_datetime", trace_config.head_datetime);
 			EncodeValue(doc, allocator, "head_runtime", trace_config.head_runtime);
 			EncodeValue(doc, allocator, "head_async", trace_config.head_async);
-			EncodeValue(doc, allocator, "head_synclock", trace_config.head_synclock);
 			EncodeValue(doc, allocator, "valid_level", trace_config.valid_level);
 			EncodeValue(doc, allocator, "valid_console_level", trace_config.valid_console_level);
 			EncodeValue(doc, allocator, "console_format", trace_config.console_format);
@@ -295,10 +291,6 @@ namespace kk
 				if (TracePrinterImpl::instance().trace_config().head_async)
 				{
 					EncodeValue(doc, allocator, "async", trace_entry.async);
-				}
-				if (TracePrinterImpl::instance().trace_config().head_synclock)
-				{
-					EncodeValue(doc, allocator, "synclock", trace_entry.synclock);
 				}
 			}
 			if (!trace_entry.content.empty())

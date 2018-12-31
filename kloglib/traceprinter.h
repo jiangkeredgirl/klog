@@ -26,7 +26,6 @@ namespace kk
 		bool file_module; ///< 是否分模块显示
 		bool file_date;   ///< 是否分日期显示
 		bool async;
-		bool sync_lock;
 		bool head;
 		bool head_index;
 		bool head_functrack;
@@ -42,7 +41,6 @@ namespace kk
 		bool head_datetime;
 		bool head_runtime;
 		bool head_async;
-		bool head_synclock;
 		int valid_level;	      // 有效输出等级
 		int valid_console_level;  // 控制台有效输出等级
 		int console_format;       // 默认 0 json模式， 1 print或者cout模式
