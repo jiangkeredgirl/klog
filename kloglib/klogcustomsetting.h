@@ -1,4 +1,4 @@
-﻿#pragma once
+﻿#pragma once 
 
 
 // 是否生成trace 函数
@@ -18,34 +18,33 @@
 #define TRACE_TEMP            8                     ///< temporary out,0 not output
 
 // log 标签
-#define TRACE_LABEL          ("Log'sOwner")           ///< my output label
+#define TRACE_LABEL          ("kk")                 ///< my output label
 
 // 定义一些常用的trace宏
 // c风格char类型 编译期可以去掉trace代码
-#define TraceError(log_format, ...)          Trace(TRACE_ERROR,          log_format, ##__VA_ARGS__)
-#define TraceWarning(log_format, ...)        Trace(TRACE_WARNING,        log_format, ##__VA_ARGS__)
-#define TraceOK(log_format, ...)             Trace(TRACE_OK,             log_format, ##__VA_ARGS__)
-#define TraceNotice(log_format, ...)         Trace(TRACE_NOTICE,         log_format, ##__VA_ARGS__)
-#define TraceInfo(log_format, ...)           Trace(TRACE_INFO,           log_format, ##__VA_ARGS__)
-#define TraceDebug(log_format, ...)          Trace(TRACE_DEBUG,          log_format, ##__VA_ARGS__)
-#define TraceTemp(log_format, ...)           Trace(TRACE_TEMP,           log_format, ##__VA_ARGS__)
+#define KlogError(log_format, ...)          Trace(TRACE_ERROR,          log_format, ##__VA_ARGS__)
+#define KlogWarn(log_format, ...)           Trace(TRACE_WARNING,        log_format, ##__VA_ARGS__)
+#define KlogOK(log_format, ...)             Trace(TRACE_OK,             log_format, ##__VA_ARGS__)
+#define KlogNotice(log_format, ...)         Trace(TRACE_NOTICE,         log_format, ##__VA_ARGS__)
+#define KlogInfo(log_format, ...)           Trace(TRACE_INFO,           log_format, ##__VA_ARGS__)
+#define KlogDebug(log_format, ...)          Trace(TRACE_DEBUG,          log_format, ##__VA_ARGS__)
+#define KlogTemp(log_format, ...)           Trace(TRACE_TEMP,           log_format, ##__VA_ARGS__)
 
 // c++风格char类型 编译期不可以去掉trace代码
-#define TraceErrorCout                       TraceCout(TRACE_ERROR     )
-#define TraceWarningCout                     TraceCout(TRACE_WARNING   )
-#define TraceOKCout                          TraceCout(TRACE_OK        )
-#define TraceNoticeCout                      TraceCout(TRACE_NOTICE    )
-#define TraceInfoCout                        TraceCout(TRACE_INFO      )
-#define TraceDebugCout                       TraceCout(TRACE_DEBUG     )
-#define TraceTempCout                        TraceCout(TRACE_TEMP      )
+#define KlogErrorS                          TraceCout(TRACE_ERROR     )
+#define KlogWarnS                           TraceCout(TRACE_WARNING   )
+#define KlogOKS                             TraceCout(TRACE_OK        )
+#define KlogNoticeS                         TraceCout(TRACE_NOTICE    )
+#define KlogInfoS                           TraceCout(TRACE_INFO      )
+#define KlogDebugS                          TraceCout(TRACE_DEBUG     )
+#define KlogTempS                           TraceCout(TRACE_TEMP      )
 
 //c 风格char类型 函数进入退出trace
-#define Track(log_format, ...)               TraceTrack(TRACE_TRACk,  log_format, ##__VA_ARGS__)
-
+#define KlogTrack(log_format, ...)          TraceTrack(TRACE_TRACk,  log_format, ##__VA_ARGS__)
 //c++ 风格char类型 函数进入退出trace
-#define TrackCout                            TraceTrackCout(TRACE_TRACk)
+#define KlogTrackS                          TraceTrackCout(TRACE_TRACk)
 
-#define WaitTrace                            WaitAsyncTraceEnd
-#define CreateConsole                        CreateKlogConsole
-#define GenerateDump                         GenerateDumpInfo
-#define SetConsoleUTF8                       SetKlogConsoleUTF8
+#define KlogWaitAsyncEnd                    TraceWaitAsyncEnd
+#define KlogCreateStdout                    TraceCreateStdout
+#define KlogSetStdoutUTF8                   TraceSetStdoutUTF8
+#define KlogGenerateDump                    TraceGenerateDump

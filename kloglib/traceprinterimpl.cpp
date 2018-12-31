@@ -5,6 +5,8 @@
 #include "config.h"
 #include "GenerateDumpInfo.h"
 #include "rapidjsonparser.h"
+#include "tracemacr.h"
+
 
 namespace kk
 {
@@ -241,6 +243,7 @@ namespace kk
 		}
 		trace_config_.trace_file_dir = ".\\klogs\\" + process_name_dir + "\\";
 		InitTrace();
+		//TraceOutLog(false, TRACE_OK, TRACE_LABEL, GetModuleName(), GetFileName(__FILE__), __FUNCTION__, __LINE__, "Welcome using klog");
 	}
 
 	TracePrinterImpl::~TracePrinterImpl(void)

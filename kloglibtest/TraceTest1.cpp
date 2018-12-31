@@ -4,11 +4,11 @@
 
 TraceTest1::TraceTest1()
 {
-	TrackCout;
+	//TrackCout;
 }
 
 
 TraceTest1::~TraceTest1()
 {
-	TrackCout;
+	//TrackCout;
 }
