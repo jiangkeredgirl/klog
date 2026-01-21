@@ -1,4 +1,5 @@
-﻿#include "logfile.h"
+﻿#include "stdafx.h"
+#include "logfile.h"
 #include "kutility.h"
 #include "rapidjsonparser.h"
 

@@ -1,4 +1,5 @@
-﻿#include "klogsink.h"
+﻿#include "stdafx.h"
+#include "klogsink.h"
 #include "cstandard.h"
 #include "protocolserialpackage.h"
 
