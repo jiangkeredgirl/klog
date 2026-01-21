@@ -31,18 +31,18 @@
 #define KlogTemp(log_format, ...)           Trace(TRACE_TEMP,           log_format, ##__VA_ARGS__)
 
 // c++风格char类型 编译期不可以去掉trace代码
-#define KlogErrorS                          TraceCout(TRACE_ERROR     )
-#define KlogWarnS                           TraceCout(TRACE_WARNING   )
-#define KlogOKS                             TraceCout(TRACE_OK        )
-#define KlogNoticeS                         TraceCout(TRACE_NOTICE    )
-#define KlogInfoS                           TraceCout(TRACE_INFO      )
-#define KlogDebugS                          TraceCout(TRACE_DEBUG     )
-#define KlogTempS                           TraceCout(TRACE_TEMP      )
+#define KlogErrorCout                       TraceCout(TRACE_ERROR     )
+#define KlogWarnCout                        TraceCout(TRACE_WARNING   )
+#define KlogOKCout                          TraceCout(TRACE_OK        )
+#define KlogNoticeCout                      TraceCout(TRACE_NOTICE    )
+#define KlogInfoCout                        TraceCout(TRACE_INFO      )
+#define KlogDebugCout                       TraceCout(TRACE_DEBUG     )
+#define KlogTempCout                        TraceCout(TRACE_TEMP      )
 
 //c 风格char类型 函数进入退出trace
 #define KlogTrack(log_format, ...)          TraceTrack(TRACE_TRACk,  log_format, ##__VA_ARGS__)
 //c++ 风格char类型 函数进入退出trace
-#define KlogTrackS                          TraceTrackCout(TRACE_TRACk)
+#define KlogTrackCout                       TraceTrackCout(TRACE_TRACk)
 
 #define KlogWaitAsyncEnd                    TraceWaitAsyncEnd
 #define KlogCreateStdout                    TraceCreateStdout

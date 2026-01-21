@@ -31,15 +31,15 @@ int trace_test(const string& log_content)
 	KlogTemp("%s", log_content.c_str()); //c风格 temp级别
 	Trace(TRACE_INFO, "%s", log_content.c_str());
 
-	KlogOKS << "\n\nc+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++trace\n\n";
+	KlogOKCout << "\n\nc+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++trace\n\n";
 
-	KlogErrorS << log_content;//c++风格，编译器代码不能去掉
-	KlogWarnS << log_content;
-	KlogOKS << log_content; // tchar类型
-	KlogNoticeS << log_content;
-	KlogInfoS << log_content;
-	KlogDebugS << log_content;
-	KlogTempS << log_content;
+	KlogErrorCout << log_content;//c++风格，编译器代码不能去掉
+	KlogWarnCout << log_content;
+	KlogOKCout << log_content; // tchar类型
+	KlogNoticeCout << log_content;
+	KlogInfoCout << log_content;
+	KlogDebugCout << log_content;
+	KlogTempCout << log_content;
 	TraceCout(MYDEFINE_LEVEL) << log_content;
 
 	printf("printf=================================\n");
@@ -101,10 +101,10 @@ int _tmain()
 	//CreateConsole;
 	//SetConsoleUTF8;
 	//GenerateDump;
-	KlogTrackS;
-	KlogOKS << u8"\"支持双引号\"";
+	KlogTrackCout;
+	KlogOKCout << u8"\"支持双引号\"";
 	int nvalue = 29;
-	(KlogOKS << "支持二进制数据:").write(reinterpret_cast<const char*>(&nvalue), sizeof(nvalue));
+	(KlogOKCout << "支持二进制数据:").write(reinterpret_cast<const char*>(&nvalue), sizeof(nvalue));
 	//trace_test(u8"my log content 支持中文");	
 	//TraceTest1 test1;
 	//TraceTest2 test2;
