@@ -1,4 +1,5 @@
-﻿#include "loglevelbar.h"
+﻿#include "stdafx.h"
+#include "loglevelbar.h"
 
 LogLevelBar::LogLevelBar(QWidget *parent)
 	: QWidget(parent)
@@ -23,7 +24,7 @@ void LogLevelBar::SlotStateChanged(int state)
 void LogLevelBar::paintEvent(QPaintEvent *event)
 {
 	QStyleOption opt;
-	opt.init(this);
+	//opt.init(this);
 	QPainter p(this);
 	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }

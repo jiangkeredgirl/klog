@@ -1,3 +1,4 @@
+#include "stdafx.h"
 #include "logsearchbar.h"
 
 LogSearchBar::LogSearchBar(QWidget *parent)
@@ -13,7 +14,7 @@ LogSearchBar::~LogSearchBar()
 void LogSearchBar::paintEvent(QPaintEvent *event)
 {
 	QStyleOption opt;
-	opt.init(this);
+	//opt.init(this);
 	QPainter p(this);
 	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }

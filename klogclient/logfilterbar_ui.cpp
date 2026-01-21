@@ -1,4 +1,5 @@
-﻿#include "logfilterbar_ui.h"
+﻿#include "stdafx.h"
+#include "logfilterbar_ui.h"
 
 LogFilterBarui::LogFilterBarui()
 {
