@@ -1,4 +1,5 @@
-﻿#include "logfilebar_ui.h"
+﻿#include "stdafx.h"
+#include "logfilebar_ui.h"
 
 LogFileBarui::LogFileBarui()
 {
@@ -52,8 +53,8 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		m_editIP->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		m_editIP->setFixedWidth(150);
 		//editIP->setInputMask("000.000.000.000");
-		QRegExp rx("^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$");
-		QRegExpValidator* ipValidator = new QRegExpValidator(rx, this);
+		QRegularExpression  rx("^((2[0-4]\\d|25[0-5]|[01]?\\d\\d?)\\.){3}(2[0-4]\\d|25[0-5]|[01]?\\d\\d?)$");
+		QRegularExpressionValidator* ipValidator = new QRegularExpressionValidator(rx, this);
 		m_editIP->setValidator(ipValidator);
 
 		QLabel* labelPortTag = new QLabel;

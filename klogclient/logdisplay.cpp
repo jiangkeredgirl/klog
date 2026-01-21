@@ -1,4 +1,5 @@
-﻿#include "logdisplay.h"
+﻿#include "stdafx.h"
+#include "logdisplay.h"
 #include "kutility.h"
 #include "kloglib.h"
 
@@ -121,7 +122,7 @@ int LogDisplay::SetCellText(int col, const string& text)
 #else
 	QTableWidgetItem* item = new QTableWidgetItem(text.c_str());
 	item->setTextAlignment(Qt::AlignCenter);
-	item->setTextColor(m_cur_row_color);
+	item->setForeground(m_cur_row_color);
 	m_ui.m_tableLogInfo->setItem(m_cur_row, col, item);
 #endif
 	return 0;
@@ -190,10 +191,10 @@ void LogDisplay::SlotCheckStateChanged(QTreeWidgetItem *item, int column)
 		}
 		if (m_tree_cur_item)
 		{
-			m_tree_cur_item->setTextColor(0, qRgb(0, 0, 0));
+			m_tree_cur_item->setForeground(0, QColor(0, 0, 0));
 		}
 		m_tree_cur_item = item;
-		m_tree_cur_item->setTextColor(0, qRgb(255, 0, 0));
+		m_tree_cur_item->setForeground(0, QColor(255, 0, 0));
 		Qt::CheckState state = item->checkState(column);
 		vector<string> check_names;
 		do
@@ -555,7 +556,7 @@ bool LogDisplay::CheckFilterHide(int fun_time, const string& date_time)
 void LogDisplay::paintEvent(QPaintEvent *event)
 {
 	QStyleOption opt;
-	opt.init(this);
+	//opt.init(this);
 	QPainter p(this);
 	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }

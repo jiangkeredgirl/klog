@@ -1,4 +1,5 @@
-﻿#include "logfilebar.h"
+﻿#include "stdafx.h"
+#include "logfilebar.h"
 #include "kutility.h"
 
 LogFileBar::LogFileBar(QWidget *parent)
@@ -16,7 +17,7 @@ LogFileBar::~LogFileBar()
 void LogFileBar::paintEvent(QPaintEvent *event)
 {
 	QStyleOption opt;
-	opt.init(this);
+	//opt.init(this);
 	QPainter p(this);
 	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }

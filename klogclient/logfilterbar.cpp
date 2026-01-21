@@ -1,4 +1,5 @@
-﻿#include "logfilterbar.h"
+﻿#include "stdafx.h"
+#include "logfilterbar.h"
 
 LogFilterBar::LogFilterBar(QWidget *parent)
 	: QWidget(parent)
@@ -14,7 +15,7 @@ LogFilterBar::~LogFilterBar()
 void LogFilterBar::paintEvent(QPaintEvent *event)
 {
 	QStyleOption opt;
-	opt.init(this);
+	//opt.init(this);
 	QPainter p(this);
 	style()->drawPrimitive(QStyle::PE_Widget, &opt, &p, this);
 }
