@@ -1,4 +1,5 @@
-﻿#include "klogclient.h"
+﻿#include "stdafx.h"
+#include "klogclient.h"
 #include "klogsink.h"
 
 KlogClient::KlogClient(QWidget *parent)
