@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "logdisplay_ui.h"
+﻿#include "logdisplay_ui.h"
 #include "cstandard.h"
 
 LogDisplayui::LogDisplayui()

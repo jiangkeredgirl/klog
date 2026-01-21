@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "funcflow.h"
+﻿#include "funcflow.h"
 
 FuncFlow::FuncFlow(QWidget *parent)
 	: QDialog(parent)

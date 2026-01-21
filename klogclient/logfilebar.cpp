@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "logfilebar.h"
+﻿#include "logfilebar.h"
 #include "kutility.h"
 
 LogFileBar::LogFileBar(QWidget *parent)

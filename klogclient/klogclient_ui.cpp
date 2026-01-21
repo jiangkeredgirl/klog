@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "klogclient_ui.h"
+﻿#include "klogclient_ui.h"
 
 KlogClientui::KlogClientui()
 {

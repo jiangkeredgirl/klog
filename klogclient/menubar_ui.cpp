@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "menubar_ui.h"
+﻿#include "menubar_ui.h"
 
 MenuBarui::MenuBarui()
 {

@@ -1,4 +1,4 @@
-#include "stdafx.h"
+#include "pch.h"
 #include "rapidjsonparser.h"
 #include "kutility.h"
 #include "rapidjson/document.h"  

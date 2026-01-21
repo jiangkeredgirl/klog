@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "funcstack.h"
+﻿#include "funcstack.h"
 
 FuncStack::FuncStack(QWidget *parent)
 	: QDialog(parent)

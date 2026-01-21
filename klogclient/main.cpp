@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+﻿#include "pch.h"
 #include "klogclient.h"
 #include <QtWidgets/QApplication>
 #include "kloglib.h"

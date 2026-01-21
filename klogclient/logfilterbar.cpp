@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "logfilterbar.h"
+﻿#include "logfilterbar.h"
 
 LogFilterBar::LogFilterBar(QWidget *parent)
 	: QWidget(parent)

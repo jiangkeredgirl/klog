@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "loglevelbar.h"
+﻿#include "loglevelbar.h"
 
 LogLevelBar::LogLevelBar(QWidget *parent)
 	: QWidget(parent)

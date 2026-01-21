@@ -1,4 +1,3 @@
-#include "stdafx.h"
 #include "logsearchbar.h"
 
 LogSearchBar::LogSearchBar(QWidget *parent)

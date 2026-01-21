@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "logfilebar_ui.h"
+﻿#include "logfilebar_ui.h"
 
 LogFileBarui::LogFileBarui()
 {

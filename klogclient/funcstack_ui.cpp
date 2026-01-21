@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "funcstack_ui.h"
+﻿#include "funcstack_ui.h"
 
 FuncStackui::FuncStackui()
 	: QObject()

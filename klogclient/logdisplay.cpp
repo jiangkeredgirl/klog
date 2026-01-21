@@ -1,4 +1,4 @@
-﻿#include "stdafx.h"
+﻿#include "pch.h"
 #include "logdisplay.h"
 #include "kutility.h"
 #include "kloglib.h"

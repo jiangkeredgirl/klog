@@ -1,5 +1,4 @@
-﻿#include "stdafx.h"
-#include "logsearchbar_ui.h"
+﻿#include "logsearchbar_ui.h"
 
 LogSearchBarui::LogSearchBarui()
 {
