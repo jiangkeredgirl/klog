@@ -1,4 +1,5 @@
-﻿#include "rapidjsonparser.h"
+#include "stdafx.h"
+#include "rapidjsonparser.h"
 #include "kutility.h"
 #include "rapidjson/document.h"  
 #include "rapidjson/prettywriter.h"
@@ -151,6 +152,7 @@ int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, string
 	return error_code;
 }
 
+#if 0
 int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, int value)
 {
 	if (object.HasMember(key.c_str()) && object[key.c_str()].IsInt())
@@ -202,3 +204,4 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	}
 	return 0;
 }
+#endif
