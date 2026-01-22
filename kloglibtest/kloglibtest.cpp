@@ -6,6 +6,8 @@
 #include "kloglib.h"
 #include "TraceTest1.h"
 #include "TraceTest2.h"
+#include <thread>
+#include <iostream>
 
 #define MYDEFINE_LEVEL 10
 
@@ -78,6 +80,22 @@ int trace_test2(const string& log_content)
 	return 0;
 }
 
+int trace_thread(const string& log_content)
+{
+	KlogTrackCout;
+	KlogOKCout << log_content; // tchar类型
+	std::thread([log_content]()
+		{
+			KlogTrackCout;
+			while (1)
+			{
+				KlogErrorCout << log_content;//c++风格，编译器代码不能去掉	
+				std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
+			}
+		}).detach();
+	return 0;
+}
+
 void SetConsoleUtf8()
 {
 	SetConsoleTitle(L"klog输出");
@@ -101,14 +119,23 @@ int _tmain()
 	//CreateConsole;
 	//SetConsoleUTF8;
 	//GenerateDump;
+	//KlogCreateStdout;
+	//KlogSetStdoutUTF8;
 	KlogTrackCout;
-	KlogOKCout << u8"\"支持双引号\"";
+	KlogOKCout << "\"支持双引号\"";
 	int nvalue = 29;
 	(KlogOKCout << "支持二进制数据:").write(reinterpret_cast<const char*>(&nvalue), sizeof(nvalue));
-	//trace_test(u8"my log content 支持中文");	
+	trace_test("my log content 支持中文");	
+	trace_thread("线程1");
+	trace_thread("线程2");
+	trace_thread("线程3");
 	//TraceTest1 test1;
 	//TraceTest2 test2;
 	//WaitTrace;
+	std::cout << "按 Enter 键继续..." << std::endl;
+	// 等待用户输入回车
+	std::cin.get();
+	std::cout << "程序继续..." << std::endl;
 	return 0;
 }
 
