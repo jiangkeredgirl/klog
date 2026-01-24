@@ -7,6 +7,7 @@
 
 KlogAsyncMessageServer::KlogAsyncMessageServer()
 {
+	m_serial_parse = KlogNetProtocolLibrary::instance()->GetProtocolSerial();
 }
 
 
@@ -23,38 +24,39 @@ KlogAsyncMessageServer& KlogAsyncMessageServer::instance()
 int KlogAsyncMessageServer::ServerStart(int port, bool async)
 {
 	cout << "klog async message server port:" << port << endl;
+	m_server_port = port;
 	do
 	{
-		m_TcpServer = TcpLibrary::instance()->NewTcpServer(port);
-		if (m_TcpServer == nullptr)
+		m_tcp_server = TcpLibrary::instance()->NewTcpServer(port);
+		if (m_tcp_server == nullptr)
 		{
-			cout << "klog async message server create failed" << endl;
+			cout << "klog async message server create failed port:" << m_server_port << endl;
 			break;
 		}
-		m_TcpServer->RegisterHandler(this);
+		m_tcp_server->RegisterHandler(this);
 		if (async)
 		{
-			m_TcpServer->AsyncStart();
-			cout << "klog async message server async runing" << endl;
+			m_tcp_server->AsyncStart();
+			cout << "klog async message server async runing port:" << m_server_port << endl;
 		}
 		else
 		{
-			m_TcpServer->Start();
-			cout << "klog async message server sync runing" << endl;
+			m_tcp_server->Start();
+			cout << "klog async message server sync runing port:" << m_server_port << endl;
 		}
-		m_serial_parse = KlogNetProtocolLibrary::instance()->GetProtocolSerial();
+
 	} while (false);
 	return 0;
 }
 
 int KlogAsyncMessageServer::ServerStop()
 {
-	if (m_TcpServer)
+	if (m_tcp_server)
 	{
-		m_TcpServer->Stop();
-		TcpLibrary::instance()->DeleteTcpServer(m_TcpServer);
+		m_tcp_server->Stop();
+		TcpLibrary::instance()->DeleteTcpServer(m_tcp_server);
 	}
-	cout << "klog async message serve have closed" << endl;
+	cout << "klog async message server have closed port:" << m_server_port << endl;
 	return 0;
 }
 
@@ -86,9 +88,9 @@ int KlogAsyncMessageServer::OnTcpWrite(shared_ptr<ITcpConnect> connect, const ch
 int KlogAsyncMessageServer::OnTcpConnect(shared_ptr<ITcpConnect> connect, int status)
 {
 	cout << "have connected, status:" << status << endl;
-	if (m_TcpServer)
+	if (m_tcp_server)
 	{
-		cout << "connects count:" << m_TcpServer->GetConnectsCount() << endl;
+		cout << "connects count:" << m_tcp_server->GetConnectsCount() << endl;
 	}
 	return 0;
 }
@@ -96,9 +98,9 @@ int KlogAsyncMessageServer::OnTcpConnect(shared_ptr<ITcpConnect> connect, int st
 int KlogAsyncMessageServer::OnTcpDisconnect(shared_ptr<ITcpConnect> connect, int status)
 {
 	cout << "have disconnected, status:" << status << endl;
-	if (m_TcpServer)
+	if (m_tcp_server)
 	{
-		cout << "connects count:" << m_TcpServer->GetConnectsCount() << endl;
+		cout << "connects count:" << m_tcp_server->GetConnectsCount() << endl;
 		list<shared_ptr<ITcpConnect> /*connect*/>::iterator iter = m_source_connects.begin();
 		for (; iter != m_source_connects.end(); iter++)
 		{

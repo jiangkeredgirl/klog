@@ -32,8 +32,9 @@ private:
 	int SendEvent(const string& serial_event_data, shared_ptr<ITcpConnect> connect);
 
 private:
-	ITcpServer* m_TcpServer = nullptr;
 	IProtocolSerial* m_serial_parse = nullptr;
+	ITcpServer* m_tcp_server        = nullptr;
+	int m_server_port               = 0;	
 	list<shared_ptr<ITcpConnect> /*connect*/> m_source_connects;
 	list<shared_ptr<ITcpConnect> /*connect*/> m_sinck_connects;
 };
