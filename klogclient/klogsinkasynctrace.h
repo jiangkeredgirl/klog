@@ -27,6 +27,9 @@ private:
 	int HandleKlogManageEvent(const NetEvent& net_event);
 
 private:
+	int SendKlogClientType();
+
+private:
 	int SendEvent(const string& serial_event_data);
 
 private:

@@ -77,6 +77,7 @@ int KlogSinkControl::OnTcpConnect(int status)
 	if (status == 0)
 	{
 		cout << "have connected, status:" << status << endl;
+		SendKlogClientType();
 		GetKlogServerPort();
 	}
 	else
@@ -165,6 +166,19 @@ int KlogSinkControl::HandleKlogManageEvent(const NetEvent& net_event)
 	}
 	default:
 		break;
+	}
+	return 0;
+}
+
+int KlogSinkControl::SendKlogClientType()
+{
+	if (m_serial_parse)
+	{
+		SendKlogClientTypeEvent send_client_type_event;
+		send_client_type_event.client_type = KlogClientType::SINK_ENDPOINT;
+		string serial_event_data;
+		m_serial_parse->Serial(send_client_type_event, serial_event_data);
+		SendEvent(serial_event_data);
 	}
 	return 0;
 }
