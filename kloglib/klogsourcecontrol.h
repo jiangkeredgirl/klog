@@ -30,6 +30,7 @@ private:
 	int HandleKlogManageEvent(const NetEvent& net_event);
 
 private:
+	int SendKlogClientType();
 	int GetKlogServerPort();
 
 private:
