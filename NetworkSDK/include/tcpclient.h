@@ -17,6 +17,8 @@ public:
 	virtual int TcpDisconnect() = 0;
 	virtual int TcpWrite(const char* data, size_t size) = 0;
 	virtual int AsyncTcpWrite(const char* data, size_t size) = 0;
+	virtual int GetLocalIPandPort(string& ip, int& port) = 0;
+	virtual int GetRemoteIPandPort(string& ip, int& port) = 0;
 };
 
 #ifdef __cplusplus
