@@ -192,6 +192,9 @@
     <ClInclude Include="klogcustomsetting.h" />
     <ClInclude Include="kloglib.h" />
     <ClInclude Include="klogsource.h" />
+    <ClInclude Include="klogsourceasynctrace.h" />
+    <ClInclude Include="klogsourcecontrol.h" />
+    <ClInclude Include="klogsourcesynctrace.h" />
     <ClInclude Include="rapidjsonparser.h" />
     <ClInclude Include="tracedefine.h" />
     <ClInclude Include="traceloader.h" />
@@ -205,6 +208,9 @@
     <ClCompile Include="config.cpp" />
     <ClCompile Include="GenerateDumpInfo.cpp" />
     <ClCompile Include="klogsource.cpp" />
+    <ClCompile Include="klogsourceasynctrace.cpp" />
+    <ClCompile Include="klogsourcecontrol.cpp" />
+    <ClCompile Include="klogsourcesynctrace.cpp" />
     <ClCompile Include="rapidjsonparser.cpp" />
     <ClCompile Include="traceloaderimpl.cpp" />
     <ClCompile Include="traceprinterimpl.cpp" />

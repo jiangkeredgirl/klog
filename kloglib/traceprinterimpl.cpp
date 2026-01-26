@@ -6,6 +6,9 @@
 #include "GenerateDumpInfo.h"
 #include "rapidjsonparser.h"
 #include "tracemacr.h"
+#include "klogsource.h"
+#include "klognetprotocol.h"
+#include "protocolserialpackage.h"
 
 
 namespace kk
@@ -447,6 +450,10 @@ namespace kk
 		{
 			InitConsole();
 		}
+		if (trace_config().output_socket)
+		{
+			InitSocket();
+		}
 		if (trace_config().async)
 		{
 			TraceThreadStart();
@@ -674,6 +681,36 @@ namespace kk
 
 	int TracePrinterImpl::OutToSocket(shared_ptr<TraceEntry> trace_entry)
 	{
+		if (trace_entry)
+		{
+			string local_ip;
+			int    local_port = 0;
+			if (trace_entry->async)
+			{
+				KlogSource::instance().GetAsyncTraceIPandPort(local_ip, local_port);
+			}
+			else
+			{
+				KlogSource::instance().GetSyncTraceIPandPort(local_ip, local_port);
+			}
+			SendKlogMessageEvent message_event;
+			message_event.event_type = NetEventType::SEND_KLOG_MESSAGE;
+			message_event.source_info.source_program_name = trace_entry->processname;
+			message_event.source_info.sourece_ip = local_ip;
+			message_event.source_info.source_port = local_port;
+			message_event.klog_message = trace_entry->trace_json_text();
+			string klog_serial_data;
+			serial_parse_->Serial(message_event, klog_serial_data);
+			if (trace_entry->async)
+			{
+				KlogSource::instance().AsyncTraceWrite(klog_serial_data);
+			}
+			else
+			{
+				KlogSource::instance().SyncTraceWrite(klog_serial_data);
+			}
+			cout << "writed log data:" << message_event.klog_message << endl;
+		}
 		return 0;
 	}
 
@@ -720,6 +757,20 @@ namespace kk
 		tstring title = old_title;
 		title = title + TEXT("_UTF8格式");
 		SetConsoleTitle(title.c_str());
+		return 0;
+	}
+
+	int TracePrinterImpl::InitSocket()
+	{
+		serial_parse_ = KlogNetProtocolLibrary::instance()->GetProtocolSerial();
+		string server_ip = trace_config().trace_server_ip;
+		int server_control_port = trace_config().trace_server_control_port;
+		int erver_sync_trace_port = trace_config().trace_server_sync_trace_port;
+		int server_async_trace_port = trace_config().trace_server_async_trace_port;
+		std::thread t([server_ip, server_control_port, erver_sync_trace_port, server_async_trace_port]() {
+			KlogSource::instance().Connect(server_ip, server_control_port, erver_sync_trace_port, server_async_trace_port, true);
+			});
+		t.detach();
 		return 0;
 	}
 

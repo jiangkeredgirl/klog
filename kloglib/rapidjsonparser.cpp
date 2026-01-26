@@ -58,6 +58,10 @@ namespace kk
 			DecodeValue(doc, "head_label_text", trace_config.head_label_text);
 			DecodeValue(doc, "trace_file_dir", trace_config.trace_file_dir);
 			DecodeValue(doc, "trace_com_name", trace_config.trace_com_name);
+			DecodeValue(doc, "trace_server_ip", trace_config.trace_server_ip);
+			DecodeValue(doc, "trace_server_control_port", trace_config.trace_server_control_port);
+			DecodeValue(doc, "trace_server_sync_trace_port", trace_config.trace_server_sync_trace_port);
+			DecodeValue(doc, "trace_server_async_trace_port", trace_config.trace_server_async_trace_port);
 
 			if (!doc.HasMember("level_on_off"))
 			{
@@ -144,6 +148,10 @@ namespace kk
 			EncodeValue(doc, allocator, "head_label_text", trace_config.head_label_text);
 			EncodeValue(doc, allocator, "trace_file_dir", trace_config.trace_file_dir);
 			EncodeValue(doc, allocator, "trace_com_name", trace_config.trace_com_name);
+			EncodeValue(doc, allocator, "trace_server_ip", trace_config.trace_server_ip);	
+			EncodeValue(doc, allocator, "trace_server_control_port", trace_config.trace_server_control_port);
+			EncodeValue(doc, allocator, "trace_server_sync_trace_port", trace_config.trace_server_sync_trace_port);
+			EncodeValue(doc, allocator, "trace_server_async_trace_port", trace_config.trace_server_async_trace_port);
 
 			if (doc.HasMember("level_on_off") && doc["level_on_off"].IsArray())
 			{

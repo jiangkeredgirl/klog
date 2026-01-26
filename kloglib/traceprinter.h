@@ -49,6 +49,10 @@ namespace kk
 		string trace_file_dir;
 		string trace_com_name;
 		map<int/*level*/, bool> level_on_off;
+		string trace_server_ip;
+		int trace_server_control_port = 0;
+		int trace_server_sync_trace_port = 0;
+		int trace_server_async_trace_port = 0;
 		TraceConfig();
 	};
 

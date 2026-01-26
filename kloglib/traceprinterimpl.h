@@ -6,6 +6,8 @@
 
 #pragma warning( disable: 4251 )
 
+class IProtocolSerial;
+
 namespace kk
 {
 
@@ -75,6 +77,7 @@ namespace kk
 		int OutToFile(const string& trace_file_name, const string& trace_entry);
 		int InitConsole();
 		int SetConsoleUTF8();
+		int InitSocket();
 	public:
 		string LevelToStr(int level);
 		int StrToLevel(const string& str);
@@ -93,5 +96,6 @@ namespace kk
 		map<int/*level*/, int/*color*/> default_level_color_;
 		map<int, string>         level_to_str_;
 		map<string, int>         str_to_level_;
+		IProtocolSerial*         serial_parse_ = nullptr;
 	};
 }
