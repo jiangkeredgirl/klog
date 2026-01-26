@@ -64,7 +64,7 @@ int KlogSyncMessageServer::OnTcpRead(shared_ptr<ITcpConnect> connect, const char
 {
 	if (data)
 	{
-		cout << "readed data:" << data << endl;
+		//cout << "readed data:" << data << endl;
 		if (m_serial_parse)
 		{
 			string serial_event_data(data, size);
@@ -80,7 +80,7 @@ int KlogSyncMessageServer::OnTcpWrite(shared_ptr<ITcpConnect> connect, const cha
 {
 	if (data)
 	{
-		cout << "writed data:" << data << endl;
+		//cout << "writed data:" << data << endl;
 	}
 	return 0;
 }
@@ -127,13 +127,33 @@ int KlogSyncMessageServer::ParseKlogMessageEvent(const NetEvent& net_event, cons
 {
 	switch (net_event.event_type)
 	{
+	case NetEventType::SEND_KLOG_CLIENT_TYPE:
+	{
+		if (m_serial_parse)
+		{
+			SendKlogClientTypeEvent client_type_event;
+			m_serial_parse->Serial(serial_event_data, client_type_event);
+			HandleKlogMessageEvent(client_type_event, connect);
+		}
+		break;
+	}
 	case NetEventType::GET_KLOG_MESSAGE:
 	{
 		if (m_serial_parse)
 		{
-			GetKlogServerPortEvent get_port_event;
-			m_serial_parse->Serial(serial_event_data, get_port_event);
-			HandleKlogMessageEvent(get_port_event, connect);
+			GetKlogMessageEvent get_message_event;
+			m_serial_parse->Serial(serial_event_data, get_message_event);
+			HandleKlogMessageEvent(get_message_event, connect);
+		}
+		break;
+	}
+	case NetEventType::SEND_KLOG_MESSAGE:
+	{
+		if (m_serial_parse)
+		{
+			SendKlogMessageEvent send_message_event;
+			m_serial_parse->Serial(serial_event_data, send_message_event);
+			HandleKlogMessageEvent(send_message_event, connect);
 		}
 		break;
 	}
@@ -147,8 +167,47 @@ int KlogSyncMessageServer::HandleKlogMessageEvent(const NetEvent& net_event, sha
 {
 	switch (net_event.event_type)
 	{
+	case NetEventType::SEND_KLOG_CLIENT_TYPE:
+	{
+		const SendKlogClientTypeEvent* client_type_event = dynamic_cast<const SendKlogClientTypeEvent*>(&net_event);
+		if (client_type_event)
+		{
+			if (client_type_event->client_type == KlogClientType::SOURCE_ENDPOINT)
+			{
+				m_source_connects.push_back(connect);
+			}
+			else
+			{
+				m_sinck_connects.push_back(connect);
+			}
+		}
+		break;
+	}
 	case NetEventType::GET_KLOG_MESSAGE:
 	{
+		const GetKlogMessageEvent* get_message_event = dynamic_cast<const GetKlogMessageEvent*>(&net_event);
+		break;
+	}
+	case NetEventType::SEND_KLOG_MESSAGE:
+	{
+		const SendKlogMessageEvent* send_message_event = dynamic_cast<const SendKlogMessageEvent*>(&net_event);
+		if (send_message_event)
+		{
+			cout << "接受到来自:" << send_message_event->source_info.sourece_ip
+				<< "程序名:" << send_message_event->source_info.source_program_name
+				<< "的日志:" << endl;
+			cout << send_message_event->klog_message << endl;
+		}
+		if (send_message_event)
+		{
+			string serial_event_data;
+			m_serial_parse->Serial(*send_message_event, serial_event_data);
+			list<shared_ptr<ITcpConnect> /*connect*/>::iterator iter = m_sinck_connects.begin();
+			for (; iter != m_sinck_connects.end(); iter++)
+			{
+				SendEvent(serial_event_data, *iter);
+			}
+		}
 		break;
 	}
 	default:

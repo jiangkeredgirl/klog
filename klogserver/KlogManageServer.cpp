@@ -65,7 +65,7 @@ int KlogManageServer::OnTcpRead(shared_ptr<ITcpConnect> connect, const char* dat
 {
 	if (data)
 	{
-		cout << "readed data:" << data << endl;
+		//cout << "readed data:" << data << endl;
 		if (m_serial_parse)
 		{
 			string serial_event_data(data, size);
@@ -81,7 +81,7 @@ int KlogManageServer::OnTcpWrite(shared_ptr<ITcpConnect> connect, const char* da
 {
 	if (data)
 	{
-		cout << "writed data:" << data << endl;
+		//cout << "writed data:" << data << endl;
 	}
 	return 0;
 }
@@ -128,6 +128,16 @@ int KlogManageServer::ParseKlogManageEvent(const NetEvent& net_event, const stri
 {
 	switch (net_event.event_type)
 	{
+	case NetEventType::SEND_KLOG_CLIENT_TYPE:
+	{
+		if (m_serial_parse)
+		{
+			SendKlogClientTypeEvent client_type_event;
+			m_serial_parse->Serial(serial_event_data, client_type_event);
+			HandleKlogManageEvent(client_type_event, connect);
+		}
+		break;
+	}
 	case NetEventType::GET_KLOG_SERVER_PORT:
 	{
 		if (m_serial_parse)
@@ -148,17 +158,25 @@ int KlogManageServer::HandleKlogManageEvent(const NetEvent& net_event, shared_pt
 {
 	switch (net_event.event_type)
 	{
+	case NetEventType::SEND_KLOG_CLIENT_TYPE:
+	{
+		const SendKlogClientTypeEvent* client_type_event = dynamic_cast<const SendKlogClientTypeEvent*>(&net_event);
+		if (client_type_event)
+		{
+			if (client_type_event->client_type == KlogClientType::SOURCE_ENDPOINT)
+			{
+				m_source_connects.push_back(connect);
+			}
+			else
+			{
+				m_sinck_connects.push_back(connect);
+			}
+		}
+		break;
+	}
 	case NetEventType::GET_KLOG_SERVER_PORT:
 	{
 		const GetKlogServerPortEvent& get_port_event = static_cast<const GetKlogServerPortEvent&>(net_event);
-		if (get_port_event.client_type == KlogClientType::SOURCE_ENDPOINT)
-		{
-			m_source_connects.push_back(connect);
-		}
-		else
-		{
-			m_sinck_connects.push_back(connect);
-		}
 		SendKlogServerPortEvent send_event;
 		send_event.sync_message_port  = KLOG_SERVER_SYNC_TRACE_PORT;
 		send_event.async_message_port = KLOG_SERVER_ASYNC_TRACE_PORT;

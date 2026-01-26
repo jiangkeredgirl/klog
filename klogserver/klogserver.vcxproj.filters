@@ -18,13 +18,13 @@
     <ClInclude Include="TcpServerCenter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="KlogManageServer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="KlogAsyncMessageServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="KlogSyncMessageServer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="KlogManageServer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
