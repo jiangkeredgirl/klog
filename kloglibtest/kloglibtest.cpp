@@ -127,8 +127,8 @@ int _tmain()
 	(KlogOKCout << "支持二进制数据:").write(reinterpret_cast<const char*>(&nvalue), sizeof(nvalue));
 	trace_test("my log content 支持中文");	
 	trace_thread("线程1");
-	trace_thread("线程2");
-	trace_thread("线程3");
+	//trace_thread("线程2");
+	//trace_thread("线程3");
 	//TraceTest1 test1;
 	//TraceTest2 test2;
 	//WaitTrace;
