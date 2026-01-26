@@ -9,6 +9,8 @@ public:
 public:
 	virtual int Serial(const string& serial, NetEvent& object) override;
 	virtual int Serial(const NetEvent& object, string& serial) override;
+	virtual int Serial(const string& serial, SendKlogClientTypeEvent& object) override;
+	virtual int Serial(const SendKlogClientTypeEvent& object, string& serial) override;
 	virtual int Serial(const string& serial, GetKlogServerPortEvent& object) override;
 	virtual int Serial(const GetKlogServerPortEvent& object, string& serial) override;
 	virtual int Serial(const string& serial, SendKlogServerPortEvent& object) override;

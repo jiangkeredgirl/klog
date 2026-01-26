@@ -15,6 +15,7 @@
 #include "cstandard.h"
 #include "klognetprotocol.h"
 
+BOOST_CLASS_EXPORT_GUID(SendKlogClientTypeEvent, "SendKlogClientTypeEvent")
 BOOST_CLASS_EXPORT_GUID(GetKlogServerPortEvent, "GetKlogServerPortEvent")
 BOOST_CLASS_EXPORT_GUID(SendKlogServerPortEvent, "SendKlogServerPortEvent")
 BOOST_CLASS_EXPORT_GUID(KlogSourceInfo, "KlogSourceInfo")
@@ -34,6 +35,13 @@ namespace boost
 			ar & object.event_type;
 		}
 		
+		template<class Archive>
+		void serialize(Archive& ar, SendKlogClientTypeEvent& object, const unsigned int version)
+		{
+			ar& object.event_type;
+			ar& object.client_type;
+		}
+
 		template<class Archive>
 		void serialize(Archive & ar, GetKlogServerPortEvent & object, const unsigned int version)
 		{

@@ -6,6 +6,7 @@ using namespace std;
 enum class NetEventType
 {
 	UNKNOWN = 0,
+	SEND_KLOG_CLIENT_TYPE,
 	GET_KLOG_SERVER_PORT,
 	SEND_KLOG_SERVER_PORT,
 	SEND_KLOG_CONFIG,
@@ -26,6 +27,17 @@ class NetEvent
 public:
 	virtual ~NetEvent() {};
 	NetEventType event_type;
+};
+
+class SendKlogClientTypeEvent : public NetEvent
+{
+public:
+	SendKlogClientTypeEvent()
+	{
+		event_type = NetEventType::SEND_KLOG_CLIENT_TYPE;
+	}
+	virtual ~SendKlogClientTypeEvent() {};
+	KlogClientType client_type;
 };
 
 class GetKlogServerPortEvent : public NetEvent

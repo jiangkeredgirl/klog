@@ -12,6 +12,8 @@ class IProtocolSerial
 public:
 	virtual int Serial(const string& serial, NetEvent& object) = 0;
 	virtual int Serial(const NetEvent& object, string& serial) = 0;
+	virtual int Serial(const string& serial, SendKlogClientTypeEvent& object) = 0;
+	virtual int Serial(const SendKlogClientTypeEvent& object, string& serial) = 0;
 	virtual int Serial(const string& serial, GetKlogServerPortEvent& object) = 0;
 	virtual int Serial(const GetKlogServerPortEvent& object, string& serial) = 0;
 	virtual int Serial(const string& serial, SendKlogServerPortEvent& object) = 0;

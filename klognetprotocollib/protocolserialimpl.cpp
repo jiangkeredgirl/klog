@@ -42,6 +42,16 @@ int ProtocolSerial::Serial(const NetEvent& object, string& serial)
 	return GetSerialFromObject(object, serial);
 }
 
+int ProtocolSerial::Serial(const string& serial, SendKlogClientTypeEvent& object)
+{
+	return GetObjectFromSerial(serial, object);
+}
+
+int ProtocolSerial::Serial(const SendKlogClientTypeEvent& object, string& serial)
+{
+	return GetSerialFromObject(object, serial);
+}
+
 int ProtocolSerial::Serial(const string& serial, GetKlogServerPortEvent& object)
 {
 	return GetObjectFromSerial(serial, object);
