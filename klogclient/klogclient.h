@@ -27,7 +27,7 @@ public:
 
 public slots:
 	void SlotOpenLocalLogFile(const string& filename);
-	void SlotOpenRemoteLogMessage(const string& ip, int port);
+	void SlotOpenRemoteLogMessage(const string& ip, int control_port, int sync_trace_port, int async_trace_port);
 	void SlotActionTriggered(QAction * action);
 	void SlotCloseStackDialog(const string& title);
 

@@ -81,10 +81,10 @@ void KlogClient::SlotOpenLocalLogFile(const string& filename)
 	t.detach();
 }
 
-void KlogClient::SlotOpenRemoteLogMessage(const string& ip, int port)
+void KlogClient::SlotOpenRemoteLogMessage(const string& ip, int control_port, int sync_trace_port, int async_trace_port)
 {
-	std::thread t([ip, port]() {
-		klogsink::instance().Connect(ip, port, true);
+	std::thread t([ip, control_port, sync_trace_port, async_trace_port]() {
+		KlogSink::instance().Connect(ip, control_port, sync_trace_port, async_trace_port, true);
 	});
 	t.detach();
 }

@@ -39,8 +39,14 @@ void LogFileBar::SlotButtonLocalFile()
 
 void LogFileBar::SlotButtonRemoteMessage()
 {
-	if (!m_ui.m_editIP->text().isEmpty() && !m_ui.m_editPort->text().isEmpty())
+	if (!m_ui.m_editIP->text().isEmpty()
+		&& !m_ui.m_editControlPort->text().isEmpty()
+		&& !m_ui.m_editSyncTracePort->text().isEmpty()
+		&& !m_ui.m_editAsyncTracePort->text().isEmpty())
 	{
-		emit SignalOpenRemoteLogMessage(m_ui.m_editIP->text().toStdString(), m_ui.m_editPort->text().toInt());
+		emit SignalOpenRemoteLogMessage(m_ui.m_editIP->text().toStdString()
+			, m_ui.m_editControlPort->text().toInt()
+			, m_ui.m_editSyncTracePort->text().toInt()
+			, m_ui.m_editAsyncTracePort->text().toInt());
 	}
 }

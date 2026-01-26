@@ -1,43 +1,27 @@
 ﻿#pragma once
 #include "tcpclienthandler.h"
 #include "TcpPackage.h"
+#include "klogsinkcontrol.h"
+#include "klogsinksynctrace.h"
+#include "klogsinkasynctrace.h"
 
-class IProtocolSerial;
-class NetEvent;
 
-class klogsink : public ITcpClientHandler
+class KlogSink
 {
 public:
-	klogsink();
-	~klogsink();
-	static klogsink& instance();
+	KlogSink();
+	~KlogSink();
+	static KlogSink& instance();
 
 public:
-	int Connect(const string& ip, int port, bool async);
+	int Connect(const string& ip, int control_port, int sync_trace_port, int async_trace_port, bool async);
 	int Disconnect();
 
-public:
-	virtual int OnTcpConnect(int status) override;
-	virtual int OnTcpDisconnect(int status) override;
-	virtual int OnTcpRead(const char* data, size_t size, int status) override;
-	virtual int OnTcpWrite(const char* data, size_t size, int status) override;
-
 private:
-	int ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data);
-	int HandleKlogManageEvent(const NetEvent& net_event);
-
-private:
-	int GetKlogServerPort();
-
-private:
-	int SendEvent(const string& serial_event_data);
-
-private:
-	ITcpClient*  m_tcp_client = nullptr;
-	IProtocolSerial* m_serial_parse = nullptr;
-	string m_ip;
-	int m_port = 0;
-	int m_sync_message_port = 0;
-	int m_async_message_port = 0;
+	string m_server_ip;
+	int m_server_control_port = 0;
+	int m_server_sync_trace_port = 0;
+	int m_server_async_trace_port = 0;
 };
+
 

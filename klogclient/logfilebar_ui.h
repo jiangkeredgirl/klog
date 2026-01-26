@@ -19,6 +19,8 @@ public:
 	QLabel* m_labelFileName = nullptr;
 	QPushButton* m_buttonLocalFile = nullptr;
 	QLineEdit* m_editIP = nullptr;
-	QLineEdit* m_editPort = nullptr;
+	QLineEdit* m_editControlPort = nullptr;
+	QLineEdit* m_editSyncTracePort = nullptr;
+	QLineEdit* m_editAsyncTracePort = nullptr;
 	QPushButton* m_buttonConnect = nullptr;
 };

@@ -146,6 +146,9 @@
     <ClCompile Include="klogclient.cpp" />
     <ClCompile Include="klogclient_ui.cpp" />
     <ClCompile Include="klogsink.cpp" />
+    <ClCompile Include="klogsinkasynctrace.cpp" />
+    <ClCompile Include="klogsinkcontrol.cpp" />
+    <ClCompile Include="klogsinksynctrace.cpp" />
     <ClCompile Include="logdisplay.cpp" />
     <ClCompile Include="logdisplay_ui.cpp" />
     <ClCompile Include="logfile.cpp" />
@@ -204,6 +207,9 @@
     <QtMoc Include="logsearchbar_ui.h" />
     <QtMoc Include="menubar_ui.h" />
     <ClInclude Include="klogsink.h" />
+    <ClInclude Include="klogsinkasynctrace.h" />
+    <ClInclude Include="klogsinkcontrol.h" />
+    <ClInclude Include="klogsinksynctrace.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="rapidjsonparser.h" />
   </ItemGroup>

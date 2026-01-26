@@ -105,6 +105,15 @@
     <ClCompile Include="pch.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="klogsinkasynctrace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="klogsinkcontrol.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="klogsinksynctrace.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="klogclient.h">
@@ -179,6 +188,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="pch.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="klogsinkasynctrace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="klogsinkcontrol.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="klogsinksynctrace.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

@@ -17,7 +17,7 @@ protected:
 
 signals:
 	void SignalOpenLocalLogFile(const string& filename);
-	void SignalOpenRemoteLogMessage(const string& ip, int port);
+	void SignalOpenRemoteLogMessage(const string& ip, int control_port, int sync_trace_port, int async_trace_port);
 
 public slots:
 	void SlotButtonLocalFile();

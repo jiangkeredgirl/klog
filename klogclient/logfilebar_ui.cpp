@@ -61,11 +61,23 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		layout->addWidget(labelPortTag);
 		labelPortTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
-		m_editPort = new QLineEdit;
-		m_editPort->setPlaceholderText(tr("port"));
-		layout->addWidget(m_editPort);
-		m_editPort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
-		m_editPort->setFixedWidth(100);
+		m_editControlPort = new QLineEdit;
+		m_editControlPort->setPlaceholderText(tr("日志控制port"));
+		layout->addWidget(m_editControlPort);
+		m_editControlPort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		m_editControlPort->setFixedWidth(100);
+
+		m_editSyncTracePort = new QLineEdit;
+		m_editSyncTracePort->setPlaceholderText(tr("同步日志port"));
+		layout->addWidget(m_editSyncTracePort);
+		m_editSyncTracePort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		m_editSyncTracePort->setFixedWidth(100);
+
+		m_editAsyncTracePort = new QLineEdit;
+		m_editAsyncTracePort->setPlaceholderText(tr("异步日志port"));
+		layout->addWidget(m_editAsyncTracePort);
+		m_editAsyncTracePort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
+		m_editAsyncTracePort->setFixedWidth(100);
 
 		m_buttonConnect = new QPushButton;
 		m_buttonConnect->setText(tr(u8"连接"));
