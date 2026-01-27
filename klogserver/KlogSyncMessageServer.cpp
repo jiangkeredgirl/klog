@@ -175,10 +175,12 @@ int KlogSyncMessageServer::HandleKlogMessageEvent(const NetEvent& net_event, sha
 			if (client_type_event->client_type == KlogClientType::SOURCE_ENDPOINT)
 			{
 				m_source_connects.push_back(connect);
+				cout << "接受到source端连接:" << endl;
 			}
 			else
 			{
 				m_sinck_connects.push_back(connect);
+				cout << "接受到sink端连接:" << endl;
 			}
 		}
 		break;
