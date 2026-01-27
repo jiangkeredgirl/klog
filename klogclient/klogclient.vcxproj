@@ -141,6 +141,8 @@
   <ItemGroup>
     <ClCompile Include="funcflow.cpp" />
     <ClCompile Include="funcflow_ui.cpp" />
+    <ClCompile Include="funcmindmap.cpp" />
+    <ClCompile Include="funcmindmap_ui.cpp" />
     <ClCompile Include="funcstack.cpp" />
     <ClCompile Include="funcstack_ui.cpp" />
     <ClCompile Include="klogclient.cpp" />
@@ -207,6 +209,8 @@
     <QtMoc Include="logsearchbar_ui.h" />
     <QtMoc Include="menubar_ui.h" />
     <QtMoc Include="klogsink.h" />
+    <QtMoc Include="funcmindmap.h" />
+    <QtMoc Include="funcmindmap_ui.h" />
     <ClInclude Include="klogsinkasynctrace.h" />
     <ClInclude Include="klogsinkcontrol.h" />
     <ClInclude Include="klogsinksynctrace.h" />

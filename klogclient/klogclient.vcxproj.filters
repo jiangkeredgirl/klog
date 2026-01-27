@@ -114,6 +114,12 @@
     <ClCompile Include="klogsinksynctrace.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="funcmindmap.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="funcmindmap_ui.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <QtMoc Include="klogclient.h">
@@ -180,6 +186,12 @@
       <Filter>Header Files</Filter>
     </QtMoc>
     <QtMoc Include="klogsink.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcmindmap_ui.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
+    <QtMoc Include="funcmindmap.h">
       <Filter>Header Files</Filter>
     </QtMoc>
   </ItemGroup>
