@@ -10,33 +10,6 @@ class IProtocolSerial;
 
 namespace kk
 {
-
-	struct TraceEntry
-	{
-		bool     is_track = false;
-		__int64  index = 0;                    ///< log序号
-		string   functrack;                    ///< function follow flag >>	or <<
-		__int64  functime = 0;                 ///< 函数体执行时间
-		int      level = 0;                    ///< log等级
-		string   label;                        ///< log标识	
-		string   threadid;                     ///< 线程id
-		string   processname;                  ///< 进程名
-		string   modulename;                   ///< 模块名
-		string   filename;                     ///< file name;
-		string   funcname;                     ///< function name;
-		int      line = 0;                     ///< line number;
-		__int64  datetime = 0;                 ///< log打印日期时间
-		__int64  runtime = 0;                  ///< log打印时程序运行时间
-		bool     async = false;                ///< 是否为异步log
-		bool     synclock = false;             ///< 同步模式下是否加锁
-		string   content;                      ///< log内容
-		const    string& trace_json_text();
-		const    string& trace_console_text();
-	private:
-		string trace_json_text_;
-		string trace_console_text_;
-	};
-
 	class TracePrinterImpl : public TracePrinter
 	{
 	private:

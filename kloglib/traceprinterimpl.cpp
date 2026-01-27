@@ -60,7 +60,6 @@ namespace kk
 		level_on_off[TRACE_TEMP] = static_cast<bool>(TRACE_TEMP);
 	}
 
-
 	const string& TraceEntry::trace_json_text()
 	{
 		do
@@ -204,6 +203,7 @@ namespace kk
 		} while (false);
 		return trace_console_text_;
 	}
+
 
 	TracePrinterImpl::TracePrinterImpl(void)
 	{
