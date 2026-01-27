@@ -5,12 +5,12 @@
 
 int main(int argc, char *argv[])
 {
-	KlogCreateStdout;
-	KlogGenerateDump;
-	KlogTrackCout;
+	//KlogCreateStdout;
+	//KlogGenerateDump;
+	//KlogTrackCout;
 	QApplication a(argc, argv);
 	KlogClient w;
 	w.show();
 	return a.exec();
-	KlogWaitAsyncEnd;
+	//KlogWaitAsyncEnd;
 }

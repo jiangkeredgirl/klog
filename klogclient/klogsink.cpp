@@ -2,6 +2,9 @@
 #include "klogsink.h"
 #include "cstandard.h"
 #include "protocolserialpackage.h"
+#include "klogsinkcontrol.h"
+#include "klogsinksynctrace.h"
+#include "klogsinkasynctrace.h"
 
 KlogSink::KlogSink()
 {
@@ -34,12 +37,14 @@ int KlogSink::Connect(const string& ip, int control_port, int sync_trace_port, i
 			cerr << "connect failed" << endl;
 			break;
 		}
+		KlogSinkSyncTrace::instance().RegisterNetSinkFunction(std::bind(&KlogSink::OnReceiveSyncTrace, this, std::placeholders::_1));
 		error_code = KlogSinkSyncTrace::instance().Connect(m_server_ip, m_server_sync_trace_port, false);
 		if (error_code)
 		{
 			cerr << "connect failed" << endl;
 			break;
 		}
+		KlogSinkAsyncTrace::instance().RegisterNetSinkFunction(std::bind(&KlogSink::OnReceiveAsyncTrace, this, std::placeholders::_1));
 		error_code = KlogSinkAsyncTrace::instance().Connect(m_server_ip, m_server_async_trace_port, true);
 		if (error_code)
 		{
@@ -59,3 +64,32 @@ int KlogSink::Disconnect()
 	cout << "tcp client have disconnected" << endl;
 	return 0;
 }
+
+int KlogSink::OnReceiveSyncTrace(shared_ptr<KlogMessage> klog_message)
+{
+	shared_ptr<TraceEntry> trace_entry(new TraceEntry());
+	{
+		*trace_entry = klog_message->trace_entry;
+	}
+	emit SignalReceiveTrace(trace_entry, LogFileStatus::LogFileReading);
+	if (trace_entry->is_track)
+	{
+		emit SignalReceiveTrack(trace_entry, LogFileStatus::LogFileReading);
+	}
+	return 0;
+}
+
+int KlogSink::OnReceiveAsyncTrace(shared_ptr<KlogMessage> klog_message)
+{
+	shared_ptr<TraceEntry> trace_entry(new TraceEntry());
+	{
+		*trace_entry = klog_message->trace_entry;
+	}
+	emit SignalReceiveTrace(trace_entry, LogFileStatus::LogFileReading);
+	if (trace_entry->is_track)
+	{
+		emit SignalReceiveTrack(trace_entry, LogFileStatus::LogFileReading);
+	}
+	return 0;
+}
+

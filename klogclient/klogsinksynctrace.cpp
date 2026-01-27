@@ -2,6 +2,7 @@
 #include "klogsinksynctrace.h"
 #include "cstandard.h"
 #include "protocolserialpackage.h"
+#include "rapidjsonparser.h"
 
 KlogSinkSyncTrace::KlogSinkSyncTrace()
 {
@@ -73,6 +74,12 @@ int KlogSinkSyncTrace::Disconnect()
 	return 0;
 }
 
+int KlogSinkSyncTrace::RegisterNetSinkFunction(KlogNetSinkFunction callback)
+{
+	m_callbackf = callback;
+	return 0;
+}
+
 int KlogSinkSyncTrace::OnTcpConnect(int status)
 {
 	if (status == 0)
@@ -118,7 +125,7 @@ int KlogSinkSyncTrace::OnTcpRead(const char* data, size_t size, int status)
 			string serial_event_data(data, size);
 			NetEvent event;
 			m_serial_parse->Serial(serial_event_data, event);
-			ParseKlogManageEvent(event, serial_event_data);
+			ParseKlogEvent(event, serial_event_data);
 		}
 	}
 	return 0;
@@ -133,7 +140,7 @@ int KlogSinkSyncTrace::OnTcpWrite(const char* data, size_t size, int status)
 	return 0;
 }
 
-int KlogSinkSyncTrace::ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data)
+int KlogSinkSyncTrace::ParseKlogEvent(const NetEvent& net_event, const string& serial_event_data)
 {
 	switch (net_event.event_type)
 	{
@@ -143,7 +150,17 @@ int KlogSinkSyncTrace::ParseKlogManageEvent(const NetEvent& net_event, const str
 		{
 			SendKlogServerPortEvent send_port_event;
 			m_serial_parse->Serial(serial_event_data, send_port_event);
-			HandleKlogManageEvent(send_port_event);
+			HandleKlogEvent(send_port_event);
+		}
+		break;
+	}
+	case NetEventType::SEND_KLOG_MESSAGE:
+	{
+		if (m_serial_parse)
+		{
+			SendKlogMessageEvent send_message_event;
+			m_serial_parse->Serial(serial_event_data, send_message_event);
+			HandleKlogEvent(send_message_event);
 		}
 		break;
 	}
@@ -153,13 +170,32 @@ int KlogSinkSyncTrace::ParseKlogManageEvent(const NetEvent& net_event, const str
 	return 0;
 }
 
-int KlogSinkSyncTrace::HandleKlogManageEvent(const NetEvent& net_event)
+int KlogSinkSyncTrace::HandleKlogEvent(const NetEvent& net_event)
 {
 	switch (net_event.event_type)
 	{
 	case NetEventType::SEND_KLOG_SERVER_PORT:
 	{
 		const SendKlogServerPortEvent& send_port_event = static_cast<const SendKlogServerPortEvent&>(net_event);
+		break;
+	}
+	case NetEventType::SEND_KLOG_MESSAGE:
+	{
+		const SendKlogMessageEvent* send_message_event = dynamic_cast<const SendKlogMessageEvent*>(&net_event);
+		if (send_message_event)
+		{
+			cout << "接受到来自:" << send_message_event->source_info.sourece_ip
+				<< "程序名:" << send_message_event->source_info.source_program_name
+				<< "的日志:" << endl;
+			cout << send_message_event->klog_message << endl;
+		}
+		if (m_callbackf)
+		{
+			shared_ptr<KlogMessage> log_message(new KlogMessage());
+			log_message->source_info = send_message_event->source_info;
+			CJsonParser::instance().DecodeTraceEntry(send_message_event->klog_message, log_message->trace_entry);
+			m_callbackf(log_message);
+		}
 		break;
 	}
 	default:

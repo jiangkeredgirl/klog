@@ -47,7 +47,8 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		labelIPTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
 		m_editIP = new QLineEdit;
-		m_editIP->setPlaceholderText("127.0.0.1");
+		m_editIP->setPlaceholderText("日志服务器ip");
+		m_editIP->setText("127.0.0.1");
 		layout->addWidget(m_editIP);
 		m_editIP->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		m_editIP->setFixedWidth(150);
@@ -63,18 +64,21 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 
 		m_editControlPort = new QLineEdit;
 		m_editControlPort->setPlaceholderText(tr("日志控制port"));
+		m_editControlPort->setText("2012");
 		layout->addWidget(m_editControlPort);
 		m_editControlPort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		m_editControlPort->setFixedWidth(100);
 
 		m_editSyncTracePort = new QLineEdit;
 		m_editSyncTracePort->setPlaceholderText(tr("同步日志port"));
+		m_editSyncTracePort->setText("2013");
 		layout->addWidget(m_editSyncTracePort);
 		m_editSyncTracePort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		m_editSyncTracePort->setFixedWidth(100);
 
 		m_editAsyncTracePort = new QLineEdit;
 		m_editAsyncTracePort->setPlaceholderText(tr("异步日志port"));
+		m_editAsyncTracePort->setText("2014");
 		layout->addWidget(m_editAsyncTracePort);
 		m_editAsyncTracePort->setStyleSheet("QLineEdit{border:1px solid red; padding:4px;}");
 		m_editAsyncTracePort->setFixedWidth(100);

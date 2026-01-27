@@ -206,7 +206,7 @@
     <QtMoc Include="loglevelbar_ui.h" />
     <QtMoc Include="logsearchbar_ui.h" />
     <QtMoc Include="menubar_ui.h" />
-    <ClInclude Include="klogsink.h" />
+    <QtMoc Include="klogsink.h" />
     <ClInclude Include="klogsinkasynctrace.h" />
     <ClInclude Include="klogsinkcontrol.h" />
     <ClInclude Include="klogsinksynctrace.h" />

@@ -1,7 +1,10 @@
 ﻿#ifndef LOGFILE_H
 #define LOGFILE_H
+#include "pch.h"
 #include "cstandard.h"
 #include <QObject>
+#include "traceprinter.h"
+using namespace kk;
 
 #define TRACE_TRACk           1                     ///< track out,0 not output
 #define TRACE_ERROR           2                     ///< error out,0 not output
@@ -12,6 +15,7 @@
 #define TRACE_DEBUG           7                     ///< debug out,0 not output
 #define TRACE_TEMP            8                     ///< temporary out,0 not output
 
+#if 0
 struct TraceEntry
 {
 	bool     is_track = false;
@@ -32,6 +36,7 @@ struct TraceEntry
 	bool     synclock = false;             ///< 同步模式下是否加锁
 	string   content;                      ///< log内容
 };
+#endif
 
 enum LogFileStatus
 {

@@ -3,7 +3,7 @@
 #include "kutility.h"
 #include "kloglib.h"
 
-#define ROWBYROW_SHOW     0  // 一行一行显示
+#define ROWBYROW_SHOW    1  // 一行一行显示
 
 LogDisplay::LogDisplay(QWidget *parent)
 	: QWidget(parent)

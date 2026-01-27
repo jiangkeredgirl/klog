@@ -118,7 +118,7 @@ int KlogSinkControl::OnTcpRead(const char* data, size_t size, int status)
 			string serial_event_data(data, size);
 			NetEvent event;
 			m_serial_parse->Serial(serial_event_data, event);
-			ParseKlogManageEvent(event, serial_event_data);
+			ParseKlogEvent(event, serial_event_data);
 		}
 	}
 	return 0;
@@ -133,7 +133,7 @@ int KlogSinkControl::OnTcpWrite(const char* data, size_t size, int status)
 	return 0;
 }
 
-int KlogSinkControl::ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data)
+int KlogSinkControl::ParseKlogEvent(const NetEvent& net_event, const string& serial_event_data)
 {
 	switch (net_event.event_type)
 	{
@@ -143,7 +143,7 @@ int KlogSinkControl::ParseKlogManageEvent(const NetEvent& net_event, const strin
 		{
 			SendKlogServerPortEvent send_port_event;
 			m_serial_parse->Serial(serial_event_data, send_port_event);
-			HandleKlogManageEvent(send_port_event);
+			HandleKlogEvent(send_port_event);
 		}
 		break;
 	}
@@ -153,7 +153,7 @@ int KlogSinkControl::ParseKlogManageEvent(const NetEvent& net_event, const strin
 	return 0;
 }
 
-int KlogSinkControl::HandleKlogManageEvent(const NetEvent& net_event)
+int KlogSinkControl::HandleKlogEvent(const NetEvent& net_event)
 {
 	switch (net_event.event_type)
 	{

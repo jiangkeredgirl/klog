@@ -1,6 +1,8 @@
 ﻿#pragma once
 #include "tcpclienthandler.h"
 #include "TcpPackage.h"
+#include "klognetprotocol.h"
+#include "klogsink.h"
 
 class IProtocolSerial;
 class NetEvent;
@@ -15,6 +17,7 @@ public:
 public:
 	int Connect(const string& ip, int port, bool async);
 	int Disconnect();
+	int RegisterNetSinkFunction(KlogNetSinkFunction callback);
 
 public:
 	virtual int OnTcpConnect(int status) override;
@@ -23,8 +26,8 @@ public:
 	virtual int OnTcpWrite(const char* data, size_t size, int status) override;
 
 private:
-	int ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data);
-	int HandleKlogManageEvent(const NetEvent& net_event);
+	int ParseKlogEvent(const NetEvent& net_event, const string& serial_event_data);
+	int HandleKlogEvent(const NetEvent& net_event);
 
 private:
 	int SendKlogClientType();
@@ -37,4 +40,5 @@ private:
 	ITcpClient* m_tcp_client = nullptr;
 	string m_server_ip;
 	int m_server_port = 0;
+	KlogNetSinkFunction m_callbackf = nullptr;
 };
