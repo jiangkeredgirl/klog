@@ -80,6 +80,47 @@ int trace_test2(const string& log_content)
 	return 0;
 }
 
+int trace_level_5(const string& log_content)
+{
+	KlogTrackCout;
+	return 0;
+}
+int trace_level_4(const string& log_content)
+{
+	KlogTrackCout;
+	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
+	trace_level_5(log_content);
+	return 0;
+}
+int trace_level_3(const string& log_content)
+{
+	KlogTrackCout;
+	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
+	trace_level_4(log_content);
+	return 0;
+}
+int trace_level_2(const string& log_content)
+{
+	KlogTrackCout;
+	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
+	trace_level_3(log_content);
+	return 0;
+}
+int trace_level_1(const string& log_content)
+{
+	KlogTrackCout;
+	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
+	trace_level_2(log_content);
+	return 0;
+}
+int trace_level_0(const string& log_content)
+{
+	KlogTrackCout;
+	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
+	trace_level_1(log_content);
+	return 0;
+}
+
 int trace_thread(const string& log_content)
 {
 	KlogTrackCout;
@@ -126,7 +167,8 @@ int _tmain()
 	int nvalue = 29;
 	(KlogOKCout << "支持二进制数据:").write(reinterpret_cast<const char*>(&nvalue), sizeof(nvalue));
 	trace_test("my log content 支持中文");	
-	trace_thread("线程1");
+	trace_level_0("函数调用顺序测试");
+	//trace_thread("线程1");
 	//trace_thread("线程2");
 	//trace_thread("线程3");
 	//TraceTest1 test1;

@@ -194,6 +194,9 @@
     <QtMoc Include="funcmindmap.h">
       <Filter>Header Files</Filter>
     </QtMoc>
+    <QtMoc Include="mindmapscene.h">
+      <Filter>Header Files</Filter>
+    </QtMoc>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="rapidjsonparser.h">
@@ -209,6 +212,15 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="klogsinksynctrace.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mindedgeitem.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mindnode.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="mindnodeitem.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

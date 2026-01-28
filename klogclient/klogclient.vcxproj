@@ -214,6 +214,10 @@
     <ClInclude Include="klogsinkasynctrace.h" />
     <ClInclude Include="klogsinkcontrol.h" />
     <ClInclude Include="klogsinksynctrace.h" />
+    <ClInclude Include="mindedgeitem.h" />
+    <QtMoc Include="mindmapscene.h" />
+    <ClInclude Include="mindnode.h" />
+    <ClInclude Include="mindnodeitem.h" />
     <ClInclude Include="pch.h" />
     <ClInclude Include="rapidjsonparser.h" />
   </ItemGroup>
