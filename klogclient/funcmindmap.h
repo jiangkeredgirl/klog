@@ -5,13 +5,8 @@
 #include "funcmindmap_ui.h"
 #include "logfile.h"
 #include "funcstack.h"
+#include "funcflow.h"
 
-class FuncTree
-{
-public:
-	shared_ptr<TraceEntry> func_path;
-	list<shared_ptr<FuncTree>> branchs;
-};
 
 class FuncMindMap : public QDialog
 {

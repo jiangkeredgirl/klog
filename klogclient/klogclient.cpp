@@ -48,6 +48,7 @@ void KlogClient::Init()
 
 	m_funcStack = new FuncStack(this->centralWidget());
 	m_funcFlow = new FuncFlow(this->centralWidget());
+	m_funcMindMap = new FuncMindMap(this->centralWidget());
 
 
 	connect(m_logFileBar, &LogFileBar::SignalOpenLocalLogFile, this, &KlogClient::SlotOpenLocalLogFile);
@@ -58,12 +59,15 @@ void KlogClient::Init()
 	connect(m_menuBar, &MenuBar::SignalActionTriggered, this, &KlogClient::SlotActionTriggered);
 	connect(m_funcStack, &FuncStack::SignalCloseDialog, this, &KlogClient::SlotCloseStackDialog);
 	connect(m_funcFlow, &FuncFlow::SignalCloseDialog, this, &KlogClient::SlotCloseStackDialog);
+	connect(m_funcMindMap, &FuncMindMap::SignalCloseDialog, this, &KlogClient::SlotCloseStackDialog);
 	connect(&LogFile::instance(), &LogFile::SignalReceiveTrace, m_logDisplay, &LogDisplay::SlotReceiveTrace, Qt::BlockingQueuedConnection);
 	connect(&LogFile::instance(), &LogFile::SignalReceiveTrack, m_funcStack, &FuncStack::SlotReceiveTrack, Qt::BlockingQueuedConnection);
 	connect(&LogFile::instance(), &LogFile::SignalReceiveTrack, m_funcFlow, &FuncFlow::SlotReceiveTrack, Qt::BlockingQueuedConnection);
+	connect(&LogFile::instance(), &LogFile::SignalReceiveTrack, m_funcMindMap, &FuncMindMap::SlotReceiveTrack, Qt::BlockingQueuedConnection);
 	connect(&KlogSink::instance(), &KlogSink::SignalReceiveTrace, m_logDisplay, &LogDisplay::SlotReceiveTrace, Qt::BlockingQueuedConnection);
 	connect(&KlogSink::instance(), &KlogSink::SignalReceiveTrack, m_funcStack, &FuncStack::SlotReceiveTrack, Qt::BlockingQueuedConnection);
 	connect(&KlogSink::instance(), &KlogSink::SignalReceiveTrack, m_funcFlow, &FuncFlow::SlotReceiveTrack, Qt::BlockingQueuedConnection);
+	connect(&KlogSink::instance(), &KlogSink::SignalReceiveTrack, m_funcMindMap, &FuncMindMap::SlotReceiveTrack, Qt::BlockingQueuedConnection);
 }
 
 void KlogClient::Uninit()
@@ -169,6 +173,17 @@ void KlogClient::SlotActionTriggered(QAction * action)
 		else
 		{
 			m_funcFlow->hide();
+		}
+	}
+	else if (action->text() == tr(u8"函数思维图"))
+	{
+		if (action->isChecked())
+		{
+			m_funcMindMap->show();
+		}
+		else
+		{
+			m_funcMindMap->hide();
 		}
 	}
 }

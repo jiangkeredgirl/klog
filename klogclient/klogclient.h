@@ -13,6 +13,7 @@
 #include "logfile.h"
 #include "funcstack.h"
 #include "funcflow.h"
+#include "funcmindmap.h"
 
 class KlogClient : public QMainWindow
 {
@@ -43,4 +44,5 @@ private:
 	LogDisplay*    m_logDisplay = nullptr;
 	FuncStack* m_funcStack = nullptr;
 	FuncFlow*  m_funcFlow = nullptr;
+	FuncMindMap*  m_funcMindMap = nullptr;
 };

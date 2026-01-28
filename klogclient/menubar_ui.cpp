@@ -22,6 +22,7 @@ void MenuBarui::setupUi(QMenuBar* hostWidget)
 		m_viewMenu->addAction(tr("log search"));
 		m_viewMenu->addAction(tr(u8"函数调用栈"));
 		m_viewMenu->addAction(tr(u8"函数调用流"));
+		m_viewMenu->addAction(tr(u8"函数思维图"));
 		m_viewMenu->addAction(tr(u8"函数执行时间靶点图"));
 		m_viewMenu->addAction(tr(u8"清空log"));
 		m_viewMenu->addAction(tr(u8"重置默认配置"));
