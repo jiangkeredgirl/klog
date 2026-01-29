@@ -88,15 +88,15 @@ void FuncFlow::FuncStacksAddInTrees(const string& process_name, const string& th
 	m_ui.FuncStacksAddInTrees(process_name, threadid, stacks);
 }
 
-void FuncFlow::FuncStacksAddInTree(list<shared_ptr<TraceEntry>>& func_stacks, list<shared_ptr<FuncTree>>& _func_trees)
+void FuncFlow::FuncStacksAddInTree(list<shared_ptr<TraceEntry>>& func_stacks, list<shared_ptr<FuncTreeNode>>& _func_trees)
 {
-	list<shared_ptr<FuncTree>>* func_trees = &_func_trees;
-	for (auto & func_path : func_stacks)
+	list<shared_ptr<FuncTreeNode>>* func_trees = &_func_trees;
+	for (auto & func_node : func_stacks)
 	{
 		bool exist = false;
 		for (auto & tree : *func_trees)
 		{
-			if (FuncStack::IsExistTrack(tree->func_path, func_path))
+			if (FuncStack::IsExistTrack(tree->func_trace, func_node))
 			{
 				func_trees = &tree->branchs;
 				exist = true;
@@ -105,8 +105,8 @@ void FuncFlow::FuncStacksAddInTree(list<shared_ptr<TraceEntry>>& func_stacks, li
 		}
 		if (exist == false)
 		{
-			shared_ptr<FuncTree> tree(new FuncTree());
-			tree->func_path = func_path;
+			shared_ptr<FuncTreeNode> tree(new FuncTreeNode());
+			tree->func_trace = func_node;
 			func_trees->push_back(tree);
 			func_trees = &tree->branchs;
 		}

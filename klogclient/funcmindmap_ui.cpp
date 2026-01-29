@@ -14,13 +14,13 @@ void FuncMindMapui::setupUi(QDialog* hostDialog)
 	m_hostDialog = hostDialog;
 	if (m_hostDialog)
 	{
-		m_hostDialog->setWindowTitle(tr(u8"函数调用流"));
+		m_hostDialog->setWindowTitle(tr(u8"函数思维图"));
 		Qt::WindowFlags flags = Qt::Dialog;
 		flags |= Qt::WindowMinMaxButtonsHint;
 		flags |= Qt::WindowCloseButtonHint;
 		m_hostDialog->setWindowFlags(flags);
 		m_hostDialog->resize(1280, 720);
-		m_hostDialog->setStyleSheet("FuncMindMap{border:1px solid red;}");
+		m_hostDialog->setStyleSheet(".FuncMindMap{border:1px solid red;}");
 
 		QHBoxLayout* layout = new QHBoxLayout;
 		m_hostDialog->setLayout(layout);
@@ -29,10 +29,17 @@ void FuncMindMapui::setupUi(QDialog* hostDialog)
 
 		m_trees_list = new QListWidget();
 		layout->addWidget(m_trees_list);
-		m_trees_list->setStyleSheet("QListWidget{border:1px solid red; margin:0px;}");
+		m_trees_list->setStyleSheet(".QListWidget{border:1px solid red; margin:0px;}");
 		m_trees_list->setResizeMode(QListWidget::Adjust);
 		m_trees_list->setWindowTitle("trees");
 		m_trees_list->installEventFilter(this);
+
+		treeWidget = new QTreeWidget;
+		treeWidget->setWindowTitle("多根节点 FuncTreeNode 同步界面示例");
+		treeWidget->setColumnCount(1);
+		treeWidget->setHeaderLabel("函数调用树（多根节点）");
+
+		layout->addWidget(treeWidget);
 	}
 }
 

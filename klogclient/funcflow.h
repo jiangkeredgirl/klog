@@ -6,11 +6,13 @@
 #include "logfile.h"
 #include "funcstack.h"
 
-class FuncTree
+class FuncTreeNode
 {
 public:
-	shared_ptr<TraceEntry> func_path;
-	list<shared_ptr<FuncTree>> branchs;
+	bool is_calling = false;
+	shared_ptr<TraceEntry> func_trace;
+	list<shared_ptr<FuncTreeNode>> branchs;
+	FuncTreeNode* parent = nullptr;
 };
 
 class FuncFlow : public QDialog
@@ -32,11 +34,11 @@ public:
 
 private:
 	void FuncStacksAddInTrees(const string& process_name, const string& threadid, list<shared_ptr<TraceEntry>>& func_stacks);
-	void FuncStacksAddInTree(list<shared_ptr<TraceEntry>>& func_stacks, list<shared_ptr<FuncTree>>& func_trees);
+	void FuncStacksAddInTree(list<shared_ptr<TraceEntry>>& func_stacks, list<shared_ptr<FuncTreeNode>>& func_trees);
 
 private:
 	FuncFlowui m_ui;
 	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<TraceEntry>>>> m_stacks;
 	map<string/*process_name*/, map<string/*threadid*/, bool>> m_stacks_end;
-	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<FuncTree>>>> m_func_trees;
+	map<string/*process_name*/, map<string/*threadid*/, list<shared_ptr<FuncTreeNode>>>> m_func_trees;
 };
