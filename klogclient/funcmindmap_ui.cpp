@@ -29,7 +29,7 @@ void FuncMindMapui::setupUi(QDialog* hostDialog)
 		layout->setSpacing(10);
 
 		m_trees_list = new QListWidget();
-		layout->addWidget(m_trees_list);
+		/*layout->addWidget(m_trees_list);*/
 		m_trees_list->setStyleSheet(".QListWidget{border:1px solid red; margin:0px;}");
 		m_trees_list->setResizeMode(QListWidget::Adjust);
 		m_trees_list->setWindowTitle("trees");
@@ -40,18 +40,19 @@ void FuncMindMapui::setupUi(QDialog* hostDialog)
 		treeWidget->setColumnCount(1);
 		treeWidget->setHeaderLabel("函数调用树（多根节点）");
 
-		auto scene = new MindMapScene;
-		auto view = new QGraphicsView(scene);
+		scene = new MindMapScene;
+		//auto view = new QGraphicsView(scene);
 
-		view->setRenderHints(QPainter::Antialiasing);
-		view->setDragMode(QGraphicsView::ScrollHandDrag);
-		view->resize(1000, 700);
-		view->show();
+		//view->setRenderHints(QPainter::Antialiasing);
+		//view->setDragMode(QGraphicsView::ScrollHandDrag);
+		//view->resize(1000, 700);
+		//view->show();
 
-		scene->buildDemoTree();   // 初始化示例树
+		//scene->buildDemoTree();   // 初始化示例树
 
 		layout->addWidget(treeWidget);
-		layout->addWidget(view);
+		scene->setFixedWidth(800);
+		layout->addWidget(scene);
 	}
 }
 

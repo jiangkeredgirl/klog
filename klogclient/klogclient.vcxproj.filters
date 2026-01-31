@@ -229,5 +229,8 @@
     <ClInclude Include="mindmapexporter.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="layout.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

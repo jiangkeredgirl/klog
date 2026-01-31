@@ -50,6 +50,7 @@ public:
     // 2. 批量添加多个 FuncTreeNode 根节点到 QTreeWidget
     void addRootFuncTreeNodes(std::shared_ptr<FuncTreeNode>& rootNode)
     {
+        scene->addTree(rootNode);
         if (!treeWidget) return;
 
         // 获取 QTreeWidget 的隐形根节点（所有顶层节点的父节点）
@@ -116,6 +117,7 @@ public:
     // 5. 更新 FuncTreeNode 对应的界面节点（适配多根）
     void updateFuncTreeNodeWidgetItem(const std::shared_ptr<FuncTreeNode>& funcTreeNode)
     {
+        scene->updateTree(funcTreeNode);
         if (!treeWidget || !funcTreeNode) return;
 
         // 从整个树（隐形根节点）查找节点
@@ -130,6 +132,7 @@ public:
     // 6. 添加 FuncTreeNode 分支（复用）
     bool addFuncTreeNodeBranch(const std::shared_ptr<FuncTreeNode>& parentFunc, const std::shared_ptr<FuncTreeNode>& newBranch)
     {
+        scene->addTree(parentFunc, newBranch);
         if (!treeWidget || !parentFunc || !newBranch) return false;
 
 #if 0
@@ -186,4 +189,5 @@ public:
     // 自定义角色：存储 FuncTreeNode 原始指针
     const int FuncTreeNodeRole = Qt::UserRole + 1;
     QTreeWidget* treeWidget;
+    MindMapScene* scene = nullptr;
 };

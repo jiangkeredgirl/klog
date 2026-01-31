@@ -80,44 +80,51 @@ int trace_test2(const string& log_content)
 	return 0;
 }
 
-int trace_level_5(const string& log_content)
+int trace_call_5(const string& log_content)
 {
 	KlogTrackCout;
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
 	return 0;
 }
-int trace_level_4(const string& log_content)
+int trace_call_4(const string& log_content)
 {
 	KlogTrackCout;
-	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
-	trace_level_5(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
+	trace_call_5(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
 	return 0;
 }
-int trace_level_3(const string& log_content)
+int trace_call_3(const string& log_content)
 {
 	KlogTrackCout;
-	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
-	trace_level_4(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
+	trace_call_4(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
 	return 0;
 }
-int trace_level_2(const string& log_content)
+int trace_call_2(const string& log_content)
 {
 	KlogTrackCout;
-	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
-	trace_level_3(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
+	trace_call_3(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
 	return 0;
 }
-int trace_level_1(const string& log_content)
+int trace_call_1(const string& log_content)
 {
 	KlogTrackCout;
-	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
-	trace_level_2(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
+	trace_call_2(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
+	trace_call_3(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
 	return 0;
 }
-int trace_level_0(const string& log_content)
+int trace_call_0(const string& log_content)
 {
 	KlogTrackCout;
-	std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
-	trace_level_1(log_content);
+	std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
+	trace_call_1(log_content);
 	return 0;
 }
 
@@ -131,7 +138,7 @@ int trace_thread(const string& log_content)
 			while (1)
 			{
 				KlogErrorCout << log_content;//c++风格，编译器代码不能去掉	
-				std::this_thread::sleep_for(std::chrono::seconds(10)); //睡眠1000毫秒
+				std::this_thread::sleep_for(std::chrono::seconds(5)); //睡眠1000毫秒
 			}
 		}).detach();
 	return 0;
@@ -166,8 +173,8 @@ int _tmain()
 	KlogOKCout << "\"支持双引号\"";
 	int nvalue = 29;
 	(KlogOKCout << "支持二进制数据:").write(reinterpret_cast<const char*>(&nvalue), sizeof(nvalue));
-	trace_test("my log content 支持中文");	
-	trace_level_0("函数调用顺序测试");
+	//trace_test("my log content 支持中文");	
+	trace_call_0("函数调用顺序测试");
 	//trace_thread("线程1");
 	//trace_thread("线程2");
 	//trace_thread("线程3");
