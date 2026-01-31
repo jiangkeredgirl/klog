@@ -29,11 +29,11 @@
   <Import Project="$(QtMsBuild)\qt_defaults.props" Condition="Exists('$(QtMsBuild)\qt_defaults.props')" />
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <QtInstall>msvc2022_qt6.7.1</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;svg;svgwidgets</QtModules>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <QtInstall>msvc2022_qt6.7.1</QtInstall>
-    <QtModules>core;gui;widgets</QtModules>
+    <QtModules>core;gui;widgets;svg;svgwidgets</QtModules>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') OR !Exists('$(QtMsBuild)\Qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -167,6 +167,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="menubar.cpp" />
     <ClCompile Include="menubar_ui.cpp" />
+    <ClCompile Include="mindmapexporter.cpp" />
     <ClCompile Include="pch.cpp" />
     <ClCompile Include="rapidjsonparser.cpp" />
   </ItemGroup>
@@ -216,6 +217,7 @@
     <ClInclude Include="klogsinksynctrace.h" />
     <ClInclude Include="mindedgeitem.h" />
     <QtMoc Include="mindmapscene.h" />
+    <ClInclude Include="mindmapexporter.h" />
     <ClInclude Include="mindnode.h" />
     <ClInclude Include="mindnodeitem.h" />
     <ClInclude Include="pch.h" />

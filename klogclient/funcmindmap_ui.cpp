@@ -1,4 +1,5 @@
 ﻿#include "funcmindmap_ui.h"
+#include <QGraphicsView>
 
 FuncMindMapui::FuncMindMapui()
 	: QObject()
@@ -39,7 +40,18 @@ void FuncMindMapui::setupUi(QDialog* hostDialog)
 		treeWidget->setColumnCount(1);
 		treeWidget->setHeaderLabel("函数调用树（多根节点）");
 
+		auto scene = new MindMapScene;
+		auto view = new QGraphicsView(scene);
+
+		view->setRenderHints(QPainter::Antialiasing);
+		view->setDragMode(QGraphicsView::ScrollHandDrag);
+		view->resize(1000, 700);
+		view->show();
+
+		scene->buildDemoTree();   // 初始化示例树
+
 		layout->addWidget(treeWidget);
+		layout->addWidget(view);
 	}
 }
 

@@ -4,6 +4,7 @@
 #include "qtstandard.h"
 #include "cstandard.h"
 #include "funcflow.h"
+#include "mindmapscene.h"
 
 class FuncMindMapui : public QObject
 {
