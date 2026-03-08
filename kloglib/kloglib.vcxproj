@@ -43,14 +43,14 @@
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
     <ConfigurationType>DynamicLibrary</ConfigurationType>
     <UseDebugLibraries>false</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <WholeProgramOptimization>true</WholeProgramOptimization>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
   <ImportGroup Label="ExtensionSettings">
@@ -79,7 +79,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;..\NetworkSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;..\NetworkSDK\include\;.\KlogNetProtocolSDK\include\;.\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
@@ -93,7 +93,7 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;..\NetworkSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;..\NetworkSDK\include\;.\KlogNetProtocolSDK\include\;.\;$(IncludePath)</IncludePath>
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
@@ -124,8 +124,10 @@
       </PrecompiledHeader>
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_DEBUG;kloglib_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);KLOGLIB_EXPORTS;KLOGLIB_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_WINDOWS;_USRDLL;_NO_WINDOWS_BYTE_COMPATIBLE;NOMINMAX;WIN32_LEAN_AND_MEAN;kloglib_EXPORTS;KLOGLIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -170,8 +172,10 @@
       <Optimization>MaxSpeed</Optimization>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
-      <PreprocessorDefinitions>NDEBUG;kloglib_EXPORTS;_WINDOWS;_USRDLL;%(PreprocessorDefinitions);KLOGLIB_EXPORTS;KLOGLIB_EXPORTS</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_WINDOWS;_USRDLL;_NO_WINDOWS_BYTE_COMPATIBLE;NOMINMAX;WIN32_LEAN_AND_MEAN;kloglib_EXPORTS;KLOGLIB_EXPORTS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -195,7 +199,9 @@
     <ClInclude Include="klogsourceasynctrace.h" />
     <ClInclude Include="klogsourcecontrol.h" />
     <ClInclude Include="klogsourcesynctrace.h" />
+    <ClInclude Include="kspdlog.h" />
     <ClInclude Include="rapidjsonparser.h" />
+    <ClInclude Include="spdlogwrapper.h" />
     <ClInclude Include="tracedefine.h" />
     <ClInclude Include="traceloader.h" />
     <ClInclude Include="traceloaderimpl.h" />

@@ -2,6 +2,8 @@
 #ifndef LOG_WRAPPER_H
 #define LOG_WRAPPER_H
 
+#include "../../../../kcommonhpp/kcommon.h"
+
 #include <string>
 #include <atomic>
 #include <iostream>
@@ -13,6 +15,7 @@
 #include <ctime>
 #include <iomanip>
 #include <map>
+
 #include "spdlog/spdlog.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/rotating_file_sink.h"
@@ -21,7 +24,6 @@
 #include "spdlog/pattern_formatter.h"
 #include "spdlog/sinks/stdout_sinks.h"
 #include "spdlog/common.h"
-#include "../kcommonhpp/kcommon.h"
 #include "SpdLogWrapper.h"
 using namespace spdlog;
 
@@ -51,12 +53,12 @@ using namespace spdlog;
 //static map<string, string> g_log_file_paths;
 //map<string, std::shared_ptr<spdlog::logger>> g_loggers;
 
-class KLog
+class KSpdlog
 {
 
 public:
     /**  */
-    inline static std::shared_ptr<spdlog::logger> InitLog(const string& root_log_dir, spdlog::level::level_enum log_level)
+    inline static std::shared_ptr<spdlog::logger> InitLog(const string& root_log_dir, spdlog::level::level_enum log_level, bool is_async = true)
     {
         m_default_log_level = log_level;
         string date = KTime<>::GetDate(KTime<>::GetNowDateTime());
@@ -68,9 +70,9 @@ public:
         // spdlog::set_pattern("[%Y-%m-%d %H:%M:%S] [%l] [thread %t] %v");
         // 线程ID固定宽度为6，右对齐，用0填充
         // spdlog::set_pattern("[%Y-%m-%d %H:%M:%S] [%6t] [%l] %v");
-        const string  log_pattern("[%n][%6t][%8l][%Y-%m-%d %H:%M:%S.%e][%s:%!:%#] %v");
+        const string  log_pattern("%^[%n][%6t][%8l][%Y-%m-%d %H:%M:%S.%e][%s:%!:%#] %v%$");
         SpdlogInit(log_pattern);
-        bool is_async = true;
+        //bool is_async = true;
         bool is_daily = true;
         std::shared_ptr<spdlog::logger>  default_logger = CreateLogger("default_logger", true, true, is_async, is_daily, false, default_log_path, log_level, log_pattern, [log_pattern](const filename_t& filename, std::FILE* file_stream) {WriteLogHeader("default_logger", filename, file_stream, log_pattern); });
         //spdlog::set([](const std::string &msg) { spdlog::get("console")->error("*** LOGGER ERROR ***: {}", msg); });
@@ -95,7 +97,7 @@ public:
         spdlog::drop("default_logger");  // 删除旧的 logger
         FlushLog();
         // 创建新的 logger，绑定新的日志文件
-        const string  log_pattern("[%n][%6t][%8l][%Y-%m-%d %H:%M:%S.%e][%s:%!:%#] %v");
+        const string  log_pattern("%^[%n][%6t][%8l][%Y-%m-%d %H:%M:%S.%e][%s:%!:%#] %v%$");
         bool is_async = true;
         bool is_daily = true;
         std::shared_ptr<spdlog::logger>  new_default_logger = CreateLogger("default_logger", true, true, is_async, is_daily, false, utf8tolocal(new_log_path), m_default_log_level, log_pattern, [log_pattern](const filename_t& filename, std::FILE* file_stream) {WriteLogHeader("default_logger", filename, file_stream, log_pattern); });
@@ -119,7 +121,7 @@ public:
     inline static void WriteLogHeader(const string& loggername, const filename_t& filename, std::FILE* file_stream, const string& log_pattern)
     {
         char head_buf[1000] = { 0 };
-        sprintf(head_buf,
+        sprintf_s(head_buf,
                 "log header:logger name:%s log filename:%s log pattern:%s\n"
                 , loggername.c_str(), localtoutf8(filename).c_str(), log_pattern.c_str());
         fputs(head_buf, file_stream);
@@ -128,6 +130,7 @@ public:
 
     inline static string m_default_log_dir;
     inline static spdlog::level::level_enum m_default_log_level = spdlog::level::level_enum::trace;
+    inline static std::shared_ptr<spdlog::logger> m_default_logger = KSpdlog::InitLog("./log", spdlog::level::level_enum::trace, true);
 };
 
 #endif // LOG_WRAPPER_H

@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <tchar.h>
 #include "kloglib.h"
+#include "kspdlog.h"
 #include "TraceTest1.h"
 #include "TraceTest2.h"
 #include <thread>
@@ -47,7 +48,7 @@ int trace_test(const string& log_content)
 	printf("printf=================================\n");
 	//cout << "cout==================================" << endl;
 	//std::cout << "std::cout==================================" << endl;
-	trace_test1(u8"my log content 支持中文");
+	trace_test1("my log content 支持中文");
 	return 0;
 }
 
@@ -146,7 +147,7 @@ int trace_thread(const string& log_content)
 
 void SetConsoleUtf8()
 {
-	SetConsoleTitle(L"klog输出");
+	SetConsoleTitle("klog输出");
 	SetConsoleOutputCP(CP_UTF8);
 	SetConsoleCP(CP_UTF8);
 	CONSOLE_FONT_INFOEX fontInfo;
@@ -162,10 +163,13 @@ void SetConsoleUtf8()
 	SetCurrentConsoleFontEx(hConsole, false, &fontInfo);
 }
 
-int _tmain()
+void TestKlog()
 {
+	SetConsoleUtf8();
+	KlogInfo("信息日志");
+	KlogWarn("警告日志");
+	KlogError("错误日志");
 	//CreateConsole;
-	//SetConsoleUTF8;
 	//GenerateDump;
 	//KlogCreateStdout;
 	//KlogSetStdoutUTF8;
@@ -181,6 +185,30 @@ int _tmain()
 	//TraceTest1 test1;
 	//TraceTest2 test2;
 	//WaitTrace;
+}
+
+void TestSpdlog()
+{
+	//KSpdlog::InitLog("./log", spdlog::level::level_enum::trace, false);
+	LOG_INFO("信息日志");
+	LOG_WARN("警告日志");
+	LOG_ERROR("错误日志");
+}
+
+
+int _tmain()
+{	
+	// 设置控制台输出为 UTF-8
+	SetConsoleOutputCP(CP_UTF8);
+	// 可选：设置输入为 UTF-8
+	SetConsoleCP(CP_UTF8);
+	cout << "输出中文测试" << endl;
+
+
+	TestSpdlog();
+	TestKlog();
+
+
 	std::cout << "按 Enter 键继续..." << std::endl;
 	// 等待用户输入回车
 	std::cin.get();

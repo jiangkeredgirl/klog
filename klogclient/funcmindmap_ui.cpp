@@ -15,7 +15,7 @@ void FuncMindMapui::setupUi(QDialog* hostDialog)
 	m_hostDialog = hostDialog;
 	if (m_hostDialog)
 	{
-		m_hostDialog->setWindowTitle(tr(u8"函数思维图"));
+		m_hostDialog->setWindowTitle(tr("函数思维图"));
 		Qt::WindowFlags flags = Qt::Dialog;
 		flags |= Qt::WindowMinMaxButtonsHint;
 		flags |= Qt::WindowCloseButtonHint;

@@ -27,7 +27,7 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		labelTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 #if 0
 		QLabel* labelOnlyShowTag = new QLabel;
-		labelOnlyShowTag->setText(tr(u8"只显示"));
+		labelOnlyShowTag->setText(tr("只显示"));
 		layout->addWidget(labelOnlyShowTag);
 		labelOnlyShowTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
@@ -38,7 +38,7 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		editOnlyShow->setFixedWidth(150);
 
 		QLabel* labelNotShowTag = new QLabel;
-		labelNotShowTag->setText(tr(u8"不显示"));
+		labelNotShowTag->setText(tr("不显示"));
 		layout->addWidget(labelNotShowTag);
 		labelNotShowTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
@@ -49,7 +49,7 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		editNotShow->setFixedWidth(150);
 #endif
 		QLabel* labelExecuteTimeTag = new QLabel;
-		labelExecuteTimeTag->setText(tr(u8"执行时间>="));
+		labelExecuteTimeTag->setText(tr("执行时间>="));
 		layout->addWidget(labelExecuteTimeTag);
 		labelExecuteTimeTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
@@ -64,14 +64,14 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		layout->addSpacing(-9);
 
 		QLabel* labelExecuteTimeTagEnd = new QLabel;
-		labelExecuteTimeTagEnd->setText(tr(u8"毫秒的函数"));
+		labelExecuteTimeTagEnd->setText(tr("毫秒的函数"));
 		layout->addWidget(labelExecuteTimeTagEnd);
 		labelExecuteTimeTagEnd->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
 		layout->addSpacing(10);
 
 		QLabel* labelLogTimeTag = new QLabel;
-		labelLogTimeTag->setText(tr(u8"log时间"));
+		labelLogTimeTag->setText(tr("log时间"));
 		layout->addWidget(labelLogTimeTag);
 		labelLogTimeTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
@@ -86,7 +86,7 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		//editLogBeginTime->setValidator(ipValidator);
 
 		QLabel* labelToTag = new QLabel;
-		labelToTag->setText(tr(u8"到"));
+		labelToTag->setText(tr("到"));
 		layout->addWidget(labelToTag);
 		labelToTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
@@ -99,12 +99,12 @@ void LogFilterBarui::setupUi(QWidget* hostWidget)
 		//editLogEndTime->setValidator(ipValidator);
 
 		m_buttonFilter = new QPushButton;
-		m_buttonFilter->setText(tr(u8"确认"));
+		m_buttonFilter->setText(tr("确认"));
 		layout->addWidget(m_buttonFilter);
 		m_buttonFilter->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");
 
 		m_checkBoxAbortFun = new QCheckBox;
-		m_checkBoxAbortFun->setText(tr(u8"crash的函数"));
+		m_checkBoxAbortFun->setText(tr("crash的函数"));
 		layout->addWidget(m_checkBoxAbortFun);
 		m_checkBoxAbortFun->setChecked(false);
 		m_checkBoxAbortFun->setStyleSheet("QCheckBox{border:1px solid red; padding:4px;}");

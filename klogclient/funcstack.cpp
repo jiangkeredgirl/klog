@@ -12,7 +12,7 @@ FuncStack::~FuncStack()
 
 void FuncStack::closeEvent(QCloseEvent *e)
 {
-	emit SignalCloseDialog(tr(u8"函数调用栈").toStdString());
+	emit SignalCloseDialog(tr("函数调用栈").toStdString());
 }
 
 void FuncStack::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatus status)

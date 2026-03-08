@@ -34,7 +34,7 @@ FuncMindMap::~FuncMindMap()
 
 void FuncMindMap::closeEvent(QCloseEvent *e)
 {
-	emit SignalCloseDialog(tr(u8"函数思维图").toStdString());
+	emit SignalCloseDialog(tr("函数思维图").toStdString());
 }
 
 void FuncMindMap::SlotReceiveTrack(shared_ptr<TraceEntry> track_entry, LogFileStatus status)

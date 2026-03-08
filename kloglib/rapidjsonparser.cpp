@@ -424,7 +424,7 @@ namespace kk
 		}
 		else
 		{
-			object.AddMember(rapidjson::Value(key.c_str(), allocator), value, allocator);
+			object.AddMember(rapidjson::Value(key.c_str(), allocator).Move(), value, allocator);
 		}
 		return 0;
 	}
@@ -437,7 +437,7 @@ namespace kk
 		}
 		else
 		{
-			object.AddMember(rapidjson::Value(key.c_str(), allocator), value, allocator);
+			object.AddMember(rapidjson::Value(key.c_str(), allocator).Move(), value, allocator);
 		}
 		return 0;
 	}
@@ -450,7 +450,7 @@ namespace kk
 		}
 		else
 		{
-			object.AddMember(rapidjson::Value(key.c_str(), allocator), value, allocator);
+			object.AddMember(rapidjson::Value(key.c_str(), allocator).Move(), value, allocator);
 		}
 		return 0;
 	}
@@ -463,7 +463,7 @@ namespace kk
 		}
 		else
 		{
-			object.AddMember(rapidjson::Value(key.c_str(), allocator), rapidjson::StringRef(value.c_str()), allocator);
+			object.AddMember(rapidjson::Value(key.c_str(), allocator).Move(), rapidjson::StringRef(value.c_str()), allocator);
 		}
 		return 0;
 	}

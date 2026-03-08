@@ -48,8 +48,8 @@ namespace kk
 		head_label_text = TRACE_LABEL;
 		//string program_path = kk::Utility::GetProgramPath();
 		//string program_directory = kk::Utility::GetDirectoryName(program_path);
-		//trace_file_dir = program_directory + ("klogs\\");
-		//trace_file_dir = ".\\klogs\\";
+		//trace_file_dir = program_directory + ("klog\\");
+		//trace_file_dir = ".\\klog\\";
 		level_on_off[TRACE_TRACk] = static_cast<bool>(TRACE_TRACk);
 		level_on_off[TRACE_ERROR] = static_cast<bool>(TRACE_ERROR);
 		level_on_off[TRACE_WARNING] = static_cast<bool>(TRACE_WARNING);
@@ -97,6 +97,14 @@ namespace kk
 				{
 					ss << ", \"threadid\":\"" << threadid << "\"";
 				}
+				if (TracePrinterImpl::instance().trace_config().head_datetime)
+				{
+					ss << ", \"datetime\":\"" << kk::Utility::GetDateTimeStr(datetime) << "\"";
+				}
+				if (TracePrinterImpl::instance().trace_config().head_runtime)
+				{
+					ss << ", \"runtime\":\"" << kk::Utility::GetRunTimeStr(runtime) << "\"";
+				}
 				if (TracePrinterImpl::instance().trace_config().head_processname)
 				{
 					ss << ", \"processname\":\"" << processname << "\"";
@@ -116,14 +124,6 @@ namespace kk
 				if (TracePrinterImpl::instance().trace_config().head_line)
 				{
 					ss << ", \"line\":" << line;
-				}
-				if (TracePrinterImpl::instance().trace_config().head_datetime)
-				{
-					ss << ", \"datetime\":\"" << kk::Utility::GetDateTimeStr(datetime) << "\"";
-				}
-				if (TracePrinterImpl::instance().trace_config().head_runtime)
-				{
-					ss << ", \"runtime\":\"" << kk::Utility::GetRunTimeStr(runtime) << "\"";
 				}
 				if (TracePrinterImpl::instance().trace_config().head_async)
 				{
@@ -175,6 +175,14 @@ namespace kk
 				if (TracePrinterImpl::instance().trace_config().head_threadid)
 				{
 					ss << ", " << threadid;
+				}
+				if (TracePrinterImpl::instance().trace_config().head_datetime)
+				{
+					ss << ", " << kk::Utility::GetDateTimeStr(datetime);
+				}
+				if (TracePrinterImpl::instance().trace_config().head_runtime)
+				{
+					ss << ",  " << kk::Utility::GetRunTimeStr(runtime);
 				}
 				if (TracePrinterImpl::instance().trace_config().head_filename)
 				{
@@ -238,7 +246,7 @@ namespace kk
 		{
 			Config::instance().SetTraceConfig(process_name_, trace_config_);
 		}
-		trace_config_.trace_file_dir = ".\\klogs\\" + process_name_dir + "\\";
+		trace_config_.trace_file_dir = ".\\klog\\" + process_name_dir + "\\";
 		InitTrace();
 		//TraceOutLog(false, TRACE_OK, TRACE_LABEL, GetModuleName(), GetFileName(__FILE__), __FUNCTION__, __LINE__, "Welcome using klog");
 	}

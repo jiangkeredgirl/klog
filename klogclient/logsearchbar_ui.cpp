@@ -27,7 +27,7 @@ void LogSearchBarui::setupUi(QWidget* hostWidget)
 		labelTag->setStyleSheet("QLabel{border:1px solid red;}");
 
 		QLabel* labelLogKeywordTag = new QLabel;
-		labelLogKeywordTag->setText(tr(u8"log关键词"));
+		labelLogKeywordTag->setText(tr("log关键词"));
 		layout->addWidget(labelLogKeywordTag);
 		labelLogKeywordTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 

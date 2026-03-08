@@ -87,7 +87,7 @@ using namespace spdlog;
 
 
 
-const string  g_spdlog_default_pattern("[%n][%6t][%8l][%Y-%m-%d %H:%M:%S.%e][%s:%!:%#] %v"/*"[%i][%P][%t]%+"*/);
+const string  g_spdlog_default_pattern("%^[%n][%6t][%8l][%Y-%m-%d %H:%M:%S.%e][%s:%!:%#] %v%$"/*"[%i][%P][%t]%+"*/);
 typedef std::function<void(const filename_t &filename, std::FILE *file_stream)> after_open_eventf;
 
 

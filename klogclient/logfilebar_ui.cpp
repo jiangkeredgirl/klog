@@ -27,7 +27,7 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		labelTag->setStyleSheet("QLabel{border:1px solid red; padding:0px;}");
 
 		m_buttonLocalFile = new QPushButton;
-		m_buttonLocalFile->setText(tr(u8"本地log文件..."));
+		m_buttonLocalFile->setText(tr("本地log文件..."));
 		layout->addWidget(m_buttonLocalFile);
 		m_buttonLocalFile->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");
 
@@ -84,7 +84,7 @@ void LogFileBarui::setupUi(QWidget* hostWidget)
 		m_editAsyncTracePort->setFixedWidth(100);
 
 		m_buttonConnect = new QPushButton;
-		m_buttonConnect->setText(tr(u8"连接"));
+		m_buttonConnect->setText(tr("连接"));
 		layout->addWidget(m_buttonConnect);
 		m_buttonConnect->setStyleSheet("QPushButton{border:1px solid red; padding:4px;}");
 

@@ -28,7 +28,7 @@ void LogFileBar::SlotButtonLocalFile()
 	{
 		defultLogDir = kk::Utility::GetDirectoryName(m_ui.m_labelFileName->text().toStdString()).c_str();
 	}
-	QString logFilePath = QFileDialog::getOpenFileName(this, tr(u8"本地log文件"), defultLogDir, "*.log");
+	QString logFilePath = QFileDialog::getOpenFileName(this, tr("本地log文件"), defultLogDir, "*.log");
 	if (!logFilePath.isEmpty())
 	{
 		m_ui.m_labelFileName->setText(logFilePath);
