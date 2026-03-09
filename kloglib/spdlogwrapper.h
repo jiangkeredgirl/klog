@@ -26,6 +26,7 @@ using namespace chrono;
 #include "spdlog/pattern_formatter.h"
 #include "spdlog/sinks/stdout_sinks.h"
 #include "spdlog/common.h"
+#include <spdlog/fmt/fmt.h>
 using namespace spdlog;
 
 
@@ -44,7 +45,7 @@ using namespace spdlog;
 #define __FILENAME__ (strrchr(__FILE__, '/') ? (strrchr(__FILE__, '/') + 1):__FILE__)
 #endif
 
-#define logsuffix(log_format)  std::string("[").append(__FILENAME__).append(":").append(__FUNCTION__).append("()#").append(std::to_string(__LINE__)).append("] ").append(log_format).c_str()
+#define logsuffix(log_format)  fmt::runtime(std::string("[").append(__FILENAME__).append(":").append(__FUNCTION__).append("()#").append(std::to_string(__LINE__)).append("] ").append(log_format))
 
 //#define STDOUT_LOG_TRACE(log_format, ...)              if (spdlog::get("stdout_log") != NULL) { spdlog::get("stdout_log")->trace( logsuffix(log_format), ##__VA_ARGS__); }
 //#define STDOUT_LOG_DEBUG(log_format, ...)              if (spdlog::get("stdout_log") != NULL) { spdlog::get("stdout_log")->debug( logsuffix(log_format), ##__VA_ARGS__); }
@@ -120,6 +121,9 @@ inline std::shared_ptr<spdlog::logger> CreateLogger(const string & logger_name, 
     // warning: only use if all your loggers are thread safe ("_mt" loggers)
     //spdlog::flush_every(std::chrono::seconds(3));
 
+    // 假设 logger 名字叫 "file_logger"
+    spdlog::drop("default_logger");  // 删除旧的 logger
+
     std::shared_ptr<spdlog::logger> logger = nullptr;
 
     //spdlog::init_thread_pool(819200, 1);
@@ -182,8 +186,8 @@ inline std::shared_ptr<spdlog::logger> CreateLogger(const string & logger_name, 
     }
     logger->set_level(log_level);
     logger->set_pattern(log_pattern);
-    logger->info("logger created logger name:{}, log file path:{}", logger_name, localtoutf8(file_path));
-
+    logger->info("CreateLogger()  logger created logger name:{}, log file path:{}", logger_name, localtoutf8(file_path));
+    logger->info("CreateLogger()  logger创建成功, 名字:{}, 名字长度:{}", logger_name, logger_name.size());
     return logger;
 }
 
@@ -383,8 +387,8 @@ inline std::shared_ptr<spdlog::logger> CreateLoggerWithSplitFileByLogLevel(const
         }
     }
 
-    logger->info("logger created logger name:{}, log file path:{}", logger_name, localtoutf8(file_path));
-
+    logger->info("CreateLoggerWithSplitFileByLogLevel()  logger created logger name:{}, log file path:{}", logger_name, localtoutf8(file_path));
+    logger->info("CreateLoggerWithSplitFileByLogLevel()  logger创建成功, 名字:{}, 名字长度:{}", logger_name, logger_name.size());
     return logger;
 }
 

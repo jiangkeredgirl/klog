@@ -77,6 +77,9 @@ public:
         std::shared_ptr<spdlog::logger>  default_logger = CreateLogger("default_logger", true, true, is_async, is_daily, false, default_log_path, log_level, log_pattern, [log_pattern](const filename_t& filename, std::FILE* file_stream) {WriteLogHeader("default_logger", filename, file_stream, log_pattern); });
         //spdlog::set([](const std::string &msg) { spdlog::get("console")->error("*** LOGGER ERROR ***: {}", msg); });
         //spdlog::get("console")->info("some invalid message to trigger an error {}{}{}{}", 3);
+        spdlog::info(localtoutf8("spdlog初始完成"));
+        spdlog::error(localtoutf8("spdlog初始完成, 这不是错误，这是测试"));
+        LOG_INFO("spdlog初始完成");
         return default_logger;
     }
 
@@ -93,8 +96,8 @@ public:
         std::cout << "处理后字符串: " << new_log_dir << std::endl;
         KFile::CreateDir(new_log_dir);
         string new_log_path = new_log_dir + "/" + GetProcessName() + ".log";
-        // 假设 logger 名字叫 "file_logger"
-        spdlog::drop("default_logger");  // 删除旧的 logger
+        //// 假设 logger 名字叫 "file_logger"
+        //spdlog::drop("default_logger");  // 删除旧的 logger
         FlushLog();
         // 创建新的 logger，绑定新的日志文件
         const string  log_pattern("%^[%n][%6t][%8l][%Y-%m-%d %H:%M:%S.%e][%s:%!:%#] %v%$");
