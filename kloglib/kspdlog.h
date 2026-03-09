@@ -128,9 +128,10 @@ public:
         fflush(file_stream);
     }
 
+private:
     inline static string m_default_log_dir;
     inline static spdlog::level::level_enum m_default_log_level = spdlog::level::level_enum::trace;
-    inline static std::shared_ptr<spdlog::logger> m_default_logger = KSpdlog::InitLog("./log", spdlog::level::level_enum::trace, true);
+    inline static std::shared_ptr<spdlog::logger> m_default_logger = KSpdlog::InitLog("./klog", spdlog::level::level_enum::trace, true);
 };
 
 #endif // LOG_WRAPPER_H
