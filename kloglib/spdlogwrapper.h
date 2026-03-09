@@ -20,6 +20,7 @@ using namespace chrono;
 #include "spdlog/sinks/stdout_color_sinks.h"
 #include "spdlog/sinks/basic_file_sink.h"
 #include "spdlog/sinks/daily_file_sink.h"
+#include "spdlog/sinks/hourly_file_sink.h"
 #include "spdlog/sinks/rotating_file_sink.h"
 #include "spdlog/async.h"
 #include "spdlog/pattern_formatter.h"
@@ -250,7 +251,7 @@ inline std::shared_ptr<spdlog::logger> CreateLoggerWithSplitFileByLogLevel(const
             std::shared_ptr<spdlog::sinks::sink> sink = nullptr;
             if(is_daily)
             {
-                auto daily_sink = std::make_shared<spdlog::sinks::daily_file_sink_mt>(log_level_file_paths[log_level], 0, 0);
+                auto daily_sink = std::make_shared<spdlog::sinks::hourly_file_sink_mt>(log_level_file_paths[log_level], 0, 0);
                 sink = daily_sink;
             }
             else if(is_rotate)
