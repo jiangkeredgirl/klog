@@ -31,11 +31,11 @@
   <Import Project="$(QtMsBuild)\qt_defaults.props" Condition="Exists('$(QtMsBuild)\qt_defaults.props')" />
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <QtInstall>msvc2022_qt6.7.1</QtInstall>
-    <QtModules>core;gui;widgets;svg;svgwidgets</QtModules>
+    <QtModules>core;gui;widgets;serialbus;serialport;svg;svgwidgets</QtModules>
   </PropertyGroup>
   <PropertyGroup Label="QtSettings" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <QtInstall>msvc2022_qt6.7.1</QtInstall>
-    <QtModules>core;gui;widgets;svg;svgwidgets</QtModules>
+    <QtModules>core;gui;widgets;serialbus;serialport;svg;svgwidgets</QtModules>
   </PropertyGroup>
   <Target Name="QtMsBuildNotFound" BeforeTargets="CustomBuild;ClCompile" Condition="!Exists('$(QtMsBuild)\qt.targets') OR !Exists('$(QtMsBuild)\Qt.props')">
     <Message Importance="High" Text="QtMsBuild: could not locate qt.targets, qt.props; project may not build correctly." />
@@ -55,13 +55,13 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;.\KlogSDK\include\;..\NetworkSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\ktoolkit\kcommonhpp;..\..\ktoolkit\KNetworkSDK\include;..\..\thirdparty\rapidjson\include\;.\KlogSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\rapidjson\include\;.\KlogSDK\include\;..\NetworkSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\ktoolkit\kcommonhpp;..\..\ktoolkit\KNetworkSDK\include;..\..\thirdparty\rapidjson\include\;.\KlogSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

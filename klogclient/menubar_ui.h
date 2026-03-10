@@ -1,7 +1,7 @@
 #pragma once
 
 #include <QObject>
-#include "qtstandard.h"
+#include "qstandard.h"
 
 class MenuBarui : public QObject
 {

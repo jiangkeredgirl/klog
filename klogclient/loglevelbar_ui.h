@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include <QObject>
-#include "qtstandard.h"
+#include "qstandard.h"
 #include "cstandard.h"
 
 class LogLevelBarui : public QObject

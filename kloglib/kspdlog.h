@@ -77,9 +77,10 @@ public:
         std::shared_ptr<spdlog::logger>  default_logger = CreateLogger("default_logger", true, true, is_async, is_daily, false, default_log_path, log_level, log_pattern, [log_pattern](const filename_t& filename, std::FILE* file_stream) {WriteLogHeader("default_logger", filename, file_stream, log_pattern); });
         //spdlog::set([](const std::string &msg) { spdlog::get("console")->error("*** LOGGER ERROR ***: {}", msg); });
         //spdlog::get("console")->info("some invalid message to trigger an error {}{}{}{}", 3);
-        spdlog::info(localtoutf8("spdlog初始完成"));
-        spdlog::error(localtoutf8("spdlog初始完成, 这不是错误，这是测试"));
-        LOG_INFO("spdlog初始完成");
+        spdlog::info( "spdlog初始完成");
+        spdlog::error("spdlog初始完成, 这不是错误，这是测试");
+        LOG_INFO(     "spdlog初始完成");
+        LOG_ERROR(    "spdlog初始完成, 这不是错误，这是测试");
         return default_logger;
     }
 

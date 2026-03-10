@@ -83,7 +83,7 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\boost\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\ktoolkit\kcommonhpp;..\..\thirdparty\boost\;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\thirdparty\boost\lib64-msvc-$(PlatformToolsetVersion)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -99,7 +99,7 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\kutility\;..\..\thirdparty\boost\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\ktoolkit\kcommonhpp;..\..\thirdparty\boost\;$(IncludePath)</IncludePath>
     <LibraryPath>..\..\thirdparty\boost\lib64-msvc-$(PlatformToolsetVersion)\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
