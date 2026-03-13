@@ -25,6 +25,67 @@ using namespace std;
 #endif
 #endif
 
+
+
+#define FMT_HEADER_ONLY
+#include <fmt/core.h>
+#include <fmt/printf.h>
+
+#if 0
+template<typename... Args>
+std::string FormatLog(const char* log_format, Args&&... args)
+{
+	if (!log_format)
+		return "";
+
+	try
+	{
+		// 判断是否使用 {} 风格
+		if (std::strchr(log_format, '{') != nullptr)
+		{
+			return fmt::format(log_format, std::forward<Args>(args)...);
+		}
+		else
+		{
+			// printf 风格
+			return fmt::sprintf(log_format, std::forward<Args>(args)...);
+		}
+	}
+	catch (...)
+	{
+		return std::string("FormatLog error: ") + log_format;
+	}
+}
+#endif
+template<typename... Args>
+std::string FormatLog(const char* log_format, Args&&... args)
+{
+	if (log_format == nullptr)
+		return "";
+
+	std::string fmt_str(log_format);
+
+	try
+	{
+		// 判断是否使用 {} 风格
+		if (fmt_str.find('{') != std::string::npos)
+		{
+			return fmt::format(fmt::runtime(log_format), std::forward<Args>(args)...);
+		}
+		else
+		{
+			// printf 风格
+			return fmt::sprintf(log_format, std::forward<Args>(args)...);
+		}
+	}
+	catch (...)
+	{
+		return std::string("TraceOutLog format error: ") + log_format;
+	}
+}
+
+
+
 namespace KKTracePackage
 { 
 	class TraceLibrary
@@ -137,7 +198,12 @@ namespace KKTracePackage
 		{
 			if (m_TracePrinter)
 			{
+				std::string log_msg = FormatLog(log_format, std::forward<Args>(args)...);
+#if 0
 				m_TracePrinter->TraceOutLog(is_track, level, label, module_name, file_name, func_name, line, log_format, args...);
+#else
+				m_TracePrinter->TraceOutLog(is_track, level, label, module_name, file_name, func_name, line, log_msg.c_str());
+#endif
 			}
 			return 0;
 		}
@@ -215,10 +281,20 @@ namespace KKTracePackage
 #if KLOG_USE_DYNAMIC_DLL
 			if (TraceLibrary::instance()->m_NewTraceLoader)
 			{
+				std::string log_msg = FormatLog(log_format, std::forward<Args>(args)...);
+#if 0
 				m_TraceLoader = TraceLibrary::instance()->m_NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_format, args...);
+#else
+				m_TraceLoader = TraceLibrary::instance()->m_NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_msg.c_str());
+#endif
 			}
 #else
+			std::string log_msg = FormatLog(log_format, std::forward<Args>(args)...);
+#if 0
 			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_format, args...);
+#else
+			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_msg);
+#endif
 #endif
 		}
 		~TraceLoader()
@@ -250,4 +326,5 @@ namespace KKTracePackage
 	private:
 		kk::TraceLoader* m_TraceLoader = nullptr;
 	};
+
 }

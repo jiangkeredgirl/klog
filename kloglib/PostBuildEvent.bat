@@ -7,6 +7,7 @@ echo f|xcopy /y  .\traceloader.h                      .\OutKlogSDK\include\
 echo f|xcopy /y  .\tracepackage.h                     .\OutKlogSDK\include\
 echo f|xcopy /y  .\kspdlog.h                          .\OutKlogSDK\include\
 echo f|xcopy /y  .\spdlogwrapper.h                    .\OutKlogSDK\include\
+xcopy /y /e /i   .\fmt                                .\OutKlogSDK\include\fmt\
 xcopy /y /e /i   .\spdlog                             .\OutKlogSDK\include\spdlog\
 echo f|xcopy /y  .\bin\kloglib*.lib                   .\OutKlogSDK\lib\
 echo f|xcopy /y  .\bin\kloglib*.dll                   .\OutKlogSDK\bin\

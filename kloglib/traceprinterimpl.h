@@ -72,3 +72,114 @@ namespace kk
 		IProtocolSerial*         serial_parse_ = nullptr;
 	};
 }
+
+
+
+#define FMT_HEADER_ONLY
+#include <fmt/core.h>
+#include <fmt/printf.h>
+
+#if 0
+static inline std::string FormatLogV(const char* log_format, va_list args)
+{
+	if (!log_format)
+		return "";
+
+	try
+	{
+		if (strchr(log_format, '{'))
+		{
+			return fmt::vformat(log_format, fmt::make_format_args(args));
+		}
+		else
+		{
+			return fmt::vsprintf(log_format, args);
+		}
+	}
+	catch (...)
+	{
+		return std::string("format error: ") + log_format;
+	}
+}
+#endif
+#include <string>
+#include <cstdarg>
+#include <fmt/core.h>
+#include <fmt/printf.h>
+
+#if 0
+static inline std::string FormatLogV(const char* log_format, va_list args)
+{
+	if (!log_format)
+		return "";
+
+	try
+	{
+		// 判断 {} 风格
+		if (strchr(log_format, '{'))
+		{
+			return fmt::vformat(log_format, fmt::make_format_args(args));
+		}
+		else
+		{
+			return fmt::vsprintf(log_format, args);
+		}
+	}
+	catch (...)
+	{
+		return std::string("format error: ") + log_format;
+	}
+}
+#endif
+
+#include <string>
+#include <cstdarg>
+#include <vector>
+#include <cstdio>
+
+#if 0
+static inline std::string FormatLogV(const char* log_format, va_list args)
+{
+	if (!log_format)
+		return "";
+
+	va_list args_copy;
+	va_copy(args_copy, args);
+
+	int size = std::vsnprintf(nullptr, 0, log_format, args_copy);
+	va_end(args_copy);
+
+	if (size <= 0)
+		return "";
+
+	std::vector<char> buf(size + 1);
+	std::vsnprintf(buf.data(), buf.size(), log_format, args);
+
+	return std::string(buf.data());
+}
+#endif
+
+#include <string>
+#include <cstdarg>
+#include <vector>
+#include <cstdio>
+
+static inline std::string FormatLogV(const char* log_format, va_list args)
+{
+	if (!log_format)
+		return "";
+
+	va_list args_copy;
+	va_copy(args_copy, args);
+
+	int size = std::vsnprintf(nullptr, 0, log_format, args_copy);
+	va_end(args_copy);
+
+	if (size <= 0)
+		return "";
+
+	std::vector<char> buf(size + 1);
+	std::vsnprintf(buf.data(), buf.size(), log_format, args);
+
+	return std::string(buf.data());
+}

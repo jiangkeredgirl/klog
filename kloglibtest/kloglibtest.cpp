@@ -169,6 +169,8 @@ void TestKlog()
 	KlogInfo("信息日志");
 	KlogWarn("警告日志");
 	KlogError("错误日志");
+	KlogError("klog测试对即时函数的调用不是常量表达式: 假设一个错误码:%d", 1);
+	KlogError("klog测试对即时函数的调用不是常量表达式: 假设一个错误码:{}", 1);
 	//CreateConsole;
 	//GenerateDump;
 	//KlogCreateStdout;
@@ -194,8 +196,10 @@ void TestSpdlog()
 	LOG_WARN("警告日志");
 	LOG_ERROR("错误日志");
 	LOG_INFO("错误	C7595	“std::basic_format_string<char,int>::basic_format_string”: 对即时函数的调用不是常量表达式");
-	spdlog::info("spdlog测试对即时函数的调用不是常量表达式: 假设一个错误码:{}", 1);
-	LOG_INFO("spdlog测试对即时函数的调用不是常量表达式: 假设一个错误码:{}", 1);
+	spdlog::error("spdlog测试对即时函数的调用不是常量表达式: 假设一个错误码:%d", 1);
+	spdlog::error("spdlog测试对即时函数的调用不是常量表达式: 假设一个错误码:{}", 1);
+	LOG_ERROR("spdlog测试对即时函数的调用不是常量表达式: 假设一个错误码:%d", 1);
+	LOG_ERROR("spdlog测试对即时函数的调用不是常量表达式: 假设一个错误码:{}", 1);
 }
 
 
