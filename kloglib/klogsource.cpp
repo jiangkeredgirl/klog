@@ -2,23 +2,27 @@
 #include "cstandard.h"
 #include "protocolserialpackage.h"
 
-KlogSource::KlogSource()
+#ifndef KLOG_FUNC
+#define KLOG_FUNC
+#endif
+
+KLOG_FUNC KlogSource::KlogSource()
 {
 }
 
 
-KlogSource::~KlogSource()
+KLOG_FUNC KlogSource::~KlogSource()
 {
 }
 
 
-KlogSource& KlogSource::instance()
+KLOG_FUNC KlogSource& KlogSource::instance()
 {
 	static KlogSource _instance;
 	return _instance;
 }
 
-int KlogSource::Connect(const string& ip, int control_port, int sync_trace_port, int async_trace_port, bool async)
+KLOG_FUNC int KlogSource::Connect(const string& ip, int control_port, int sync_trace_port, int async_trace_port, bool async)
 {
 	int error_code = 1;
 	m_server_ip = ip;
@@ -50,7 +54,7 @@ int KlogSource::Connect(const string& ip, int control_port, int sync_trace_port,
 	return error_code;
 }
 
-int KlogSource::Disconnect()
+KLOG_FUNC int KlogSource::Disconnect()
 {
 	KlogSourceControl::instance().Disconnect();
 	KlogSourceSyncTrace::instance().Disconnect();
@@ -59,25 +63,25 @@ int KlogSource::Disconnect()
 	return 0;
 }
 
-int KlogSource::GetSyncTraceIPandPort(string& ip, int& port)
+KLOG_FUNC int KlogSource::GetSyncTraceIPandPort(string& ip, int& port)
 {
 	KlogSourceSyncTrace::instance().GetLocalIPandPort(ip, port);
 	return 0;
 }
 
-int KlogSource::GetAsyncTraceIPandPort(string& ip, int& port)
+KLOG_FUNC int KlogSource::GetAsyncTraceIPandPort(string& ip, int& port)
 {
 	KlogSourceAsyncTrace::instance().GetLocalIPandPort(ip, port);
 	return 0;
 }
 
-int KlogSource::SyncTraceWrite(const string& trace)
+KLOG_FUNC int KlogSource::SyncTraceWrite(const string& trace)
 {
 	KlogSourceSyncTrace::instance().SyncWrite(trace);
 	return 0;
 }
 
-int KlogSource::AsyncTraceWrite(const string& trace)
+KLOG_FUNC int KlogSource::AsyncTraceWrite(const string& trace)
 {
 	KlogSourceAsyncTrace::instance().AsyncWrite(trace);
 	return 0;

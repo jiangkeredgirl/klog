@@ -3,20 +3,24 @@
 #include "rapidjsonparser.h"
 #define CONFIG_FILE_NAME ("klog.config")
 
+#ifndef KLOG_FUNC
+#define KLOG_FUNC
+#endif
+
 namespace kk
 {
 
-	Config::Config()
+	KLOG_FUNC Config::Config()
 	{
 	}
 
-	Config &Config::instance()
+	KLOG_FUNC Config &Config::instance()
 	{
 		static Config _instance;
 		return _instance;
 	}
 
-	int Config::GetTraceConfig(const string& proccess_name, kk::TraceConfig& trace_config)
+	KLOG_FUNC int Config::GetTraceConfig(const string& proccess_name, kk::TraceConfig& trace_config)
 	{
 		int errorCode = 1;
 		string path = proccess_name + "_" + CONFIG_FILE_NAME;
@@ -33,7 +37,7 @@ namespace kk
 		return errorCode;
 	}
 
-	int Config::SetTraceConfig(const string& proccess_name, const kk::TraceConfig& trace_config)
+	KLOG_FUNC int Config::SetTraceConfig(const string& proccess_name, const kk::TraceConfig& trace_config)
 	{
 		int errorCode = 1;
 		string path = proccess_name + "_" + CONFIG_FILE_NAME;

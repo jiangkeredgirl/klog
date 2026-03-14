@@ -1,9 +1,13 @@
 ﻿#include "traceloaderimpl.h"
 #include "TracePrinterimpl.h"
 
+#ifndef KLOG_FUNC
+#define KLOG_FUNC
+#endif
+
 namespace kk
 {
-	TraceLoaderImpl::TraceLoaderImpl(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
+	KLOG_FUNC TraceLoaderImpl::TraceLoaderImpl(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
 	{
 		do
 		{
@@ -64,7 +68,7 @@ namespace kk
 		} while (false);
 	}
 
-	TraceLoaderImpl::~TraceLoaderImpl()
+	KLOG_FUNC TraceLoaderImpl::~TraceLoaderImpl()
 	{
 		do
 		{
@@ -97,12 +101,12 @@ namespace kk
 		} while (false);
 	}
 
-	stringstream& TraceLoaderImpl::trace_stream()
+	KLOG_FUNC stringstream& TraceLoaderImpl::trace_stream()
 	{
 		return trace_stream_;
 	}
 
-	KLOGLIB_API TraceLoader* NewTraceLoader(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
+	KLOG_FUNC KLOGLIB_API TraceLoader* NewTraceLoader(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
 	{
 		string log_body;
 		do
@@ -137,7 +141,7 @@ namespace kk
 		return new TraceLoaderImpl(is_track, level, label, module_name, file_name, func_name, line, log_body.c_str());
 	}
 
-	KLOGLIB_API void DeleteTraceLoader(TraceLoader* loader)
+	KLOG_FUNC KLOGLIB_API void DeleteTraceLoader(TraceLoader* loader)
 	{
 		if (loader)
 		{

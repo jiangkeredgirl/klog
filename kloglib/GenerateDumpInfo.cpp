@@ -11,25 +11,29 @@
 //#error "The following code only works for x86!"
 //#endif
 
-GenerateDumpInfo::GenerateDumpInfo()
+#ifndef KLOG_FUNC
+#define KLOG_FUNC
+#endif
+
+KLOG_FUNC GenerateDumpInfo::GenerateDumpInfo()
 {
 }
 
 
-GenerateDumpInfo::~GenerateDumpInfo()
+KLOG_FUNC GenerateDumpInfo::~GenerateDumpInfo()
 {
 }
 
 
-GenerateDumpInfo& GenerateDumpInfo::instance()
+KLOG_FUNC GenerateDumpInfo& GenerateDumpInfo::instance()
 {
 	static GenerateDumpInfo _instance;
 	return _instance;
 }
 
 
-static std::string g_dumpFileName;
-int GenerateMiniDump(PEXCEPTION_POINTERS pExceptionPointers)
+KLOG_FUNC static std::string g_dumpFileName;
+KLOG_FUNC int GenerateMiniDump(PEXCEPTION_POINTERS pExceptionPointers)
 {
 	// 定义函数指针
 	typedef BOOL(WINAPI * MiniDumpWriteDumpT)(
@@ -83,7 +87,7 @@ int GenerateMiniDump(PEXCEPTION_POINTERS pExceptionPointers)
 	return EXCEPTION_EXECUTE_HANDLER;
 }
 
-LONG WINAPI ExceptionFilter(LPEXCEPTION_POINTERS lpExceptionInfo)
+KLOG_FUNC LONG WINAPI ExceptionFilter(LPEXCEPTION_POINTERS lpExceptionInfo)
 {
 	// 这里做一些异常的过滤或提示
 	if (IsDebuggerPresent())
@@ -93,7 +97,7 @@ LONG WINAPI ExceptionFilter(LPEXCEPTION_POINTERS lpExceptionInfo)
 	return GenerateMiniDump(lpExceptionInfo);
 }
 
-int GenerateDumpInfo::Generate(const std::string dumpFileName)
+KLOG_FUNC int GenerateDumpInfo::Generate(const std::string dumpFileName)
 {
 	g_dumpFileName = dumpFileName;
 	SetUnhandledExceptionFilter(ExceptionFilter);

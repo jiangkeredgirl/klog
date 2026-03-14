@@ -376,6 +376,6 @@ namespace KKTracePackage
 
 
 #ifdef KLOG_HEADER_ONLY
-#  define INLINE_FUNC inline
+#define KLOG_FUNC inline
 #include "TracePackageInl.h"
 #endif

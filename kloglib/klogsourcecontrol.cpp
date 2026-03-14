@@ -2,23 +2,27 @@
 #include "cstandard.h"
 #include "protocolserialpackage.h"
 
-KlogSourceControl::KlogSourceControl()
+#ifndef KLOG_FUNC
+#define KLOG_FUNC
+#endif
+
+KLOG_FUNC KlogSourceControl::KlogSourceControl()
 {
 }
 
 
-KlogSourceControl::~KlogSourceControl()
+KLOG_FUNC KlogSourceControl::~KlogSourceControl()
 {
 }
 
 
-KlogSourceControl& KlogSourceControl::instance()
+KLOG_FUNC KlogSourceControl& KlogSourceControl::instance()
 {
 	static KlogSourceControl _instance;
 	return _instance;
 }
 
-int KlogSourceControl::Connect(const string& ip, int port, bool async)
+KLOG_FUNC int KlogSourceControl::Connect(const string& ip, int port, bool async)
 {
 	int error_code = 1;
 	m_server_ip = ip;
@@ -60,7 +64,7 @@ int KlogSourceControl::Connect(const string& ip, int port, bool async)
 	return error_code;
 }
 
-int KlogSourceControl::Disconnect()
+KLOG_FUNC int KlogSourceControl::Disconnect()
 {
 	if (m_tcp_client)
 	{
@@ -71,7 +75,7 @@ int KlogSourceControl::Disconnect()
 	return 0;
 }
 
-int KlogSourceControl::SyncWrite(const string& trace)
+KLOG_FUNC int KlogSourceControl::SyncWrite(const string& trace)
 {
 	if (m_tcp_client)
 	{
@@ -80,7 +84,7 @@ int KlogSourceControl::SyncWrite(const string& trace)
 	return 0;
 }
 
-int KlogSourceControl::AsyncWrite(const string& trace)
+KLOG_FUNC int KlogSourceControl::AsyncWrite(const string& trace)
 {
 	if (m_tcp_client)
 	{
@@ -89,7 +93,7 @@ int KlogSourceControl::AsyncWrite(const string& trace)
 	return 0;
 }
 
-int KlogSourceControl::GetLocalIPandPort(string& ip, int& port)
+KLOG_FUNC int KlogSourceControl::GetLocalIPandPort(string& ip, int& port)
 {
 	if (m_tcp_client)
 	{
@@ -98,7 +102,7 @@ int KlogSourceControl::GetLocalIPandPort(string& ip, int& port)
 	return 0;
 }
 
-int KlogSourceControl::OnTcpConnect(int status)
+KLOG_FUNC int KlogSourceControl::OnTcpConnect(int status)
 {
 	if (status == 0)
 	{
@@ -119,7 +123,7 @@ int KlogSourceControl::OnTcpConnect(int status)
 	return 0;
 }
 
-int KlogSourceControl::OnTcpDisconnect(int status)
+KLOG_FUNC int KlogSourceControl::OnTcpDisconnect(int status)
 {
 	cout << "have disconnected, status:" << status << endl;
 	if (status != 1236)
@@ -134,7 +138,7 @@ int KlogSourceControl::OnTcpDisconnect(int status)
 	return 0;
 }
 
-int KlogSourceControl::OnTcpRead(const char* data, size_t size, int status)
+KLOG_FUNC int KlogSourceControl::OnTcpRead(const char* data, size_t size, int status)
 {
 	if (data)
 	{
@@ -150,7 +154,7 @@ int KlogSourceControl::OnTcpRead(const char* data, size_t size, int status)
 	return 0;
 }
 
-int KlogSourceControl::OnTcpWrite(const char* data, size_t size, int status)
+KLOG_FUNC int KlogSourceControl::OnTcpWrite(const char* data, size_t size, int status)
 {
 	if (data)
 	{
@@ -159,7 +163,7 @@ int KlogSourceControl::OnTcpWrite(const char* data, size_t size, int status)
 	return 0;
 }
 
-int KlogSourceControl::ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data)
+KLOG_FUNC int KlogSourceControl::ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data)
 {
 	switch (net_event.event_type)
 	{
@@ -179,7 +183,7 @@ int KlogSourceControl::ParseKlogManageEvent(const NetEvent& net_event, const str
 	return 0;
 }
 
-int KlogSourceControl::HandleKlogManageEvent(const NetEvent& net_event)
+KLOG_FUNC int KlogSourceControl::HandleKlogManageEvent(const NetEvent& net_event)
 {
 	switch (net_event.event_type)
 	{
@@ -196,7 +200,7 @@ int KlogSourceControl::HandleKlogManageEvent(const NetEvent& net_event)
 	return 0;
 }
 
-int KlogSourceControl::SendKlogClientType()
+KLOG_FUNC int KlogSourceControl::SendKlogClientType()
 {
 	if (m_serial_parse)
 	{
@@ -209,7 +213,7 @@ int KlogSourceControl::SendKlogClientType()
 	return 0;
 }
 
-int KlogSourceControl::GetKlogServerPort()
+KLOG_FUNC int KlogSourceControl::GetKlogServerPort()
 {
 	if (m_serial_parse)
 	{
@@ -222,7 +226,7 @@ int KlogSourceControl::GetKlogServerPort()
 	return 0;
 }
 
-int KlogSourceControl::SendEvent(const string& serial_event_data)
+KLOG_FUNC int KlogSourceControl::SendEvent(const string& serial_event_data)
 {
 	m_tcp_client->AsyncTcpWrite(serial_event_data.c_str(), serial_event_data.size());
 	return 0;

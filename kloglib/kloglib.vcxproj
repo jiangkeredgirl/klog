@@ -207,6 +207,7 @@
     <ClInclude Include="traceloaderimpl.h" />
     <ClInclude Include="tracemacr.h" />
     <ClInclude Include="TracePackage.h" />
+    <ClInclude Include="TracePackageInl.h" />
     <ClInclude Include="traceprinter.h" />
     <ClInclude Include="traceprinterimpl.h" />
   </ItemGroup>

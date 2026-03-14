@@ -4,17 +4,21 @@
 #include "rapidjson/prettywriter.h"
 #include "rapidjson/stringbuffer.h"
 
+#ifndef KLOG_FUNC
+#define KLOG_FUNC
+#endif
+
 namespace kk
 {
 
-	CJsonParser& CJsonParser::instance()
+	KLOG_FUNC CJsonParser& CJsonParser::instance()
 	{
 		static CJsonParser _instance;
 		return _instance;
 	}
 
 
-	int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trace_config)
+	KLOG_FUNC int CJsonParser::GetTraceConfig(const string& jsonContent, kk::TraceConfig& trace_config)
 	{
 		int errorCode = 1;
 		rapidjson::Document doc;
@@ -103,7 +107,7 @@ namespace kk
 		return errorCode;
 	}
 
-	int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jsonContent)
+	KLOG_FUNC int CJsonParser::SetTraceConfig(const kk::TraceConfig& trace_config, string& jsonContent)
 	{
 		int errorCode = 1;
 		rapidjson::Document doc;
@@ -178,7 +182,7 @@ namespace kk
 		return errorCode;
 	}
 
-	int CJsonParser::DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_entry)
+	KLOG_FUNC int CJsonParser::DecodeTraceEntry(const string& jsonContent, TraceEntry& trace_entry)
 	{
 		int errorCode = 1;
 		rapidjson::Document doc;
@@ -226,7 +230,7 @@ namespace kk
 		return errorCode;
 	}
 
-	int CJsonParser::EncodeTraceEntry(const TraceEntry& trace_entry, string& jsonContent)
+	KLOG_FUNC int CJsonParser::EncodeTraceEntry(const TraceEntry& trace_entry, string& jsonContent)
 	{
 		int errorCode = 1;
 		rapidjson::Document doc;
@@ -315,7 +319,7 @@ namespace kk
 		return errorCode;
 	}
 
-	int CJsonParser::EncodeTraceContent(const string& trace_content, string& jsonContent)
+	KLOG_FUNC int CJsonParser::EncodeTraceContent(const string& trace_content, string& jsonContent)
 	{
 		int errorCode = 1;
 		rapidjson::Document doc;
@@ -340,7 +344,7 @@ namespace kk
 		return errorCode;
 	}
 
-	int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, int& value)
+	KLOG_FUNC int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, int& value)
 	{
 		int error_code = 1;
 		do
@@ -359,7 +363,7 @@ namespace kk
 		return error_code;
 	}
 
-	int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, __int64& value)
+	KLOG_FUNC int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, __int64& value)
 	{
 		int error_code = 1;
 		do
@@ -378,7 +382,7 @@ namespace kk
 		return error_code;
 	}
 
-	int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, bool& value)
+	KLOG_FUNC int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, bool& value)
 	{
 		int error_code = 1;
 		do
@@ -397,7 +401,7 @@ namespace kk
 		return error_code;
 	}
 
-	int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, string& value)
+	KLOG_FUNC int CJsonParser::DecodeValue(rapidjson::Value& object, const string& key, string& value)
 	{
 		int error_code = 1;
 		do
@@ -416,7 +420,7 @@ namespace kk
 		return error_code;
 	}
 
-	int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, int value)
+	KLOG_FUNC int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, int value)
 	{
 		if (object.HasMember(key.c_str()) && object[key.c_str()].IsInt())
 		{
@@ -429,7 +433,7 @@ namespace kk
 		return 0;
 	}
 
-	int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, __int64 value)
+	KLOG_FUNC int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, __int64 value)
 	{
 		if (object.HasMember(key.c_str()) && object[key.c_str()].IsInt64())
 		{
@@ -442,7 +446,7 @@ namespace kk
 		return 0;
 	}
 
-	int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, bool value)
+	KLOG_FUNC int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, bool value)
 	{
 		if (object.HasMember(key.c_str()) && object[key.c_str()].IsBool())
 		{
@@ -455,7 +459,7 @@ namespace kk
 		return 0;
 	}
 
-	int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, const string& value)
+	KLOG_FUNC int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::AllocatorType& allocator, const string& key, const string& value)
 	{
 		if (object.HasMember(key.c_str()) && object[key.c_str()].IsString())
 		{

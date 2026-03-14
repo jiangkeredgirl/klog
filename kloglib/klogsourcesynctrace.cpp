@@ -2,24 +2,28 @@
 #include "cstandard.h"
 #include "protocolserialpackage.h"
 
-KlogSourceSyncTrace::KlogSourceSyncTrace()
+#ifndef KLOG_FUNC
+#define KLOG_FUNC
+#endif
+
+KLOG_FUNC KlogSourceSyncTrace::KlogSourceSyncTrace()
 {
 	m_serial_parse = KlogNetProtocolLibrary::instance()->GetProtocolSerial();
 }
 
 
-KlogSourceSyncTrace::~KlogSourceSyncTrace()
+KLOG_FUNC KlogSourceSyncTrace::~KlogSourceSyncTrace()
 {
 }
 
 
-KlogSourceSyncTrace& KlogSourceSyncTrace::instance()
+KLOG_FUNC KlogSourceSyncTrace& KlogSourceSyncTrace::instance()
 {
 	static KlogSourceSyncTrace _instance;
 	return _instance;
 }
 
-int KlogSourceSyncTrace::Connect(const string& ip, int port, bool async)
+KLOG_FUNC int KlogSourceSyncTrace::Connect(const string& ip, int port, bool async)
 {
 	int error_code = 1;
 	m_server_ip = ip;
@@ -61,7 +65,7 @@ int KlogSourceSyncTrace::Connect(const string& ip, int port, bool async)
 	return error_code;
 }
 
-int KlogSourceSyncTrace::Disconnect()
+KLOG_FUNC int KlogSourceSyncTrace::Disconnect()
 {
 	if (m_tcp_client)
 	{
@@ -72,7 +76,7 @@ int KlogSourceSyncTrace::Disconnect()
 	return 0;
 }
 
-int KlogSourceSyncTrace::SyncWrite(const string& trace)
+KLOG_FUNC int KlogSourceSyncTrace::SyncWrite(const string& trace)
 {
 	if (m_tcp_client)
 	{
@@ -81,7 +85,7 @@ int KlogSourceSyncTrace::SyncWrite(const string& trace)
 	return 0;
 }
 
-int KlogSourceSyncTrace::AsyncWrite(const string& trace)
+KLOG_FUNC int KlogSourceSyncTrace::AsyncWrite(const string& trace)
 {
 	if (m_tcp_client)
 	{
@@ -90,7 +94,7 @@ int KlogSourceSyncTrace::AsyncWrite(const string& trace)
 	return 0;
 }
 
-int KlogSourceSyncTrace::GetLocalIPandPort(string& ip, int& port)
+KLOG_FUNC int KlogSourceSyncTrace::GetLocalIPandPort(string& ip, int& port)
 {
 	if (m_tcp_client)
 	{
@@ -99,7 +103,7 @@ int KlogSourceSyncTrace::GetLocalIPandPort(string& ip, int& port)
 	return 0;
 }
 
-int KlogSourceSyncTrace::OnTcpConnect(int status)
+KLOG_FUNC int KlogSourceSyncTrace::OnTcpConnect(int status)
 {
 	if (status == 0)
 	{
@@ -119,7 +123,7 @@ int KlogSourceSyncTrace::OnTcpConnect(int status)
 	return 0;
 }
 
-int KlogSourceSyncTrace::OnTcpDisconnect(int status)
+KLOG_FUNC int KlogSourceSyncTrace::OnTcpDisconnect(int status)
 {
 	cout << "have disconnected, status:" << status << endl;
 	if (status != 1236)
@@ -134,7 +138,7 @@ int KlogSourceSyncTrace::OnTcpDisconnect(int status)
 	return 0;
 }
 
-int KlogSourceSyncTrace::OnTcpRead(const char* data, size_t size, int status)
+KLOG_FUNC int KlogSourceSyncTrace::OnTcpRead(const char* data, size_t size, int status)
 {
 	if (data)
 	{
@@ -150,7 +154,7 @@ int KlogSourceSyncTrace::OnTcpRead(const char* data, size_t size, int status)
 	return 0;
 }
 
-int KlogSourceSyncTrace::OnTcpWrite(const char* data, size_t size, int status)
+KLOG_FUNC int KlogSourceSyncTrace::OnTcpWrite(const char* data, size_t size, int status)
 {
 	if (data)
 	{
@@ -159,7 +163,7 @@ int KlogSourceSyncTrace::OnTcpWrite(const char* data, size_t size, int status)
 	return 0;
 }
 
-int KlogSourceSyncTrace::ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data)
+KLOG_FUNC int KlogSourceSyncTrace::ParseKlogManageEvent(const NetEvent& net_event, const string& serial_event_data)
 {
 	switch (net_event.event_type)
 	{
@@ -179,7 +183,7 @@ int KlogSourceSyncTrace::ParseKlogManageEvent(const NetEvent& net_event, const s
 	return 0;
 }
 
-int KlogSourceSyncTrace::HandleKlogManageEvent(const NetEvent& net_event)
+KLOG_FUNC int KlogSourceSyncTrace::HandleKlogManageEvent(const NetEvent& net_event)
 {
 	switch (net_event.event_type)
 	{
@@ -194,7 +198,7 @@ int KlogSourceSyncTrace::HandleKlogManageEvent(const NetEvent& net_event)
 	return 0;
 }
 
-int KlogSourceSyncTrace::SendKlogClientType()
+KLOG_FUNC int KlogSourceSyncTrace::SendKlogClientType()
 {
 	if (m_serial_parse)
 	{
@@ -207,7 +211,7 @@ int KlogSourceSyncTrace::SendKlogClientType()
 	return 0;
 }
 
-int KlogSourceSyncTrace::SendEvent(const string& serial_event_data)
+KLOG_FUNC int KlogSourceSyncTrace::SendEvent(const string& serial_event_data)
 {
 	m_tcp_client->AsyncTcpWrite(serial_event_data.c_str(), serial_event_data.size());
 	return 0;

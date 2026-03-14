@@ -10,10 +10,13 @@
 #include "klognetprotocol.h"
 #include "protocolserialpackage.h"
 
+#ifndef KLOG_FUNC
+#define KLOG_FUNC
+#endif
 
 namespace kk
 {
-	TraceConfig::TraceConfig()
+	KLOG_FUNC TraceConfig::TraceConfig()
 	{
 		trace_out = TRACE_OUT;
 		track_out = TRACK_OUT;
@@ -60,7 +63,7 @@ namespace kk
 		level_on_off[TRACE_TEMP] = static_cast<bool>(TRACE_TEMP);
 	}
 
-	const string& TraceEntry::trace_json_text()
+	KLOG_FUNC const string& TraceEntry::trace_json_text()
 	{
 		do
 		{
@@ -155,7 +158,7 @@ namespace kk
 		return trace_json_text_;
 	}
 
-	const string& TraceEntry::trace_console_text()
+	KLOG_FUNC const string& TraceEntry::trace_console_text()
 	{
 		do
 		{
@@ -213,7 +216,7 @@ namespace kk
 	}
 
 
-	TracePrinterImpl::TracePrinterImpl(void)
+	KLOG_FUNC TracePrinterImpl::TracePrinterImpl(void)
 	{
 		level_to_str_[TRACE_TRACk] = "trace_track";
 		level_to_str_[TRACE_ERROR] = "trace_error";
@@ -251,12 +254,12 @@ namespace kk
 		//TraceOutLog(false, TRACE_OK, TRACE_LABEL, GetModuleName(), GetFileName(__FILE__), __FUNCTION__, __LINE__, "Welcome using klog");
 	}
 
-	TracePrinterImpl::~TracePrinterImpl(void)
+	KLOG_FUNC TracePrinterImpl::~TracePrinterImpl(void)
 	{
 		WaitTraceThreadEnd();
 	}
 
-	int TracePrinterImpl::TraceOutLog(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
+	KLOG_FUNC int TracePrinterImpl::TraceOutLog(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, ...)
 	{
 		do
 		{
@@ -306,7 +309,7 @@ namespace kk
 		return 0;
 	}
 
-	shared_ptr<TraceEntry> TracePrinterImpl::TraceFormatEntry(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body)
+	KLOG_FUNC shared_ptr<TraceEntry> TracePrinterImpl::TraceFormatEntry(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const string& log_body)
 	{
 		shared_ptr<TraceEntry> trace_entry = nullptr;
 		do
@@ -355,7 +358,7 @@ namespace kk
 		return trace_entry;
 	}
 
-	int TracePrinterImpl::OutTraceEntry(shared_ptr<TraceEntry> trace_entry)
+	KLOG_FUNC int TracePrinterImpl::OutTraceEntry(shared_ptr<TraceEntry> trace_entry)
 	{
 		do
 		{
@@ -391,7 +394,7 @@ namespace kk
 		return 0;
 	}
 
-	bool TracePrinterImpl::IsOut(bool is_track, int level)
+	KLOG_FUNC bool TracePrinterImpl::IsOut(bool is_track, int level)
 	{
 		bool is_out = false;
 		do
@@ -423,12 +426,12 @@ namespace kk
 		return is_out;
 	}
 
-	const TraceConfig& TracePrinterImpl::trace_config() const
+	KLOG_FUNC const TraceConfig& TracePrinterImpl::trace_config() const
 	{
 		return trace_config_;
 	}
 
-	const TraceConfig& TracePrinterImpl::trace_config(const TraceConfig& config)
+	KLOG_FUNC const TraceConfig& TracePrinterImpl::trace_config(const TraceConfig& config)
 	{
 		trace_config_ = config;
 		Config::instance().SetTraceConfig(process_name_, trace_config_);
@@ -436,19 +439,19 @@ namespace kk
 		return trace_config_;
 	}
 
-	int TracePrinterImpl::trace_valid_level(int level, bool out)
+	KLOG_FUNC int TracePrinterImpl::trace_valid_level(int level, bool out)
 	{
 		trace_config_.level_on_off[level] = out;
 		return 0;
 	}
 
-	int TracePrinterImpl::trace_level_color(int level, int color)
+	KLOG_FUNC int TracePrinterImpl::trace_level_color(int level, int color)
 	{
 		default_level_color_[level] = color;
 		return 0;
 	}
 
-	int TracePrinterImpl::InitTrace()
+	KLOG_FUNC int TracePrinterImpl::InitTrace()
 	{
 		if (trace_config().output_file)
 		{
@@ -468,13 +471,13 @@ namespace kk
 		}
 		return 0;
 	}
-	TracePrinterImpl& TracePrinterImpl::instance()
+	KLOG_FUNC TracePrinterImpl& TracePrinterImpl::instance()
 	{
 		static TracePrinterImpl _instance;
 		return _instance;
 	}
 
-	int TracePrinterImpl::TraceThreadStart()
+	KLOG_FUNC int TracePrinterImpl::TraceThreadStart()
 	{
 		if (!trace_thread_.joinable())
 		{
@@ -484,7 +487,7 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::WaitTraceThreadEnd()
+	KLOG_FUNC int TracePrinterImpl::WaitTraceThreadEnd()
 	{
 		if (trace_thread_.joinable())
 		{
@@ -496,7 +499,7 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::CreateKlogConsole()
+	KLOG_FUNC int TracePrinterImpl::CreateKlogConsole()
 	{
 		AllocConsole();
 		FILE *stream;
@@ -509,19 +512,19 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::GenerateDumpInfo()
+	KLOG_FUNC int TracePrinterImpl::GenerateDumpInfo()
 	{
 		GenerateDumpInfo::instance().Generate(process_name_);
 		return 0;
 	}
 
-	int TracePrinterImpl::SetKlogConsoleUTF8()
+	KLOG_FUNC int TracePrinterImpl::SetKlogConsoleUTF8()
 	{
 		SetConsoleUTF8();
 		return 0;
 	}
 
-	void TracePrinterImpl::TraceThread()
+	KLOG_FUNC void TracePrinterImpl::TraceThread()
 	{
 		unique_lock<mutex> trace_lock(trace_mutex_);
 		while (1)
@@ -544,7 +547,7 @@ namespace kk
 		}
 	}
 
-	int TracePrinterImpl::OutTrace(shared_ptr<TraceEntry> trace_entry)
+	KLOG_FUNC int TracePrinterImpl::OutTrace(shared_ptr<TraceEntry> trace_entry)
 	{
 		if (trace_config().trace_out)
 		{
@@ -576,13 +579,13 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToCompile(shared_ptr<TraceEntry> trace_entry)
+	KLOG_FUNC int TracePrinterImpl::OutToCompile(shared_ptr<TraceEntry> trace_entry)
 	{
 		OutputDebugStringA(trace_entry->trace_json_text().c_str());
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToConsole(shared_ptr<TraceEntry> trace_entry)
+	KLOG_FUNC int TracePrinterImpl::OutToConsole(shared_ptr<TraceEntry> trace_entry)
 	{
 		if (default_level_color_.count(trace_entry->level))
 		{
@@ -607,7 +610,7 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToFile(shared_ptr<TraceEntry> trace_entry)
+	KLOG_FUNC int TracePrinterImpl::OutToFile(shared_ptr<TraceEntry> trace_entry)
 	{
 		do
 		{
@@ -660,7 +663,7 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToFile(const string& trace_file_name, const string& trace_entry)
+	KLOG_FUNC int TracePrinterImpl::OutToFile(const string& trace_file_name, const string& trace_entry)
 	{
 		static const int file_max_size = trace_config().trace_file_size * 1024 * 1024;
 		do {
@@ -687,7 +690,7 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToSocket(shared_ptr<TraceEntry> trace_entry)
+	KLOG_FUNC int TracePrinterImpl::OutToSocket(shared_ptr<TraceEntry> trace_entry)
 	{
 		if (trace_entry)
 		{
@@ -722,12 +725,12 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::OutToCom(shared_ptr<TraceEntry> trace_entry)
+	KLOG_FUNC int TracePrinterImpl::OutToCom(shared_ptr<TraceEntry> trace_entry)
 	{
 		return 0;
 	}
 
-	int TracePrinterImpl::InitConsole()
+	KLOG_FUNC int TracePrinterImpl::InitConsole()
 	{
 		COORD coord;
 		coord.X = 200;
@@ -745,7 +748,7 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::SetConsoleUTF8()
+	KLOG_FUNC int TracePrinterImpl::SetConsoleUTF8()
 	{
 		SetConsoleOutputCP(CP_UTF8);
 		SetConsoleCP(CP_UTF8);
@@ -768,7 +771,7 @@ namespace kk
 		return 0;
 	}
 
-	int TracePrinterImpl::InitSocket()
+	KLOG_FUNC int TracePrinterImpl::InitSocket()
 	{
 		serial_parse_ = KlogNetProtocolLibrary::instance()->GetProtocolSerial();
 		string server_ip = trace_config().trace_server_ip;
@@ -782,7 +785,7 @@ namespace kk
 		return 0;
 	}
 
-	string TracePrinterImpl::LevelToStr(int level)
+	KLOG_FUNC string TracePrinterImpl::LevelToStr(int level)
 	{
 		string str;
 		if (level_to_str_.count(level))
@@ -796,7 +799,7 @@ namespace kk
 		return str;
 	}
 
-	int TracePrinterImpl::StrToLevel(const string& str)
+	KLOG_FUNC int TracePrinterImpl::StrToLevel(const string& str)
 	{
 		int level = -1;
 		if (str_to_level_.count(str))
@@ -811,7 +814,7 @@ namespace kk
 	}
 
 
-	KLOGLIB_API TracePrinter* TracePrinterInstance(void)
+	KLOG_FUNC KLOGLIB_API TracePrinter* TracePrinterInstance(void)
 	{
 		return &TracePrinterImpl::instance();
 	}
