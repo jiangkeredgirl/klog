@@ -7,6 +7,10 @@ using namespace std;
 #include "traceprinter.h"
 #include "traceloader.h"
 
+//#define KLOG_HEADER_ONLY
+
+#ifndef KLOG_HEADER_ONLY
+
 #define KLOG_USE_DYNAMIC_DLL    1
 
 #if KLOG_USE_DYNAMIC_DLL
@@ -24,6 +28,8 @@ using namespace std;
 #endif
 #endif
 #endif
+
+#endif // KLOG_HEADER_ONLY
 
 
 
@@ -88,6 +94,9 @@ std::string FormatLog(const char* log_format, Args&&... args)
 
 namespace KKTracePackage
 { 
+
+#ifndef KLOG_HEADER_ONLY
+
 	class TraceLibrary
 	{
 	private:
@@ -171,6 +180,8 @@ namespace KKTracePackage
 		kk::NewTraceLoaderFun m_NewTraceLoader = nullptr;
 		kk::DeleteTraceLoaderFun m_DeleteTraceLoader = nullptr;
 	};
+
+#endif // KLOG_HEADER_ONLY
 
 	class TracePrinter
 	{
