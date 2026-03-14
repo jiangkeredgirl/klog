@@ -9,6 +9,8 @@ using namespace std;
 
 //#define KLOG_HEADER_ONLY
 
+
+
 #ifndef KLOG_HEADER_ONLY
 
 #define KLOG_USE_DYNAMIC_DLL    1
@@ -370,3 +372,10 @@ namespace KKTracePackage
 	};
 
 }
+
+
+
+#ifdef KLOG_HEADER_ONLY
+#  define INLINE_FUNC inline
+#include "TracePackageInl.h"
+#endif
