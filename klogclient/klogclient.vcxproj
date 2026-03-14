@@ -55,13 +55,13 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\ktoolkit\kcommonhpp;..\..\ktoolkit\KNetworkSDK\include;..\..\thirdparty\rapidjson\include\;.\KlogSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\ktoolkit\kcommonhpp;..\..\ktoolkit\KNetworkSDK\include;..\..\thirdparty\rapidjson\include;.\KlogSDK\include;.\KlogSDK\sources;.\KlogSDK\sources\kcommonhpp;..\KlogSDK\sources\kcommonhpp;.\KlogNetProtocolSDK\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>..\..\ktoolkit\kcommonhpp;..\..\ktoolkit\KNetworkSDK\include;..\..\thirdparty\rapidjson\include\;.\KlogSDK\include\;.\KlogNetProtocolSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>..\..\ktoolkit\kcommonhpp;..\..\ktoolkit\KNetworkSDK\include;..\..\thirdparty\rapidjson\include;.\KlogSDK\include;.\KlogSDK\sources;.\KlogSDK\sources\kcommonhpp;..\KlogSDK\sources\kcommonhpp;.\KlogNetProtocolSDK\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>

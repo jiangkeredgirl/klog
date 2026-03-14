@@ -7,6 +7,8 @@
 #include "logfile.h"
 #include "kloglib.h"
 
+namespace klogclient
+{
 
 CJsonParser& CJsonParser::instance()
 {
@@ -205,3 +207,5 @@ int CJsonParser::EncodeValue(rapidjson::Value& object, rapidjson::Document::Allo
 	return 0;
 }
 #endif
+
+};

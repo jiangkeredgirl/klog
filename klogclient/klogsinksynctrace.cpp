@@ -193,7 +193,7 @@ int KlogSinkSyncTrace::HandleKlogEvent(const NetEvent& net_event)
 		{
 			shared_ptr<KlogMessage> log_message(new KlogMessage());
 			log_message->source_info = send_message_event->source_info;
-			CJsonParser::instance().DecodeTraceEntry(send_message_event->klog_message, log_message->trace_entry);
+			klogclient::CJsonParser::instance().DecodeTraceEntry(send_message_event->klog_message, log_message->trace_entry);
 			m_callbackf(log_message);
 		}
 		break;

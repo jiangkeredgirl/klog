@@ -317,7 +317,7 @@ namespace KKTracePackage
 #if 0
 			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_format, args...);
 #else
-			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_msg);
+			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_msg.c_str());
 #endif
 #endif
 
@@ -327,7 +327,7 @@ namespace KKTracePackage
 #if 0
 			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_format, args...);
 #else
-			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_msg);
+			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_msg.c_str());
 #endif
 
 #endif // KLOG_HEADER_ONLY

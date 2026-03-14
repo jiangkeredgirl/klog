@@ -139,7 +139,7 @@ void LogFile::ReadThread()
 		string a_line_record;
 		getline(m_logfile, a_line_record);
 		one_trace_entry_record += a_line_record;
-		if (!CJsonParser::instance().IsJsonObject(one_trace_entry_record))
+		if (!klogclient::CJsonParser::instance().IsJsonObject(one_trace_entry_record))
 		{
 			if (!one_trace_entry_record.empty())
 			{
@@ -148,7 +148,7 @@ void LogFile::ReadThread()
 			continue;
 		}
 		shared_ptr<TraceEntry> trace_entry(new TraceEntry);
-		int errorCode = CJsonParser::instance().DecodeTraceEntry(one_trace_entry_record, *trace_entry);
+		int errorCode = klogclient::CJsonParser::instance().DecodeTraceEntry(one_trace_entry_record, *trace_entry);
 		{
 			lock_guard<mutex> listLock(m_trace_entry_list_mutex);
 			m_trace_entry_list.push_back(trace_entry);

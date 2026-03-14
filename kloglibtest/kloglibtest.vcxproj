@@ -75,7 +75,7 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>.\KlogSDK\include;.\KlogSDK\sources;.\KlogSDK\sources\kcommonhpp;..\KlogSDK\sources\kcommonhpp;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
@@ -99,7 +99,7 @@
     <OutDir>$(ProjectDir)bin\</OutDir>
     <IntDir>$(ProjectDir)bin\tempout\x$(PlatformArchitecture)\$(Configuration)\</IntDir>
     <TargetName>$(ProjectName)_x$(PlatformArchitecture)_$(Configuration)</TargetName>
-    <IncludePath>.\KlogSDK\include\;$(IncludePath)</IncludePath>
+    <IncludePath>.\KlogSDK\include;.\KlogSDK\sources;.\KlogSDK\sources\kcommonhpp;..\KlogSDK\sources\kcommonhpp;$(IncludePath)</IncludePath>
     <LibraryPath>.\KlogSDK\lib\;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">

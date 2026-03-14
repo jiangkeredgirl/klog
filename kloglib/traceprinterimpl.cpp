@@ -607,7 +607,8 @@ namespace kk
 		{
 			if (!trace_entry->trace_console_text().empty())
 			{
-				fwrite(trace_entry->trace_console_text().c_str(), 1, trace_entry->trace_console_text().size(), stdout);
+				//fwrite(trace_entry->trace_console_text().c_str(), 1, trace_entry->trace_console_text().size(), stdout);
+				fputs(trace_entry->trace_console_text().c_str(), stdout);
 			}
 		}
 		if (default_level_color_.count(trace_entry->level))
@@ -673,7 +674,7 @@ namespace kk
 
 	KLOG_FUNC int TracePrinterImpl::OutToFile(const string& trace_file_name, const string& trace_entry)
 	{
-		static const int file_max_size = trace_config().trace_file_size * 1024 * 1024;
+		static /*const*/ int file_max_size = trace_config().trace_file_size * 1024 * 1024;
 		do {
 			FILE* log_file = nullptr;
 			errno_t err = fopen_s(&log_file, trace_file_name.c_str(), ("a+"));

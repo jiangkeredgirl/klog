@@ -10,6 +10,9 @@ using namespace std;
 //	class Value;
 //};
 
+namespace klogclient
+{
+
 class CJsonParser
 {
 public:
@@ -32,3 +35,4 @@ private:
 #endif
 };
 
+};
