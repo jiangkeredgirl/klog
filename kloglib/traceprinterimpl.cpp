@@ -1,14 +1,18 @@
 ﻿// TracePrinter.cpp : Defines the exported functions for the DLL application.
 //
-
+#ifndef KLOG_FUNC
+#define USE_SOCKET_OUT
+#endif
 #include "TracePrinterimpl.h"
 #include "config.h"
 #include "GenerateDumpInfo.h"
 #include "rapidjsonparser.h"
 #include "tracemacr.h"
+#ifdef USE_SOCKET_OUT
 #include "klogsource.h"
 #include "klognetprotocol.h"
 #include "protocolserialpackage.h"
+#endif // USE_SOCKET_OUT
 
 #ifndef KLOG_FUNC
 #define KLOG_FUNC
@@ -461,10 +465,12 @@ namespace kk
 		{
 			InitConsole();
 		}
+#ifdef USE_SOCKET_OUT
 		if (trace_config().output_socket)
 		{
 			InitSocket();
 		}
+#endif
 		if (trace_config().async)
 		{
 			TraceThreadStart();
@@ -559,10 +565,12 @@ namespace kk
 			{
 				OutToFile(trace_entry);
 			}
+#ifdef USE_SOCKET_OUT
 			if (trace_config().output_socket)
 			{
 				OutToSocket(trace_entry);
 			}
+#endif
 			if (trace_config().output_compile)
 			{
 				OutToCompile(trace_entry);
@@ -692,6 +700,7 @@ namespace kk
 
 	KLOG_FUNC int TracePrinterImpl::OutToSocket(shared_ptr<TraceEntry> trace_entry)
 	{
+#ifdef USE_SOCKET_OUT
 		if (trace_entry)
 		{
 			string local_ip;
@@ -722,6 +731,7 @@ namespace kk
 			}
 			cout << "writed log data:" << message_event.klog_message << endl;
 		}
+#endif
 		return 0;
 	}
 
@@ -773,6 +783,7 @@ namespace kk
 
 	KLOG_FUNC int TracePrinterImpl::InitSocket()
 	{
+#ifdef USE_SOCKET_OUT
 		serial_parse_ = KlogNetProtocolLibrary::instance()->GetProtocolSerial();
 		string server_ip = trace_config().trace_server_ip;
 		int server_control_port = trace_config().trace_server_control_port;
@@ -782,6 +793,7 @@ namespace kk
 			KlogSource::instance().Connect(server_ip, server_control_port, erver_sync_trace_port, server_async_trace_port, true);
 			});
 		t.detach();
+#endif
 		return 0;
 	}
 
