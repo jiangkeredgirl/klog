@@ -188,6 +188,9 @@ namespace KKTracePackage
 	private:
 		TracePrinter()
 		{
+
+#ifndef KLOG_HEADER_ONLY
+
 #if KLOG_USE_DYNAMIC_DLL
 			if (TraceLibrary::instance()->m_TracePrinterInstance)
 			{
@@ -196,6 +199,12 @@ namespace KKTracePackage
 #else
 			m_TracePrinter = kk::TracePrinterInstance();
 #endif
+
+#else
+
+			m_TracePrinter = kk::TracePrinterInstance();
+
+#endif // KLOG_HEADER_ONLY
 		}
 
 	public:
@@ -289,6 +298,8 @@ namespace KKTracePackage
 		template <typename... Args>
 		TraceLoader(bool is_track, int level, const string& label, const string& module_name, const string& file_name, const string& func_name, int line, const char* log_format, Args... args)
 		{
+#ifndef KLOG_HEADER_ONLY
+
 #if KLOG_USE_DYNAMIC_DLL
 			if (TraceLibrary::instance()->m_NewTraceLoader)
 			{
@@ -307,11 +318,24 @@ namespace KKTracePackage
 			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_msg);
 #endif
 #endif
+
+#else
+
+			std::string log_msg = FormatLog(log_format, std::forward<Args>(args)...);
+#if 0
+			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_format, args...);
+#else
+			m_TraceLoader = kk::NewTraceLoader(is_track, level, label, module_name, file_name, func_name, line, log_msg);
+#endif
+
+#endif // KLOG_HEADER_ONLY
 		}
 		~TraceLoader()
 		{
 			if (m_TraceLoader)
 			{
+#ifndef KLOG_HEADER_ONLY
+
 #if KLOG_USE_DYNAMIC_DLL
 				if (TraceLibrary::instance()->m_DeleteTraceLoader)
 				{
@@ -320,6 +344,13 @@ namespace KKTracePackage
 #else
 				kk::DeleteTraceLoader(m_TraceLoader);
 #endif
+
+#else
+
+				kk::DeleteTraceLoader(m_TraceLoader);
+
+#endif // KLOG_HEADER_ONLY
+
 				m_TraceLoader = nullptr;
 			}
 		}
