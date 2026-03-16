@@ -6,4 +6,4 @@ echo f|xcopy /y  .\protocolserialpackage.h                                      
 echo f|xcopy /y  .\bin\klognetprotocollib*.lib                                                .\OutKlogNetProtocolSDK\lib\
 echo f|xcopy /y  .\bin\klognetprotocollib*.dll                                                .\OutKlogNetProtocolSDK\bin\
 echo f|xcopy /y  .\bin\klognetprotocollib*.pdb                                                .\OutKlogNetProtocolSDK\bin\
-echo f|xcopy /y  ..\..\thirdparty\boost\lib64-msvc-%toolset%\boost_serialization*.dll         .\OutKlogNetProtocolSDK\bin\
+echo f|xcopy /y  .\boost\lib64-msvc-%toolset%\boost_serialization*.dll                        .\OutKlogNetProtocolSDK\bin\
