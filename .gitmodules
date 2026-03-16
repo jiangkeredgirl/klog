@@ -1,0 +1,3 @@
+[submodule "kcommonhpp"]
+	path = kcommonhpp
+	url = https://github.com/jiangkeredgirl/kcommonhpp.git
