@@ -1,19 +1,22 @@
 ﻿#pragma once
 
+//#define BOOST_ALL_NO_LIB
 #include <boost/archive/text_oarchive.hpp>
 #include <boost/archive/text_iarchive.hpp>
-#include <boost/serialization/map.hpp>
-#include <boost/serialization/vector.hpp>
-#include <boost/serialization/list.hpp>
-#include <boost/serialization/array.hpp>
-#include <boost/serialization/deque.hpp>
-#include <boost/serialization/shared_ptr.hpp>
-#include <boost/serialization/shared_ptr_132.hpp>
-#include <boost/serialization/access.hpp>
-#include <boost/serialization/base_object.hpp>
 #include <boost/serialization/export.hpp>
+//#include <boost/serialization/map.hpp>
+//#include <boost/serialization/vector.hpp>
+//#include <boost/serialization/list.hpp>
+//#include <boost/serialization/array.hpp>
+//#include <boost/serialization/deque.hpp>
+//#include <boost/serialization/shared_ptr.hpp>
+//#include <boost/serialization/shared_ptr_132.hpp>
+//#include <boost/serialization/access.hpp>
+//#include <boost/serialization/base_object.hpp>
+
 #include "cstandard.h"
 #include "klognetprotocol.h"
+
 
 BOOST_CLASS_EXPORT_GUID(SendKlogClientTypeEvent, "SendKlogClientTypeEvent")
 BOOST_CLASS_EXPORT_GUID(GetKlogServerPortEvent, "GetKlogServerPortEvent")
