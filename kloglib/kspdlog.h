@@ -36,12 +36,12 @@ using namespace spdlog;
 //#define LOG_ERROR  LOG_ERROR
 
 #if 1
-#define LOG_ERROR(log_format, ...)                 LOGGERNAME_ERROR("default_logger",      log_format, ##__VA_ARGS__)
-#define LOG_WARN(log_format, ...)                  LOGGERNAME_WARN("default_logger",       log_format, ##__VA_ARGS__)
-#define LOG_INFO(log_format, ...)                  LOGGERNAME_INFO("default_logger",       log_format, ##__VA_ARGS__)
-#define LOG_DEBUG(log_format, ...)                 LOGGERNAME_DEBUG("default_logger",      log_format, ##__VA_ARGS__)
-#define LOG_TRACE(log_format, ...)                 LOGGERNAME_TRACE("default_logger",      log_format, ##__VA_ARGS__)
-#define LOG_TEMP(log_format, ...)                  LOGGERNAME_INFO("temp_logger",          log_format, ##__VA_ARGS__)
+#define SLOG_ERROR(log_format, ...)                 LOGGERNAME_ERROR("default_logger",      log_format, ##__VA_ARGS__)
+#define SLOG_WARN(log_format, ...)                  LOGGERNAME_WARN("default_logger",       log_format, ##__VA_ARGS__)
+#define SLOG_INFO(log_format, ...)                  LOGGERNAME_INFO("default_logger",       log_format, ##__VA_ARGS__)
+#define SLOG_DEBUG(log_format, ...)                 LOGGERNAME_DEBUG("default_logger",      log_format, ##__VA_ARGS__)
+#define SLOG_TRACE(log_format, ...)                 LOGGERNAME_TRACE("default_logger",      log_format, ##__VA_ARGS__)
+#define SLOG_TEMP(log_format, ...)                  LOGGERNAME_INFO("temp_logger",          log_format, ##__VA_ARGS__)
 #endif
 
 //#define GUI_FORMAT(log_format, qt_format) std::string(log_format).append(qt_format).c_str()
@@ -79,8 +79,8 @@ public:
         //spdlog::get("console")->info("some invalid message to trigger an error {}{}{}{}", 3);
         spdlog::info( "spdlog初始完成");
         spdlog::error("spdlog初始完成, 这不是错误，这是测试");
-        LOG_INFO(     "spdlog初始完成");
-        LOG_ERROR(    "spdlog初始完成, 这不是错误，这是测试");
+        SLOG_INFO(     "spdlog初始完成");
+        SLOG_ERROR(    "spdlog初始完成, 这不是错误，这是测试");
         return default_logger;
     }
 
