@@ -119,7 +119,7 @@ public:
 
     inline static void FlushLog()
     {
-        DropLog();
+        ::FlushLog();
     }
 
     inline static void WriteLogHeader(const string& loggername, const filename_t& filename, std::FILE* file_stream, const string& log_pattern)

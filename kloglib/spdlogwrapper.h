@@ -393,8 +393,9 @@ inline std::shared_ptr<spdlog::logger> CreateLoggerWithSplitFileByLogLevel(const
 }
 
 
-inline void DropLog()
+inline void FlushLog()
 {
+    spdlog::shutdown();
     spdlog::drop_all();
 }
 
